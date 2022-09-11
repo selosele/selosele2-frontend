@@ -1,0 +1,82 @@
+/* 레이아웃 */
+$layout-general-width: 1400px !default;
+$layout-wide-width: 1920px !default;
+$layout-responsive-width: 90% !default;
+$layout-margin: 1rem !default;
+$masthead-width: 20rem !default;
+$menu-responsive-width: 13rem !default;
+$menu-height: 2.6rem !default;
+$sidebar-width: $masthead-width !default;
+
+// 미디어쿼리 (max-width)
+$general-width: 1920 !default;
+$normal-width: 1600 !default;
+$standard-width: 1420 !default;
+$large-width: 1200 !default;
+$big-width: 1024 !default;
+$medium-width: 768 !default;
+$small-width: 560 !default;
+$minimal-width: 480 !default;
+$mini-width: 380 !default;
+$tiny-width: 320 !default;
+
+// 미디어쿼리 (min-width)
+$min-general-width: ($general-width / 16) + 0em !default;
+$min-normal-width: ($normal-width / 16) + 0em !default;
+$min-standard-width: ($standard-width / 16) + 0em !default;
+$min-large-width: ($large-width / 16) + 0em !default;
+$min-big-width: ($big-width / 16) + 0em !default;
+$min-medium-width: ($medium-width / 16) + 0em !default;
+$min-small-width: ($small-width / 16) + 0em !default;
+$min-minimal-width: ($minimal-width / 16) + 0em !default;
+$min-mini-width: ($mini-width / 16) + 0em !default;
+$min-tiny-width: ($tiny-width / 16) + 0em !default;
+
+/* input, button */
+$input-height: 1.9rem;
+
+/* font */
+$default-font: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Lucida Grande', Arial, sans-serif !default;
+$default-font02: Monaco, Consolas, 'Lucida Console', monospace !default;
+$default-font03: 'SCDream' !default;
+$icon-font: 'xeicon' !default;
+
+/* color */
+$main-color: #ce5050 !default; // 주 배경색상
+$sub-color01: #facfcf !default;
+$sub-color02: #f74545 !default;
+$sub-color03: #c44 !default; // 주 텍스트색상
+$sub-color04: #f07178 !default;
+$sub-color05: #ec9597 !default;
+$sub-color06: #c76060 !default;
+$sub-color07: #fff5f5 !default;
+$black: #333 !default;
+$black02: #525252 !default;
+$black03: #1e1e1e !default;
+$black04: #000 !default;
+$black05: #2a2a2a !default;
+$grey: #898c8f !default;
+$grey02: #f4f5f6 !default;
+$grey03: #ababab !default;
+$grey04: #e8e8e8 !default;
+$grey05: #ccc !default;
+$grey06: #e6e6e6 !default;
+$grey07: #fbfbfb !default;
+$grey08: #eaeaea !default;
+$grey09: #b9b9b9 !default;
+$grey10: #6f6f6f !default;
+$grey11: #8b8b8b !default;
+$grey12: #fff !default;
+$grey13: #f3f3f3 !default;
+$green01: #538204 !default;
+$green02: #7da537 !default;
+$green03: #619409 !default;
+$green04: #c3e88d !default;
+$green05: #769e2f !default;
+$yellow: #d7ba7d !default;
+$yellow02: #ff0 !default;
+$yellow03: #c7a938 !default;
+$yellow04: #cea000 !default;
+$twitter-color: #55acee !default;
+$facebook-color: #3b5998 !default;
+$linkedin-color: #007bb6 !default;

@@ -1,0 +1,265 @@
+.config {
+   &__frm {
+      > table {
+         margin-top: 0;
+      }
+
+      textarea {
+         resize: vertical;
+      }
+
+      input {
+         &[type="number"] {
+            width: 100%;
+
+            @media (min-width: $min-mini-width) {
+               width: 4.5rem;
+            }
+         }
+      }
+   }
+
+   &__txt {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+
+      + * {
+         margin-top: 0.5rem;
+      }
+
+      @media (min-width: $min-big-width) {
+         display: inline-block;
+         margin-top: 0;
+         vertical-align: middle;
+
+         + * {
+            margin-top: 0;
+            margin-left: 0.5rem;
+         }
+      }
+   }
+
+   &__title,
+   &__author {
+      width: 100%;
+   }
+
+   &__cloudinary {
+      &-list {
+         position: absolute;
+         top: 3.1rem;
+         left: 0.7rem;
+         z-index: 1;
+         width: calc(100% - 1rem);
+         background-color: $grey12;
+         line-height: 1.8;
+         box-shadow: rgba(0,0,0,0.3) 1px 1px 0.25rem;
+
+         > p {
+            &:only-child {
+               margin: 0;
+               padding: 0.5rem 0.8rem;
+               font-size: 0.85rem;
+            }
+         }
+
+         > ul {
+            display: flex;
+            overflow: auto;
+            max-height: 16.5rem;
+            margin: 0;
+            padding: 1rem 2rem;
+            list-style-type: none;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            box-sizing: border-box;
+
+            @media (min-width: $min-mini-width) {
+               height: 17.6rem;
+            }
+
+            > li {
+               width: 100%;
+
+               @media (min-width: $min-mini-width) {
+                  width: calc(50% - 1rem);
+               }
+
+               @media (min-width: $min-medium-width) {
+                  width: calc(33.33% - 1rem);
+               }
+
+               + li {
+                  margin-top: 0.25rem;
+               }
+
+               > a {
+                  display: block;
+                  font-size: 0.85rem;
+
+                  @media (min-width: $min-large-width) {
+                     &:hover {
+                        > span {
+                           text-decoration: underline;
+                        }
+                     }
+                  }
+
+                  img {
+                     display: block;
+                     width: auto;
+                     height: 5rem;
+                     margin: 0 auto;
+                  }
+
+                  > span {
+                     display: block;
+                     @include ellipsis;
+                     margin-top: 0.5rem;
+                     text-align: center;
+                  }
+               }
+            }
+         }
+      }
+   }
+
+   &__avatar-image,
+   &__og-image {
+      &-btn {
+         &--cloudinary {
+            border-color: $black02;
+            background-color: $grey12;
+            text-shadow: none;
+         }
+      }
+
+      &-use {
+         display: block;
+         margin-bottom: 0.5rem;
+         padding: 0.35rem 0.5rem;
+         border: 1px solid $grey05;
+         background-color: $grey02;
+         font-size: 0.85rem;
+
+         @media (min-width: $min-mini-width) {
+            display: inline-block;
+            margin-bottom: 0;
+            vertical-align: middle;
+         }
+
+         &-wrapper {
+            display: flex;
+            margin-top: 0.5rem;
+            align-items: center;
+            gap: 0.5rem;
+         }
+      }
+
+      &-wrapper {
+         display: none;
+         
+         @keyframes ogImageWrapperShow {
+            0% {background-color: $sub-color07;}
+            100% {background-color: transparent;}
+         }
+
+         &--active {
+            display: table-row;
+         }
+
+         &--animate {
+            animation: ogImageWrapperShow 6s;
+         }
+      }
+   }
+
+   &__btns {
+      display: flex;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+   }
+
+   &__btn {
+      display: block;
+      width: 100%;
+
+      @media (min-width: $min-mini-width) {
+         display: inline-block;
+         width: auto;
+      }
+
+      &--edit {
+         background-color: $main-color;
+         color: $grey12;
+      }
+
+      &--reset {
+         border-color: $black02;
+         background-color: $grey12;
+         text-shadow: none;
+      }
+   }
+
+   &__satisfaction {
+      > li {
+         line-height: 1;
+
+         ~ li {
+            margin-top: 0.3rem;
+         }
+
+         p {
+            display: inline-block;
+            position: relative;
+            margin: 0.4rem 0.5rem 0.4rem 0;
+            padding-right: 0.7rem;
+            vertical-align: middle;
+
+            &:not(:last-child) {
+               &:before {
+                  content: "";
+                  display: inline-block;
+                  position: absolute;
+                  top: 2px;
+                  right: 0;
+                  width: 1px;
+                  height: 0.8rem;
+                  background-color: $grey05;
+               }
+            }
+         }
+
+         a {
+            color: $sub-color03;
+            text-decoration: underline;
+         }
+      }
+   }
+
+   &__etc {
+      &-btns {
+         display: flex;
+         margin-top: 1rem;
+         flex-wrap: wrap;
+         gap: 0.5rem;
+      }
+
+      &-btn {
+         width: 100%;
+         border-color: $main-color;
+         background-color: $grey12;
+         text-shadow: none;
+
+         @media (min-width: $min-tiny-width) {
+            width: auto;
+         }
+      }
+   }
+}

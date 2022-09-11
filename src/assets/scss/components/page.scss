@@ -1,0 +1,170 @@
+body {
+  &.home {
+    .main {
+      padding-top: 1rem;
+    }
+
+    .page {
+      &__body {
+        &--left {
+          @media (min-width: $min-big-width) {
+            margin-top: 1rem;
+          }
+        }
+
+        &--right {
+          @media (min-width: $min-big-width) {
+            margin-top: 1rem;
+          }
+        }
+      }
+    }
+  }
+
+  &.error,
+  &.secret {
+    .page {
+      &__title {
+        text-shadow: 0.1rem 0.1rem 0.1rem rgba(255, 255, 255, 0.9);
+
+        @media (min-width: $min-small-width) {
+          display: inline-block;
+        }
+
+        &:before {
+          display: none;
+          position: absolute;
+          top: -2rem;
+          left: 0;
+          z-index: -1;
+          font-family: $icon-font;
+          font-size: 2.8rem;
+          color: $sub-color03;
+          text-shadow: none;
+
+          @media (min-width: $min-small-width) {
+            display: block;
+            top: -2.5rem;
+            left: -3.7rem;
+            font-size: 5rem;
+          }
+
+          @media (min-width: $min-big-width) {
+            top: -3.5rem;
+            left: -5rem;
+            font-size: 7rem;
+          }
+        }
+      }
+    }
+  }
+
+  &.error {
+    .page {
+      &__title {
+        &:before {
+          content: '\e9aa';
+        }
+      }
+    }
+  }
+
+  &.secret {
+    .page {
+      &__title {
+        &:before {
+          content: '\e964';
+        }
+      }
+    }
+  }
+}
+
+.page {
+  &__title {
+    position: relative;
+    font-size: 1.6rem;
+    line-height: 1.5;
+
+    @media (min-width: $min-big-width) {
+      font-size: 2rem;
+    }
+
+    @media (min-width: $min-standard-width) {
+      font-size: 2.2rem;
+    }
+  }
+
+  &__header {
+    padding-bottom: 3rem;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  &__body {
+    position: relative;
+
+    @media (min-width: $min-big-width) {
+      @include clearfix;
+    }
+
+    &--left {
+      position: relative;
+
+      @media (min-width: $min-big-width) {
+        float: left;
+        width: calc(100% - #{$sidebar-width - 2});
+      }
+
+      @media (min-width: $min-standard-width) {
+        width: calc(100% - #{$sidebar-width - 3});
+      }
+
+      @media (min-width: $min-normal-width) {
+        width: calc(100% - #{$sidebar-width + 2});
+      }
+    }
+
+    &--right {
+      margin-top: 4rem;
+      border-radius: 0.25rem;
+      box-sizing: border-box;
+
+      @media (min-width: $min-big-width) {
+        float: right;
+        position: sticky;
+        z-index: 2;
+        top: 4rem;
+        width: $sidebar-width - 4;
+        height: min-content;
+        margin-top: 0;
+        transition: top 0.3s;
+      }
+
+      @media (min-width: $min-standard-width) {
+        top: 4.7rem;
+        width: $sidebar-width - 5;
+      }
+
+      @media (min-width: $min-normal-width) {
+        width: $sidebar-width;
+      }
+    }
+  }
+}
+
+.main {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  box-sizing: border-box;
+
+  @media (min-width: $min-standard-width) {
+    // min-height: 41.4rem;
+    min-height: calc(100vh - 7.4rem);
+  }
+
+  &__contents {
+    position: relative;
+    @include main-layout();
+  }
+}

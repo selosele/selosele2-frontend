@@ -1,0 +1,15 @@
+div.code-toolbar {
+  > .toolbar {
+    > .toolbar-item {
+      + .toolbar-item {
+        margin-left: 0.4rem;
+      }
+
+      > span,
+      > button {
+        display: inline-block;
+        line-height: 1rem;
+      }
+    }
+  }
+}

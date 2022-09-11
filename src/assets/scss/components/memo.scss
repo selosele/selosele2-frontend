@@ -1,0 +1,59 @@
+.memo {
+  &__box {
+    position: absolute;
+    top: 3.5rem;
+    left: 0;
+    z-index: 1;
+    width: 13.5rem;
+    padding: 0.75rem;
+    background-color: $grey02;
+    text-shadow: none;
+
+    &__title {
+      font-size: 1.2rem;
+    }
+  }
+
+  &__add {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  &__item {
+    position: fixed;
+    top: 80px;
+    left: 345px;
+    z-index: 99;
+    padding: 30px 0 0 0;
+    border: 1px solid $black02;
+    background-color: rgba(253, 241, 152, 1);
+    box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 0.8rem;
+
+    &__btns {
+      display: flex;
+      gap: 0.5rem;
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+    }
+
+    &__btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      border: 1px solid $black02;
+      background-color: $grey12;
+      font-size: 0.8rem;
+    }
+  }
+
+  &__editor {
+    padding: 15px;
+    border: 0;
+    background-color: transparent;
+  }
+}

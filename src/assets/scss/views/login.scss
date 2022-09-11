@@ -1,0 +1,52 @@
+.login {
+  &__wrapper {
+    display: flex;
+    height: 100%;
+    margin-top: -3rem;
+    justify-content: center;
+    box-sizing: border-box;
+
+    @media (min-width: $min-standard-width) {
+      margin-top: 0;
+    }
+  }
+
+  &__inner {
+    width: 100%;
+    padding: 0.5rem;
+    text-align: center;
+    box-sizing: border-box;
+
+    @media (min-width: $min-medium-width) {
+      width: 500px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      display: block;
+      width: 100%;
+      height: 2.2rem;
+      margin-bottom: 0.8rem;
+      border: 0;
+      border-bottom: 1px solid $grey05;
+      background-color: transparent;
+      line-height: 2.2rem;
+      box-sizing: border-box;
+  
+      &::placeholder {
+        font-size: 0.9rem;
+        color: $grey11;
+      }
+    }
+  }
+
+  &__btn {
+    &--submit {
+      display: block;
+      width: 100%;
+      padding: 0.4rem 0.3rem;
+      background-color: $grey04;
+      box-sizing: border-box;
+    }
+  }
+}

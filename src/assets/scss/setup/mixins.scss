@@ -1,0 +1,124 @@
+/* 레이아웃 */
+@mixin common-layout($width: $layout-responsive-width, $max-width: $layout-general-width, $margin: null, $margin-t: null, $margin-b: null, $margin-l: auto, $margin-r: auto) {
+  @if $margin-t != null {
+    margin-top: $margin-t;
+  }
+
+  @if $margin-b != null {
+    @media (min-width: $min-large-width) {
+      margin-bottom: $margin-b;
+    }
+  }
+
+  @if $margin-l != null {
+    margin-left: $layout-margin;
+  }
+
+  @if $margin-r != null {
+    margin-right: $layout-margin;
+  }
+
+  @media (min-width: $min-standard-width) {
+    @if ($width != null) {
+      width: $layout-responsive-width;
+    }
+
+    @if $max-width {
+      max-width: $max-width;
+    }
+
+    @if $margin != null {
+      margin: $margin;
+    } @else {
+      margin-left: $margin-l;
+      margin-right: $margin-r;
+    }
+  }
+}
+
+@mixin main-layout($padding: 0) {
+  padding: $padding $layout-margin / 2;
+
+  @media (min-width: $min-big-width) {
+    padding: $padding $layout-margin;
+  }
+
+  @media (min-width: $min-standard-width) {
+    padding: $padding $layout-margin * 2;
+  }
+}
+
+// clearfix
+@mixin clearfix {
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+// focus
+@mixin activate-element($offset: null) {
+  &:focus,
+  &:active {
+    outline: thin dotted #666d72;
+    outline: 5px auto #666d72;
+    outline-offset: $offset;
+  }
+}
+
+// 숨김 텍스트
+@mixin sr-only {
+  overflow: hidden;
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+}
+
+// 말줄임표
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 말줄임표 여러줄
+@mixin multiple-ellipsis($line-clamp) {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: $line-clamp;
+  -webkit-box-orient: vertical;
+}
+
+// 링크
+@mixin link() {
+  color: $sub-color03;
+  text-decoration: underline;
+}
+
+// 버튼
+@mixin btn($width: null, $min-width: 5rem, $height: $input-height, $line-height: $input-height, $padding: 0 0.5rem, $box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 0.25rem, $text-shadow: rgba(0, 0, 0, 0.8) 1px 1px 0.1em) {
+  display: inline-block;
+  width: $width;
+  min-width: $min-width;
+  height: $height;
+  padding: $padding;
+  border: 1px solid transparent;
+  background-color: transparent;
+  box-shadow: $box-shadow;
+  font-size: 0.9rem;
+  line-height: $line-height;
+  color: inherit;
+  text-align: center;
+  text-shadow: $text-shadow;
+  box-sizing: border-box;
+
+  i {
+    vertical-align: -0.05rem;
+  }
+}
