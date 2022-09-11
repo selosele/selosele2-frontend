@@ -1,10 +1,19 @@
-// 공통 스타일
+/* 공통 스타일 */
+
+// 초기화
 @import './setup/reset.scss';
+// 폰트
 @import './fonts/font.scss';
+// 공통
 @import './basics/base.scss';
+// 코드
 @import './basics/syntax.scss';
+// 인쇄화면
 @import './basics/print.scss';
 
-// 컴포넌트 스타일
+/* 컴포넌트 스타일 */
+
+// 페이지 레이아웃
 @import './components/page.scss';
+// 페이지네이션
 @import './components/pagination.scss';
