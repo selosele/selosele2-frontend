@@ -1,22 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Index from './views/Index';
-import Login from './views/Login';
+
+import index from './routes/index/index';
+import auth from './routes/auth/auth';
+import search from './routes/search/search';
+import archive from './routes/archive/archive';
+import guestbook from './routes/guestbook/guestbook';
 
 const routes = [
-  {
-    path: '/',
-    component: Index,
-    meta: {
-      title: null,
-    },
-  },
-  {
-    path: '/a/goto',
-    component: Login,
-    meta: {
-      title: '로그인',
-    },
-  },
+  ...index, // 메인
+  ...auth, // 권한
+  ...search, // 검색
+  ...archive, // 아카이브
+  ...guestbook, // 방명록
 ];
 
 const router = createRouter({

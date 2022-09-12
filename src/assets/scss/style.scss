@@ -1,9 +1,18 @@
+/*
+  모든 페이지에 적용되는 SCSS를 모은다.
+  vue.config.js 파일의 additionalData 옵션에는 기재하지 않는다.
+*/
+
 /* 공통 스타일 */
 
+// 변수
+@import './setup/variables.scss';
+// mixin
+@import './setup/mixins.scss';
+// 폰트
+@import './setup/font.scss';
 // 초기화
 @import './setup/reset.scss';
-// 폰트
-@import './fonts/font.scss';
 // 공통
 @import './basics/base.scss';
 // 코드

@@ -1,0 +1,145 @@
+.year {
+  &__list {
+    &-btn {
+      display: block;
+      position: relative;
+      width: 100%;
+      padding: 1.3rem 0.5rem;
+      border-bottom: 0.2rem solid $grey08;
+      background-color: transparent;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: -0.03rem;
+      text-align: left;
+
+      @media (min-width: $min-minimal-width) {
+        padding: 2rem 1rem;
+        border-bottom: 0.3rem solid $grey08;
+        font-size: 1.1rem;
+      }
+
+      &:before {
+        content: '';
+        position: absolute;
+        bottom: -0.2rem;
+        left: 0;
+        width: 0;
+        height: 0.2rem;
+        background-color: $main-color;
+        visibility: hidden;
+        transition: all 0.2s;
+
+        @media (min-width: $min-minimal-width) {
+          bottom: -0.3rem;
+          height: 0.3rem;
+        }
+      }
+
+      &--active {
+        &:before {
+          width: 100%;
+          visibility: visible;
+        }
+      }
+    }
+
+    &-name {
+      margin-right: 0.159em;
+      font-size: 1.8em;
+      line-height: 1;
+      color: $sub-color03;
+
+      @media (min-width: $min-minimal-width) {
+        font-size: 2em;
+      }
+    }
+  }
+
+  &__list {
+    display: none;
+    margin: 0;
+    padding: 1rem;
+    background-color: $grey02;
+    list-style: none;
+
+    @media (min-width: $min-minimal-width) {
+      padding: 1.3rem 1.35rem;
+    }
+
+    > li {
+      padding: 0.75rem 0.25rem;
+
+      + li {
+        border-top: 1px dashed $grey05;
+      }
+
+      > a {
+        display: block;
+        position: relative;
+        font-size: 0.85rem;
+
+        @media (min-width: $min-minimal-width) {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          font-size: 0.9rem;
+        }
+
+        @media (min-width: $min-large-width) {
+          &:hover {
+            .year__title {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+
+    &__secret {
+      background-color: $grey08;
+
+      @media (min-width: $min-minimal-width) {
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.05) 60%, rgba(0, 0, 0, 0));
+      }
+
+      > a {
+        padding-left: 1.45rem;
+
+        &:before {
+          content: '\e964';
+          display: inline-block;
+          position: absolute;
+          top: 0;
+          left: 0.25rem;
+          font-family: $icon-font;
+          color: $black04;
+          opacity: 0.35;
+        }
+      }
+    }
+  }
+
+  &__title {
+    width: calc(100% - 5.5rem);
+    line-height: 1.5;
+  }
+
+  &__date {
+    display: flex;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    letter-spacing: -0.03rem;
+    color: $grey10;
+    align-items: center;
+    box-sizing: border-box;
+
+    @media (min-width: $min-minimal-width) {
+      width: 5.5rem;
+      height: 1.3rem;
+      margin-top: 0;
+      padding-right: 0.4rem;
+      justify-content: flex-end;
+    }
+  }
+}

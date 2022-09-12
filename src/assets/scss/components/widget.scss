@@ -1,16 +1,16 @@
 .widget {
   &__config {
     display: flex;
-    z-index: 2;
     margin-top: 2rem;
     margin-bottom: 1.5rem;
     flex-wrap: wrap;
     gap: 1rem;
-
+    
     @media (min-width: $min-big-width) {
       position: absolute;
       top: 0;
       right: 0;
+      z-index: 1;
       margin-top: 0;
       margin-bottom: 0;
       flex-wrap: nowrap;

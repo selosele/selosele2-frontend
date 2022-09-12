@@ -2,12 +2,12 @@
   <div class="app__inner">
     <SkipLinks />
 
-    <div id="body">
+    <div id="body" :class="{ 'scroll-down': !scrollDown }">
       <Header />
 
       <Menu />
 
-      <Main>
+      <Main ref="mainWrapper">
         <header :class="['page__header', $route.meta.title !== null ? '' : 'sr-only']">
           <h1 class="page__title">
             {{ $route.meta.title !== null ? $route.meta.title : '최근 포스트' }}
@@ -51,6 +51,31 @@ export default {
     Sidebar,
     SkipLinks,
     Satisfaction,
+  },
+  data() {
+    return {
+      scrollDown: true,
+      lastScrollTop: 0,
+    };
+  },
+  mounted() {
+    this.lastScrollTop = window.pageYOffset;
+    window.document.addEventListener('scroll', this.handleScroll);
+  },
+  unmounted() {
+    window.document.removeEventListener('scroll', this.handleScroll);
+  },
+  methods: {
+    handleScroll() {
+      if (window.outerWidth < 1420 || window.pageYOffset < 0) {
+        return;
+      }
+      if (Math.abs(window.pageYOffset - this.lastScrollTop) < this.$refs.mainWrapper.getOffsetTop()) {
+        return;
+      }
+      this.scrollDown = window.pageYOffset < this.lastScrollTop;
+      this.lastScrollTop = window.pageYOffset;
+    },
   },
 };
 </script>

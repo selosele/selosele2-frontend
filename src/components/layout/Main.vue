@@ -1,5 +1,5 @@
 <template>
-  <main id="main" class="main">
+  <main id="main" class="main" ref="mainWrapper">
     <section class="main__contents">
       <slot />
     </section>
@@ -9,6 +9,11 @@
 <script>
 export default {
   name: 'Main',
+  methods: {
+    getOffsetTop() {
+      return this.$refs.mainWrapper.offsetTop;
+    },
+  },
 };
 </script>
 

@@ -30,20 +30,6 @@ body {
   &.layer-opened {
     overflow: hidden;
   }
-
-  @media (min-width: $min-standard-width) {
-    &.scroll-down {
-      .gnb {
-        transform: translateY(calc(-#{$menu-height} - 1px));
-      }
-
-      @media (min-width: $min-big-width) {
-        .page__body--right {
-          top: 2rem;
-        }
-      }
-    }
-  }
 }
 
 html,
@@ -58,6 +44,18 @@ body {
   @media (min-width: $min-standard-width) {
     padding-top: $menu-height;
     padding-left: $masthead-width - 5;
+
+    &.scroll-down {
+      .gnb {
+        transform: translateY(calc(-#{$menu-height} - 1px));
+      }
+
+      @media (min-width: $min-big-width) {
+        .page__body--right {
+          top: 2rem;
+        }
+      }
+    }
   }
 
   @media (min-width: $min-normal-width) {
