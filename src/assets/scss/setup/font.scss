@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'SCDream';
+  font-style: normal;
+  font-weight: 400;
+  src: local('SCDream'), url('./fonts/SCDreamRegular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'SCDream';
+  font-style: normal;
+  font-weight: 600;
+  src: local('SCDream'), url('./fonts/SCDreamMedium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'SCDream';
+  font-style: normal;
+  font-weight: 700;
+  src: local('SCDream'), url('./fonts/SCDreamBold.woff2') format('woff2');
+}
