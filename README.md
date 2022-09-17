@@ -19,12 +19,12 @@
 - **[완료]** SCSS 적용
 - **[완료 -> 2022.09.17. 보류]** Prettier 적용
 - **[완료]** Angular의 HttpClient를 Axios 기반으로 만들어보기
-  - main.js에 app.config.globalProperties.$http = axios; 해놓고 컴포넌트에서 this.$http로 바로 axios 호출해도 됨(단, Vue 전역변수는 .vue 파일에서만 접근 가능).
+  - main.js에 ```app.config.globalProperties.$http = axios;``` 해놓고 컴포넌트에서 this.$http로 바로 axios 호출해도 됨(단, Vue 전역변수는 .vue 파일에서만 접근 가능).
 
 ## 기타
 
 - jQuery로 DOM을 조작하고 있는 것을 어케 Vue로 바꿀 것인지.. 제일 어려울 듯
 - 포스트/콘텐츠 작성,수정 html에서 meditor css, js 호출 필요
 - Favicon 적용
-- html 파일에서 어플리케이션 명 받아올 때 <%= htmlWebpackPlugin.options.title %> 쓰면 됨
+- html 파일에서 어플리케이션 명 받아올 때 ```<%= htmlWebpackPlugin.options.title %>``` 쓰면 됨
 - Vue의 computed에 HTTP 요청은 넣지 않는다.
