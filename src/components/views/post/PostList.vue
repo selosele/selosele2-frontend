@@ -10,8 +10,6 @@
 
         <button type="button" class="post__btn btn post__btn--delete"><i class="xi-trash" aria-hidden="true"></i> 포스트 삭제</button>
 
-        <button type="button" class="post__btn btn post__btn--reset-hitcnt"><i class="xi-refresh" aria-hidden="true"></i> 조회수 초기화</button>
-
         <span class="post__check-all">
           <input type="checkbox" id="check_all" />
           <label for="check_all">포스트 전체 선택</label>
@@ -42,11 +40,6 @@
               </span>
 
               <span class="post__box__item post__box__item--category"> <span class="sr-only">카테고리</span> 개발노트 </span>
-
-              <span class="post__box__item post__box__item--hit-count">
-                <i class="xi-eye-o" aria-hidden="true"></i>
-                <span class="sr-only">조회수</span> 5
-              </span>
 
               <span class="post__box__item post__box__item--like-count">
                 <i class="xi-heart-o" aria-hidden="true"></i>
@@ -85,11 +78,6 @@
 
               <span class="post__box__item post__box__item--category"> <span class="sr-only">카테고리</span> 개발노트 </span>
 
-              <span class="post__box__item post__box__item--hit-count">
-                <i class="xi-eye-o" aria-hidden="true"></i>
-                <span class="sr-only">조회수</span> 7
-              </span>
-
               <span class="post__box__item post__box__item--like-count">
                 <i class="xi-heart-o" aria-hidden="true"></i>
                 <span class="sr-only">추천수</span> 0
@@ -126,11 +114,6 @@
               </span>
 
               <span class="post__box__item post__box__item--category"> <span class="sr-only">카테고리</span> 개발노트 </span>
-
-              <span class="post__box__item post__box__item--hit-count">
-                <i class="xi-eye-o" aria-hidden="true"></i>
-                <span class="sr-only">조회수</span> 17
-              </span>
 
               <span class="post__box__item post__box__item--like-count">
                 <i class="xi-heart-o" aria-hidden="true"></i>
@@ -169,11 +152,6 @@
 
               <span class="post__box__item post__box__item--category"> <span class="sr-only">카테고리</span> 개발노트 </span>
 
-              <span class="post__box__item post__box__item--hit-count">
-                <i class="xi-eye-o" aria-hidden="true"></i>
-                <span class="sr-only">조회수</span> 13
-              </span>
-
               <span class="post__box__item post__box__item--like-count">
                 <i class="xi-heart-o" aria-hidden="true"></i>
                 <span class="sr-only">추천수</span> 0
@@ -210,11 +188,6 @@
               </span>
 
               <span class="post__box__item post__box__item--category"> <span class="sr-only">카테고리</span> 개발노트 </span>
-
-              <span class="post__box__item post__box__item--hit-count">
-                <i class="xi-eye-o" aria-hidden="true"></i>
-                <span class="sr-only">조회수</span> 21
-              </span>
 
               <span class="post__box__item post__box__item--like-count">
                 <i class="xi-heart-o" aria-hidden="true"></i>

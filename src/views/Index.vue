@@ -1,6 +1,8 @@
 <template>
-  <PostList />
-  <WidgetConfig />
+  <div class="index-container">
+    <PostList />
+    <WidgetConfig />
+  </div>
 </template>
 
 <script>
@@ -16,4 +18,8 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.index-container {
+  @include clearfix;
+}
+</style>

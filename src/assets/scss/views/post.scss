@@ -26,11 +26,6 @@
          background-color: $black02;
          color: $grey12;
       }
-
-      &--reset-hitcnt {
-         background-color: $main-color;
-         color: $grey12;
-      }
    }
 
    &__check {
@@ -184,10 +179,6 @@
 
          &--category {
             border-color: $grey03;
-         }
-
-         &--hit-count {
-            background-color: $grey08;
          }
 
          &--like-count {

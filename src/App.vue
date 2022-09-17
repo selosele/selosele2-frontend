@@ -58,12 +58,15 @@ export default {
       lastScrollTop: 0,
     };
   },
+  created() {
+    this.$store.dispatch('FETCH_CONFIG');
+  },
   mounted() {
     this.lastScrollTop = window.pageYOffset;
-    window.document.addEventListener('scroll', this.handleScroll);
+    document.addEventListener('scroll', this.handleScroll);
   },
   unmounted() {
-    window.document.removeEventListener('scroll', this.handleScroll);
+    document.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
     handleScroll() {
