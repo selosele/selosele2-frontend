@@ -10,7 +10,7 @@
 - Port: 8080
 - 프론트엔드 구동 : ```npm run serve``` &rarr; ```npm run sass:watch```
 - 프론트엔드 빌드 : ```npm run build```
-- [Backend](https://github.com/selosele/selosele2-backend) 저장소
+- [Backend 저장소](https://github.com/selosele/selosele2-backend)
 
 ## 라이브러리 및 기술
 
