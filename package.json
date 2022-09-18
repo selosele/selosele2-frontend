@@ -46,7 +46,8 @@
       "import/prefer-default-export": 0,
       "no-underscore-dangle": 0,
       "no-console": 0,
-      "vue/multi-word-component-names": 0
+      "vue/multi-word-component-names": 0,
+      "vue/no-multiple-template-root": 0
     }
   },
   "browserslist": [
