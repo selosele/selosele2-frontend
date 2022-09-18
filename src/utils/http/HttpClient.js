@@ -21,6 +21,7 @@ class HttpClient {
   async delete() {}
 }
 
-const http = new HttpClient();
+let http = null;
+if (http === null) http = new HttpClient();
 
 export default http;
