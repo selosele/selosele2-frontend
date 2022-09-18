@@ -1,34 +1,33 @@
 <template>
-  <div class="app__inner">
-    <SkipLinks />
+  <SkipLinks />
 
-    <div id="body" :class="{ 'scroll-down': !scrollDown }">
-      <Header />
+  <div id="body" :class="{ 'scroll-down': !scrollDown }">
+    <Header />
 
-      <Menu />
+    <Menu />
 
-      <Main ref="mainWrapper">
-        <header :class="['page__header', $route.meta.title !== null ? '' : 'sr-only']">
-          <h1 class="page__title">
-            {{ $route.meta.title !== null ? $route.meta.title : '최근 포스트' }}
-          </h1>
-        </header>
+    <Main ref="mainWrapper">
+      <header :class="['page__header', $route.meta.pageType !== 'home' ? '' : 'sr-only']">
+        <h1 class="page__title">
+          {{ $route.meta.pageType !== 'home' ? $route.meta.title : '최근 포스트' }}
+        </h1>
+      </header>
 
-        <div class="page__body">
-          <div class="page__body--left">
-            <router-view />
-          </div>
-
-          <div class="page__body--right">
-            <Sidebar />
-          </div>
+      <div class="page__body">
+        <div class="page__body--left">
+          <router-view />
         </div>
 
-        <Satisfaction />
-      </Main>
+        <div class="page__body--right">
+          <Sidebar />
+        </div>
+      </div>
 
-      <Footer />
-    </div>
+      <Satisfaction v-if="($route.meta.showSatis !== false
+                          && this.$store.state.config.show_satisfaction === 'Y')" />
+    </Main>
+
+    <Footer />
   </div>
 </template>
 

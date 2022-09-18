@@ -3,7 +3,7 @@
     <div class="footer__inner">
       <p>
         &copy; 2022 {{ this.$store.state.config.author }}.
-        <router-link to="/content/policy" class="link">개인정보 수집 및 이용 안내</router-link>
+        <router-link to="" class="link">개인정보 수집 및 이용 안내</router-link>
       </p>
     </div>
   </footer>

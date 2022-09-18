@@ -5,7 +5,8 @@ export default [
     path: '/',
     component: Index,
     meta: {
-      title: null,
+      pageType: 'home',
+      showSatis: false
     },
   },
 ];

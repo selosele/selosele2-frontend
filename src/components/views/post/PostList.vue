@@ -2,13 +2,16 @@
   <div class="post-list__wrapper">
     <form method="post" action="/" id="postListForm">
       <input type="hidden" name="_csrf" value="" />
-
       <input type="hidden" name="page" value="1" />
 
       <div class="post__btn-wrapper">
-        <router-link to="/write" class="post__btn btn post__btn--write"> <i class="xi-pen" aria-hidden="true"></i> 포스트 작성 </router-link>
+        <router-link to="" class="post__btn btn post__btn--write">
+          <i class="xi-pen" aria-hidden="true"></i> 포스트 작성
+        </router-link>
 
-        <button type="button" class="post__btn btn post__btn--delete"><i class="xi-trash" aria-hidden="true"></i> 포스트 삭제</button>
+        <button type="button" class="post__btn btn post__btn--delete">
+          <i class="xi-trash" aria-hidden="true"></i> 포스트 삭제
+        </button>
 
         <span class="post__check-all">
           <input type="checkbox" id="check_all" />
@@ -39,7 +42,9 @@
                 <time datetime="2022-08-15 20:46:32">2022.08.15</time>
               </span>
 
-              <span class="post__box__item post__box__item--category"> <span class="sr-only">카테고리</span> 개발노트 </span>
+              <span class="post__box__item post__box__item--category">
+                <span class="sr-only">카테고리</span> 개발노트
+              </span>
 
               <span class="post__box__item post__box__item--like-count">
                 <i class="xi-heart-o" aria-hidden="true"></i>
@@ -76,7 +81,9 @@
                 <time datetime="2022-07-08 15:55:26">2022.07.08</time>
               </span>
 
-              <span class="post__box__item post__box__item--category"> <span class="sr-only">카테고리</span> 개발노트 </span>
+              <span class="post__box__item post__box__item--category">
+                <span class="sr-only">카테고리</span> 개발노트
+              </span>
 
               <span class="post__box__item post__box__item--like-count">
                 <i class="xi-heart-o" aria-hidden="true"></i>
@@ -113,7 +120,9 @@
                 <time datetime="2022-04-11 21:18:55">2022.04.11</time>
               </span>
 
-              <span class="post__box__item post__box__item--category"> <span class="sr-only">카테고리</span> 개발노트 </span>
+              <span class="post__box__item post__box__item--category">
+                <span class="sr-only">카테고리</span> 개발노트
+              </span>
 
               <span class="post__box__item post__box__item--like-count">
                 <i class="xi-heart-o" aria-hidden="true"></i>
@@ -150,7 +159,9 @@
                 <time datetime="2022-03-26 16:35:01">2022.03.26</time>
               </span>
 
-              <span class="post__box__item post__box__item--category"> <span class="sr-only">카테고리</span> 개발노트 </span>
+              <span class="post__box__item post__box__item--category">
+                <span class="sr-only">카테고리</span> 개발노트
+              </span>
 
               <span class="post__box__item post__box__item--like-count">
                 <i class="xi-heart-o" aria-hidden="true"></i>
@@ -187,7 +198,9 @@
                 <time datetime="2022-02-20 18:51:53">2022.02.20</time>
               </span>
 
-              <span class="post__box__item post__box__item--category"> <span class="sr-only">카테고리</span> 개발노트 </span>
+              <span class="post__box__item post__box__item--category">
+                <span class="sr-only">카테고리</span> 개발노트
+              </span>
 
               <span class="post__box__item post__box__item--like-count">
                 <i class="xi-heart-o" aria-hidden="true"></i>
