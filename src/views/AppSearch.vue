@@ -1,8 +1,6 @@
 <template>
   <div class="search__wrapper">
-    <form method="post" action="/search" id="searchForm" class="search__frm">
-      <input type="hidden" name="_csrf" value="" />
-
+    <form method="get" action="/search" id="searchForm" class="search__frm">
       <div class="search__field">
         <select name="t" id="t" title="검색 옵션" class="search__option">
           <option value="all">전체</option>
@@ -13,7 +11,7 @@
 
         <input type="search" name="q" id="q" title="포스트 검색" placeholder="검색어를 입력하세요." />
 
-        <button type="button" class="search__btn">
+        <button type="button" class="search__btn" @click="search">
           <i class="xi-search" aria-hidden="true"></i>
           <span class="sr-only">검색</span>
         </button>
@@ -28,8 +26,15 @@
 </template>
 
 <script>
+import snackbar from '../utils/ui/Snackbar';
+
 export default {
   name: 'AppSearch',
+  methods: {
+    search() {
+      snackbar.warning('검색어를 입력하세요.');
+    }
+  }
 };
 </script>
 

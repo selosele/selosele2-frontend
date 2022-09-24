@@ -7,22 +7,15 @@
         <input type="password" name="user_pw" id="user_pw" title="비밀번호 입력" placeholder="비밀번호" />
         <input type="hidden" name="_csrf" value="" />
 
-        <button type="button" class="login__btn--submit" @click="login">로그인</button>
+        <button type="button" class="login__btn--submit">로그인</button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-import snackbar from '../utils/ui/Snackbar';
-
 export default {
   name: 'AppLogin',
-  methods: {
-    login() {
-      snackbar.warning('TEST');
-    }
-  }
 };
 </script>
 
