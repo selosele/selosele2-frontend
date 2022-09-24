@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+/**
+ * HTTP 통신 유틸
+ */
 class HttpClient {
   http = null;
 
@@ -10,8 +13,8 @@ class HttpClient {
   }
 
   async get(url, params = {}) {
-    const response = await this.http.get(url, { params: params });
-    return response.data;
+    const res = await this.http.get(url, { params: params });
+    return res.data;
   }
 
   async post() {}
