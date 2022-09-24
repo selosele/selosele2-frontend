@@ -12,6 +12,18 @@
 - 프론트엔드 빌드 : ```npm run build```
 - [Backend 저장소](https://github.com/selosele/selosele2-backend)
 
+## 코딩 컨벤션
+
+1. 메소드 명명 규칙
+   - 단건 조회: ```get```
+   - 다건 조회: ```list```
+   - 통계 조회: ```count```
+   - 추가수정삭제: ```save```
+   - 추가: ```add```
+   - 수정: ```update```
+   - 삭제: ```remove```
+   - 예) ```saveUser```
+
 ## 라이브러리 및 기술
 
 - **[완료]** Vue 상태관리 라이브러리 Vuex 적용
