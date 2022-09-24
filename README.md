@@ -23,7 +23,8 @@
 - **[완료]** Angular의 HttpClient를 Axios 기반으로 만들어보기
   - main.js에 ```app.config.globalProperties.$http = axios;``` 해놓고 컴포넌트에서 ```this.$http```로 바로 axios 호출해도 됨(단, Vue 전역변수는 ```.vue``` 파일에서만 접근 가능).
 - **[완료]** toast 메시지 모듈 적용
-- Form 유효성검사 라이브러리 적용
+- **[진행중]** Form 유효성검사 라이브러리 적용
+  - [참고](https://vee-validate.logaretm.com/v4/guide/global-validators)
 - Skeleton UI 적용
   - 특히 연도별 모아보기 아코디언
 - AG-Grid 사용
