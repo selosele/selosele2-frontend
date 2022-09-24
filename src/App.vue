@@ -1,5 +1,5 @@
 <template>
-  <app-skipLinks />
+  <app-skip-links />
 
   <div id="body" :class="{ 'scroll-down': !scrollDown }">
     <app-header />
