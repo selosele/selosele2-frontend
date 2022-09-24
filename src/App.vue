@@ -1,12 +1,12 @@
 <template>
-  <SkipLinks />
+  <app-skipLinks />
 
   <div id="body" :class="{ 'scroll-down': !scrollDown }">
-    <Header />
+    <app-header />
 
-    <Menu />
+    <app-menu />
 
-    <Main ref="mainWrapper">
+    <app-main ref="mainWrapper">
       <header :class="['page__header', $route.meta.pageType !== 'home' ? '' : 'sr-only']">
         <h1 class="page__title">
           {{ $route.meta.pageType !== 'home' ? $route.meta.title : '최근 포스트' }}
@@ -14,42 +14,43 @@
       </header>
 
       <div class="page__body">
-        <div class="page__body--left">
+        <div class="page__body--left" v-if="$route.meta.showSidebar !== false">
           <router-view />
         </div>
+        <router-view v-else />
 
-        <div class="page__body--right">
-          <Sidebar />
+        <div class="page__body--right" v-if="$route.meta.showSidebar !== false">
+          <app-sidebar />
         </div>
       </div>
 
-      <Satisfaction v-if="($route.meta.showSatis !== false
-                          && this.$store.state.config.show_satisfaction === 'Y')" />
-    </Main>
+      <app-satisfaction v-if="($route.meta.showSatis !== false
+                               && this.$store.state.config.show_satisfaction === 'Y')" />
+    </app-main>
 
-    <Footer />
+    <app-footer />
   </div>
 </template>
 
 <script>
-import Header from './components/layout/Header.vue';
-import Footer from './components/layout/Footer.vue';
-import Main from './components/layout/Main.vue';
-import Menu from './components/layout/Menu.vue';
-import Sidebar from './components/layout/Sidebar.vue';
-import SkipLinks from './components/layout/SkipLinks.vue';
-import Satisfaction from './components/layout/Satisfaction.vue';
+import AppHeader from './components/layout/AppHeader.vue';
+import AppFooter from './components/layout/AppFooter.vue';
+import AppMain from './components/layout/AppMain.vue';
+import AppMenu from './components/layout/AppMenu.vue';
+import AppSidebar from './components/layout/AppSidebar.vue';
+import AppSkipLinks from './components/layout/AppSkipLinks.vue';
+import AppSatisfaction from './components/layout/AppSatisfaction.vue';
 
 export default {
   name: 'App',
   components: {
-    Header,
-    Footer,
-    Main,
-    Menu,
-    Sidebar,
-    SkipLinks,
-    Satisfaction,
+    AppHeader,
+    AppFooter,
+    AppMain,
+    AppMenu,
+    AppSidebar,
+    AppSkipLinks,
+    AppSatisfaction,
   },
   data() {
     return {

@@ -1,9 +1,9 @@
-import Year from '../../views/Year.vue';
+import AppYear from '../../views/AppYear.vue';
 
 export default [
   {
     path: '/year',
-    component: Year,
+    component: AppYear,
     meta: {
       title: '연도별 모아보기',
     },

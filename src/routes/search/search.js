@@ -1,9 +1,9 @@
-import Search from '../../views/Search.vue';
+import AppSearch from '../../views/AppSearch.vue';
 
 export default [
   {
     path: '/search',
-    component: Search,
+    component: AppSearch,
     meta: {
       title: '포스트 검색',
     },

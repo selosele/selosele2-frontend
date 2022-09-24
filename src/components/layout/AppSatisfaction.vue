@@ -32,7 +32,7 @@
 
 <script>
 export default {
-  name: 'Satisfaction',
+  name: 'AppSatisfaction',
   data() {
     return {
       satisArr: [

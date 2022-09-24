@@ -53,7 +53,7 @@
 
 <script>
 export default {
-  name: 'Year',
+  name: 'AppYear',
 };
 </script>
 

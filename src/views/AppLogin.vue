@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: 'Login',
+  name: 'AppLogin',
 };
 </script>
 

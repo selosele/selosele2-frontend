@@ -217,17 +217,17 @@
       </ul>
     </form>
 
-    <Pagination />
+    <app-pagination />
   </div>
 </template>
 
 <script>
-import Pagination from '../../shared/pagination/Pagination.vue';
+import AppPagination from '../../shared/pagination/AppPagination.vue';
 
 export default {
-  name: 'PostList',
+  name: 'AppPostList',
   components: {
-    Pagination,
+    AppPagination,
   },
 };
 </script>

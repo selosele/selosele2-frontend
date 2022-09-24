@@ -1,9 +1,9 @@
-import Index from '../../views/Index.vue';
+import AppIndex from '../../views/AppIndex.vue';
 
 export default [
   {
     path: '/',
-    component: Index,
+    component: AppIndex,
     meta: {
       pageType: 'home',
       showSatis: false
