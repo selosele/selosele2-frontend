@@ -63,13 +63,13 @@ export default {
   },
   mounted() {
     this.lastScrollTop = window.pageYOffset;
-    document.addEventListener('scroll', this.handleScroll);
+    document.addEventListener('scroll', this.scroll);
   },
   unmounted() {
-    document.removeEventListener('scroll', this.handleScroll);
+    document.removeEventListener('scroll', this.scroll);
   },
   methods: {
-    handleScroll() {
+    scroll() {
       if (window.outerWidth < 1420 || window.pageYOffset < 0) {
         return;
       }
