@@ -10,9 +10,11 @@
     "sass:watch": "npm run sass -- -w"
   },
   "dependencies": {
+    "@vee-validate/rules": "^4.6.9",
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
     "sweetalert2": "^11.4.33",
+    "vee-validate": "^4.6.9",
     "vue": "^3.2.13",
     "vue-router": "^4.1.5",
     "vuex": "^4.0.2"
@@ -47,8 +49,10 @@
       "import/prefer-default-export": 0,
       "no-underscore-dangle": 0,
       "no-console": 0,
+      "no-unused-vars": 0,
       "vue/multi-word-component-names": 0,
-      "vue/no-multiple-template-root": 0
+      "vue/no-multiple-template-root": 0,
+      "vue/no-unused-components": 0
     }
   },
   "browserslist": [
