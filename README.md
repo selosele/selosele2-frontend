@@ -14,12 +14,16 @@
 
 ## 라이브러리 및 기술
 
+- **[진행중]** Vue 디렉터리 구조 유명 사례 적용
 - **[완료]** Vue 상태관리 라이브러리 Vuex 적용
   - Pinia는 다음 기회에..
 - **[완료]** SCSS 적용
 - **[완료 -> 2022.09.17. 보류]** Prettier 적용
 - **[완료]** Angular의 HttpClient를 Axios 기반으로 만들어보기
   - main.js에 ```app.config.globalProperties.$http = axios;``` 해놓고 컴포넌트에서 this.$http로 바로 axios 호출해도 됨(단, Vue 전역변수는 .vue 파일에서만 접근 가능).
+- Skeleton UI 적용
+  - 특히 연도별 모아보기 아코디언
+- AG-Grid 사용
 
 ## 기타
 
@@ -27,4 +31,4 @@
 - 포스트/콘텐츠 작성,수정 html에서 meditor css, js 호출 필요
 - Favicon 적용
 - html 파일에서 어플리케이션 명 받아올 때 ```<%= htmlWebpackPlugin.options.title %>``` 쓰면 됨
-- Vue의 computed에 HTTP 요청은 넣지 않는다.
+- Vue의 ```computed```에 HTTP 요청은 넣지 않는다.
