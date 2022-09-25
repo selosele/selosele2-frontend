@@ -1,37 +1,34 @@
 <template>
   <div class="login__wrapper">
     <div class="login__inner">
-      <Form method="post" action="/a/goto" autocomplete="off" class="login__frm" 
-            @submit.prevent="login"
-            :validation-schema="schema"
-            v-slot="{ errors }">
-        <Field type="text" v-model="userId" name="userId" title="아이디 입력" placeholder="아이디" />
-        <p v-if="errors.userId">{{ errors.userId }}</p>
-        
-        <!-- 운영모드일 때 비밀번호 input에 minlength="8" maxlength="15" 속성 필요 -->
-        <Field type="password" v-model="userPw" name="userPw" title="비밀번호 입력" placeholder="비밀번호" />
-        <p v-if="errors.userPw">{{ errors.userPw }}</p>
-        
+      <ui-form autocomplete="off" class="login__frm" @onSubmit="onSubmit">
         <!-- <input type="hidden" name="_csrf" value="" /> -->
 
+        <ui-form-field type="text" name="userId" title="아이디 입력" placeholder="아이디" 
+                       v-model="userId" 
+                       rules="required|maxLength:10" />
+        
+        <!-- 운영모드일 때 비밀번호 input에 minlength="8" maxlength="15" 속성 필요 -->
+        <ui-form-field type="password" name="userPw" title="비밀번호 입력" placeholder="비밀번호" 
+                       v-model="userPw" 
+                       rules="required" />
+        
         <button type="submit" class="login__btn--submit">로그인</button>
-      </Form>
+      </ui-form>
     </div>
   </div>
 </template>
 
-<script setup>
-import { Form, Field } from 'vee-validate';
-
-const schema = {
-  userId: 'required|maxLength:10',
-  userPw: 'required',
-};
-</script>
-
 <script>
+import UiForm from '@/components/shared/form/UiForm.vue';
+import UiFormField from '@/components/shared/form/UiFormField.vue';
+
 export default {
   name: 'AppLogin',
+  components: {
+    UiForm,
+    UiFormField,
+  },
   data() {
     return {
       userId: '',
@@ -39,8 +36,9 @@ export default {
     }
   },
   methods: {
-    login() {
-      alert(11);
+    onSubmit() {
+      console.log('userId >>>', this.userId);
+      console.log('userPw >>>', this.userPw);
     },
   },
 };

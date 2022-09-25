@@ -1,10 +1,16 @@
 <template>
   <div class="guestbook__wrapper">
-    <form action="/guestbook/write" method="post" class="guestbook__write-frm">
+    <ui-form class="guestbook__write-frm" @onSubmit="onSubmit">
       <input type="hidden" name="_csrf" value="" />
 
       <div class="guestbook__write">
-        <textarea name="guestbook_write_cont" id="guestbook_write_cont" title="방명록 내용 입력" placeholder="하고싶은 말을 남겨주세요." cols="30" rows="4"></textarea>
+        <ui-textarea name="guestbookWriteCont"
+                     id="guestbookWriteCont"
+                     title="방명록 내용 입력"
+                     placeholder="하고싶은 말을 남겨주세요."
+                     rules="required"
+                     cols="30"
+                     rows="4" />
 
         <div class="guestbook__write__inputs">
           <label for="guestbook_write_author">
@@ -20,12 +26,12 @@
           </label>
 
           <div class="guestbook__write__btns">
-            <button type="button" class="guestbook__btn btn guestbook__btn--reset">다시작성</button>
-            <button type="button" class="guestbook__btn btn guestbook__btn--write">등록</button>
+            <button type="reset" class="guestbook__btn btn guestbook__btn--reset">다시작성</button>
+            <button type="submit" class="guestbook__btn btn guestbook__btn--write">등록</button>
           </div>
         </div>
       </div>
-    </form>
+    </ui-form>
 
     <ul class="guestbook__depth1">
       <li data-id="2" id="guestbook2" class="guestbook__depth1__list">
@@ -155,8 +161,20 @@
 </template>
 
 <script>
+import UiForm from '@/components/shared/form/UiForm.vue';
+import UiTextarea from '@/components/shared/form/UiTextarea.vue';
+
 export default {
   name: 'AppGuestbook',
+  components: {
+    UiForm,
+    UiTextarea,
+  },
+  methods: {
+    onSubmit() {
+      alert('ㅇㅇ');
+    },
+  },
 };
 </script>
 

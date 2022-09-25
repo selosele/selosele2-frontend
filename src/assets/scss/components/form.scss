@@ -1,0 +1,15 @@
+.form-field {
+  &-error {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+    text-align: left;
+    color: $sub-color03;
+
+    &:before {
+      content: "*";
+      margin-right: 0.2rem;
+      vertical-align: super;
+    }
+  }
+}

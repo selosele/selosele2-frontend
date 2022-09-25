@@ -1,7 +1,7 @@
-/*
-  모든 페이지에 적용되는 SCSS를 모은다.
-  vue.config.js 파일의 additionalData 옵션에는 기재하지 않는다.
-*/
+/**
+ * 모든 페이지에 적용되는 SCSS를 모은다.
+ * vue.config.js 파일의 additionalData 옵션에는 기재하지 않는다.
+ */
 
 /* 공통 스타일 */
 
@@ -22,6 +22,8 @@
 
 /* 컴포넌트 스타일 */
 
+// Form
+@import './components/form.scss';
 // 페이지 레이아웃
 @import './components/page.scss';
 // 페이지네이션

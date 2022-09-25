@@ -1,15 +1,14 @@
 <template>
   <div class="search__wrapper">
-    <form method="get" action="/search" class="search__frm" @submit.prevent="search">
+    <ui-form class="search__frm" @onSubmit="onSubmit">
       <div class="search__field">
-        <select v-model="t" name="t" id="t" title="검색 옵션" class="search__option">
-          <option value="0">전체</option>
-          <option value="1">제목</option>
-          <option value="2">내용</option>
-          <option value="3">카테고리</option>
-        </select>
+        <ui-select name="t" title="검색 옵션" class="search__option" 
+                   v-model="t" 
+                   :data="tData"
+                   :selectedValue="this.$route.query.t" />
 
-        <input type="search" v-model="q" name="q" id="q" title="포스트 검색" placeholder="검색어를 입력하세요." />
+        <ui-form-field type="search" name="q" title="포스트 검색" placeholder="검색어를 입력하세요."
+                       v-model="q" />
 
         <button type="submit" class="search__btn">
           <i class="xi-search" aria-hidden="true"></i>
@@ -18,36 +17,57 @@
       </div>
 
       <div class="search__detail">
-        <input type="checkbox" name="case_sensitive" id="case_sensitive" 
-               v-model="c"
-               true-value="Y"
-               false-value="N" />
-        <label for="case_sensitive">대소문자 구분</label>
+        <ui-checkbox name="c" id="c"
+                     label="대소문자 구분"
+                     values="Y,N"
+                     v-model="c"
+                     :checked="(this.$route.query.c === 'Y')" />
       </div>
-    </form>
+    </ui-form>
   </div>
 </template>
 
 <script>
+import UiForm from '@/components/shared/form/UiForm.vue';
+import UiFormField from '@/components/shared/form/UiFormField.vue';
+import UiSelect from '@/components/shared/form/UiSelect.vue';
+import UiCheckbox from '@/components/shared/form/UiCheckbox.vue';
 import snackbar from '@/utils/ui/Snackbar';
 
 export default {
   name: 'AppSearch',
+  components: {
+    UiForm,
+    UiFormField,
+    UiSelect,
+    UiCheckbox,
+  },
   data() {
     return {
-      t: '0',
-      q: '',
-      c: 'N'
+      t: this.$route.query.t || '0',
+      tData: [
+        { value: '0', text: '전체' },
+        { value: '1', text: '제목' },
+        { value: '2', text: '내용' },
+        { value: '3', text: '카테고리' },
+      ],
+      q: this.$route.query.q || '',
+      c: this.$route.query.c || 'N',
     }
   },
   methods: {
-    search() {
+    onSubmit() {
       if (!this.q.trim()) {
         snackbar.warning('검색어를 입력하세요.');
         return;
       }
-      this.$router.push(`/search?q=${this.q}&t=${this.t}&c=${this.c}`);
-    }
+      this.$router.push({
+        path: '/search', 
+        query: { q: this.q, 
+                 t: this.t, 
+                 c: this.c, }
+      });
+    },
   }
 };
 </script>
