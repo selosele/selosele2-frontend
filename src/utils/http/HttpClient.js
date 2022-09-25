@@ -8,7 +8,7 @@ class HttpClient {
 
   constructor() {
     this.http = axios.create({
-      baseURL: '',
+      baseURL: '/api/v1',
     });
   }
 

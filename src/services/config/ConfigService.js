@@ -8,6 +8,6 @@ export default class ConfigService {
    * @returns 블로그 환경설정 정보
    */
   async getConfig() {
-    return await http.get('/api/v1/config');
+    return await http.get('/config');
   }
 }
