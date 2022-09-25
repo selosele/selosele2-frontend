@@ -63,4 +63,10 @@ export default {
 
 <style lang="scss">
 @import '@/assets/scss/components/header.scss';
+
+.masthead__top {
+  &:not(.masthead--image) {
+    background-color: $main-color
+  }
+}
 </style>

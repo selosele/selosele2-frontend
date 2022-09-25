@@ -26,7 +26,7 @@
       display: block;
       width: 100%;
       height: 2.2rem;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.5rem;
       border: 0;
       border-bottom: 1px solid $grey05;
       background-color: transparent;
@@ -43,6 +43,7 @@
     &--submit {
       display: block;
       width: 100%;
+      margin-top: 0.8rem;
       padding: 0.4rem 0.3rem;
       background-color: $grey04;
       box-sizing: border-box;
