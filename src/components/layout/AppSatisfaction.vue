@@ -6,24 +6,29 @@
       <i class="xi-message" aria-hidden="true"></i> 이 페이지에서 제공하는 정보가 유익하셨나요?
     </p>
 
-    <ui-form class="satisfaction__frm"
-             @onSubmit="onSubmit">
+    <ui-form class="satisfaction__frm" @onSubmit="onSubmit">
       <input type="hidden" name="_csrf" value="" />
-      <input type="hidden" name="page_path" value="" />
+      <input type="hidden" name="pagePath" value="" />
 
       <div class="satisfaction__field">
         <ui-radio v-for="item in satisArr"
                   :key="item.value"
                   :id="`score${item.value}`"
                   name="score"
-                  :checked="(item.value === '3')"
+                  :checked="(item.value === this.satisArr[2].value)"
                   :label="item.text"
-                  v-model=item.value />
+                  v-model="item.value" />
       </div>
 
       <div class="satisfaction__field">
         <div class="satisfaction__field__inner">
-          <ui-form-field type="text" name="satisfactionComment" id="satisfactionComment" title="의견" placeholder="의견을 입력하세요." />
+          <ui-form-field type="text"
+                         name="satisfactionComment"
+                         id="satisfactionComment"
+                         className="satisfaction__radio"
+                         title="의견"
+                         placeholder="의견을 입력하세요."
+                         v-model="satisfactionComment" />
           
           <button type="submit" class="btn satisfaction__btn">
             <i class="xi-check-min" aria-hidden="true"></i>
@@ -39,6 +44,8 @@
 import UiForm from '@/components/shared/form/UiForm.vue';
 import UiFormField from '@/components/shared/form/UiFormField.vue';
 import UiRadio from '@/components/shared/form/UiRadio.vue';
+import dialog from '@/utils/ui/Dialog';
+import snackbar from '@/utils/ui/Snackbar';
 
 export default {
   name: 'AppSatisfaction',
@@ -49,18 +56,29 @@ export default {
   },
   data() {
     return {
-      satisArr: [
-        { value: '5', text: '매우 만족' },
-        { value: '4', text: '만족' },
-        { value: '3', text: '보통' },
-        { value: '2', text: '불만족' },
-        { value: '1', text: '매우 불만족' },
-      ]
+      satisArr: [],
+      satisfactionComment: '',
     }
   },
+  created() {
+    // 만족도조사 코드 세팅
+    this.$store.state.satisCode.forEach((item, idx) => {
+      let obj = {
+        value: item.val,
+        text: item.nm,
+      };
+      this.satisArr.push(obj);
+    });
+  },
   methods: {
-    onSubmit() {
-      alert('ㅇㅇ');
+    async onSubmit(values) {
+      console.log('satis values >>>', values);
+
+      const confirm = await dialog.confirm('제출하시겠습니까?', '');
+      if (!confirm) {
+        return;
+      }
+      snackbar.success('제출되었습니다.');
     },
   }
 };

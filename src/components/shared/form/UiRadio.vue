@@ -1,27 +1,34 @@
 <template>
-  <input type="radio"
-         :id="id"
+  <Field type="radio"
+         v-slot="{ field }"
          :name="name"
-         :title="title"
-         :class="className"
-         :checked="checked"
-         :value="modelValue"
-         @change="$emit('update:modelValue', $event.target.value)" />
+         :value="modelValue">
 
-  <label v-if="label"
-         :for="id">{{ label }}</label>
+    <input type="radio"
+           :id="id"
+           :title="title"
+           :class="className"
+           :checked="(field.checked = checked)"
+           :value="modelValue"
+           v-bind="field"
+           @change="$emit('update:modelValue', $event.target.value)" />
 
-  <ErrorMessage v-if="showMsg !== '0' || showMsg === '1'"
-                class="form-field-error"
-                :name="name" />
+    <label v-if="label"
+          :for="id">{{ label }}</label>
+
+    <ErrorMessage v-if="showMsg !== 'N' || showMsg === 'Y'"
+                  class="form-field-error"
+                  :name="name" />
+  </Field>
 </template>
 
 <script>
-import { ErrorMessage } from 'vee-validate';
+import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
   name: 'UiRadio',
   components: {
+    Field,
     ErrorMessage,
   },
   props: {
@@ -32,7 +39,7 @@ export default {
     checked: Boolean,             // radio checked
     label: String,                // radio label
     modelValue: String,           // radio value
-    showMsg: String,              // radio validation 에러메시지 표출 여부 (비활성화 0 - 기본값, 활성화 1)
+    showMsg: String,              // radio validation 에러메시지 표출 여부 (비활성화 N - 기본값, 활성화 Y)
   },
 }
 </script>

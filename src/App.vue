@@ -59,6 +59,9 @@ export default {
     };
   },
   created() {
+    // 공통코드
+    this.$store.dispatch('FETCH_CODE');
+    // 블로그 환경설정
     this.$store.dispatch('FETCH_CONFIG');
   },
   mounted() {

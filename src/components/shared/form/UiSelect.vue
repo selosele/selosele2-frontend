@@ -1,10 +1,13 @@
 <template>
-  <select :id="id"
-          :name="name"
-          :title="title"
-          :class="className"
-          :rules="rules"
-          @change="$emit('update:modelValue', $event.target.value)">
+  <Field as="select"
+         :id="id"
+         :name="name"
+         :title="title"
+         :class="className"
+         :rules="rules"
+         @change="$emit('update:modelValue', $event.target.value)">
+
+    <option value="" disabled v-if="defaultValue">{{ defaultValue }}</option>
     
     <template v-if="data && data.length > 0">
       <option v-for="d in data"
@@ -12,15 +15,16 @@
               :value="d.value"
               :selected="d.value === selectedValue">{{ d.text }}</option>
     </template>
-  </select>
+  </Field>
 </template>
 
 <script>
-import { ErrorMessage } from 'vee-validate';
+import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
   name: 'UiSelect',
   components: {
+    Field,
     ErrorMessage,
   },
   props: {
@@ -31,8 +35,9 @@ export default {
     rules: String,                        // select validation rules
     selectedValue: [String, Number],      // select selected value
     data: Array,                          // select data
+    defaultValue: String,                 // select default value
     modelValue: String,                   // select modelValue
-    showMsg: String,                      // select validation 에러메시지 표출 여부 (비활성화 0 - 기본값, 활성화 1)
+    showMsg: String,                      // select validation 에러메시지 표출 여부 (비활성화 N - 기본값, 활성화 Y)
   },
 }
 </script>

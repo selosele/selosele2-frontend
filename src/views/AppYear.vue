@@ -1,59 +1,59 @@
 <template>
   <div class="year__wrapper">
-    <h2 class="year__list-title">
-      <button type="button" data-year="2022" class="year__list-btn year__list-btn--active"><span class="year__list-name">2022</span>년에 작성된 포스트 (<span class="sr-only">개수 : </span>7)</button>
-    </h2>
+    <template v-for="(item,idx) in listYearAndCount" :key="item.year">
+      <h2 class="year__list-title">
+        <button type="button"
+                :class="['year__list-btn', (activeIndex === idx) && 'year__list-btn--active']"
+                @click="toggleList(item.year, idx)">
+          <span class="year__list-name">{{ item.year }}</span>년에 작성된 포스트
+          (<span class="sr-only">개수 : </span>{{ item.count }})
+        </button>
+      </h2>
 
-    <ul id="list_2022" data-year="2022" class="year__list" style="display: block">
-      <li>
-        <router-link to="">
-          <strong class="year__title">Spring 순환참조 문제 해결</strong>
-          <span class="year__date">2022.08.15</span>
-        </router-link>
-      </li>
-      <li>
-        <router-link to="">
-          <strong class="year__title">HttpServletRequest 객체에 직접 접근하는 방법</strong>
-          <span class="year__date">2022.07.08</span>
-        </router-link>
-      </li>
-      <li>
-        <router-link to="">
-          <strong class="year__title">윈도우 작업스케줄러 실행이 안되는 현상 해결</strong>
-          <span class="year__date">2022.04.11</span>
-        </router-link>
-      </li>
-      <li>
-        <router-link to="">
-          <strong class="year__title">iBATIS에서 테이블 join하는 방법 (with Java)</strong>
-          <span class="year__date">2022.03.26</span>
-        </router-link>
-      </li>
-      <li>
-        <router-link to="">
-          <strong class="year__title">C언어의 strcat 함수에 대한 이해</strong>
-          <span class="year__date">2022.02.20</span>
-        </router-link>
-      </li>
-      <li>
-        <router-link to="">
-          <strong class="year__title">Java 삽질기록</strong>
-          <span class="year__date">2022.02.09</span>
-        </router-link>
-      </li>
-      <li>
-        <router-link to="">
-          <strong class="year__title">Programmers Java 문제풀이 - 가장 큰 수</strong>
-          <span class="year__date">2022.01.22</span>
-        </router-link>
-      </li>
-    </ul>
+      <template v-if="activeIndex === idx
+                      && listPostsByYear !== null
+                      && listPostsByYear.length > 0">
+        <ul class="year__list">
+          <li v-for="post in listPostsByYear" :key="post.id">
+            <router-link :to="{ path: '/post/' + post.id }">
+              <strong class="year__title">{{ post.title }}</strong>
+              <span class="year__date">{{ post.created_at }}</span>
+            </router-link>
+          </li>
+        </ul>
+      </template>
+    </template>
   </div>
 </template>
 
 <script>
+import YearService from '@/services/year/YearService';
+
 export default {
   name: 'AppYear',
+  data() {
+    return {
+      yearService: null,
+      listYearAndCount: [],
+      listPostsByYear: [],
+      activeIndex: -1,
+    }
+  },
+  methods: {
+    async toggleList(year, idx) {
+      if (this.activeIndex === idx) {
+        this.listPostsByYear = [];
+        this.activeIndex = -1;
+        return;
+      }
+      this.listPostsByYear = await this.yearService.listPostsByYear(year);
+      this.activeIndex = idx;
+    },
+  },
+  async created() {
+    this.yearService = new YearService();
+    this.listYearAndCount = await this.yearService.listYearAndCount();
+  },
 };
 </script>
 

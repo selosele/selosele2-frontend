@@ -1,28 +1,36 @@
 <template>
-  <input type="checkbox"
-         :id="id"
+  <Field type="checkbox"
+         v-slot="{ field }"
          :name="name"
-         :title="title"
-         :class="className"
-         :checked="checked"
-         :true-value="values.split(',')[0]"
-         :false-value="values.split(',')[1]"
-         @change="$emit('update:modelValue', getValue($event))" />
+         :value="values.split(',')[0]"
+         :unchecked-value="values.split(',')[1]">
 
-  <label v-if="label"
-         :for="id">{{ label }}</label>
+    <input type="checkbox"
+           :id="id"
+           :title="title"
+           :class="className"
+           :checked="(field.checked = checked)"
+           :value="values.split(',')[0]"
+           :unchecked-value="values.split(',')[1]"
+           v-bind="field"
+           @change="$emit('update:modelValue', getValue($event))" />
+           
+    <label v-if="label"
+           :for="id">{{ label }}</label>
 
-  <ErrorMessage v-if="showMsg !== '0' || showMsg === '1'"
-                class="form-field-error"
-                :name="name" />
+    <ErrorMessage v-if="showMsg !== 'N' || showMsg === 'Y'"
+                        class="form-field-error"
+                        :name="name" />
+  </Field>
 </template>
 
 <script>
-import { ErrorMessage } from 'vee-validate';
+import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
   name: 'UiCheckbox',
   components: {
+    Field,
     ErrorMessage,
   },
   props: {
@@ -33,10 +41,9 @@ export default {
     checked: Boolean,             // checkbox checked
     label: String,                // checkbox label
     modelValue: String,           // checkbox value
+    value: String,                // checkbox true value
     values: String,               // checkbox true value & false value
-    trueValue: String,            // checkbox true value
-    falseValue: String,           // checkbox false value
-    showMsg: String,              // checkbox validation 에러메시지 표출 여부 (비활성화 0 - 기본값, 활성화 1)
+    showMsg: String,              // checkbox validation 에러메시지 표출 여부 (비활성화 N - 기본값, 활성화 Y)
   },
   methods: {
     getValue(e) {

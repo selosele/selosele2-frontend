@@ -9,7 +9,7 @@
          :value="modelValue"
          @input="$emit('update:modelValue', $event.target.value)" />
 
-  <ErrorMessage v-if="showMsg !== '0' || showMsg === '1'"
+  <ErrorMessage v-if="showMsg !== 'N' || showMsg === 'Y'"
                 class="form-field-error"
                 :name="name" />
 </template>
@@ -32,7 +32,7 @@ export default {
     placeholder: String,        // input placeholder
     rules: String,              // input validation rules
     modelValue: String,         // input modelValue
-    showMsg: String,            // input validation 에러메시지 표출 여부 (비활성화 0 - 기본값, 활성화 1)
+    showMsg: String,            // input validation 에러메시지 표출 여부 (비활성화 N - 기본값, 활성화 Y)
   },
 }
 </script>

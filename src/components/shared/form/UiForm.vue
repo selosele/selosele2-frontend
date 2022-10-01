@@ -1,6 +1,6 @@
 <template>
   <Form ref="form"
-        @submit="$emit('onSubmit')"
+        @submit="onSubmit"
         @reset="$emit('onReset')">
     <slot />
   </Form>
@@ -14,6 +14,11 @@ export default {
   components: {
     Form,
   },
+  methods: {
+    onSubmit(values) {
+      this.$emit('onSubmit', values);
+    }
+  }
 }
 </script>
 
