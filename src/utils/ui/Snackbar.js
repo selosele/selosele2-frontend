@@ -9,6 +9,7 @@ class Snackbar {
   constructor() {
     this.snackbar = Swal.mixin({
       toast: true,
+      width: 400,
       position: 'top-end',
       showConfirmButton: false,
       timer: 2000,
