@@ -40,7 +40,6 @@ export default {
     defaultValue: String,                 // select default value
     defaultValueDisabled: Boolean,        // select default value 비활성화 여부 (비활성화 false - 기본값, 활성화 true)
     modelValue: String,                   // select modelValue
-    showMsg: Boolean,                     // select validation 에러메시지 표출 여부 (비활성화 false - 기본값, 활성화 true)
   },
 }
 </script>

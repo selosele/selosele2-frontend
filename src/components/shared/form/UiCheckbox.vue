@@ -20,9 +20,8 @@
     <label v-if="label"
            :for="id">{{ label }}</label>
 
-    <ErrorMessage v-if="showMsg !== false || showMsg"
-                        class="form-field-error"
-                        :name="name" />
+    <ErrorMessage class="form-field-error"
+                  :name="name" />
   </Field>
 </template>
 
@@ -45,7 +44,6 @@ export default {
     modelValue: String,           // checkbox value
     value: String,                // checkbox true value
     values: String,               // checkbox true value & false value
-    showMsg: Boolean,             // checkbox validation 에러메시지 표출 여부 (비활성화 false - 기본값, 활성화 true)
   },
   methods: {
     getValue(e) {
