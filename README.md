@@ -36,14 +36,14 @@
   - 토큰 발급 시의 secret key는 환경변수 등의 외부에서 접근하기 어려운 곳에 두고 사용. 소스코드에 적는 건 매우 위험
   - 쿠키를 못 훔치게 HTTP only 설정
 - Skeleton UI 적용
-  - 특히 연도별 모아보기 아코디언
+  - 특히 연도별 모아보기 아코디언이랑 메인 포스트 목록
 - AG-Grid 사용
 
 ## 기타
 
 - jQuery로 DOM을 조작하고 있는 것을 어케 Vue로 바꿀 것인지.. 제일 어려울 듯
 - 포스트/콘텐츠 작성, 수정 html에서 meditor css, js 호출 필요
-  - 에디터를 다른 걸로 바꿔도 됨
+  - 다른 에디터 사용해도 될듯
 - Favicon 적용
 - html 파일에서 어플리케이션 명 받아올 때 ```<%= htmlWebpackPlugin.options.title %>``` 쓰면 됨
 - Vue의 ```computed```에 HTTP 요청은 넣지 않는다.
