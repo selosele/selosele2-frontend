@@ -23,9 +23,10 @@
 - **[완료]** Angular의 HttpClient를 Axios 기반으로 만들어보기
   - main.js에 ```app.config.globalProperties.$http = axios;``` 해놓고 컴포넌트에서 ```this.$http```로 바로 axios 호출해도 됨(단, Vue 전역변수는 ```.vue``` 파일에서만 접근 가능).
 - **[완료]** toast 메시지 모듈 적용
-- **[완료]** Form 공통 컴포넌트 작업
+- **[진행중]** Form 공통 컴포넌트 작업
   - ```vee-validate```를 이용한 유효성검사는 checkbox, radio 같은 건 안되는 거 같음.
     - checkbox, radio는 유효성검사 보류
+  - **[대기]** 작성/수정 Form 공통 컴포넌트 작업
 - **[완료]** Form 유효성검사 라이브러리 적용
   - [참고](https://vee-validate.logaretm.com/v4/guide/global-validators)
 - **[완료]** 공통코드 값 세팅 (방법은 아래 2가지)
