@@ -1,6 +1,6 @@
 <template>
   <div class="search__wrapper">
-    <ui-form class="search__frm" @onSubmit="onSubmit">
+    <ui-form class="search__frm" name="searchForm" @onSubmit="onSubmit">
       <div class="search__field">
         <ui-select name="t"
                    title="검색 옵션"
@@ -8,6 +8,7 @@
                    v-model="t" 
                    :data="tData"
                    :defaultValue="'검색옵션'"
+                   :defaultValueDisabled="true"
                    :selectedValue="this.$route.query.t" />
 
         <ui-form-field type="search"

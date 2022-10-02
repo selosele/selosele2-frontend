@@ -16,7 +16,7 @@
     <label v-if="label"
           :for="id">{{ label }}</label>
 
-    <ErrorMessage v-if="showMsg !== 'N' || showMsg === 'Y'"
+    <ErrorMessage v-if="showMsg !== false || showMsg"
                   class="form-field-error"
                   :name="name" />
   </Field>
@@ -39,7 +39,7 @@ export default {
     checked: Boolean,             // radio checked
     label: String,                // radio label
     modelValue: String,           // radio value
-    showMsg: String,              // radio validation 에러메시지 표출 여부 (비활성화 N - 기본값, 활성화 Y)
+    showMsg: Boolean,             // radio validation 에러메시지 표출 여부 (비활성화 false - 기본값, 활성화 true)
   },
 }
 </script>

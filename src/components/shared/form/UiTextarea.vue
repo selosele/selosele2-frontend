@@ -11,7 +11,7 @@
          :value="modelValue"
          @input="$emit('update:modelValue', $event.target.value)" />
 
-  <ErrorMessage v-if="showMsg !== 'N' || showMsg === 'Y'"
+  <ErrorMessage v-if="showMsg !== false || showMsg"
                 class="form-field-error"
                 :name="name" />
 </template>
@@ -35,7 +35,7 @@ export default {
     rows: String,               // textarea rows
     rules: String,              // textarea validation rules
     modelValue: String,         // textarea modelValue
-    showMsg: String,            // textarea validation 에러메시지 표출 여부 (비활성화 N - 기본값, 활성화 Y)
+    showMsg: Boolean,           // textarea validation 에러메시지 표출 여부 (비활성화 false - 기본값, 활성화 true)
   },
 }
 </script>

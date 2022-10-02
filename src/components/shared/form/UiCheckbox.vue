@@ -5,6 +5,8 @@
          :value="values.split(',')[0]"
          :unchecked-value="values.split(',')[1]">
 
+    <input type="hidden" :name="name" :value="values.split(',')[1]">
+
     <input type="checkbox"
            :id="id"
            :title="title"
@@ -18,7 +20,7 @@
     <label v-if="label"
            :for="id">{{ label }}</label>
 
-    <ErrorMessage v-if="showMsg !== 'N' || showMsg === 'Y'"
+    <ErrorMessage v-if="showMsg !== false || showMsg"
                         class="form-field-error"
                         :name="name" />
   </Field>
@@ -43,7 +45,7 @@ export default {
     modelValue: String,           // checkbox value
     value: String,                // checkbox true value
     values: String,               // checkbox true value & false value
-    showMsg: String,              // checkbox validation 에러메시지 표출 여부 (비활성화 N - 기본값, 활성화 Y)
+    showMsg: Boolean,             // checkbox validation 에러메시지 표출 여부 (비활성화 false - 기본값, 활성화 true)
   },
   methods: {
     getValue(e) {

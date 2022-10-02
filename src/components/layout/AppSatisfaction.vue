@@ -6,7 +6,7 @@
       <i class="xi-message" aria-hidden="true"></i> 이 페이지에서 제공하는 정보가 유익하셨나요?
     </p>
 
-    <ui-form class="satisfaction__frm" @onSubmit="onSubmit">
+    <ui-form class="satisfaction__frm" name="satisForm" @onSubmit="onSubmit">
       <input type="hidden" name="_csrf" value="" />
       <input type="hidden" name="pagePath" value="" />
 
@@ -73,7 +73,7 @@ export default {
   methods: {
     async onSubmit(values) {
       console.log('satis values >>>', values);
-
+      
       const confirm = await dialog.confirm('제출하시겠습니까?', '');
       if (!confirm) {
         return;
