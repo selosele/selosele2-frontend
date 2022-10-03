@@ -41,7 +41,6 @@ import UiFormField from '@/components/shared/form/UiFormField.vue';
 import UiSelect from '@/components/shared/form/UiSelect.vue';
 import UiCheckbox from '@/components/shared/form/UiCheckbox.vue';
 import snackbar from '@/utils/ui/Snackbar';
-import CodeService from '@/services/code/CodeService';
 
 export default {
   name: 'AppSearch',
@@ -61,16 +60,18 @@ export default {
   },
   async created() {
     // 검색옵션 코드 세팅
-    const codeService = new CodeService();
-    const searchCode = await codeService.listCode('A01');
-
-    searchCode.forEach((item, idx) => {
-      let obj = {
-        value: item.val,
-        text: item.nm,
-      };
-      this.tData.push(obj);
-    });
+    this.$http.get('/code/list/A01')
+      .then(res => {
+        res.data.forEach((item, idx) => {
+          let obj = {
+            value: item.val,
+            text: item.nm,
+          };
+          this.tData.push(obj);
+        });
+      }).catch(error => {
+        snackbar.error('오류가 발생했습니다.');
+      });
   },
   methods: {
     onSubmit(values) {

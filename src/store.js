@@ -1,15 +1,20 @@
 import { createStore } from 'vuex';
-import ConfigService from '@/services/config/ConfigService';
-import CodeService from './services/code/CodeService';
+import snackbar from '@/utils/ui/Snackbar';
+import axios from 'axios';
 
 export default createStore({
   state: {
+    // 개발모드/운영모드 체크
+    isProduction: false,
     // 공통코드 - 포스트/콘텐츠 만족도조사
     satisCode: [],
     // 블로그 환경설정
     config: [],
   },
   mutations: {
+    SET_NODE_ENV(state, isProduction) {
+      state.isProduction = isProduction;
+    },
     SET_SATIS_CODE(state, satisCode) {
       state.satisCode = satisCode;
     },
@@ -18,19 +23,26 @@ export default createStore({
     },
   },
   actions: {
+    async FETCH_NODE_ENV(ctx) {
+      ctx.commit('SET_NODE_ENV', (process.env.NODE_ENV === 'production'));
+    },
     async FETCH_CODE(ctx) {
-      const codeService = new CodeService();
       // 포스트/콘텐츠 만족도조사
-      const satisCode = await codeService.listCode('B01');
-
-      ctx.commit('SET_SATIS_CODE', satisCode);
+      axios.get('/api/v1/code/list/B01')
+        .then(res => {
+          ctx.commit('SET_SATIS_CODE', res.data);
+        }).catch(error => {
+          snackbar.error('오류가 발생했습니다.');
+        });
     },
     async FETCH_CONFIG(ctx) {
-      const configService = new ConfigService();
-      const config = await configService.getConfig();
-
-      ctx.commit('SET_CONFIG', config);
-      document.title = config.title;
+      axios.get('/api/v1/config')
+        .then(res => {
+          ctx.commit('SET_CONFIG', res.data);
+          document.title = res.data.title;
+        }).catch(error => {
+          snackbar.error('오류가 발생했습니다.');
+        });
     },
   },
 });

@@ -27,13 +27,12 @@
 </template>
 
 <script>
-import YearService from '@/services/year/YearService';
+import snackbar from '@/utils/ui/Snackbar';
 
 export default {
   name: 'AppYear',
   data() {
     return {
-      yearService: null,
       listYearAndCount: [],
       listPostsByYear: [],
       activeIndex: -1,
@@ -46,13 +45,23 @@ export default {
         this.activeIndex = -1;
         return;
       }
-      this.listPostsByYear = await this.yearService.listPostsByYear(year);
-      this.activeIndex = idx;
+
+      this.$http.get(`/post/year/list/${year}`)
+        .then(res => {
+          this.listPostsByYear = res.data;
+          this.activeIndex = idx;
+        }).catch(error => {
+          snackbar.error('오류가 발생했습니다.');
+        });
     },
   },
   async created() {
-    this.yearService = new YearService();
-    this.listYearAndCount = await this.yearService.listYearAndCount();
+    this.$http.get('/post/year/list')
+      .then(res => {
+        this.listYearAndCount = res.data;
+      }).catch(error => {
+        snackbar.error('오류가 발생했습니다.');
+      });
   },
 };
 </script>
