@@ -25,7 +25,7 @@
       </div>
 
       <app-satisfaction v-if="($route.meta.showSatis !== false
-                               && this.$store.state.config.show_satis_yn === 'Y')" />
+                               && this.$store.state.config.showSatisYn === 'Y')" />
     </app-main>
 
     <app-footer />
