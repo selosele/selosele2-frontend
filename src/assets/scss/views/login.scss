@@ -40,13 +40,18 @@
   }
 
   &__btn {
+    display: block;
+    width: 100%;
+    margin-top: 0.8rem;
+    padding: 0.4rem 0.3rem;
+    box-sizing: border-box;
+    
     &--submit {
-      display: block;
-      width: 100%;
-      margin-top: 0.8rem;
-      padding: 0.4rem 0.3rem;
       background-color: $grey04;
-      box-sizing: border-box;
+    }
+
+    &--add {
+      background-color: $grey02;
     }
   }
 }
