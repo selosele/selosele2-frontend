@@ -48,7 +48,7 @@ import dialog from '@/utils/ui/Dialog';
 import snackbar from '@/utils/ui/Snackbar';
 
 export default {
-  name: 'AppSatisfaction',
+  name: 'app-satisfaction',
   components: {
     UiForm,
     UiFormField,

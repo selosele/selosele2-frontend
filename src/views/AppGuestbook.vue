@@ -165,7 +165,7 @@ import UiForm from '@/components/shared/form/UiForm.vue';
 import UiTextarea from '@/components/shared/form/UiTextarea.vue';
 
 export default {
-  name: 'AppGuestbook',
+  name: 'app-guestbook',
   components: {
     UiForm,
     UiTextarea,

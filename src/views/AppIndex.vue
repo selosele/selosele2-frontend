@@ -8,7 +8,7 @@ import AppPostList from '../components/views/post/AppPostList.vue';
 import AppWidgetConfig from '../components/widget/AppWidgetConfig.vue';
 
 export default {
-  name: 'AppIndex',
+  name: 'app-index',
   components: {
     AppPostList,
     AppWidgetConfig,

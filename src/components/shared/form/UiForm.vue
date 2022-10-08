@@ -10,7 +10,7 @@
 import { Form } from 'vee-validate';
 
 export default {
-  name: 'UiForm',
+  name: 'ui-form',
   components: {
     Form,
   },

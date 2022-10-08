@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  name: 'UiPagination',
+  name: 'ui-pagination',
 };
 </script>
 

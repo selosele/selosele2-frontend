@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'AppMain',
+  name: 'app-main',
   methods: {
     getOffsetTop() {
       return this.$refs.mainWrapper.offsetTop;

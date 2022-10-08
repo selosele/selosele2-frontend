@@ -225,7 +225,7 @@
 import UiPagination from '../../shared/pagination/UiPagination.vue';
 
 export default {
-  name: 'AppPostList',
+  name: 'app-post-list',
   components: {
     UiPagination,
   },

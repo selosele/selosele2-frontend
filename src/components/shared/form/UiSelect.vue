@@ -24,7 +24,7 @@
 import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
-  name: 'UiSelect',
+  name: 'ui-select',
   components: {
     Field,
     ErrorMessage,

@@ -43,7 +43,7 @@ import UiCheckbox from '@/components/shared/form/UiCheckbox.vue';
 import snackbar from '@/utils/ui/Snackbar';
 
 export default {
-  name: 'AppSearch',
+  name: 'app-search',
   components: {
     UiForm,
     UiFormField,

@@ -29,7 +29,7 @@
 import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
-  name: 'UiCheckbox',
+  name: 'ui-checkbox',
   components: {
     Field,
     ErrorMessage,

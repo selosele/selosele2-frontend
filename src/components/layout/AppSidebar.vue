@@ -102,7 +102,7 @@
 
 <script>
 export default {
-  name: 'AppSidebar',
+  name: 'app-sidebar',
 };
 </script>
 

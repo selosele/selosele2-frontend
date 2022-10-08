@@ -30,7 +30,7 @@ import UiFormField from '@/components/shared/form/UiFormField.vue';
 import snackbar from '@/utils/ui/Snackbar';
 
 export default {
-  name: 'AppLogin',
+  name: 'app-login',
   components: {
     UiForm,
     UiFormField,

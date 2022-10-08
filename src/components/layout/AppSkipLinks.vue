@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'AppSkipLinks',
+  name: 'app-skip-links',
 };
 </script>
 

@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  name: 'AppHeader',
+  name: 'app-header',
   methods: {
     getBackgroundContrast() {
       return this.$store.state.config.ogImgContrast;

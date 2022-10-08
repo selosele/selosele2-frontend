@@ -30,7 +30,7 @@
 import snackbar from '@/utils/ui/Snackbar';
 
 export default {
-  name: 'AppYear',
+  name: 'app-year',
   data() {
     return {
       listYearAndCount: [],

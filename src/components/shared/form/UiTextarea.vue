@@ -19,7 +19,7 @@
 import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
-  name: 'UiTextarea',
+  name: 'ui-textarea',
   components: {
     Field,
     ErrorMessage,
