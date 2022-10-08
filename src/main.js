@@ -12,7 +12,7 @@ initDefineRule();
 const app = createApp(App);
 
 app.config.globalProperties.$http = axios.create({
-  baseURL: '/api/v1',
+  baseURL: '/api',
 });
 
 app

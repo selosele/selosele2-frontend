@@ -28,7 +28,7 @@ export default createStore({
     },
     async FETCH_CODE(ctx) {
       // 포스트/콘텐츠 만족도조사
-      axios.get('/api/v1/code/list/B01')
+      axios.get('/api/code/list/B01')
         .then(res => {
           ctx.commit('SET_SATIS_CODE', res.data);
         }).catch(error => {
@@ -36,7 +36,7 @@ export default createStore({
         });
     },
     async FETCH_CONFIG(ctx) {
-      axios.get('/api/v1/config')
+      axios.get('/api/config')
         .then(res => {
           ctx.commit('SET_CONFIG', res.data);
           document.title = res.data.title;
