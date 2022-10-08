@@ -11,6 +11,7 @@ initDefineRule();
 
 const app = createApp(App);
 
+app.config.globalProperties.$rootUrl = window.location.origin;
 app.config.globalProperties.$http = axios.create({
   baseURL: '/api',
 });
