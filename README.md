@@ -22,6 +22,8 @@
 - **[완료 -> 2022.09.17. 보류]** Prettier 적용
 - **[완료]** Angular의 HttpClient를 Axios 기반으로 만들어보기
   - main.js에 ```app.config.globalProperties.$http = axios;``` 해놓고 컴포넌트에서 ```this.$http```로 바로 axios 호출해도 됨(단, Vue 전역변수는 ```.vue``` 파일에서만 접근 가능).
+  - ```store.js```에 axios 쓴 부분에 ```api/**``` 이거 URL 매핑 안되면 HttpClient랑 service 원복
+  - HttpClient에서 axios error 핸들링하려면 error를 ```resolve```에 담아서 ```promise```를 리턴하면 됨
 - **[완료]** toast 메시지 모듈 적용
 - **[진행중]** Form 공통 컴포넌트 작업
   - ```vee-validate```를 이용한 유효성검사는 checkbox, radio 같은 건 안되는 거 같음.
@@ -38,7 +40,14 @@
   - 쿠키를 못 훔치게 HTTP only 설정
 - Skeleton UI 적용
   - 특히 연도별 모아보기 아코디언이랑 메인 포스트 목록
-- AG-Grid 사용
+- AG-Grid 적용
+- 프론트단에서 페이지 접근 권한 검증 필요
+
+### Form values 한번에 가져오기 프로젝트..
+
+- ```this.form.values``` 형식으로 만들어야 함
+- ```v-slot="{ value }"``` 여기서 value 뽑아보기
+  - 이러면 누르기 전부터 checked 상태인 값을 받아올 수 없음
 
 ## 기타
 
