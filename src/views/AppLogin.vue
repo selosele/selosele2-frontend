@@ -15,7 +15,7 @@
         
         <button type="submit"
                 class="login__btn login__btn--submit">로그인</button>
-                
+
         <button type="button"
                 class="login__btn login__btn--add"
                 @click="addUser"
@@ -45,6 +45,14 @@ export default {
   },
   methods: {
     onSubmit(values) {
+      this.$http.post('/auth/signin', values)
+        .then(res => {
+          if (res.data.accessToken) {
+            snackbar.success('hi');
+          }
+        }).catch(error => {
+          snackbar.error('로그인에 실패했습니다.');
+        });
     },
     async addUser() {
       const user = {
