@@ -5,11 +5,11 @@
       <span class="sr-only">메뉴</span>
     </button>
 
-    <div :class="['masthead__top', this.$store.state.config.ogImgUrl ? 'masthead--image' : '']"
+    <div :class="['masthead__top', this.$store.state.blogConfig.ogImgUrl ? 'masthead--image' : '']"
          :style="[
-          { backgroundImage: this.$store.state.config.ogImgUrl && getBackgroundImage() },
-          { backgroundPositionX: this.$store.state.config.ogImgUrl && getBackgroundPosition('x') },
-          { backgroundPositionY: this.$store.state.config.ogImgUrl && getBackgroundPosition('y') }
+          { backgroundImage: this.$store.state.blogConfig.ogImgUrl && getBackgroundImage() },
+          { backgroundPositionX: this.$store.state.blogConfig.ogImgUrl && getBackgroundPosition('x') },
+          { backgroundPositionY: this.$store.state.blogConfig.ogImgUrl && getBackgroundPosition('y') }
          ]">
       <div class="masthead__util-wrapper">
         <router-link to="/a/goto" class="btn masthead__util">
@@ -20,15 +20,15 @@
 
       <div class="masthead__inner">
         <div class="masthead__info">
-          <router-link to="/" class="site-title">{{ this.$store.state.config.title }}</router-link>
+          <router-link to="/" class="site-title">{{ this.$store.state.blogConfig.title }}</router-link>
 
           <div class="masthead__author">
-            <p class="masthead__author-avatar" v-if="this.$store.state.config.avatarImgUrl">
-              <img :src=this.$store.state.config.avatarImgUrl 
-                   :alt=this.$store.state.config.author />
+            <p class="masthead__author-avatar" v-if="this.$store.state.blogConfig.avatarImgUrl">
+              <img :src=this.$store.state.blogConfig.avatarImgUrl 
+                   :alt=this.$store.state.blogConfig.author />
             </p>
 
-            <p class="masthead__author-name">{{ this.$store.state.config.author }}</p>
+            <p class="masthead__author-name">{{ this.$store.state.blogConfig.author }}</p>
           </div>
         </div>
       </div>
@@ -41,20 +41,20 @@ export default {
   name: 'app-header',
   methods: {
     getBackgroundContrast() {
-      return this.$store.state.config.ogImgContrast;
+      return this.$store.state.blogConfig.ogImgContrast;
     },
     getBackgroundImageUrl() {
-      return this.$store.state.config.ogImgUrl;
+      return this.$store.state.blogConfig.ogImgUrl;
     },
     getBackgroundImage() {
       return 'linear-gradient(to bottom, rgba(0, 0, 0, '+this.getBackgroundContrast()+'), rgba(0, 0, 0, '+this.getBackgroundContrast()+')), url('+this.getBackgroundImageUrl()+')';
     },
     getBackgroundPosition(xy) {
       if (xy === 'x') {
-        return this.$store.state.config.ogImgPosX + '%';
+        return this.$store.state.blogConfig.ogImgPosX + '%';
       }
       if (xy === 'y') {
-        return this.$store.state.config.ogImgPosY + '%';
+        return this.$store.state.blogConfig.ogImgPosY + '%';
       }
     }
   }

@@ -9,7 +9,7 @@ export default createStore({
     // 공통코드 - 포스트/콘텐츠 만족도조사
     satisCode: [],
     // 블로그 환경설정
-    config: [],
+    blogConfig: [],
   },
   mutations: {
     SET_NODE_ENV(state, isProduction) {
@@ -18,8 +18,8 @@ export default createStore({
     SET_SATIS_CODE(state, satisCode) {
       state.satisCode = satisCode;
     },
-    SET_CONFIG(state, config) {
-      state.config = config;
+    SET_BLOG_CONFIG(state, blogConfig) {
+      state.blogConfig = blogConfig;
     },
   },
   actions: {
@@ -35,10 +35,10 @@ export default createStore({
           snackbar.error('오류가 발생했습니다.');
         });
     },
-    async FETCH_CONFIG(ctx) {
-      axios.get('/api/config')
+    async FETCH_BLOG_CONFIG(ctx) {
+      axios.get('/api/blogconfig')
         .then(res => {
-          ctx.commit('SET_CONFIG', res.data);
+          ctx.commit('SET_BLOG_CONFIG', res.data);
           document.title = res.data.title;
         }).catch(error => {
           snackbar.error('오류가 발생했습니다.');

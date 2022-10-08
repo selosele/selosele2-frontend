@@ -25,7 +25,7 @@
       </div>
 
       <app-satisfaction v-if="($route.meta.showSatis !== false
-                               && this.$store.state.config.showSatisYn === 'Y')" />
+                               && this.$store.state.blogConfig.showSatisYn === 'Y')" />
     </app-main>
 
     <app-footer />
@@ -62,7 +62,7 @@ export default {
     // 공통코드
     this.$store.dispatch('FETCH_CODE');
     // 블로그 환경설정
-    this.$store.dispatch('FETCH_CONFIG');
+    this.$store.dispatch('FETCH_BLOG_CONFIG');
   },
   mounted() {
     this.lastScrollTop = window.pageYOffset;
