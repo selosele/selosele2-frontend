@@ -12,10 +12,26 @@
           { backgroundPositionY: this.$store.state.blogConfig.ogImgUrl && getBackgroundPosition('y') }
          ]">
       <div class="masthead__util-wrapper">
-        <router-link to="/a/goto" class="btn masthead__util">
-          <i class="xi-log-in" aria-hidden="true"></i>
-          <span class="sr-only">로그인</span>
-        </router-link>
+        <template v-if="!isLogin && !this.$store.state.isProduction">
+          <router-link to="/a/goto" class="btn masthead__util">
+            <i class="xi-log-in" aria-hidden="true"></i>
+            <span class="sr-only">로그인</span>
+          </router-link>
+        </template>
+
+        <template v-if="isLogin">
+          <button type="button"
+                  class="btn masthead__util"
+                  @click="logout">
+            <i class="xi-power-off" aria-hidden="true"></i>
+            <span class="sr-only">로그아웃</span>
+          </button>
+  
+          <router-link to="/blogconfig" class="btn masthead__util">
+            <i class="xi-cog" aria-hidden="true"></i>
+            <span class="sr-only">환경설정</span>
+          </router-link>
+        </template>
       </div>
 
       <div class="masthead__inner">
@@ -37,9 +53,25 @@
 </template>
 
 <script>
+import { authComputed } from '@/store/helper';
+import dialog from '@/utils/ui/Dialog';
+
 export default {
   name: 'app-header',
+  computed: {
+    ...authComputed
+  },
   methods: {
+    async logout() {
+      const confirm = await dialog.confirm('로그아웃하시겠습니까?', '', 'question');
+      if (!confirm) {
+        return;
+      }
+      this.$store.dispatch('LOGOUT')
+        .then(res => {
+          this.$router.push('/');
+        });
+    },
     getBackgroundContrast() {
       return this.$store.state.blogConfig.ogImgContrast;
     },
@@ -47,14 +79,14 @@ export default {
       return this.$store.state.blogConfig.ogImgUrl;
     },
     getBackgroundImage() {
-      return 'linear-gradient(to bottom, rgba(0, 0, 0, '+this.getBackgroundContrast()+'), rgba(0, 0, 0, '+this.getBackgroundContrast()+')), url('+this.getBackgroundImageUrl()+')';
+      return `linear-gradient(to bottom, rgba(0, 0, 0, ${this.getBackgroundContrast()}), rgba(0, 0, 0, ${this.getBackgroundContrast()})), url(${this.getBackgroundImageUrl()})`;
     },
     getBackgroundPosition(xy) {
       if (xy === 'x') {
-        return this.$store.state.blogConfig.ogImgPosX + '%';
+        return `${this.$store.state.blogConfig.ogImgPosX}%`;
       }
       if (xy === 'y') {
-        return this.$store.state.blogConfig.ogImgPosY + '%';
+        return `${this.$store.state.blogConfig.ogImgPosY}%`;
       }
     }
   }

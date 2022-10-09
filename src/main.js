@@ -9,11 +9,28 @@ import { initDefineRule } from './validation';
 
 initDefineRule();
 
-const app = createApp(App);
+const app = createApp({
+  extends: App,
+  created() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.$store.commit('SET_TOKEN', token);
+    }
+    axios.interceptors.response.use(
+      response => response,
+      error => {
+        if (error.response.status === 401) {
+          this.$store.dispatch('LOGOUT');
+        }
+        return Promise.reject(error);
+      }
+    );
+  }
+});
 
 app.config.globalProperties.$rootUrl = window.location.origin;
 app.config.globalProperties.$http = axios.create({
-  baseURL: process.env.VUE_APP_API_ROOT_URL,
+  baseURL: process.env.VUE_APP_API_URL,
 });
 
 app

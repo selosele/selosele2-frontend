@@ -45,13 +45,13 @@ export default {
   },
   methods: {
     onSubmit(values) {
-      this.$http.post('/auth/signin', values)
+      this.$store.dispatch('LOGIN', values)
         .then(res => {
-          if (res.data.accessToken) {
-            snackbar.success('hi');
+          if (res === 'no') {
+            snackbar.error('로그인에 실패했습니다.');
+            return;
           }
-        }).catch(error => {
-          snackbar.error('로그인에 실패했습니다.');
+          this.$router.push('/');
         });
     },
     async addUser() {
