@@ -7,8 +7,6 @@
                    class="search__option" 
                    v-model="t" 
                    :data="tData"
-                   :defaultValue="'검색옵션'"
-                   :defaultValueDisabled="true"
                    :selectedValue="this.$route.query.t" />
 
         <ui-form-field type="search"
@@ -101,7 +99,7 @@ export default {
   },
   data() {
     return {
-      t: this.$route.query.t || '',
+      t: this.$route.query.t || '001',
       q: this.$route.query.q || '',
       c: this.$route.query.c || 'N',
       tData: [],
@@ -124,6 +122,13 @@ export default {
       }).catch(error => {
         snackbar.error('오류가 발생했습니다.');
       });
+  },
+  beforeRouteUpdate(to, from, next) {
+    // 페이지 전환 시 검색키워드 파라미터가 없으면 검색결과를 초기화
+    if (!to.query.q) {
+      this.posts = null;
+    }
+    next();
   },
   mounted() {
     // 검색 파라미터 값이 있으면 검색 메소드 실행
@@ -149,7 +154,6 @@ export default {
         snackbar.warning('검색어를 입력하세요.');
         return;
       }
-
       this.listPostSearch(values);
     },
     // 포스트 검색
@@ -173,7 +177,7 @@ export default {
     },
     // 스크롤 시 검색 input으로 향하는 버튼 toggle
     scroll() {
-      if (window.pageYOffset >= this.$refs.resultsWrapper.offsetTop) {
+      if (this.$refs.resultsWrapper && (window.pageYOffset >= this.$refs.resultsWrapper.offsetTop)) {
         this.searchToInputActive = true;
       } else {
         this.searchToInputActive = false;
