@@ -18,7 +18,7 @@ class HttpClient {
   }
 
   async post(url, body) {
-    const res = await this.http.post(url, body)
+    const res = await this.http.post(url, body);
     return res;
   }
 
