@@ -1,4 +1,4 @@
-.config {
+.blog-config {
    &__frm {
       > table {
          margin-top: 0;
@@ -239,26 +239,6 @@
          a {
             color: $sub-color03;
             text-decoration: underline;
-         }
-      }
-   }
-
-   &__etc {
-      &-btns {
-         display: flex;
-         margin-top: 1rem;
-         flex-wrap: wrap;
-         gap: 0.5rem;
-      }
-
-      &-btn {
-         width: 100%;
-         border-color: $main-color;
-         background-color: $grey12;
-         text-shadow: none;
-
-         @media (min-width: $min-tiny-width) {
-            width: auto;
          }
       }
    }

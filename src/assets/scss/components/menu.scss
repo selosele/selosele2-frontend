@@ -80,28 +80,20 @@
         position: relative;
         padding: 0 1.3rem;
         border-bottom: 1px solid $grey06;
+        font-size: 0.95rem;
         line-height: $menu-height;
         box-sizing: border-box;
+
+        &.router-link-active {
+          font-weight: 700;
+          color: $sub-color03;
+        }
 
         @media (min-width: $min-standard-width) {
           padding: 0;
           border-bottom: 0;
           text-align: center;
         }
-
-        // &:before {
-        //    content: "";
-        //    position: absolute;
-        //    bottom: 0;
-        //    left: 0;
-        //    transform: scaleX(0);
-        //    transform-origin: center;
-        //    width: 100%;
-        //    height: 0.15rem;
-        //    background-color: $main-color;
-        //    visibility: hidden;
-        //    transition: all 0.2s;
-        // }
 
         &[target='_blank'] {
           &:after {
@@ -110,7 +102,7 @@
             height: 100%;
             margin-left: 0.3rem;
             font-family: $icon-font;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             align-items: center;
           }
         }
@@ -119,11 +111,6 @@
           &:hover {
             font-weight: 700;
             color: $sub-color03;
-
-            // &:before {
-            //    transform: scaleX(1);
-            //    visibility: visible;
-            // }
           }
         }
       }
@@ -144,7 +131,7 @@
             right: 1.3rem;
             height: 100%;
             font-family: $icon-font;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             align-items: center;
           }
         }
@@ -155,17 +142,11 @@
         > a {
           font-weight: 700;
           color: $sub-color03;
-
-          // &:before {
-          //    transform: scaleX(1);
-          //    visibility: visible;
-          // }
         }
       }
     }
 
     &--depth2 {
-      display: none;
       width: 100%;
       padding-left: 0;
       background-color: $grey07;
@@ -195,10 +176,15 @@
           position: relative;
           padding: 0.5rem 1.3rem;
           border-bottom: 1px dotted $grey09;
-          font-size: 0.85rem;
+          font-size: 0.8rem;
+
+          &.router-link-active {
+            background-color: $sub-color07;
+            color: $sub-color03;
+          }
 
           @media (min-width: $min-standard-width) {
-            padding: 0.5rem 0.8rem;
+            padding: 0.65rem 0.8rem;
           }
 
           &[target='_blank'] {

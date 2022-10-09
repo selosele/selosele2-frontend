@@ -570,7 +570,18 @@ blockquote {
   }
 }
 
-// jQuery UI
-.ui-draggable {
-  cursor: move;
+// Vue Transition
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+.delay-display-none-leave-active {
+  transition: opacity .3s
+}
+.delay-display-none-leave-to {
+  opacity: 1
 }

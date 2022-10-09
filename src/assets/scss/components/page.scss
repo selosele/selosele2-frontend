@@ -20,64 +20,6 @@ body {
       }
     }
   }
-
-  &.error,
-  &.secret {
-    .page {
-      &__title {
-        text-shadow: 0.1rem 0.1rem 0.1rem rgba(255, 255, 255, 0.9);
-
-        @media (min-width: $min-small-width) {
-          display: inline-block;
-        }
-
-        &:before {
-          display: none;
-          position: absolute;
-          top: -2rem;
-          left: 0;
-          z-index: -1;
-          font-family: $icon-font;
-          font-size: 2.8rem;
-          color: $sub-color03;
-          text-shadow: none;
-
-          @media (min-width: $min-small-width) {
-            display: block;
-            top: -2.5rem;
-            left: -3.7rem;
-            font-size: 5rem;
-          }
-
-          @media (min-width: $min-big-width) {
-            top: -3.5rem;
-            left: -5rem;
-            font-size: 7rem;
-          }
-        }
-      }
-    }
-  }
-
-  &.error {
-    .page {
-      &__title {
-        &:before {
-          content: '\e9aa';
-        }
-      }
-    }
-  }
-
-  &.secret {
-    .page {
-      &__title {
-        &:before {
-          content: '\e964';
-        }
-      }
-    }
-  }
 }
 
 .page {
