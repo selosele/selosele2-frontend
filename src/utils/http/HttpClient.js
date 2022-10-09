@@ -8,7 +8,7 @@ class HttpClient {
 
   constructor() {
     this.http = axios.create({
-      baseURL: '/api',
+      baseURL: process.env.VUE_APP_API_ROOT_URL,
     });
   }
 
