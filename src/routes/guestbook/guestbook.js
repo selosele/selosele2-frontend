@@ -1,9 +1,7 @@
-import AppGuestbook from '../../views/AppGuestbook.vue';
-
 export default [
   {
     path: '/guestbook',
-    component: AppGuestbook,
+    component: () => import('@/views/AppGuestbook.vue'),
     meta: {
       title: '방명록',
     },

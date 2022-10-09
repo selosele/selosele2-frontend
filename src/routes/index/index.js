@@ -1,9 +1,7 @@
-import AppIndex from '../../views/AppIndex.vue';
-
 export default [
   {
     path: '/',
-    component: AppIndex,
+    component: () => import('@/views/AppIndex.vue'),
     meta: {
       pageType: 'home',
       showSatis: false
