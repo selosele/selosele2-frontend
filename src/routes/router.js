@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import index from './routes/index/index';
-import auth from './routes/auth/auth';
-import search from './routes/search/search';
-import archive from './routes/archive/archive';
-import guestbook from './routes/guestbook/guestbook';
+import index from './index/index';
+import auth from './auth/auth';
+import search from './search/search';
+import archive from './archive/archive';
+import guestbook from './guestbook/guestbook';
 
 const routes = [
   ...index, // 메인
