@@ -4,8 +4,6 @@ import axios from 'axios';
 
 export default createStore({
   state: {
-    // 개발모드/운영모드 체크
-    isProduction: false,
     // Token
     token: null,
     // 공통코드 - 포스트/콘텐츠 만족도조사
@@ -14,14 +12,19 @@ export default createStore({
     blogConfig: [],
   },
   getters: {
+    // 로그인 여부
     isLogin(state) {
       return state.token !== null;
     },
+    // 개발/운영모드 구분
+    isDevelopment() {
+      return process.env.NODE_ENV === 'development';
+    },
+    isProduction() {
+      return process.env.NODE_ENV === 'production';
+    },
   },
   mutations: {
-    SET_NODE_ENV(state, isProduction) {
-      state.isProduction = isProduction;
-    },
     SET_TOKEN(state, _token) {
       state.token = _token;
       localStorage.setItem('token', _token);
@@ -56,9 +59,6 @@ export default createStore({
     },
     LOGOUT({ commit }) {
       commit('CLEAR_TOKEN');
-    },
-    FETCH_NODE_ENV(ctx) {
-      ctx.commit('SET_NODE_ENV', (process.env.NODE_ENV === 'production'));
     },
     FETCH_CODE(ctx) {
       // 포스트/콘텐츠 만족도조사
