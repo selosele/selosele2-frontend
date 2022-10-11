@@ -1,5 +1,9 @@
 import { mapGetters } from "vuex";
 
-export const authComputed = {
-  ...mapGetters(['isLogin'])
+export const commonComputed = {
+  ...mapGetters([
+    'isLogin',
+    'isDevelopment',
+    'isProduction'
+  ])
 };
