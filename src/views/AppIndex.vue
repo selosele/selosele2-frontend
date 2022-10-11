@@ -1,6 +1,6 @@
 <template>
   <app-post-list />
-  <app-widget-config />
+  <app-widget-config v-if="isLogin" />
 </template>
 
 <script>

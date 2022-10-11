@@ -7,7 +7,6 @@
     </p>
 
     <ui-form class="satisfaction__frm" name="satisForm" @onSubmit="onSubmit">
-      <input type="hidden" name="_csrf" value="" />
       <input type="hidden" name="pagePath" value="" />
 
       <div class="satisfaction__field">

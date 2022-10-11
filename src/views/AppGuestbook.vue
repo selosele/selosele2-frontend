@@ -1,8 +1,6 @@
 <template>
   <div class="guestbook__wrapper">
     <ui-form class="guestbook__write-frm" name="guestbookForm" @onSubmit="onSubmit">
-      <input type="hidden" name="_csrf" value="" />
-
       <div class="guestbook__write">
         <ui-textarea name="guestbookWriteCont"
                      id="guestbookWriteCont"

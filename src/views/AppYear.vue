@@ -38,8 +38,16 @@ export default {
       activeIndex: -1,
     }
   },
+  created() {
+    this.$http.get('/post/year/list')
+      .then(res => {
+        this.listYearAndCount = res.data;
+      }).catch(error => {
+        snackbar.error('오류가 발생했습니다.');
+      });
+  },
   methods: {
-    async toggleList(year, idx) {
+    toggleList(year, idx) {
       if (this.activeIndex === idx) {
         this.listPostsByYear = [];
         this.activeIndex = -1;
@@ -54,14 +62,6 @@ export default {
           snackbar.error('오류가 발생했습니다.');
         });
     },
-  },
-  async created() {
-    this.$http.get('/post/year/list')
-      .then(res => {
-        this.listYearAndCount = res.data;
-      }).catch(error => {
-        snackbar.error('오류가 발생했습니다.');
-      });
   },
 };
 </script>

@@ -1,7 +1,5 @@
 <template>
   <form method="post" action="/blogconfig" enctype="multipart/form-data" class="blog-config__frm">
-    <input type="hidden" name="_csrf" value="">
-    
     <table class="write-tbl">
         <caption class="sr-only">블로그 환경설정 입력 폼</caption>
         <colgroup>

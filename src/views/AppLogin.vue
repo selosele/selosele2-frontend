@@ -2,8 +2,6 @@
   <div class="login__wrapper">
     <div class="login__inner">
       <ui-form autocomplete="off" class="login__frm" name="loginForm" @onSubmit="onSubmit">
-        <!-- <input type="hidden" name="_csrf" value="" /> -->
-
         <ui-form-field type="text" name="userId" title="아이디 입력" placeholder="아이디" 
                        v-model="userId" 
                        rules="required|maxLength:10" />
@@ -19,7 +17,7 @@
         <button type="button"
                 class="login__btn login__btn--add"
                 @click="addUser"
-                v-if="!this.$store.state.isProduction">사용자 생성</button>
+                v-if="isDevelopment">사용자 생성</button>
       </ui-form>
     </div>
   </div>

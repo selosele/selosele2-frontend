@@ -9,63 +9,55 @@
 
         <ul>
           <li>
-            <router-link to="" style="font-size: 90%">
+            <router-link to="/tags/Algorithm" style="font-size: 90%">
               Algorithm
               <span>3</span>
             </router-link>
           </li>
-
           <li>
-            <router-link to="">
+            <router-link to="/tags/C">
               C
               <span>1</span>
             </router-link>
           </li>
-
           <li>
-            <router-link to="">
+            <router-link to="/tags/iBATIS">
               iBATIS
               <span>1</span>
             </router-link>
           </li>
-
           <li>
-            <router-link to="" style="font-size: 180%">
+            <router-link to="/tags/Java" style="font-size: 180%">
               Java
               <span>6</span>
             </router-link>
           </li>
-
           <li>
-            <router-link to="">
+            <router-link to="/tags/Node.js">
               Node.js
               <span>1</span>
             </router-link>
           </li>
-
           <li>
-            <router-link to="" style="font-size: 90%">
+            <router-link to="/tags/programmers" style="font-size: 90%">
               programmers
               <span>3</span>
             </router-link>
           </li>
-
           <li>
-            <router-link to="">
+            <router-link to="/tags/Spring">
               Spring
               <span>2</span>
             </router-link>
           </li>
-
           <li>
-            <router-link to="" style="font-size: 90%">
+            <router-link to="/tags/SQL" style="font-size: 90%">
               SQL
               <span>3</span>
             </router-link>
           </li>
-
           <li>
-            <router-link to="">
+            <router-link to="/tags/개인 프로젝트">
               개인 프로젝트
               <span>1</span>
             </router-link>
@@ -83,13 +75,13 @@
 
         <ul>
           <li>
-            <router-link to="">
+            <router-link to="/categories/개발노트">
               개발노트
               <span>9</span>
             </router-link>
           </li>
           <li>
-            <router-link to="">
+            <router-link to="/categories/문제풀이">
               문제풀이
               <span>3</span>
             </router-link>

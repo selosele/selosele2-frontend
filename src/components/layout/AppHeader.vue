@@ -12,7 +12,7 @@
           { backgroundPositionY: this.$store.state.blogConfig.ogImgUrl && getBackgroundPosition('y') }
          ]">
       <div class="masthead__util-wrapper">
-        <template v-if="!isLogin && !this.$store.state.isProduction">
+        <template v-if="!isLogin && isDevelopment">
           <router-link to="/a/goto" class="btn masthead__util">
             <i class="xi-log-in" aria-hidden="true"></i>
             <span class="sr-only">로그인</span>
@@ -53,14 +53,10 @@
 </template>
 
 <script>
-import { authComputed } from '@/store/helper';
 import dialog from '@/utils/ui/Dialog';
 
 export default {
   name: 'app-header',
-  computed: {
-    ...authComputed
-  },
   methods: {
     async logout() {
       const confirm = await dialog.confirm('로그아웃하시겠습니까?', '', 'question');

@@ -16,7 +16,7 @@
       <li :class="[
           'gnb__list__item',
           'gnb__list__item--has-child',
-          (isShow ? 'gnb__list__item--active' : '')
+          (isShow && 'gnb__list__item--active')
         ]">
         <a href="#none" @click.prevent="toggleMenu">시스템관리</a>
         <transition name="fade">
