@@ -12,7 +12,18 @@ initDefineRule();
 
 const app = createApp({
   extends: App,
-  created() {
+  async created() {
+    // CSRF Token 세팅
+    // JWT 토큰을 통한 인증 방식을 사용한다면, CSRF를 활성화할 필요는 없다.
+    // const csrfTokenReq = await axios.get(`${process.env.VUE_APP_API_URL}/auth/csrftoken`);
+
+    // for (const method of ['post', 'put', 'delete']) {
+    //   axios.defaults.headers[method]['X-CSRF-TOKEN'] = csrfTokenReq.data.CSRFToken;
+    // }
+    // console.log(this.$cookies.get('_csrf'));
+    // console.log('res.data.CSRFToken >>>', csrfTokenReq.data.CSRFToken);
+    // console.log(this.$cookies.get('_csrf') === csrfTokenReq.data.CSRFToken);
+
     // JWT Token 변조 감지 시 강제 로그아웃
     const token = localStorage.getItem('token');
     if (token) {
@@ -40,16 +51,6 @@ app.config.globalProperties.$rootUrl = window.location.origin;
 app.config.globalProperties.$http = axios.create({
   baseURL: process.env.VUE_APP_API_URL,
 });
-
-// CSRF Token 세팅
-(async (httpMethods) => {
-  const res = await axios.get(`${process.env.VUE_APP_API_URL}/auth/csrftoken`);
-  for (const method of httpMethods) {
-    axios.defaults.headers[method]['X-CSRF-Token'] = res.data.CSRFToken;
-  }
-})(
-  ['post', 'put', 'delete']
-);
 
 app
   .use(store)
