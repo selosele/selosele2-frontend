@@ -5,6 +5,7 @@ import store from './store/store';
 import axios from 'axios';
 import { initDefineRule } from './validation';
 import { commonComputed } from '@/store/helper';
+import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 
 //import '@/assets/scss/style.scss';
 
@@ -44,4 +45,5 @@ app.config.globalProperties.$http = axios.create({
 app
   .use(store)
   .use(router)
+  .component(UiSkeletor.name, UiSkeletor)
   .mount('#app');
