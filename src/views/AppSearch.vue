@@ -52,7 +52,7 @@
         <li class="post__wrapper__list" v-for="post in posts" :key="post.id">
           <article>
             <h2 class="post__title">
-              <router-link :to="{ path: '/post/' + post.id }">{{ post.title }}</router-link>
+              <router-link :to="{ path: `/post/${post.id}` }">{{ post.title }}</router-link>
             </h2>
 
             <p class="post__og-image" v-if="post.og_img_url">

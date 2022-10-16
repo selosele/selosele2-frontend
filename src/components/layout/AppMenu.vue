@@ -18,7 +18,13 @@
           'gnb__list__item--has-child',
           (isShow && 'gnb__list__item--active')
         ]">
-        <a href="#none" @click.prevent="toggleMenu">시스템관리</a>
+        <router-link to="/blogconfig" custom v-slot="{ href, isActive }">
+          <a :href="href"
+             :active="isActive"
+             :class="[isActive && 'router-link-active']"
+             @click.prevent="toggleMenu">시스템관리</a>
+        </router-link>
+
         <transition name="fade">
           <ul class="gnb__list--depth2" v-show="isShow">
             <li class="gnb__list--depth2__list">

@@ -15,7 +15,7 @@
                       && listPostsByYear.length > 0">
         <ul class="year__list">
           <li v-for="post in listPostsByYear" :key="post.id">
-            <router-link :to="{ path: '/post/' + post.id }">
+            <router-link :to="{ path: `/post/${post.id}` }">
               <strong class="year__title">{{ post.title }}</strong>
               <span class="year__date">{{ post.regDate }}</span>
             </router-link>
