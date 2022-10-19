@@ -41,7 +41,11 @@
           <strong class="search__info__txt">{{ this.$route.query.q }}</strong>에 대한 검색 결과는
           <strong class="search__info__txt">{{ posts.length }}개</strong>입니다.
       
-          <a :href=googleSearchUrl target="_blank" title="새창" rel="noopener noreferrer nofollow" class="btn search__google">
+          <a :href=googleSearchUrl
+              target="_blank"
+              title="새창"
+              rel="noopener noreferrer nofollow"
+              class="btn search__google">
             <i class="xi-google" aria-hidden="true"></i> Google에서 검색
           </a>
         </template>
@@ -52,17 +56,28 @@
         <li class="post__wrapper__list" v-for="post in posts" :key="post.id">
           <article>
             <h2 class="post__title">
-              <router-link :to="{ path: `/post/${post.id}` }">{{ post.title }}</router-link>
+              <ui-skeletor height="1.5rem" v-if="!loadedData" />
+              <router-link :to="{ path: `/post/${post.id}` }" v-else>{{ post.title }}</router-link>
             </h2>
 
             <p class="post__og-image" v-if="post.og_img_url">
-              <img :src=post.og_img_url alt="">
+              <ui-skeletor v-if="!loadedData" />
+              <span class="post__og-image__box" v-else>
+                <img :src=post.og_img_url alt="">
+              </span>
             </p>
   
-            <p class="post__cont">{{ post.rawText }}</p>
+            <p class="post__cont">
+              <ui-skeletor height="0.75rem" v-if="!loadedData" />
+              <ui-skeletor height="0.75rem" marginTop="0" v-if="!loadedData" />
+              <template v-else>
+                {{ post.rawText }}
+              </template>
+            </p>
 
             <div class="post__box__item-wrapper">
-              <span class="post__box__item post__box__item--create-at">
+              <ui-skeletor width="5.8rem" height="1.35rem" v-if="!loadedData" />
+              <span class="post__box__item post__box__item--regdate" v-else>
                 <i class="xi-time-o" aria-hidden="true"></i>
                 <span class="sr-only">등록일</span>
                 <time :datetime=post.dateTime>{{ post.regDate }}</time>
@@ -73,7 +88,10 @@
       </ul>
 
       <a href="#q"
-         :class="['btn search__to-input', this.searchToInputActive ? 'search__to-input--active' : '']"
+         :class="[
+          'btn search__to-input',
+          this.searchToInputActive ? 'search__to-input--active' : ''
+          ]"
          @click.prevent="searchToInput">
         <i class="xi-search" aria-hidden="true"></i>
         <span class="sr-only">검색 필드 바로가기</span>
@@ -106,6 +124,7 @@ export default {
       posts: null,
       googleSearchUrl: '',
       searchToInputActive: false,
+      loadedData: false,
     }
   },
   async created() {
@@ -159,11 +178,11 @@ export default {
     // 포스트 검색
     listPostSearch(params) {
       this.$http.get('/post/search', { params: params })
-        .then(res => {
+        .then(async res => {
           this.posts = res.data;
           this.googleSearchUrl = encodeURI(`https://www.google.com/search?q=site:${this.$rootUrl} ${this.q}`);
 
-          this.$router.push({
+          await this.$router.push({
             path: '/search', 
             query: {
               q: this.q, 
@@ -171,6 +190,8 @@ export default {
               c: this.c,
             }
           });
+
+          this.dataLoading();
         }).catch(error => {
           snackbar.error('오류가 발생했습니다.');
         });
@@ -187,6 +208,10 @@ export default {
     searchToInput() {
       const st = this.$refs.searchField.offsetTop - 100;
       window.scrollTo(0, st);
+    },
+    // 검색 데이타 로딩
+    dataLoading() {
+      setTimeout(() => { this.loadedData = true }, 700);
     },
   }
 };

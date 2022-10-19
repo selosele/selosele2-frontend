@@ -1,7 +1,13 @@
 <template>
   <span
-    :style="{ height, width: computedWidth }"
-    class='skeletor-box'
+    :style="{ 
+      marginTop,
+      height, 
+      minWidth,
+      maxWidth,
+      width: computedWidth,
+    }"
+    :class="['skeletor-box', cssClass]"
   />
 </template>
 
@@ -9,6 +15,7 @@
 export default {
   name: 'ui-skeletor',
   props: {
+    marginTop: String,
     maxWidth: {
       default: 100,
       type: Number,
@@ -18,11 +25,15 @@ export default {
       type: Number,
     },
     width: {
-      default: null,
+      default: `100%`,
       type: String,
     },
     height: {
-      default: `1em`,
+      default: `100%`,
+      type: String,
+    },
+    cssClass: {
+      default: '',
       type: String,
     },
   },
@@ -58,10 +69,10 @@ export default {
       90deg,
       rgba(#fff, 0) 0,
       rgba(#fff, 0.2) 20%,
-      rgba(#fff, 0.4) 60%,
+      rgba(#fff, 0.5) 60%,
       rgba(#fff, 0)
     );
-    animation: shimmer 3s infinite;
+    animation: shimmer 2s infinite;
   }
 
   @keyframes shimmer {

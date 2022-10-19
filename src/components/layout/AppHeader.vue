@@ -40,7 +40,9 @@
 
           <div class="masthead__author">
             <p class="masthead__author-avatar" v-if="this.$store.state.blogConfig.avatarImgUrl">
-              <img :src=this.$store.state.blogConfig.avatarImgUrl 
+              <ui-skeletor v-if="!loadedData" />
+              <img v-else
+                   :src=this.$store.state.blogConfig.avatarImgUrl 
                    :alt=this.$store.state.blogConfig.author />
             </p>
 
@@ -57,6 +59,14 @@ import dialog from '@/utils/ui/Dialog';
 
 export default {
   name: 'app-header',
+  data() {
+    return {
+      loadedData: false,
+    }
+  },
+  mounted() {
+    this.dataLoading();
+  },
   methods: {
     async logout() {
       const confirm = await dialog.confirm('로그아웃하시겠습니까?', '', 'question');
@@ -75,7 +85,12 @@ export default {
       return this.$store.state.blogConfig.ogImgUrl;
     },
     getBackgroundImage() {
-      return `linear-gradient(to bottom, rgba(0, 0, 0, ${this.getBackgroundContrast()}), rgba(0, 0, 0, ${this.getBackgroundContrast()})), url(${this.getBackgroundImageUrl()})`;
+      return `linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, ${this.getBackgroundContrast()}),
+                rgba(0, 0, 0, ${this.getBackgroundContrast()})),
+                url(${this.getBackgroundImageUrl()}
+              )`;
     },
     getBackgroundPosition(xy) {
       if (xy === 'x') {
@@ -84,6 +99,9 @@ export default {
       if (xy === 'y') {
         return `${this.$store.state.blogConfig.ogImgPosY}%`;
       }
+    },
+    dataLoading() {
+      setTimeout(() => { this.loadedData = true }, 900);
     }
   }
 };
@@ -91,10 +109,4 @@ export default {
 
 <style lang="scss">
 @import '@/assets/scss/components/header.scss';
-
-.masthead__top {
-  &:not(.masthead--image) {
-    background-color: $main-color
-  }
-}
 </style>
