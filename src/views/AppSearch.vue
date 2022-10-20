@@ -150,7 +150,7 @@ export default {
     next();
   },
   mounted() {
-    // 검색 파라미터 값이 있으면 검색 메소드 실행
+    // 검색키워드 파라미터 값이 있으면 검색 메소드 실행
     if (this.$route.query.q) {
       this.listPostSearch({
         t: this.t,

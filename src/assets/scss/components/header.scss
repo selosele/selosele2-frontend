@@ -46,7 +46,7 @@
     box-sizing: border-box;
 
     &:not(.masthead--image) {
-      background-color: $main-color
+      background-color: $grey14
     }
 
     @media (min-width: $min-big-width) {

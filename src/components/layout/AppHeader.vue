@@ -5,7 +5,7 @@
       <span class="sr-only">메뉴</span>
     </button>
 
-    <div :class="['masthead__top', this.$store.state.blogConfig.ogImgUrl ? 'masthead--image' : '']"
+    <div :class="['masthead__top', this.$store.state.blogConfig.ogImgUrl && 'masthead--image']"
          :style="[
           { backgroundImage: this.$store.state.blogConfig.ogImgUrl && getBackgroundImage() },
           { backgroundPositionX: this.$store.state.blogConfig.ogImgUrl && getBackgroundPosition('x') },
@@ -70,9 +70,8 @@ export default {
   methods: {
     async logout() {
       const confirm = await dialog.confirm('로그아웃하시겠습니까?', '', 'question');
-      if (!confirm) {
-        return;
-      }
+      if (!confirm) return;
+
       this.$store.dispatch('LOGOUT')
         .then(res => {
           this.$router.push('/');

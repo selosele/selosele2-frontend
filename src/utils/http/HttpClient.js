@@ -25,6 +25,7 @@ class HttpClient {
   async put() {}
 
   async delete() {}
+  
 }
 
 const http = new HttpClient();

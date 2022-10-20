@@ -19,37 +19,38 @@ class Snackbar {
   success(msg) {
     this.snackbar.fire({
       icon: 'success',
-      title: msg
+      title: msg,
     });
   }
 
   error(msg) {
     this.snackbar.fire({
       icon: 'error',
-      title: msg
+      title: msg,
     });
   }
 
   warning(msg) {
     this.snackbar.fire({
       icon: 'warning',
-      title: msg
+      title: msg,
     });
   }
 
   info(msg) {
     this.snackbar.fire({
       icon: 'info',
-      title: msg
+      title: msg,
     });
   }
 
   question(msg) {
     this.snackbar.fire({
       icon: 'question',
-      title: msg
+      title: msg,
     });
   }
+  
 }
 
 const snackbar = new Snackbar();

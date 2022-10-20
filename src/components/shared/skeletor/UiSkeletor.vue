@@ -51,7 +51,7 @@ export default {
   overflow: hidden;
   position: relative;
   vertical-align: middle;
-  background-color: #dddbdd;
+  background-color: $grey14;
 
   & ~ & {
     margin-top: 1rem;
