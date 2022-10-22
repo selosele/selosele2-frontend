@@ -83,7 +83,7 @@ export default {
           snackbar.error('오류가 발생했습니다.');
         });
     },
-    // 검색 데이타 로딩
+    // 데이타 로딩
     dataLoading() {
       setTimeout(() => { this.loadedData = true }, 500);
     },

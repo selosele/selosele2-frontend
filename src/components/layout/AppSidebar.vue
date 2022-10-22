@@ -14,19 +14,23 @@
 
           <ul v-if="widget.id === 1">
             <li v-for="(category,j) in categoryList" :key="j">
-              <router-link :to="`/categories/${category.id}`">
-                {{ category.nm }} <span>{{ category.count }}</span>
+              <ui-skeletor height="1rem" v-if="!loadedData" />
+              <router-link :to="`/category/${category.id}`" v-else>
+                {{ category.nm }}
+                <span class="sidebar__item-count">{{ category.count }}</span>
               </router-link>
             </li>
           </ul>
 
           <ul v-if="widget.id === 2">
             <li v-for="(tag,j) in tagList" :key="j">
-              <router-link
-                :to="`/tags/${tag.id}`"
+              <ui-skeletor :width="getSkeletorWidth(j) + 'rem'" height="1rem" v-if="!loadedData" />
+              <router-link v-else
+                :to="`/tag/${tag.id}`"
                 :style="{ fontSize: `${getFontSize(tag.count)}%` }"
                 >
-                {{ tag.nm }} <span>{{ tag.count }}</span>
+                {{ tag.nm }}
+                <span class="sidebar__item-count">{{ tag.count }}</span>
               </router-link>
             </li>
           </ul>
@@ -46,26 +50,30 @@ export default {
       widgetList: [],
       categoryList: [],
       tagList: [],
+      loadedData: false,
     }
   },
   async created() {
     // 위젯 목록을 먼저 조회하고
     await this.listWidget();
 
-    // 카테고리, 태그 목록 및 개수를 동시에 조회한다.
+    // 카테고리, 태그 목록 및 개수를 동시에 조회한다음
     await Promise.all([
       this.listCategoryAndCount(),
       this.listTagAndCount(),
     ]);
+
+    // skeleton ui 표출 메서드를 실행한다.
+    await this.dataLoading();
   },
   methods: {
     // 위젯 목록 조회
     listWidget() {
-      let params = {
+      let listWidgetDto = {
         useYn: 'Y',
       };
 
-      return this.$http.get('/widget/list', { params: params } )
+      return this.$http.get('/widget/list', { params: listWidgetDto } )
         .then(res => {
           res.data.map(d => {
             this.widgetList.push(d);
@@ -96,11 +104,26 @@ export default {
           snackbar.error('오류가 발생했습니다.');
         });
     },
+    // skeletor width 구하기
+    getSkeletorWidth(num) {
+      return Math.floor(Math.random() * (num + 1));
+    },
     // font-size 구하기
-    getFontSize(count) {
-      if (count <= 4) return 80;
-      if (count >= 8) return 170;
-      return 25 * count;
+    getFontSize(cnt) {
+      // 최소값
+      if (cnt <= 4) return 80;
+      // 최대값
+      if (cnt >= 8) return 170;
+      // 계산된 값
+      return 25 * cnt;
+    },
+    // 데이타 로딩
+    dataLoading() {
+      return Promise.resolve(
+        setTimeout(() => {
+          this.loadedData = true;
+        }, 500)
+      );
     },
   },
 };

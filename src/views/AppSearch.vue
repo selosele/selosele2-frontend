@@ -214,7 +214,7 @@ export default {
       const st = this.$refs.searchField.offsetTop - 100;
       window.scrollTo(0, st);
     },
-    // 검색 데이타 로딩
+    // 데이타 로딩
     dataLoading() {
       setTimeout(() => { this.loadedData = true }, 700);
     },

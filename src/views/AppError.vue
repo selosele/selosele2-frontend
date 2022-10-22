@@ -52,7 +52,7 @@ export default {
       });
   },
   methods: {
-    // 검색 데이타 로딩
+    // 데이타 로딩
     dataLoading() {
       setTimeout(() => { this.loadedData = true }, 500);
     },
