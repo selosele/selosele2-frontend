@@ -26,7 +26,7 @@
 <script>
 import UiForm from '@/components/shared/form/UiForm.vue';
 import UiFormField from '@/components/shared/form/UiFormField.vue';
-import dialog from '@/utils/ui/Dialog';
+import confirmUtil from '@/utils/ui/Confirm';
 import snackbar from '@/utils/ui/Snackbar';
 
 export default {
@@ -68,7 +68,7 @@ export default {
         return;
       }
 
-      const confirm = await dialog.confirm('사용자를 생성하시겠습니까?', '');
+      const confirm = await confirmUtil.success('사용자를 생성하시겠습니까?');
       if (!confirm) {
         return;
       }

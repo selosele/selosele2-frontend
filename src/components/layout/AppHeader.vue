@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import dialog from '@/utils/ui/Dialog';
+import confirmUtil from '@/utils/ui/Confirm';
 
 export default {
   name: 'app-header',
@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     async logout() {
-      const confirm = await dialog.confirm('로그아웃하시겠습니까?', '', 'question');
+      const confirm = await confirmUtil.question('로그아웃하시겠습니까?');
       if (!confirm) return;
 
       this.$store.dispatch('LOGOUT')

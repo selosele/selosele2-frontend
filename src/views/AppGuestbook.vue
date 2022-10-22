@@ -161,6 +161,7 @@
 <script>
 import UiForm from '@/components/shared/form/UiForm.vue';
 import UiTextarea from '@/components/shared/form/UiTextarea.vue';
+import alertUtil from '@/utils/ui/Alert';
 
 export default {
   name: 'app-guestbook',
@@ -170,7 +171,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      alert('ㅇㅇ');
+      alertUtil.success('test');
     },
   },
 };

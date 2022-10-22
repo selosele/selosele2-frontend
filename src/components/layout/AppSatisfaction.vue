@@ -43,7 +43,7 @@
 import UiForm from '@/components/shared/form/UiForm.vue';
 import UiFormField from '@/components/shared/form/UiFormField.vue';
 import UiRadio from '@/components/shared/form/UiRadio.vue';
-import dialog from '@/utils/ui/Dialog';
+import confirmUtil from '@/utils/ui/Confirm';
 import snackbar from '@/utils/ui/Snackbar';
 
 export default {
@@ -73,11 +73,11 @@ export default {
     async onSubmit(values) {
       console.log('satis values >>>', values);
       
-      const confirm = await dialog.confirm('제출하시겠습니까?', '');
+      const confirm = await confirmUtil.success('제출하시겠습니까?');
       if (!confirm) {
         return;
       }
-      snackbar.success('제출되었습니다.');
+      snackbar.success('참여해주셔서 감사합니다.');
     },
   }
 };
