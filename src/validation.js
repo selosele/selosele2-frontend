@@ -1,6 +1,7 @@
 import { defineRule } from 'vee-validate';
 
 export const initDefineRule = () => {
+  
   defineRule('required', value => {
     if (!value || !value.length) {
       return '필수 입력 항목입니다.';
@@ -16,4 +17,5 @@ export const initDefineRule = () => {
     }
     return true;
   });
+
 };
