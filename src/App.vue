@@ -7,7 +7,10 @@
     <app-menu />
 
     <app-main ref="mainWrapper">
-      <header :class="['page__header', $route.meta.pageType !== 'home' ? '' : 'sr-only']">
+      <header :class="[
+        'page__header',
+        $route.meta.pageType !== 'home' ? '' : 'sr-only'
+        ]">
         <h1 class="page__title">
           {{ $route.meta.pageType !== 'home' ? $route.meta.title : '최근 포스트' }}
         </h1>

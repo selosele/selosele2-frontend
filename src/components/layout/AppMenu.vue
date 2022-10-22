@@ -16,12 +16,12 @@
       <li :class="[
           'gnb__list__item',
           'gnb__list__item--has-child',
-          (isShow && 'gnb__list__item--active')
+          { 'gnb__list__item--active': isShow }
         ]">
         <router-link to="/blogconfig" custom v-slot="{ href, isActive }">
           <a :href="href"
              :active="isActive"
-             :class="[isActive && 'router-link-active']"
+             :class="{ 'router-link-active': isActive }"
              @click.prevent="toggleMenu">시스템관리</a>
         </router-link>
 

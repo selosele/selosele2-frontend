@@ -5,7 +5,9 @@
       <span class="sr-only">메뉴</span>
     </button>
 
-    <div :class="['masthead__top', this.$store.state.blogConfig.ogImgUrl && 'masthead--image']"
+    <div :class="[
+      'masthead__top',
+      { 'masthead--image': this.$store.state.blogConfig.ogImgUrl }]"
          :style="[
           { backgroundImage: this.$store.state.blogConfig.ogImgUrl && getBackgroundImage() },
           { backgroundPositionX: this.$store.state.blogConfig.ogImgUrl && getBackgroundPosition('x') },

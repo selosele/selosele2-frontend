@@ -10,8 +10,8 @@
       <input type="hidden" name="pagePath" value="" />
 
       <div class="satisfaction__field">
-        <ui-radio v-for="item in satisArr"
-                  :key="item.value"
+        <ui-radio v-for="(item,i) in satisArr"
+                  :key="i"
                   :id="`score${item.value}`"
                   name="score"
                   :checked="(item.value === this.satisArr[2].value)"

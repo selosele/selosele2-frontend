@@ -19,7 +19,10 @@
       </div>
 
       <ul class="post__wrapper">
-        <li :class="['post__wrapper__list', (isLogin && 'post__wrapper__list--logined')]"
+        <li :class="[
+          'post__wrapper__list',
+          { 'post__wrapper__list--logined': isLogin }
+          ]"
             :style="{ paddingTop: !isLogin && 0 }">
           <span class="post__check only-input" v-if="isLogin">
             <input type="checkbox" name="check_post" value="13" id="check_post13" class="post__checkbox" />
@@ -59,7 +62,10 @@
           </article>
         </li>
 
-        <li :class="['post__wrapper__list', (isLogin && 'post__wrapper__list--logined')]">
+        <li :class="[
+          'post__wrapper__list',
+          { 'post__wrapper__list--logined': isLogin }
+          ]">
           <span class="post__check only-input" v-if="isLogin">
             <input type="checkbox" name="check_post" value="11" id="check_post11" class="post__checkbox" />
             <label for="check_post11">
@@ -98,7 +104,10 @@
           </article>
         </li>
 
-        <li :class="['post__wrapper__list', (isLogin && 'post__wrapper__list--logined')]">
+        <li :class="[
+          'post__wrapper__list',
+          { 'post__wrapper__list--logined': isLogin }
+          ]">
           <span class="post__check only-input" v-if="isLogin">
             <input type="checkbox" name="check_post" value="10" id="check_post10" class="post__checkbox" />
             <label for="check_post10">
@@ -137,7 +146,10 @@
           </article>
         </li>
 
-        <li :class="['post__wrapper__list', (isLogin && 'post__wrapper__list--logined')]">
+        <li :class="[
+          'post__wrapper__list',
+          { 'post__wrapper__list--logined': isLogin }
+          ]">
           <span class="post__check only-input" v-if="isLogin">
             <input type="checkbox" name="check_post" value="9" id="check_post9" class="post__checkbox" />
             <label for="check_post9">
@@ -176,7 +188,10 @@
           </article>
         </li>
 
-        <li :class="['post__wrapper__list', (isLogin && 'post__wrapper__list--logined')]">
+        <li :class="[
+          'post__wrapper__list',
+          { 'post__wrapper__list--logined': isLogin }
+          ]">
           <span class="post__check only-input" v-if="isLogin">
             <input type="checkbox" name="check_post" value="8" id="check_post8" class="post__checkbox" />
             <label for="check_post8">

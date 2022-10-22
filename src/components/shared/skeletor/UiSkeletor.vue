@@ -1,11 +1,11 @@
 <template>
   <span
     :style="{ 
-      marginTop,
-      height, 
+      width,
       minWidth,
       maxWidth,
-      width: computedWidth,
+      height, 
+      marginTop,
     }"
     :class="['skeletor-box', cssClass]"
   />
@@ -16,31 +16,26 @@ export default {
   name: 'ui-skeletor',
   props: {
     marginTop: String,
-    maxWidth: {
-      default: 100,
-      type: Number,
+    width: {
+      default: '',
+      type: String,
     },
     minWidth: {
       default: 80,
       type: Number,
     },
-    width: {
-      default: `100%`,
-      type: String,
+    maxWidth: {
+      default: 100,
+      type: Number,
     },
     height: {
-      default: `100%`,
+      default: '',
       type: String,
     },
     cssClass: {
       default: '',
       type: String,
     },
-  },
-  computed: {
-    computedWidth () {
-      return this.width || `${Math.floor((0.9 * (this.maxWidth - this.minWidth)) + this.minWidth)}%`
-    }
   },
 }
 </script>
@@ -50,6 +45,8 @@ export default {
   display: inline-block;
   overflow: hidden;
   position: relative;
+  width: 100%;
+  height: 100%;
   vertical-align: middle;
   background-color: $grey14;
 

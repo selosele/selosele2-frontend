@@ -51,9 +51,9 @@
         </template>
       </p>
 
-    <div class="search__results__wrapper" ref="resultsWrapper" v-if="posts && posts.length > 0">
+    <div class="search__results__wrapper" ref="resultsWrapper">
       <ul class="post__wrapper search__results">
-        <li class="post__wrapper__list" v-for="post in posts" :key="post.id">
+        <li class="post__wrapper__list" v-for="(post,i) in posts" :key="i">
           <article>
             <h2 class="post__title">
               <ui-skeletor height="1.5rem" v-if="!loadedData" />
@@ -90,7 +90,7 @@
       <a href="#q"
          :class="[
           'btn search__to-input',
-          this.searchToInputActive ? 'search__to-input--active' : ''
+          { 'search__to-input--active': this.searchToInputActive }
           ]"
          @click.prevent="searchToInput">
         <i class="xi-search" aria-hidden="true"></i>
@@ -131,7 +131,7 @@ export default {
     // 검색옵션 코드 세팅
     this.$http.get('/code/list/A01')
       .then(res => {
-        res.data.forEach((item, idx) => {
+        res.data.map((item, idx) => {
           let obj = {
             value: item.val,
             text: item.nm,
@@ -179,7 +179,12 @@ export default {
     listPostSearch(params) {
       this.$http.get('/post/search', { params: params })
         .then(async res => {
-          this.posts = res.data;
+          this.posts = [];
+
+          res.data.map(d => {
+            this.posts.push(d);
+          });
+
           this.googleSearchUrl = encodeURI(`https://www.google.com/search?q=site:${this.$rootUrl} ${this.q}`);
 
           await this.$router.push({

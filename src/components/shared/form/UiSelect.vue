@@ -12,8 +12,8 @@
     </option>
     
     <template v-if="data && data.length > 0">
-      <option v-for="d in data"
-              :key="d.value"
+      <option v-for="d,i in data"
+              :key="i"
               :value="d.value"
               :selected="d.value === selectedValue">{{ d.text }}</option>
     </template>

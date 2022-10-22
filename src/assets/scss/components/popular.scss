@@ -65,17 +65,23 @@
       gap: 1rem;
 
       @media (min-width: $min-small-width) {
+        height: 9.75rem;
         margin-top: 1.5rem;
         gap: 1.5rem;
       }
 
       @media (min-width: $min-big-width) {
-        display: table;
         width: calc(100% + 1.5rem);
         margin-left: -0.75rem;
         margin-right: -0.75rem;
-        border-spacing: 1.5rem 0;
-        table-layout: fixed;
+      }
+
+      > .skeletor-box {
+        height: 5.8rem;
+
+        @media (min-width: $min-small-width) {
+          height: 100%;
+        }
       }
     }
 
@@ -83,11 +89,12 @@
       width: 100%;
 
       @media (min-width: $min-small-width) {
-        width: calc(50% - 0.75rem);
+        width: calc(33.33% - 1rem);
       }
 
       @media (min-width: $min-big-width) {
-        display: table-cell;
+        display: inline-block;
+        vertical-align: middle;
       }
 
       > a {
