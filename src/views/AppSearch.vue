@@ -33,13 +33,13 @@
     </ui-form>
 
       <p class="search__info">
-        <template v-if="posts && posts.length === 0">
+        <template v-if="postList && postList.length === 0">
           검색 결과를 찾을 수 없습니다.
         </template>
         
-        <template v-if="posts && posts.length > 0">
+        <template v-if="postList && postList.length > 0">
           <strong class="search__info__txt">{{ this.$route.query.q }}</strong>에 대한 검색 결과는
-          <strong class="search__info__txt">{{ posts.length }}개</strong>입니다.
+          <strong class="search__info__txt">{{ postList.length }}개</strong>입니다.
       
           <a :href=googleSearchUrl
               target="_blank"
@@ -53,7 +53,7 @@
 
     <div class="search__results__wrapper" ref="resultsWrapper">
       <ul class="post__wrapper search__results">
-        <li class="post__wrapper__list" v-for="(post,i) in posts" :key="i">
+        <li class="post__wrapper__list" v-for="(post,i) in postList" :key="i">
           <article>
             <h2 class="post__title">
               <ui-skeletor height="1.5rem" v-if="!loadedData" />
@@ -121,7 +121,7 @@ export default {
       q: this.$route.query.q || '',
       c: this.$route.query.c || 'N',
       tData: [],
-      posts: null,
+      postList: null,
       googleSearchUrl: '',
       searchToInputActive: false,
       loadedData: false,
@@ -145,7 +145,7 @@ export default {
   beforeRouteUpdate(to, from, next) {
     // 페이지 전환 시 검색키워드 파라미터가 없으면 검색결과를 초기화
     if (!to.query.q) {
-      this.posts = null;
+      this.postList = null;
     }
     next();
   },
@@ -179,10 +179,10 @@ export default {
     listPostSearch(params) {
       this.$http.get('/post/search', { params: params })
         .then(async res => {
-          this.posts = [];
+          this.postList = [];
 
           res.data.map(d => {
-            this.posts.push(d);
+            this.postList.push(d);
           });
 
           this.googleSearchUrl = encodeURI(`https://www.google.com/search?q=site:${this.$rootUrl} ${this.q}`);

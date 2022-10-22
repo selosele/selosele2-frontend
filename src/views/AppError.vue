@@ -10,8 +10,8 @@
         <ui-skeletor marginTop="0" class="popular-post__list__item" v-if="!loadedData" />
         <ui-skeletor marginTop="0" class="popular-post__list__item" v-if="!loadedData" />
 
-        <template v-if="posts.length > 0 && loadedData">
-          <li class="popular-post__list__item" v-for="(post,i) in posts" :key="i">
+        <template v-if="postList.length > 0 && loadedData">
+          <li class="popular-post__list__item" v-for="(post,i) in postList" :key="i">
             <router-link :to="`/post/${post.id}`">
               <p class="popular-post__list__image">
                 <img :src="post.ogImgUrl" alt="" v-if="post.ogImgUrl">
@@ -35,7 +35,7 @@ export default {
   name: 'app-error',
   data() {
     return {
-      posts: [],
+      postList: [],
       loadedData: false,
     }
   },
@@ -44,7 +44,7 @@ export default {
     this.$http.get('/post/list/3')
       .then(res => {
         res.data.map(d => {
-          this.posts.push(d);
+          this.postList.push(d);
         });
         this.dataLoading();
       }).catch(error => {
