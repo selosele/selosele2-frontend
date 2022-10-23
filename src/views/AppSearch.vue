@@ -7,7 +7,7 @@
                    class="search__option" 
                    v-model="t" 
                    :data="tData"
-                   :selectedValue="this.$route.query.t" />
+                   :selectedValue="this.$route.query['t']" />
 
         <ui-form-field type="search"
                        name="q"
@@ -28,7 +28,7 @@
                      label="대소문자 구분"
                      values="Y,N"
                      v-model="c"
-                     :checked="(this.$route.query.c === 'Y')" />
+                     :checked="(this.$route.query['c'] === 'Y')" />
       </div>
     </ui-form>
 
@@ -38,7 +38,7 @@
         </template>
         
         <template v-if="postList && postList.length > 0">
-          <strong class="search__info__txt">{{ this.$route.query.q }}</strong>에 대한 검색 결과는
+          <strong class="search__info__txt">{{ this.$route.query['q'] }}</strong>에 대한 검색 결과는
           <strong class="search__info__txt">{{ postList.length }}개</strong>입니다.
       
           <a :href=googleSearchUrl
@@ -117,9 +117,9 @@ export default {
   },
   data() {
     return {
-      t: this.$route.query.t || '001',
-      q: this.$route.query.q || '',
-      c: this.$route.query.c || 'N',
+      t: this.$route.query['t'] || '001',
+      q: this.$route.query['q'] || '',
+      c: this.$route.query['c'] || 'N',
       tData: [],
       postList: null,
       googleSearchUrl: '',
@@ -151,7 +151,7 @@ export default {
   },
   mounted() {
     // 검색키워드 파라미터 값이 있으면 검색 메소드 실행
-    if (this.$route.query.q) {
+    if (this.$route.query['q']) {
       this.listPostSearch({
         t: this.t,
         q: this.q,

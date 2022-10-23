@@ -45,7 +45,7 @@ export default {
     onSubmit(values) {
       this.$store.dispatch('LOGIN', values)
         .then(res => {
-          if (res === 'no') {
+          if ('no' === res) {
             snackbar.error('로그인에 실패했습니다.');
             return;
           }
