@@ -45,7 +45,7 @@ export default createStore({
   actions: {
     LOGIN({ commit }, values) {
       return new Promise((resolve, reject) => {
-        axios.post(`${process.env.VUE_APP_API_URL}/auth/signin`, values)
+        axios.post(`${process.env.VUE_APP_API_ENDPOINT}/auth/signin`, values)
           .then(res => {
             const token = res.data.accessToken;
             if (token) {
@@ -62,7 +62,7 @@ export default createStore({
     },
     FETCH_CODE(ctx) {
       // 포스트/콘텐츠 만족도조사
-      axios.get(`${process.env.VUE_APP_API_URL}/code/list/B01`)
+      axios.get(`${process.env.VUE_APP_API_ENDPOINT}/code/list/B01`)
         .then(res => {
           ctx.commit('SET_SATIS_CODE', res.data);
         }).catch(error => {
@@ -70,13 +70,16 @@ export default createStore({
         });
     },
     FETCH_BLOG_CONFIG(ctx) {
-      axios.get(`${process.env.VUE_APP_API_URL}/blogconfig`)
-        .then(res => {
-          ctx.commit('SET_BLOG_CONFIG', res.data);
-          document.title = res.data.title;
-        }).catch(error => {
-          snackbar.error('오류가 발생했습니다.');
-        });
+      return new Promise((resolve, reject) => {
+        axios.get(`${process.env.VUE_APP_API_ENDPOINT}/blogconfig`)
+          .then(res => {
+            ctx.commit('SET_BLOG_CONFIG', res.data);
+            document.title = res.data.title;
+            resolve('ok');
+          }).catch(error => {
+            reject('no');
+          });
+      })
     },
   },
 });

@@ -39,7 +39,7 @@ app.mixin({
 
 app.config.globalProperties.$rootUrl = window.location.origin;
 app.config.globalProperties.$http = axios.create({
-  baseURL: process.env.VUE_APP_API_URL,
+  baseURL: process.env.VUE_APP_API_ENDPOINT,
 });
 
 app
