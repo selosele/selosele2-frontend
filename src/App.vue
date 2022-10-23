@@ -2,7 +2,7 @@
   <app-skip-links />
 
   <div id="body" :class="{ 'scroll-down': !scrollDown }">
-    <app-header />
+    <app-header :resStatus="resStatus" />
 
     <app-menu />
 
@@ -43,6 +43,7 @@ import AppMenu from './components/layout/AppMenu.vue';
 import AppSidebar from './components/layout/AppSidebar.vue';
 import AppSkipLinks from './components/layout/AppSkipLinks.vue';
 import AppSatisfaction from './components/layout/AppSatisfaction.vue';
+import snackbar from '@/utils/ui/Snackbar';
 
 export default {
   name: 'App',
@@ -57,6 +58,7 @@ export default {
   },
   data() {
     return {
+      resStatus: '',
       scrollDown: true,
       lastScrollTop: 0,
     };
@@ -65,7 +67,15 @@ export default {
     // 공통코드
     this.$store.dispatch('FETCH_CODE');
     // 블로그 환경설정
-    this.$store.dispatch('FETCH_BLOG_CONFIG');
+    this.$store.dispatch('FETCH_BLOG_CONFIG')
+      .then(res => {
+        this.resStatus = res;
+        
+        if ('no' === res) {
+          snackbar.error('오류가 발생했습니다.');
+          return;
+        }
+      });
   },
   mounted() {
     this.lastScrollTop = window.pageYOffset;

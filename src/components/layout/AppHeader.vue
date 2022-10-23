@@ -61,13 +61,19 @@ import confirmUtil from '@/utils/ui/Confirm';
 
 export default {
   name: 'app-header',
+  props: {
+    resStatus: String,
+  },
   data() {
     return {
       loadedData: false,
     }
   },
-  mounted() {
-    this.dataLoading();
+  watch: {
+    resStatus() {
+      // 데이타를 받아오는 동안에도 실행되므로, props값의 변경을 감지해줘야 한다.
+      this.dataLoading(this.resStatus);
+    },
   },
   methods: {
     async logout() {
@@ -101,9 +107,14 @@ export default {
         return `${this.$store.state.blogConfig.ogImgPosY}%`;
       }
     },
-    dataLoading() {
-      setTimeout(() => { this.loadedData = true }, 900);
-    }
+    // 데이타 로딩
+    dataLoading(resStatus) {
+      setTimeout(() => {
+        if ('ok' === resStatus) {
+          this.loadedData = true;
+        }
+      }, 500);
+    },
   }
 };
 </script>
