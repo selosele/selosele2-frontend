@@ -41,7 +41,7 @@
           <strong class="search__info__txt">{{ this.$route.query['q'] }}</strong>에 대한 검색 결과는
           <strong class="search__info__txt">{{ postList.length }}개</strong>입니다.
       
-          <a :href=googleSearchUrl
+          <a :href="googleSearchUrl"
               target="_blank"
               title="새창"
               rel="noopener noreferrer nofollow"
@@ -52,50 +52,51 @@
       </p>
 
     <div class="search__results__wrapper" ref="resultsWrapper">
-      <ul class="post__wrapper search__results">
-        <li class="post__wrapper__list" v-for="(post,i) in postList" :key="i">
-          <article>
-            <h2 class="post__title">
-              <ui-skeletor height="1.5rem" v-if="!loadedData" />
-              <router-link :to="{ path: `/post/${post.id}` }" v-else>{{ post.title }}</router-link>
-            </h2>
+      <template v-if="!dataLoaded">
+        <ui-skeletor height="1.3rem" />
+        <ui-skeletor height="1.3rem" />
+        <ui-skeletor height="1.3rem" />
+      </template>
 
-            <p class="post__og-image" v-if="post.og_img_url">
-              <ui-skeletor v-if="!loadedData" />
-              <span class="post__og-image__box" v-else>
-                <img :src=post.og_img_url alt="">
-              </span>
-            </p>
-  
-            <p class="post__cont">
-              <ui-skeletor height="0.75rem" v-if="!loadedData" />
-              <ui-skeletor height="0.75rem" marginTop="0" v-if="!loadedData" />
-              <template v-else>
-                {{ post.rawText }}
-              </template>
-            </p>
+      <template v-else>
+        <ul class="post__wrapper search__results">
+          <li class="post__wrapper__list" v-for="(post,i) in postList" :key="i">
+            <article>
+              <h2 class="post__title">
+                <router-link :to="`/post/${post.id}`">{{ post.title }}</router-link>
+              </h2>
 
-            <div class="post__box__item-wrapper">
-              <ui-skeletor width="5.8rem" height="1.35rem" v-if="!loadedData" />
-              <span class="post__box__item post__box__item--regdate" v-else>
-                <i class="xi-time-o" aria-hidden="true"></i>
-                <span class="sr-only">등록일</span>
-                <time :datetime=post.dateTime>{{ post.regDate }}</time>
-              </span>
-            </div>
-          </article>
-        </li>
-      </ul>
+              <p class="post__og-image" v-if="post.ogImgUrl">
+                <span class="post__og-image__box">
+                  <img :src="post.ogImgUrl" alt="">
+                </span>
+              </p>
+    
+              <p class="post__cont">{{ post.rawText }}</p>
 
-      <a href="#q"
-         :class="[
-          'btn search__to-input',
-          { 'search__to-input--active': this.searchToInputActive }
-          ]"
-         @click.prevent="searchToInput">
-        <i class="xi-search" aria-hidden="true"></i>
-        <span class="sr-only">검색 필드 바로가기</span>
-      </a>
+              <div class="post__box__item-wrapper">
+                <span class="post__box__item post__box__item--regdate">
+                  <i class="xi-time-o" aria-hidden="true"></i>
+                  <span class="sr-only">등록일</span>
+                  <time :datetime="$moment(post.regDate).format('YYYY-MM-DD HH:mm:ss')">
+                    {{ $moment(post.regDate).format('YYYY.MM.DD') }}
+                  </time>
+                </span>
+              </div>
+            </article>
+          </li>
+        </ul>
+
+        <a href="#q"
+          :class="[
+            'btn search__to-input',
+            { 'search__to-input--active': this.searchToInputActive }
+            ]"
+          @click.prevent="searchToInput">
+          <i class="xi-search" aria-hidden="true"></i>
+          <span class="sr-only">검색 필드 바로가기</span>
+        </a>
+      </template>
     </div>
   </div>
 </template>
@@ -124,7 +125,7 @@ export default {
       postList: null,
       googleSearchUrl: '',
       searchToInputActive: false,
-      loadedData: false,
+      dataLoaded: true,
     }
   },
   async created() {
@@ -149,10 +150,11 @@ export default {
     }
     next();
   },
-  mounted() {
+  async mounted() {
     // 검색키워드 파라미터 값이 있으면 검색 메소드 실행
     if (this.$route.query['q']) {
-      this.listPostSearch({
+      await this.dataLoading();
+      await this.listPostSearch({
         t: this.t,
         q: this.q,
         c: this.c,
@@ -164,7 +166,7 @@ export default {
     document.removeEventListener('scroll', this.scroll);
   },
   methods: {
-    onSubmit(values) {
+    async onSubmit(values) {
       if (!this.t.trim()) {
         snackbar.warning('검색옵션을 선택하세요.');
         return;
@@ -173,11 +175,12 @@ export default {
         snackbar.warning('검색어를 입력하세요.');
         return;
       }
-      this.listPostSearch(values);
+      await this.dataLoading();
+      await this.listPostSearch(values);
     },
     // 포스트 검색
     listPostSearch(params) {
-      this.$http.get('/post/search', { params: params })
+      return this.$http.get('/post/search', { params: params })
         .then(async res => {
           this.postList = [];
 
@@ -195,8 +198,6 @@ export default {
               c: this.c,
             }
           });
-
-          this.dataLoading();
         }).catch(error => {
           snackbar.error('오류가 발생했습니다.');
         });
@@ -216,7 +217,13 @@ export default {
     },
     // 데이타 로딩
     dataLoading() {
-      setTimeout(() => { this.loadedData = true }, 700);
+      this.dataLoaded = false;
+      
+      return Promise.resolve(
+        setTimeout(() => {
+          this.dataLoaded = true;
+        }, 500)
+      );
     },
   }
 };

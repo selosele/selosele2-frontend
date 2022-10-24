@@ -6,10 +6,13 @@ import axios from 'axios';
 import { initDefineRule } from './validation';
 import { commonComputed } from '@/store/helper';
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
+import moment from 'moment';
 
 //import '@/assets/scss/style.scss';
 
 initDefineRule();
+
+moment.locale('kr');
 
 const app = createApp({
   extends: App,
@@ -41,6 +44,7 @@ app.config.globalProperties.$rootUrl = window.location.origin;
 app.config.globalProperties.$http = axios.create({
   baseURL: process.env.VUE_APP_API_ENDPOINT,
 });
+app.config.globalProperties.$moment = moment;
 
 app
   .use(store)

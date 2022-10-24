@@ -6,11 +6,11 @@
       <h2 class="popular-post__title">이런 글은 어떠신가요?</h2>
 
       <ul>
-        <ui-skeletor class="popular-post__list__item" v-if="!loadedData" />
-        <ui-skeletor marginTop="0" class="popular-post__list__item" v-if="!loadedData" />
-        <ui-skeletor marginTop="0" class="popular-post__list__item" v-if="!loadedData" />
+        <ui-skeletor class="popular-post__list__item" v-if="!dataLoaded" />
+        <ui-skeletor marginTop="0" class="popular-post__list__item" v-if="!dataLoaded" />
+        <ui-skeletor marginTop="0" class="popular-post__list__item" v-if="!dataLoaded" />
 
-        <template v-if="postList.length > 0 && loadedData">
+        <template v-if="postList.length > 0 && dataLoaded">
           <li class="popular-post__list__item" v-for="(post,i) in postList" :key="i">
             <router-link :to="`/post/${post.id}`">
               <p class="popular-post__list__image">
@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       postList: [],
-      loadedData: false,
+      dataLoaded: false,
     }
   },
   created() {
@@ -54,7 +54,7 @@ export default {
   methods: {
     // 데이타 로딩
     dataLoading() {
-      setTimeout(() => { this.loadedData = true }, 500);
+      setTimeout(() => { this.dataLoaded = true }, 500);
     },
   },
 }

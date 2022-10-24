@@ -24,7 +24,6 @@ const router = createRouter({
   routes,
 });
 
-// 로그인 여부에 따른 페이지 접근 처리
 router.beforeEach((to, from, next) => {
   // 로그인 중인데 로그인 페이지에 접근 시 리다이렉트
   if (store.getters.isLogin && to.path === '/a/goto') {

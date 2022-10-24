@@ -1,10 +1,11 @@
 <template>
   <div class="year__wrapper">
-    <ui-skeletor height="6rem" v-if="!loadedData" />
-    <ui-skeletor height="6rem" v-if="!loadedData" />
+    <ui-skeletor height="1.3rem" v-if="!dataLoaded" />
+    <ui-skeletor height="1.3rem" v-if="!dataLoaded" />
+    <ui-skeletor height="1.3rem" v-if="!dataLoaded" />
 
     <template v-else>
-      <template v-for="(item,i) in listYearAndCount" :key="i">
+      <template v-for="(item,i) in yearList" :key="i">
         <h2 class="year__list-title">
           <button type="button"
                   :class="[
@@ -18,12 +19,12 @@
         </h2>
 
         <ul class="year__list" v-if="i === activeIndex">
-          <ui-skeletor height="1.35rem" v-if="i !== itemLoadedIndex" />
-          <ui-skeletor height="1.35rem" v-if="i !== itemLoadedIndex" />
+          <ui-skeletor height="1.3rem" v-if="i !== itemLoadedIndex" />
+          <ui-skeletor height="1.3rem" v-if="i !== itemLoadedIndex" />
 
-          <template v-if="i === itemLoadedIndex && listPostByYear !== null && listPostByYear.length > 0">
-            <li v-for="(post,j) in listPostByYear" :key="j">
-              <router-link :to="{ path: `/post/${post.id}` }">
+          <template v-if="i === itemLoadedIndex && postList !== null && postList.length > 0">
+            <li v-for="(post,j) in postList" :key="j">
+              <router-link :to="`/post/${post.id}`">
                 <strong class="year__title">{{ post.title }}</strong>
                 <span class="year__date">{{ post.regDate }}</span>
               </router-link>
@@ -44,28 +45,34 @@ export default {
     return {
       activeIndex: -1,
       itemLoadedIndex: -1,
+      dataLoaded: false,
       listLoaded: false,
-      listYearAndCount: [],
-      listPostByYear: [],
-      loadedData: false,
+      yearList: [],
+      postList: [],
     }
   },
   created() {
-    this.$http.get('/post/year/list')
-      .then(res => {
-        res.data.map(d => {
-          this.listYearAndCount.push(d);
-        });
-        this.listLoaded = true;
-        this.dataLoading();
-      }).catch(error => {
-        snackbar.error('오류가 발생했습니다.');
-      });
+    this.init();
   },
   methods: {
+    async init() {
+      await this.dataLoading();
+      await this.listYearAndCount();
+    },
+    listYearAndCount() {
+      return this.$http.get('/post/year/list')
+        .then(res => {
+          res.data.map(d => {
+            this.yearList.push(d);
+          });
+          this.listLoaded = true;
+        }).catch(error => {
+          snackbar.error('오류가 발생했습니다.');
+        });
+    },
     toggleList(year, idx) {
       if (idx === this.activeIndex) {
-        this.listPostByYear = [];
+        this.postList = [];
         this.activeIndex = -1;
         this.itemLoadedIndex = -1;
         return;
@@ -76,7 +83,7 @@ export default {
       this.$http.get(`/post/year/list/${year}`)
         .then(res => {
           res.data.map(d => {
-            this.listPostByYear.push(d);
+            this.postList.push(d);
           });
           this.itemLoadedIndex = idx;
         }).catch(error => {
@@ -85,7 +92,11 @@ export default {
     },
     // 데이타 로딩
     dataLoading() {
-      setTimeout(() => { this.loadedData = true }, 500);
+      return Promise.resolve(
+        setTimeout(() => {
+          this.dataLoaded = true;
+        }, 500)
+      );
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <aside class="sidebar">
-    <template v-if="!loadedData">
+    <template v-if="!dataLoaded">
       <ui-skeletor height="8rem" />
       <ui-skeletor height="8rem" />
     </template>
@@ -55,7 +55,7 @@ export default {
       widgetList: [],
       categoryList: [],
       tagList: [],
-      loadedData: false,
+      dataLoaded: false,
     }
   },
   async created() {
@@ -126,7 +126,7 @@ export default {
     dataLoading() {
       return Promise.resolve(
         setTimeout(() => {
-          this.loadedData = true;
+          this.dataLoaded = true;
         }, 500)
       );
     },

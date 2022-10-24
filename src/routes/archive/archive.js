@@ -12,6 +12,6 @@ export default [
     props: true,
     meta: {
       title: '카테고리',
-    },
+    }
   },
 ];

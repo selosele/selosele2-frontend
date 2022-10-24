@@ -42,7 +42,7 @@
 
           <div class="masthead__author">
             <p class="masthead__author-avatar" v-if="this.$store.state.blogConfig.avatarImgUrl">
-              <ui-skeletor v-if="!loadedData" />
+              <ui-skeletor v-if="!dataLoaded" />
               <img v-else
                    :src=this.$store.state.blogConfig.avatarImgUrl 
                    :alt=this.$store.state.blogConfig.author />
@@ -66,7 +66,7 @@ export default {
   },
   data() {
     return {
-      loadedData: false,
+      dataLoaded: false,
     }
   },
   watch: {
@@ -111,7 +111,7 @@ export default {
     dataLoading(resStatus) {
       setTimeout(() => {
         if ('ok' === resStatus) {
-          this.loadedData = true;
+          this.dataLoaded = true;
         }
       }, 500);
     },
