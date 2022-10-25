@@ -16,7 +16,10 @@
         </li>
       </ul>
 
-      <button type="button" class="category__more">
+      <button type="button"
+              class="category__more"
+              @click="more"
+              v-if="listCnt > pageSize">
         <i class="xi-ellipsis-h" aria-hidden="true"></i>
         <span class="sr-only">더보기</span>
       </button>
@@ -25,14 +28,18 @@
 </template>
 
 <script>
+import snackbar from '@/utils/ui/Snackbar';
+
 export default {
   name: 'app-category',
   data() {
     return {
       page: 1,
       pageSize: 10,
+      listCnt: 0,
       categoryList: [],
       categoryId: '',
+      categoryNm: '',
       dataLoaded: false,
     }
   },
@@ -46,27 +53,41 @@ export default {
   },
   methods: {
     async init() {
+      this.page = 1;
+      this.dataLoaded = false;
+      this.categoryList = [];
       await this.dataLoading();
       await this.listPostByCategory();
     },
     // 카테고리별 포스트 목록 조회
     listPostByCategory() {
       this.categoryId = this.$route.params['categoryId'];
-      this.categoryList = [];
-
+      
       let paginationDto = {
-        page: 1,
-        pageSize: 10,
+        page: this.page,
+        pageSize: this.pageSize,
       };
-
+      
       return this.$http.get(`/post/category/list/${this.categoryId}`, { params: paginationDto })
         .then(res => {
-          res.data.map(d => {
+          if (res.data[0].length === 0) {
+            snackbar.info('마지막 페이지입니다.');
+            return;
+          }
+
+          res.data[0].map(d => {
             this.categoryList.push(d);
+            this.categoryNm = d.postCategory[0].category.nm;
           });
 
-          //this.$route.meta.title = `개발노트 카테고리의 글(9)`;
+          this.listCnt = res.data[1];
+
+          //this.$route.meta.title = `'${this.categoryNm}' 카테고리의 글(${this.listCnt})`;
         });
+    },
+    more() {
+      this.page++;
+      this.listPostByCategory();
     },
     // 데이타 로딩
     dataLoading() {
