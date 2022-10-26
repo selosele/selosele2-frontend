@@ -31,6 +31,14 @@
             </li>
           </template>
         </ul>
+
+        <button type="button"
+              class="more year__more"
+              @click="more(item.year, i)"
+              v-if="i === activeIndex && listCnt > pageSize">
+          <i class="xi-ellipsis-h" aria-hidden="true"></i>
+          <span class="sr-only">더보기</span>
+        </button>
       </template>
     </template>
   </div>
@@ -43,12 +51,15 @@ export default {
   name: 'app-year',
   data() {
     return {
+      page: 1,
+      pageSize: 10,
+      listCnt: 0,
+      yearList: [],
+      postList: [],
       activeIndex: -1,
       itemLoadedIndex: -1,
       dataLoaded: false,
       listLoaded: false,
-      yearList: [],
-      postList: [],
     }
   },
   created() {
@@ -56,6 +67,9 @@ export default {
   },
   methods: {
     async init() {
+      this.page = 1;
+      this.dataLoaded = false;
+
       await this.dataLoading();
       await this.listYearAndCount();
     },
@@ -71,24 +85,46 @@ export default {
         });
     },
     toggleList(year, idx) {
+      this.page = 1;
+      this.listCnt = 0;
+      this.postList = [];
+      
       if (idx === this.activeIndex) {
-        this.postList = [];
         this.activeIndex = -1;
         this.itemLoadedIndex = -1;
         return;
       }
       
       this.activeIndex = idx;
+
+      this.listPostByYear(year, idx);
+    },
+    listPostByYear(year, idx) {
+      let paginationDto = {
+        page: this.page,
+        pageSize: this.pageSize,
+      };
       
-      this.$http.get(`/post/year/list/${year}`)
+      return this.$http.get(`/post/year/list/${year}`, { params: paginationDto })
         .then(res => {
-          res.data.map(d => {
+          if (0 === res.data[0].length) {
+            snackbar.info('마지막 페이지입니다.');
+            return;
+          }
+
+          res.data[0].map(d => {
             this.postList.push(d);
           });
+
+          this.listCnt = res.data[1];
           this.itemLoadedIndex = idx;
         }).catch(error => {
           snackbar.error('오류가 발생했습니다.');
         });
+    },
+    more(year, idx) {
+      this.page++;
+      this.listPostByYear(year, idx);
     },
     // 데이타 로딩
     dataLoading() {

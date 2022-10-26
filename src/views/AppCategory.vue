@@ -7,8 +7,8 @@
     </template>
 
     <template v-else>
-      <ul v-for="(post,i) in categoryList" :key="i">
-        <li class="category__item">
+      <ul>
+        <li class="category__item" v-for="(post,i) in postList" :key="i">
           <router-link :to="`/post/${post.id}`">
             <strong class="category__title">{{ post.title }}</strong>
             <span class="category__date">{{ $moment(post.regDate).format('YYYY.MM.DD') }}</span>
@@ -17,7 +17,7 @@
       </ul>
 
       <button type="button"
-              class="category__more"
+              class="more category__more"
               @click="more"
               v-if="listCnt > pageSize">
         <i class="xi-ellipsis-h" aria-hidden="true"></i>
@@ -37,7 +37,7 @@ export default {
       page: 1,
       pageSize: 10,
       listCnt: 0,
-      categoryList: [],
+      postList: [],
       categoryId: '',
       categoryNm: '',
       dataLoaded: false,
@@ -55,7 +55,8 @@ export default {
     async init() {
       this.page = 1;
       this.dataLoaded = false;
-      this.categoryList = [];
+      this.postList = [];
+
       await this.dataLoading();
       await this.listPostByCategory();
     },
@@ -76,7 +77,7 @@ export default {
           }
 
           res.data[0].map(d => {
-            this.categoryList.push(d);
+            this.postList.push(d);
             this.categoryNm = d.postCategory[0].category.nm;
           });
 

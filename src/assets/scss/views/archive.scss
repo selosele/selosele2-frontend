@@ -74,19 +74,4 @@
       margin-top: 0;
     }
   }
-
-  &__more {
-    display: flex;
-    width: 100%;
-    height: 2rem;
-    background-color: transparent;
-    font-size: 1.8rem;
-    align-items: center;
-    justify-content: center;
-
-    &--disabled {
-      opacity: 0.4;
-      pointer-events: none;
-    }
-  }
 }

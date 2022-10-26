@@ -58,17 +58,17 @@
 
   &__list {
     // display: none;
-    overflow: auto;
+    // overflow: auto;
     margin: 0;
     padding: 1rem;
-    min-height: 6.4rem;
-    max-height: 16.5rem;
+    // min-height: 6.4rem;
+    // max-height: 16.5rem;
     background-color: $grey02;
     list-style: none;
     box-sizing: border-box;
 
     @media (min-width: $min-minimal-width) {
-      padding: 1.3rem 1.35rem;
+      padding: 1rem 1.35rem;
     }
 
     > li {

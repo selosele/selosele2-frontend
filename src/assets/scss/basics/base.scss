@@ -570,6 +570,23 @@ blockquote {
   }
 }
 
+.more {
+  display: flex;
+  width: 4rem;
+  height: 2.5rem;
+  margin: 0 auto;
+  padding-top: 0.5rem;
+  background-color: transparent;
+  font-size: 1.8rem;
+  align-items: center;
+  justify-content: center;
+
+  &--disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+}
+
 // Vue Transition
 .fade-enter-active,
 .fade-leave-active {
