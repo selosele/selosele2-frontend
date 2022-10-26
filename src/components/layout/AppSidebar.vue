@@ -116,9 +116,9 @@ export default {
     // font-size 구하기
     getFontSize(cnt) {
       // 최소값
-      if (cnt <= 4) return 80;
+      if (4 >= cnt) return 80;
       // 최대값
-      if (cnt >= 8) return 170;
+      if (8 <= cnt) return 170;
       // 계산된 값
       return 25 * cnt;
     },

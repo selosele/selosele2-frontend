@@ -86,7 +86,7 @@ export default {
   },
   methods: {
     scroll() {
-      if (window.outerWidth < 1420 || window.pageYOffset < 0) {
+      if (1420 > window.outerWidth || 0 > window.pageYOffset) {
         return;
       }
       if (Math.abs(window.pageYOffset - this.lastScrollTop) < this.$refs.mainWrapper.getOffsetTop()) {

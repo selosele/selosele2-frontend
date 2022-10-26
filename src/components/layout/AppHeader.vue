@@ -100,10 +100,10 @@ export default {
               )`;
     },
     getBackgroundPosition(xy) {
-      if (xy === 'x') {
+      if ('x' === xy) {
         return `${this.$store.state.blogConfig.ogImgPosX}%`;
       }
-      if (xy === 'y') {
+      if ('y' === xy) {
         return `${this.$store.state.blogConfig.ogImgPosY}%`;
       }
     },

@@ -21,13 +21,13 @@ export default {
     },
     // Form Values -> JSON으로 가공
     getFormValues() {
-      if (this.name === undefined || this.name === null) {
+      if (undefined === this.name || null === this.name) {
         throw new Error('Form name 속성값이 누락되었습니다.');
       }
 
       const form = document.getElementsByName(this.name);
 
-      if (form.length > 1) {
+      if (1 < form.length) {
         throw new Error('Form name 속성값이 중복되었습니다.');
       }
       

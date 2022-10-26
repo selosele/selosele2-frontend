@@ -70,7 +70,7 @@ export default {
       
       return this.$http.get(`/post/category/list/${this.categoryId}`, { params: paginationDto })
         .then(res => {
-          if (res.data[0].length === 0) {
+          if (0 === res.data[0].length) {
             snackbar.info('마지막 페이지입니다.');
             return;
           }
@@ -83,6 +83,8 @@ export default {
           this.listCnt = res.data[1];
 
           //this.$route.meta.title = `'${this.categoryNm}' 카테고리의 글(${this.listCnt})`;
+        }).catch(error => {
+          snackbar.error('오류가 발생했습니다.');
         });
     },
     more() {

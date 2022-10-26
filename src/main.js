@@ -25,7 +25,7 @@ const app = createApp({
     axios.interceptors.response.use(
       response => response,
       error => {
-        if (error.response.status === 401) {
+        if (401 === error.response.status) {
           this.$store.dispatch('LOGOUT');
         }
         return Promise.reject(error);
