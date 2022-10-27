@@ -32,14 +32,17 @@ import snackbar from '@/utils/ui/Snackbar';
 
 export default {
   name: 'app-category',
+  props: {
+    type: String,
+    nm: String,
+    id: String,
+  },
   data() {
     return {
       page: 1,
       pageSize: 10,
       listCnt: 0,
       postList: [],
-      categoryId: '',
-      categoryNm: '',
       dataLoaded: false,
     }
   },
@@ -62,14 +65,12 @@ export default {
     },
     // 카테고리별 포스트 목록 조회
     listPostByCategory() {
-      this.categoryId = this.$route.params['categoryId'];
-      
       let paginationDto = {
         page: this.page,
         pageSize: this.pageSize,
       };
       
-      return this.$http.get(`/post/category/list/${this.categoryId}`, { params: paginationDto })
+      return this.$http.get(`/post/${this.type}/list/${this.id}`, { params: paginationDto })
         .then(res => {
           if (0 === res.data[0].length) {
             snackbar.info('마지막 페이지입니다.');
@@ -78,12 +79,9 @@ export default {
 
           res.data[0].map(d => {
             this.postList.push(d);
-            this.categoryNm = d.postCategory[0].category.nm;
           });
 
           this.listCnt = res.data[1];
-
-          //this.$route.meta.title = `'${this.categoryNm}' 카테고리의 글(${this.listCnt})`;
         }).catch(error => {
           snackbar.error('오류가 발생했습니다.');
         });

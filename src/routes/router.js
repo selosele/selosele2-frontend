@@ -8,7 +8,6 @@ import guestbook from './guestbook/guestbook';
 import blogConfig from './blog-config/blog-config';
 import store from '@/store/store';
 import snackbar from '@/utils/ui/Snackbar';
-import axios from 'axios';
 
 const routes = [
   ...index,               // 메인
@@ -25,14 +24,7 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(async (to, from, next) => {
-  // Application title 값 갱신
-  const res = await axios.get(`${process.env.VUE_APP_API_ENDPOINT}/blogconfig`);
-  if (to.meta.title) {
-    document.title = `${to.meta.title} - ${res.data.title}`;
-  } else {
-    document.title = res.data.title;
-  }
+router.beforeEach((to, from, next) => {
 
   // 로그인 중인데 로그인 페이지에 접근 시 리다이렉트
   if (store.getters.isLogin && '/a/goto' === to.path) {
@@ -45,12 +37,29 @@ router.beforeEach(async (to, from, next) => {
     if (store.getters.isLogin) {
       // 로그인 되어 있으면 가던 길 가고
       next();
-      return;
     }
     // 안되어 있으면 에러 페이지로 리다이렉트
     next('/error');
   } else {
     next();
+  }
+});
+
+router.afterEach((to, from) => {
+
+  // 카테고리, 태그별 포스트 페이지 title 값 갱신
+  if (to.path.startsWith('/category/')) {
+    to.meta.title = `'${to.params.nm}' 카테고리의 글`;
+  }
+  if (to.path.startsWith('/tag/')) {
+    to.meta.title = `'${to.params.nm}' 태그의 글`;
+  }
+
+  // Application title 값 갱신
+  if (to.meta.title) {
+    document.title = `${to.meta.title} - ${store.getters.blogConfig.title}`;
+  } else {
+    document.title = store.getters.blogConfig.title;
   }
 });
 

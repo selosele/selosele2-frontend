@@ -20,7 +20,7 @@
   
             <ul v-if="widget.id === 1">
               <li v-for="(category,j) in categoryList" :key="j">
-                <router-link :to="`/category/${category.id}`">
+                <router-link :to="`/category/${category.nm}/${category.id}`">
                   {{ category.nm }}
                   <span class="sidebar__item-count">{{ category.count }}</span>
                 </router-link>
@@ -30,7 +30,7 @@
             <ul v-if="widget.id === 2">
               <li v-for="(tag,j) in tagList" :key="j">
                 <router-link
-                  :to="`/tag/${tag.id}`"
+                  :to="`/tag/${tag.nm}/${tag.id}`"
                   :style="{ fontSize: `${getFontSize(tag.count)}%` }"
                   >
                   {{ tag.nm }}
