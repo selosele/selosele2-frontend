@@ -18,10 +18,14 @@ export default createStore({
     },
     // 개발/운영모드 구분
     isDevelopment() {
-      return process.env.NODE_ENV === 'development';
+      return 'development' === process.env.NODE_ENV;
     },
     isProduction() {
-      return process.env.NODE_ENV === 'production';
+      return 'production' === process.env.NODE_ENV;
+    },
+    // 블로그 환경설정
+    blogConfig(state) {
+      return state.blogConfig;
     },
   },
   mutations: {
