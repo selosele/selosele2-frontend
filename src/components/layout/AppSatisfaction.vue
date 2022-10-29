@@ -22,12 +22,12 @@
       <div class="satisfaction__field">
         <div class="satisfaction__field__inner">
           <ui-form-field type="text"
-                         name="satisfactionComment"
-                         id="satisfactionComment"
+                         name="comment"
+                         id="comment"
                          className="satisfaction__radio"
                          title="의견"
                          placeholder="의견을 입력하세요."
-                         v-model="satisfactionComment" />
+                         v-model="comment" />
           
           <button type="submit" class="btn satisfaction__btn">
             <i class="xi-check-min" aria-hidden="true"></i>
@@ -45,6 +45,7 @@ import UiFormField from '@/components/shared/form/UiFormField.vue';
 import UiRadio from '@/components/shared/form/UiRadio.vue';
 import confirmUtil from '@/utils/ui/Confirm';
 import snackbar from '@/utils/ui/Snackbar';
+import { isIn } from '@/utils/util';
 
 export default {
   name: 'app-satisfaction',
@@ -56,7 +57,7 @@ export default {
   data() {
     return {
       satisArr: [],
-      satisfactionComment: '',
+      comment: '',
     }
   },
   created() {
@@ -71,13 +72,21 @@ export default {
   },
   methods: {
     async onSubmit(values) {
-      console.log('satis values >>>', values);
+      values.pagePath = decodeURIComponent(this.$route.path);
       
       const confirm = await confirmUtil.success('제출하시겠습니까?');
-      if (!confirm) {
-        return;
-      }
-      snackbar.success('참여해주셔서 감사합니다.');
+      if (!confirm) return;
+
+      this.$http.post('/satisfaction', values)
+        .then(res => {
+          snackbar.success('참여해주셔서 감사합니다.');
+        }).catch(error => {
+          if (isIn(error.response.status, 403, 400)) {
+            snackbar.error(error.response.data.message);
+            return;
+          }
+          snackbar.error('오류가 발생했습니다.');
+        });
     },
   }
 };

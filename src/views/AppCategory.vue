@@ -17,7 +17,7 @@
       </ul>
 
       <button type="button"
-              class="more category__more"
+              class="more"
               @click="more"
               v-if="listCnt > pageSize">
         <i class="xi-ellipsis-h" aria-hidden="true"></i>

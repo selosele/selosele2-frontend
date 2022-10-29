@@ -29,6 +29,7 @@
           <ul class="gnb__list--depth2" v-show="isShow">
             <li class="gnb__list--depth2__list">
               <router-link to="/blogconfig">블로그 환경설정</router-link>
+              <router-link to="/code">공통코드 관리</router-link>
               <router-link to="/menu">메뉴 관리</router-link>
               <router-link to="/post-reply">포스트 댓글 관리</router-link>
               <router-link to="/content">콘텐츠 페이지 관리</router-link>

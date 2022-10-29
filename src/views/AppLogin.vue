@@ -49,6 +49,7 @@ export default {
             snackbar.error('로그인에 실패했습니다.');
             return;
           }
+          this.$http.defaults.headers.common['Authorization'] = `Bearer ${res}`;
           this.$router.push('/');
         });
     },

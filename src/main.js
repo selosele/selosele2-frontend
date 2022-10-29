@@ -17,7 +17,7 @@ moment.locale('kr');
 const app = createApp({
   extends: App,
   async created() {
-    // JWT Token 변조 감지 시 강제 로그아웃
+    // JWT 변조 감지 시 강제 로그아웃
     const token = localStorage.getItem('token');
     if (token) {
       this.$store.commit('SET_TOKEN', token);
@@ -43,6 +43,9 @@ app.mixin({
 app.config.globalProperties.$rootUrl = window.location.origin;
 app.config.globalProperties.$http = axios.create({
   baseURL: process.env.VUE_APP_API_ENDPOINT,
+  headers: {
+    'Cache-Control': 'no-cache',
+  }
 });
 app.config.globalProperties.$moment = moment;
 

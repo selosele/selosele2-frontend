@@ -64,6 +64,12 @@ export default {
     };
   },
   created() {
+    // JWT 세팅
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.$http.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
+
     // 공통코드
     this.$store.dispatch('FETCH_CODE');
     // 블로그 환경설정

@@ -32,12 +32,10 @@ export default createStore({
     SET_TOKEN(state, _token) {
       state.token = _token;
       localStorage.setItem('token', _token);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${_token}`;
     },
     CLEAR_TOKEN(state) {
       state.token = null;
       localStorage.removeItem('token');
-      axios.defaults.headers.common['Authorization'] = null;
     },
     SET_SATIS_CODE(state, satisCode) {
       state.satisCode = satisCode;
@@ -54,7 +52,7 @@ export default createStore({
             const token = res.data.accessToken;
             if (token) {
               commit('SET_TOKEN', token);
-              resolve('ok');
+              resolve(token);
             }
           }).catch(error => {
             resolve('no');

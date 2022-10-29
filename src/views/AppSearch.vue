@@ -188,7 +188,7 @@ export default {
             this.postList.push(d);
           });
 
-          this.googleSearchUrl = encodeURI(`https://www.google.com/search?q=site:${this.$rootUrl} ${this.q}`);
+          this.googleSearchUrl = encodeURI(`https://www.google.com/search?q=${this.q}`);
 
           await this.$router.push({
             path: '/search', 

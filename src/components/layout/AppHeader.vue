@@ -82,6 +82,10 @@ export default {
 
       this.$store.dispatch('LOGOUT')
         .then(res => {
+          this.$http.defaults.headers.common['Authorization'] = null;
+          this.$http.defaults.headers = {
+            'Cache-Control': 'no-cache',
+          };
           this.$router.push('/');
         });
     },
