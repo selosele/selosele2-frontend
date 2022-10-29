@@ -6,7 +6,8 @@
 - 어플리케이션 명 : selosele2
 - Backend : Nest.js
 - Frontend : Vue
-- DBMS : MariaDB (& TypeORM)
+- DBMS : MariaDB
+- ORM : TypeORM
 - Port: 8080
 - 프론트엔드 구동 : ```npm run serve``` &rarr; ```npm run sass:watch```
 - 프론트엔드 빌드 : ```npm run build```
