@@ -45,6 +45,9 @@ import AppSkipLinks from './components/layout/AppSkipLinks.vue';
 import AppSatisfaction from './components/layout/AppSatisfaction.vue';
 import snackbar from '@/utils/ui/Snackbar';
 
+import 'ag-grid-community/styles//ag-grid.css';
+import 'ag-grid-community/styles//ag-theme-alpine.css';
+
 export default {
   name: 'App',
   components: {

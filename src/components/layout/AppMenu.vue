@@ -18,23 +18,23 @@
           'gnb__list__item--has-child',
           { 'gnb__list__item--active': isShow }
         ]">
-        <router-link to="/blogconfig" custom v-slot="{ href, isActive }">
+        <router-link to="/admin/blogconfig" custom v-slot="{ href, isActive }">
           <a :href="href"
              :active="isActive"
              :class="{ 'router-link-active': isActive }"
-             @click.prevent="toggleMenu">시스템관리</a>
+             @click.prevent="toggleMenu">블로그 관리</a>
         </router-link>
 
         <transition name="fade">
           <ul class="gnb__list--depth2" v-show="isShow">
             <li class="gnb__list--depth2__list">
-              <router-link to="/blogconfig">블로그 환경설정</router-link>
-              <router-link to="/code">공통코드 관리</router-link>
-              <router-link to="/menu">메뉴 관리</router-link>
-              <router-link to="/post-reply">포스트 댓글 관리</router-link>
-              <router-link to="/content">콘텐츠 페이지 관리</router-link>
-              <router-link to="/satisfaction">페이지 만족도조사 정보</router-link>
-              <router-link to="/upload">이미지 업로드</router-link>
+              <router-link to="/admin/blogconfig">블로그 환경설정</router-link>
+              <router-link to="/admin/code">공통코드 관리</router-link>
+              <router-link to="/admin/menu">메뉴 관리</router-link>
+              <router-link to="/admin/post-reply">포스트 댓글 관리</router-link>
+              <router-link to="/admin/content">콘텐츠 페이지 관리</router-link>
+              <router-link to="/admin/satisfaction">페이지 만족도조사 정보</router-link>
+              <router-link to="/admin/upload">이미지 업로드</router-link>
             </li>
           </ul>
         </transition>

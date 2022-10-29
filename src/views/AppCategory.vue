@@ -11,7 +11,7 @@
         <li class="category__item" v-for="(post,i) in postList" :key="i">
           <router-link :to="`/post/${post.id}`">
             <strong class="category__title">{{ post.title }}</strong>
-            <span class="category__date">{{ $moment(post.regDate).format('YYYY.MM.DD') }}</span>
+            <span class="category__date">{{ post.regDate }}</span>
           </router-link>
         </li>
       </ul>
@@ -75,6 +75,7 @@ export default {
       return this.$http.get(`/post/${this.type}/list/${this.id}`, { params: paginationDto })
         .then(res => {
           res.data[0].map(d => {
+            d.regDate = this.$moment(d.regDate).format('YYYY.MM.DD');
             this.postList.push(d);
           });
 

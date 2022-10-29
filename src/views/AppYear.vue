@@ -26,7 +26,7 @@
             <li v-for="(post,j) in postList" :key="j">
               <router-link :to="`/post/${post.id}`">
                 <strong class="year__title">{{ post.title }}</strong>
-                <span class="year__date">{{ $moment(post.regDate).format('YYYY.MM.DD') }}</span>
+                <span class="year__date">{{ post.regDate }}</span>
               </router-link>
             </li>
           </template>
@@ -116,6 +116,7 @@ export default {
           }
 
           res.data[0].map(d => {
+            d.regDate = this.$moment(d.regDate).format('YYYY.MM.DD');
             this.postList.push(d);
           });
 

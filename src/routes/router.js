@@ -5,7 +5,7 @@ import auth from './auth/auth';
 import search from './search/search';
 import archive from './archive/archive';
 import guestbook from './guestbook/guestbook';
-import blogConfig from './blog-config/blog-config';
+import admin from './admin/admin';
 import store from '@/store/store';
 import snackbar from '@/utils/ui/Snackbar';
 
@@ -16,7 +16,7 @@ const routes = [
   ...search,              // 검색
   ...archive,             // 아카이브
   ...guestbook,           // 방명록
-  ...blogConfig,          // 블로그 환경설정
+  ...admin,               // 블로그 관리
 ];
 
 const router = createRouter({
