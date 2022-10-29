@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@vee-validate/rules": "^4.6.9",
+    "ag-grid-community": "^28.2.0",
+    "ag-grid-vue3": "^28.2.0",
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
     "moment": "^2.29.4",
