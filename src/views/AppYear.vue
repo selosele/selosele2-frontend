@@ -35,7 +35,7 @@
         <button type="button"
               class="more"
               @click="more(item.year, i)"
-              v-if="i === activeIndex && listCnt > pageSize">
+              v-if="i === activeIndex && listCnt > pageSize && !isLastPage">
           <i class="xi-ellipsis-h" aria-hidden="true"></i>
           <span class="sr-only">더보기</span>
         </button>
@@ -60,6 +60,7 @@ export default {
       itemLoadedIndex: -1,
       dataLoaded: false,
       listLoaded: false,
+      isLastPage: false,
     }
   },
   created() {
@@ -69,6 +70,7 @@ export default {
     async init() {
       this.page = 1;
       this.dataLoaded = false;
+      this.isLastPage = false;
 
       await this.dataLoading();
       await this.listYearAndCount();
@@ -88,6 +90,7 @@ export default {
       this.page = 1;
       this.listCnt = 0;
       this.postList = [];
+      this.isLastPage = false;
       
       if (idx === this.activeIndex) {
         this.activeIndex = -1;
@@ -118,6 +121,10 @@ export default {
 
           this.listCnt = res.data[1];
           this.itemLoadedIndex = idx;
+
+          if (this.listCnt === this.postList.length) {
+            this.isLastPage = true;
+          }
         }).catch(error => {
           snackbar.error('오류가 발생했습니다.');
         });

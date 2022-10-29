@@ -19,7 +19,7 @@
       <button type="button"
               class="more"
               @click="more"
-              v-if="listCnt > pageSize">
+              v-if="listCnt > pageSize && !isLastPage">
         <i class="xi-ellipsis-h" aria-hidden="true"></i>
         <span class="sr-only">더보기</span>
       </button>
@@ -43,6 +43,7 @@ export default {
       pageSize: 10,
       listCnt: 0,
       postList: [],
+      isLastPage: false,
       dataLoaded: false,
     }
   },
@@ -57,6 +58,7 @@ export default {
   methods: {
     async init() {
       this.page = 1;
+      this.isLastPage = false;
       this.dataLoaded = false;
       this.postList = [];
 
@@ -72,16 +74,15 @@ export default {
       
       return this.$http.get(`/post/${this.type}/list/${this.id}`, { params: paginationDto })
         .then(res => {
-          if (0 === res.data[0].length) {
-            snackbar.info('마지막 페이지입니다.');
-            return;
-          }
-
           res.data[0].map(d => {
             this.postList.push(d);
           });
 
           this.listCnt = res.data[1];
+
+          if (this.listCnt === this.postList.length) {
+            this.isLastPage = true;
+          }
         }).catch(error => {
           snackbar.error('오류가 발생했습니다.');
         });
