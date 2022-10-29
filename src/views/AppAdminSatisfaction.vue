@@ -6,7 +6,6 @@
   </template>
 
   <ui-grid v-else
-    :defaultColDef="defaultColDef"
     :columnDefs="columnDefs"
     :rowData="rowData"
     :pagination="true"
@@ -19,41 +18,33 @@ import UiGrid from '@/components/shared/grid/UiGrid.vue';
 import snackbar from '@/utils/ui/Snackbar';
 
 export default {
-  name: 'app-code',
+  name: 'app-admin-satisfaction',
   components: {
     UiGrid,
   },
   data() {
     return {
-      defaultColDef: {
-        editable: true,
-      },
       columnDefs: [
-        { headerName: '코드 ID', field: 'id', width: 150,
-          headerCheckboxSelection: true,
-          checkboxSelection: true,
-        },
-        { headerName: '코드 접두어', field: 'prefix', width: 130, },
-        { headerName: '코드 값', field: 'val', width: 130, },
-        { headerName: '코드 명', field: 'nm', },
-        { headerName: '코드 설명', field: 'desc', },
-        { headerName: '코드 등록일시', field: 'regDate', },
-        { headerName: '코드 사용여부', field: 'useYn', width: 150, },
+        { headerName: '페이지 URL', field: 'pagePath', width: 130, },
+        { headerName: '만족도 점수', field: 'score', width: 80, },
+        { headerName: '만족도 의견', field: 'comment', },
+        { headerName: '참여일시', field: 'regDate', width: 100, },
       ],
       rowData: [],
       dataLoaded: false,
     }
   },
   created() {
-    this.listCode();
+    this.listSatisfaction();
   },
   methods: {
-    // 공통코드 목록 조회
-    listCode() {
-      this.$http.get('/code/list')
+    // 만족도조사 목록 조회
+    listSatisfaction() {
+      this.$http.get('/satisfaction/list')
         .then(res => {
           res.data.map(d => {
             d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
+            d.score = this.getScore(d.score);
 
             this.rowData.push(d);
             this.dataLoading();
@@ -61,6 +52,21 @@ export default {
         }).catch(error => {
           snackbar.error('오류가 발생했습니다.');
         });
+    },
+    // 만족도조사 점수 가공
+    getScore(score) {
+      switch (score) {
+        case '005':
+          return '매우 만족';
+        case '004':
+          return '만족';
+        case '003':
+          return '보통';
+        case '002':
+          return '불만족';
+        case '001':
+          return '매우 불만족';
+      }
     },
     // 데이타 로딩
     dataLoading() {

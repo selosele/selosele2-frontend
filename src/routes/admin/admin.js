@@ -19,4 +19,14 @@ export default [
       showSatis: false,
     },
   },
+  {
+    path: '/admin/satisfaction',
+    component: () => import('@/views/AppAdminSatisfaction.vue'),
+    meta: {
+      title: '만족도조사 관리',
+      requiresAuth: true,
+      showSidebar: false,
+      showSatis: false,
+    },
+  },
 ];

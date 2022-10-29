@@ -29,7 +29,7 @@
             <span class="sr-only">로그아웃</span>
           </button>
   
-          <router-link to="/blogconfig" class="btn masthead__util">
+          <router-link to="/admin/blogconfig" class="btn masthead__util">
             <i class="xi-cog" aria-hidden="true"></i>
             <span class="sr-only">환경설정</span>
           </router-link>

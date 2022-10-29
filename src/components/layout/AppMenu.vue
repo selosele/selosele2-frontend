@@ -33,7 +33,7 @@
               <router-link to="/admin/menu">메뉴 관리</router-link>
               <router-link to="/admin/post-reply">포스트 댓글 관리</router-link>
               <router-link to="/admin/content">콘텐츠 페이지 관리</router-link>
-              <router-link to="/admin/satisfaction">페이지 만족도조사 정보</router-link>
+              <router-link to="/admin/satisfaction">만족도조사 관리</router-link>
               <router-link to="/admin/upload">이미지 업로드</router-link>
             </li>
           </ul>

@@ -37,6 +37,7 @@ router.beforeEach((to, from, next) => {
     if (store.getters.isLogin) {
       // 로그인 되어 있으면 가던 길 가고
       next();
+      return;
     }
     // 안되어 있으면 에러 페이지로 리다이렉트
     next('/error');

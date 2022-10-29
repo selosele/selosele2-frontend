@@ -48,7 +48,7 @@ import snackbar from '@/utils/ui/Snackbar';
 import { isIn } from '@/utils/util';
 
 export default {
-  name: 'app-satisfaction',
+  name: 'app-user-satisfaction',
   components: {
     UiForm,
     UiFormField,

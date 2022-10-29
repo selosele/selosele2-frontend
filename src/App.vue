@@ -27,8 +27,8 @@
         </div>
       </div>
 
-      <app-satisfaction v-if="($route.meta.showSatis !== false
-                               && this.$store.state.blogConfig.showSatisYn === 'Y')" />
+      <app-user-satisfaction v-if="($route.meta.showSatis !== false
+                             && this.$store.state.blogConfig.showSatisYn === 'Y')" />
     </app-main>
 
     <app-footer />
@@ -42,7 +42,7 @@ import AppMain from './components/layout/AppMain.vue';
 import AppMenu from './components/layout/AppMenu.vue';
 import AppSidebar from './components/layout/AppSidebar.vue';
 import AppSkipLinks from './components/layout/AppSkipLinks.vue';
-import AppSatisfaction from './components/layout/AppSatisfaction.vue';
+import AppUserSatisfaction from './components/layout/AppUserSatisfaction.vue';
 import snackbar from '@/utils/ui/Snackbar';
 
 import 'ag-grid-community/styles//ag-grid.css';
@@ -57,7 +57,7 @@ export default {
     AppMenu,
     AppSidebar,
     AppSkipLinks,
-    AppSatisfaction,
+    AppUserSatisfaction,
   },
   data() {
     return {
