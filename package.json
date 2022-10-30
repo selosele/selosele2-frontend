@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@vee-validate/rules": "^4.6.9",
+    "@vuepic/vue-datepicker": "^3.5.2",
     "ag-grid-community": "^28.2.0",
     "ag-grid-vue3": "^28.2.0",
     "axios": "^0.27.2",
