@@ -17,16 +17,25 @@ moment.locale('kr');
 const app = createApp({
   extends: App,
   async created() {
-    // JWT 변조 감지 시 강제 로그아웃
+    // JWT 만료/변조 감지 시 강제 로그아웃
     const token = localStorage.getItem('token');
     if (token) {
       this.$store.commit('SET_TOKEN', token);
     }
-    axios.interceptors.response.use(
+    this.$http.interceptors.response.use(
       response => response,
       error => {
         if (401 === error.response.status) {
-          this.$store.dispatch('LOGOUT');
+          this.$store.dispatch('LOGOUT')
+            .then(res => {
+              if (!this.$http.defaults.headers.common) return;
+              
+              this.$http.defaults.headers.common['Authorization'] = null;
+              this.$http.defaults.headers = {
+                'Cache-Control': 'no-cache',
+              };
+              this.$router.push('/');
+            });
         }
         return Promise.reject(error);
       }
