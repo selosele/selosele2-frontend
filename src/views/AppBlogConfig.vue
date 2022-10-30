@@ -51,8 +51,11 @@
                   <input type="hidden" name="h_avatar_image_size" id="h_avatar_image_size">
 
                   <input type="file" name="avatar_image" id="avatar_image" accept="image/*">
-                  <label for="avatar_image" class="btn blog-config__avatar-image-btn">파일선택</label>
-                  <button type="button" class="btn blog-config__avatar-image-btn--cloudinary" data-ctx="avatar">Cloudinary</button>
+                  
+                  <div class="d-flex-w gap--10">
+                    <label for="avatar_image" class="btn btn--dark blog-config__avatar-image-btn">파일선택</label>
+                    <button type="button" class="btn btn--secondary" data-ctx="avatar">Cloudinary</button>
+                  </div>
                   
                   <div class="blog-config__avatar-image-use-wrapper">
                     <span class="blog-config__avatar-image-use">
@@ -76,8 +79,11 @@
                   <input type="hidden" name="h_og_image_size" id="h_og_image_size">
 
                   <input type="file" name="og_image" id="og_image" accept="image/*">
-                  <label for="og_image" class="btn blog-config__og-image-btn">파일선택</label>
-                  <button type="button" class="btn blog-config__og-image-btn--cloudinary" data-ctx="og-image">Cloudinary</button>
+
+                  <div class="d-flex-w gap--10">
+                    <label for="og_image" class="btn btn--dark blog-config__og-image-btn">파일선택</label>
+                    <button type="button" class="btn btn--secondary" data-ctx="og-image">Cloudinary</button>
+                  </div>
                   
                   <div class="blog-config__og-image-use-wrapper">
                     <span class="blog-config__og-image-use">
@@ -140,9 +146,9 @@
         </tbody>
     </table>
 
-    <div class="blog-config__btns">
-      <button type="button" class="btn blog-config__btn blog-config__btn--edit">수정하기</button>
-      <button type="button" class="btn blog-config__btn blog-config__btn--reset">다시작성</button>
+    <div class="d-flex-w justify-content--center gap--10 mt--20 mb--20">
+      <button type="button" class="blog-config__btn btn btn--primary">수정하기</button>
+      <button type="button" class="blog-config__btn btn btn--secondary">다시작성</button>
     </div>
   </form>
 </template>

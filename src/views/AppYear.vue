@@ -33,7 +33,7 @@
         </ul>
 
         <button type="button"
-              class="more"
+              class="btn--more"
               @click="more(item.year, i)"
               v-if="i === activeIndex && listCnt > pageSize && !isLastPage">
           <i class="xi-ellipsis-h" aria-hidden="true"></i>

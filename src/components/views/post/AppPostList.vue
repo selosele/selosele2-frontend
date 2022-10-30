@@ -4,11 +4,11 @@
       <input type="hidden" name="page" value="1" />
 
       <div class="post__btn-wrapper" v-if="isLogin">
-        <router-link to="/write" class="post__btn btn post__btn--write">
+        <router-link to="/write" class="post__btn btn btn--light">
           <i class="xi-pen" aria-hidden="true"></i> 포스트 작성
         </router-link>
 
-        <button type="button" class="post__btn btn post__btn--delete">
+        <button type="button" class="post__btn btn btn--dark">
           <i class="xi-trash" aria-hidden="true"></i> 포스트 삭제
         </button>
 

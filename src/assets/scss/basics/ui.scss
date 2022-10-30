@@ -1,0 +1,116 @@
+// 링크
+.link {
+  @include link();
+}
+
+// 버튼
+.btn {
+  @include btn();
+
+  // 색상 버튼
+  &--primary {
+    background-color: $main-color;
+    color: $grey12;
+  }
+
+  &--secondary {
+    border-color: $black02;
+    background-color: $grey12;
+    text-shadow: none;
+  }
+
+  &--light {
+    border-color: $main-color;
+    background-color: $grey12;
+    text-shadow: none;
+  }
+
+  &--dark {
+    background-color: $black02;
+    color: $grey12;
+  }
+
+  // 더보기 버튼
+  &--more {
+    display: flex;
+    width: 4rem;
+    height: 2.5rem;
+    margin: 0 auto;
+    padding-top: 0.5rem;
+    background-color: transparent;
+    font-size: 1.8rem;
+    align-items: center;
+    justify-content: center;
+  
+    &--disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+  }
+}
+
+// Vue Datepicker
+input.dp__input {
+  padding-left: 1.75rem;
+  font-family: $default-font03;
+  font-size: 0.8rem;
+}
+
+// 로딩 레이어
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  width: 100%;
+  height: 0.4rem;
+
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: $green03;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 0.25rem 0.75rem;
+    animation: loading 0.4s infinite;
+
+    @keyframes loading {
+      0% {
+        width: 0;
+      }
+      100% {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// footnote
+.footnotes {
+  &-list {
+    padding-left: 0;
+  }
+}
+
+.footnote {
+  &-ref {
+    margin: 0 0.1rem;
+    line-height: 1;
+    vertical-align: super;
+  }
+
+  &-item {
+    margin: 0.63em 0;
+    list-style: none;
+
+    p {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 0.8rem;
+      color: $grey;
+    }
+  }
+}

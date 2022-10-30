@@ -1,0 +1,144 @@
+// 웹 접근성
+.sr-only {
+  @include sr-only;
+}
+
+// display
+.d-flex {
+  display: flex !important;
+}
+
+.d-flex-w {
+  display: flex !important;
+  flex-wrap: wrap !important;
+}
+
+// 정렬
+.align {
+  &--left {
+    text-align: left !important;
+  }
+
+  &--center {
+    text-align: center !important;
+  }
+
+  &--right {
+    text-align: right !important;
+  }
+}
+
+.justify-content {
+  &--left {
+    justify-content: flex-start !important;
+  }
+
+  &--center {
+    justify-content: center !important;
+  }
+
+  &--right {
+    justify-content: end !important;
+  }
+  
+  &--between {
+    justify-content: space-between !important;
+  }
+}
+
+.align-items {
+  &--top {
+    align-items: start !important;
+  }
+
+  &--center {
+    align-items: center !important;
+  }
+
+  &--bottom {
+    justify-content: end !important;
+  }
+}
+
+// 간격
+.mt {
+  &--0 {
+    margin-top: 0 !important;
+  }
+
+  &--5 {
+    margin-top: 0.25rem !important;
+  }
+
+  &--10 {
+    margin-top: 0.5rem !important;
+  }
+
+  &--15 {
+    margin-top: 0.75rem !important;
+  }
+
+  &--20 {
+    margin-top: 1rem !important;
+  }
+}
+
+.mb {
+  &--0 {
+    margin-bottom: 0 !important;
+  }
+
+  &--5 {
+    margin-bottom: 0.25rem !important;
+  }
+
+  &--10 {
+    margin-bottom: 0.5rem !important;
+  }
+
+  &--15 {
+    margin-bottom: 0.75rem !important;
+  }
+
+  &--20 {
+    margin-bottom: 1rem !important;
+  }
+}
+
+.gap {
+  &--0 {
+    gap: 0 !important;
+  }
+
+  &--5 {
+    gap: 0.25rem !important;
+  }
+
+  &--10 {
+    gap: 0.5rem !important;
+  }
+
+  &--15 {
+    gap: 0.75rem !important;
+  }
+
+  &--20 {
+    gap: 1rem !important;
+  }
+}
+
+// Vue Transition
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+.delay-display-none-leave-active {
+  transition: opacity .3s
+}
+.delay-display-none-leave-to {
+  opacity: 1
+}

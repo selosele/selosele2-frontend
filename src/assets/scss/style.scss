@@ -1,6 +1,6 @@
 /**
- * 모든 페이지에 적용되는 SCSS를 모은다.
- * vue.config.js 파일의 additionalData 옵션에는 기재하지 않는다.
+ * 모든 컴포넌트에 적용되는 SCSS를 모은다.
+ * vue.config.js 파일의 additionalData 옵션에 기재하지 않는다.
  */
 
 /* 공통 스타일 */
@@ -15,6 +15,10 @@
 @import './setup/reset.scss';
 // 공통
 @import './basics/base.scss';
+// 유틸
+@import './basics/util.scss';
+// UI 컴포넌트
+@import './basics/ui.scss';
 // 코드
 @import './basics/syntax.scss';
 // 인쇄화면

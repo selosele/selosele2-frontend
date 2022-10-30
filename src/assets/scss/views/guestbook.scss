@@ -87,10 +87,7 @@
     }
 
     &__btns {
-      display: flex;
       margin-top: 1rem;
-      flex-wrap: wrap;
-      gap: 0.7rem;
 
       @media (min-width: $min-medium-width) {
         float: right;
@@ -111,9 +108,6 @@
   &__btn {
     &--reset {
       width: calc(50% - 0.35rem);
-      border-color: $black02;
-      background-color: $grey12;
-      text-shadow: none;
 
       @media (min-width: $min-medium-width) {
         width: auto;
@@ -122,8 +116,6 @@
 
     &--write {
       width: calc(50% - 0.35rem);
-      background-color: $main-color;
-      color: $grey12;
 
       @media (min-width: $min-medium-width) {
         width: auto;
@@ -175,8 +167,6 @@
       &-write {
         display: block;
         width: 100%;
-        background-color: $main-color;
-        color: $grey12;
 
         @media (min-width: $min-medium-width) {
           display: inline-block;

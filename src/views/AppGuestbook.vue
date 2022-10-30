@@ -23,9 +23,9 @@
             <input type="password" name="guestbook_write_pw" id="guestbook_write_pw" class="guestbook__input" minlength="8" maxlength="15" />
           </label>
 
-          <div class="guestbook__write__btns">
-            <button type="reset" class="guestbook__btn btn guestbook__btn--reset">다시작성</button>
-            <button type="submit" class="guestbook__btn btn guestbook__btn--write">등록</button>
+          <div class="guestbook__write__btns d-flex-w gap--10 mt--20">
+            <button type="reset" class="btn btn--secondary guestbook__btn guestbook__btn--reset">다시작성</button>
+            <button type="submit" class="btn btn--primary guestbook__btn guestbook__btn--write">등록</button>
           </div>
         </div>
       </div>
@@ -65,7 +65,7 @@
               </label>
             </div>
 
-            <button type="button" class="btn guestbook__btn guestbook__btn--reply-write">등록</button>
+            <button type="button" class="btn btn--primary guestbook__btn guestbook__btn--reply-write">등록</button>
           </div>
         </div>
 
@@ -131,7 +131,7 @@
               </label>
             </div>
 
-            <button type="button" class="btn guestbook__btn guestbook__btn--reply-write">등록</button>
+            <button type="button" class="btn btn--primary guestbook__btn guestbook__btn--reply-write">등록</button>
           </div>
         </div>
 

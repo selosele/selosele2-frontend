@@ -39,22 +39,30 @@ export default {
       dataLoaded: false,
     }
   },
-  created() {
-    // 포스트 3개 조회
-    this.$http.get('/post/list/3')
-      .then(res => {
-        res.data.map(d => {
-          this.postList.push(d);
-        });
-        this.dataLoading();
-      }).catch(error => {
-        snackbar.error('오류가 발생했습니다.');
-      });
+  async created() {
+    await this.dataLoading();
+    await this.listPostByLimit(3);
   },
   methods: {
+    // 개수별 포스트 조회
+    listPostByLimit(limit) {
+      return this.$http.get(`/post/list/${limit}`)
+        .then(res => {
+          res.data.map(d => {
+            this.postList.push(d);
+          });
+          this.dataLoading();
+        }).catch(error => {
+          snackbar.error('오류가 발생했습니다.');
+        });
+    },
     // 데이타 로딩
     dataLoading() {
-      setTimeout(() => { this.dataLoaded = true }, 500);
+      return Promise.resolve(
+        setTimeout(() => {
+          this.dataLoaded = true;
+        }, 500)
+      );
     },
   },
 }

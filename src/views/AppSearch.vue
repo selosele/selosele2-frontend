@@ -45,7 +45,7 @@
               target="_blank"
               title="새창"
               rel="noopener noreferrer nofollow"
-              class="btn search__google">
+              class="btn btn--dark search__google">
             <i class="xi-google" aria-hidden="true"></i> Google에서 검색
           </a>
         </template>

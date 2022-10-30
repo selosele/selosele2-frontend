@@ -113,11 +113,13 @@ export default {
     },
     // 데이타 로딩
     dataLoading(resStatus) {
-      setTimeout(() => {
-        if ('ok' === resStatus) {
-          this.dataLoaded = true;
-        }
-      }, 500);
+      return Promise.resolve(
+        setTimeout(() => {
+          if ('ok' === resStatus) {
+            this.dataLoaded = true;
+          }
+        }, 500)
+      );
     },
   }
 };

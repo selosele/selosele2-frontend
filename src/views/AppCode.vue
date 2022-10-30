@@ -44,20 +44,20 @@ export default {
       dataLoaded: false,
     }
   },
-  created() {
-    this.listCode();
+  async created() {
+    await this.dataLoading();
+    await this.listCode();
   },
   methods: {
     // 공통코드 목록 조회
     listCode() {
-      this.$http.get('/code/list')
+      return this.$http.get('/code/list')
         .then(res => {
           res.data.map(d => {
             d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
-
             this.rowData.push(d);
-            this.dataLoading();
           });
+          this.dataLoading();
         }).catch(error => {
           snackbar.error('오류가 발생했습니다.');
         });

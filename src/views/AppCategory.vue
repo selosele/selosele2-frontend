@@ -17,7 +17,7 @@
       </ul>
 
       <button type="button"
-              class="more"
+              class="btn--more"
               @click="more"
               v-if="listCnt > pageSize && !isLastPage">
         <i class="xi-ellipsis-h" aria-hidden="true"></i>

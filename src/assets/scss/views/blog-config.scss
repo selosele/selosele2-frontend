@@ -129,14 +129,6 @@
 
    &__avatar-image,
    &__og-image {
-      &-btn {
-         &--cloudinary {
-            border-color: $black02;
-            background-color: $grey12;
-            text-shadow: none;
-         }
-      }
-
       &-use {
          display: block;
          margin-bottom: 0.5rem;
@@ -177,15 +169,6 @@
       }
    }
 
-   &__btns {
-      display: flex;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-   }
-
    &__btn {
       display: block;
       width: 100%;
@@ -193,17 +176,6 @@
       @media (min-width: $min-mini-width) {
          display: inline-block;
          width: auto;
-      }
-
-      &--edit {
-         background-color: $main-color;
-         color: $grey12;
-      }
-
-      &--reset {
-         border-color: $black02;
-         background-color: $grey12;
-         text-shadow: none;
       }
    }
 

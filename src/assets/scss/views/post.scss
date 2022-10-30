@@ -15,17 +15,6 @@
          align-items: center;
          flex-wrap: wrap;
       }
-
-      &--write {
-         border-color: $main-color;
-         background-color: $grey12;
-         text-shadow: none;
-      }
-
-      &--delete {
-         background-color: $black02;
-         color: $grey12;
-      }
    }
 
    &__check {
