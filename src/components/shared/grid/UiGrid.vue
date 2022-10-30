@@ -10,6 +10,7 @@
     :pagination="pagination"
     :paginationPageSize="paginationPageSize"
     @grid-ready="onGridReady"
+    @cell-doubleclicked="cellDoubleClicked"
   >
   </ag-grid-vue>
 </template>
@@ -88,6 +89,9 @@ export default {
       this.gridApi = params.api;
       this.gridApi.sizeColumnsToFit();
       this.$emit('onGridReady', params);
+    },
+    cellDoubleClicked(params) {
+      this.$emit('cellDoubleClicked', params);
     },
   },
 }

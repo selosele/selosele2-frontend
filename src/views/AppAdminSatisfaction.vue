@@ -31,6 +31,7 @@
       :columnDefs="columnDefs"
       :pagination="true"
       @onGridReady="onGridReady"
+      @cellDoubleClicked="cellDoubleClicked"
     >
     </ui-grid>
   </template>
@@ -50,11 +51,7 @@ export default {
   data() {
     return {
       columnDefs: [
-        { headerName: '페이지 URL', field: 'pagePath', width: 130,
-          cellRenderer: (params) => {
-            return params.value;
-          },
-        },
+        { headerName: '페이지 URL', field: 'pagePath', width: 100, },
         { headerName: '만족도 점수', field: 'score', width: 80, },
         { headerName: '만족도 의견', field: 'comment', },
         { headerName: '참여일시', field: 'regDate', width: 100, },
@@ -75,6 +72,9 @@ export default {
     onGridReady(params) {
       this.gridApi = params.api;
       this.gridApi.setRowData(this.rowData);
+    },
+    cellDoubleClicked(params) {
+      this.$router.push(params.value);
     },
     toPagePath(pagePath) {
       this.$router.push(pagePath);
