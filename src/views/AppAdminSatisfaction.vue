@@ -74,10 +74,7 @@ export default {
       this.gridApi.setRowData(this.rowData);
     },
     cellDoubleClicked(params) {
-      this.$router.push(params.value);
-    },
-    toPagePath(pagePath) {
-      this.$router.push(pagePath);
+      this.$router.push(params.data.pagePath);
     },
     // 만족도조사 목록 조회
     listSatisfaction(searchSatisfactiontDto) {
@@ -90,8 +87,6 @@ export default {
             d.score = this.getScore(d.score);
             this.rowData.push(d);
           });
-        }).catch(error => {
-          snackbar.error('오류가 발생했습니다.');
         });
     },
     // Datepicker clear 버튼을 눌렀을 때

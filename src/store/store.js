@@ -68,7 +68,7 @@ export default createStore({
         .then(res => {
           ctx.commit('SET_SATIS_CODE', res.data);
         }).catch(error => {
-          snackbar.error('오류가 발생했습니다.');
+          snackbar.error(process.env.VUE_APP_ERR_MSG);
         });
     },
     FETCH_BLOG_CONFIG(ctx) {

@@ -52,8 +52,6 @@ export default {
             this.postList.push(d);
           });
           this.dataLoading();
-        }).catch(error => {
-          snackbar.error('오류가 발생했습니다.');
         });
     },
     // 데이타 로딩

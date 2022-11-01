@@ -139,8 +139,6 @@ export default {
           };
           this.tData.push(obj);
         });
-      }).catch(error => {
-        snackbar.error('오류가 발생했습니다.');
       });
   },
   beforeRouteUpdate(to, from, next) {
@@ -198,8 +196,6 @@ export default {
               c: this.c,
             }
           });
-        }).catch(error => {
-          snackbar.error('오류가 발생했습니다.');
         });
     },
     // 스크롤 시 검색 input으로 향하는 버튼 toggle

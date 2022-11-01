@@ -83,8 +83,6 @@ export default {
           res.data.map(d => {
             this.widgetList.push(d);
           });
-        }).catch(error => {
-          snackbar.error('오류가 발생했습니다.');
         });
     },
     // 카테고리 목록 및 개수 조회
@@ -94,8 +92,6 @@ export default {
           res.data.map(d => {
             this.categoryList.push(d);
           });
-        }).catch(error => {
-          snackbar.error('오류가 발생했습니다.');
         });
     },
     // 태그 목록 및 개수 조회
@@ -105,8 +101,6 @@ export default {
           res.data.map(d => {
             this.tagList.push(d);
           });
-        }).catch(error => {
-          snackbar.error('오류가 발생했습니다.');
         });
     },
     // skeletor width 구하기

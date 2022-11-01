@@ -7,6 +7,7 @@ import { initDefineRule } from './validation';
 import { commonComputed } from '@/store/helper';
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import moment from 'moment';
+import snackbar from '@/utils/ui/Snackbar';
 
 //import '@/assets/scss/style.scss';
 
@@ -17,7 +18,6 @@ moment.locale('kr');
 const app = createApp({
   extends: App,
   async created() {
-    // JWT 만료/변조 감지 시 강제 로그아웃
     const token = localStorage.getItem('token');
     if (token) {
       this.$store.commit('SET_TOKEN', token);
@@ -25,6 +25,7 @@ const app = createApp({
     this.$http.interceptors.response.use(
       response => response,
       error => {
+        // JWT 만료/변조 시 강제 로그아웃
         if (401 === error.response.status) {
           this.$store.dispatch('LOGOUT')
             .then(res => {
@@ -36,6 +37,8 @@ const app = createApp({
               };
               this.$router.push('/');
             });
+        } else {
+          snackbar.error(process.env.VUE_APP_ERR_MSG);
         }
         return Promise.reject(error);
       }

@@ -80,7 +80,7 @@ export default {
         this.resStatus = res;
         
         if ('no' === res) {
-          snackbar.error('오류가 발생했습니다.');
+          snackbar.error(process.env.VUE_APP_ERR_MSG);
           return;
         }
       });

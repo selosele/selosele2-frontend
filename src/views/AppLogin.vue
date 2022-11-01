@@ -79,8 +79,6 @@ export default {
       this.$http.post('/auth/signup', user)
         .then(res => {
           snackbar.success('사용자 생성에 성공했습니다.');
-        }).catch(error => {
-          snackbar.error('오류가 발생했습니다.');
         });
     },
   },

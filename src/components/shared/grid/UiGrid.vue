@@ -7,6 +7,7 @@
     :overlayLoadingTemplate="overlayLoadingTemplate"
     :overlayNoRowsTemplate="overlayNoRowsTemplate"
     :rowData="rowData"
+    :rowSelection="rowSelection"
     :pagination="pagination"
     :paginationPageSize="paginationPageSize"
     @grid-ready="onGridReady"
@@ -57,6 +58,11 @@ export default {
     rowData: {
       type: Array,
     },
+    // rowSelection 모드 (multiple: 여러개 선택)
+    rowSelection: {
+      type: String,
+      default: 'multiple',
+    },
     // Pagination 활성화 여부
     pagination: {
       type: Boolean,
@@ -80,9 +86,19 @@ export default {
       },
     }
   },
-  mounted() {
-    // defaultColDef 옵션 합치기
+  beforeMount() {
+    // defaultColDef 옵션
     Object.assign(this.newDefaultColDef, this.originDefaultColDef, this.defaultColDef);
+
+    // columnDefs checkbox 기능
+    this.columnDefs.map(v => {
+      if ('_checked' === v.field) {
+        v.field = '';
+        v.width = 50;
+        v.headerCheckboxSelection = true;
+        v.checkboxSelection = true;
+      }
+    });
   },
   methods: {
     onGridReady(params) {
@@ -92,6 +108,12 @@ export default {
     },
     cellDoubleClicked(params) {
       this.$emit('cellDoubleClicked', params);
+    },
+    removeSelectedRows() {
+      const selectedRows = this.gridApi.getSelectedRows();
+      const newRowData = this.rowData.filter(row => !selectedRows.includes(row));
+      this.gridApi.setRowData(newRowData);
+      this.$emit('removeSelectedRows');
     },
   },
 }

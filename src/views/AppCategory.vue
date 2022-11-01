@@ -84,8 +84,6 @@ export default {
           if (this.listCnt === this.postList.length) {
             this.isLastPage = true;
           }
-        }).catch(error => {
-          snackbar.error('오류가 발생했습니다.');
         });
     },
     more() {
