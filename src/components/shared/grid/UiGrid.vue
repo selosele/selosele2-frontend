@@ -99,21 +99,47 @@ export default {
         v.checkboxSelection = true;
       }
     });
+
+    // columnDefs 정렬 기능
+    Object.values(this.columnDefs)
+      .filter(v => v.align)
+      .map(v => {
+        switch (v.align) {
+          case 'left':
+            v.cellClass = 'grid-cell-left';
+            break;
+          case 'center':
+            v.cellClass = 'grid-cell-center';
+            break;
+          case 'right':
+            v.cellClass = 'grid-cell-right';
+            break;
+        }
+        delete v.align;
+      });
   },
   methods: {
     onGridReady(params) {
       this.gridApi = params.api;
       this.gridApi.sizeColumnsToFit();
-      this.$emit('onGridReady', params);
+
+      this.gridApi.__proto__.getRowDatas = () => this.getRowDatas();
+      this.gridApi.__proto__.removeSelectedRows = () => this.removeSelectedRows();
+
+      this.$emit('onGridReady', this.gridApi);
     },
+    // row를 더블클릭했을 때
     cellDoubleClicked(params) {
       this.$emit('cellDoubleClicked', params);
     },
+    // 선택된 rows 제거
     removeSelectedRows() {
-      const selectedRows = this.gridApi.getSelectedRows();
-      const newRowData = this.rowData.filter(row => !selectedRows.includes(row));
-      this.gridApi.setRowData(newRowData);
-      this.$emit('removeSelectedRows');
+      const rows = this.gridApi.getSelectedRows();
+      return this.gridApi.updateRowData({ remove: rows });
+    },
+    // row 가져오기
+    getRowDatas() {
+      return this.rowData;
     },
   },
 }

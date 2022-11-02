@@ -29,6 +29,7 @@
 
     <ui-grid
       :columnDefs="columnDefs"
+      :rowData="rowData"
       :pagination="true"
       @onGridReady="onGridReady"
       @cellDoubleClicked="cellDoubleClicked"
@@ -40,7 +41,6 @@
 <script>
 import UiGrid from '@/components/shared/grid/UiGrid.vue';
 import UiDatepicker from '@/components/shared/form/UiDatepicker.vue';
-import snackbar from '@/utils/ui/Snackbar';
 
 export default {
   name: 'app-admin-satisfaction',
@@ -51,10 +51,10 @@ export default {
   data() {
     return {
       columnDefs: [
-        { headerName: '페이지 URL', field: 'pagePath', width: 100, },
-        { headerName: '만족도 점수', field: 'score', width: 80, },
-        { headerName: '만족도 의견', field: 'comment', },
-        { headerName: '참여일시', field: 'regDate', width: 100, },
+        { headerName: '페이지 URL', field: 'pagePath', width: 100 },
+        { headerName: '만족도 점수', field: 'score', width: 80 },
+        { headerName: '만족도 의견', field: 'comment' },
+        { headerName: '참여일시', field: 'regDate', width: 100 },
       ],
       rowData: [],
       regDate: null,
@@ -70,11 +70,10 @@ export default {
   },
   methods: {
     onGridReady(params) {
-      this.gridApi = params.api;
-      this.gridApi.setRowData(this.rowData);
+      this.gridApi = params;
     },
     cellDoubleClicked(params) {
-      this.$router.push(params.data.pagePath);
+      this.$router.push(params.data['pagePath']);
     },
     // 만족도조사 목록 조회
     listSatisfaction(searchSatisfactiontDto) {

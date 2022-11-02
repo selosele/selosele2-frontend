@@ -23,6 +23,7 @@
     <ui-grid
       :defaultColDef="defaultColDef"
       :columnDefs="columnDefs"
+      :rowData="rowData"
       :pagination="true"
       @onGridReady="onGridReady"
     >
@@ -46,14 +47,14 @@ export default {
         editable: true,
       },
       columnDefs: [
-        { field: '_checked', },
-        { headerName: '코드 ID', field: 'id', width: 130, },
-        { headerName: '코드 접두어', field: 'prefix', width: 130, },
-        { headerName: '코드 값', field: 'val', width: 130, },
-        { headerName: '코드 명', field: 'nm', },
-        { headerName: '코드 설명', field: 'desc', },
-        { headerName: '코드 등록일시', field: 'regDate', },
-        { headerName: '코드 사용여부', field: 'useYn', width: 150, },
+        { field: '_checked' },
+        { headerName: '코드 ID', field: 'id', width: 130 },
+        { headerName: '코드 접두어', field: 'prefix', width: 130 },
+        { headerName: '코드 값', field: 'val', width: 130 },
+        { headerName: '코드 명', field: 'nm' },
+        { headerName: '코드 설명', field: 'desc' },
+        { headerName: '코드 등록일시', field: 'regDate' },
+        { headerName: '코드 사용여부', field: 'useYn', width: 150, align: 'center' },
       ],
       rowData: [],
       gridApi: null,
@@ -66,13 +67,7 @@ export default {
   },
   methods: {
     onGridReady(params) {
-      this.gridApi = params.api;
-      this.gridApi.setRowData(this.rowData);
-    },
-    removeSelectedRows() {
-      const selectedRows = this.gridApi.getSelectedRows();
-      const newRowData = this.rowData.filter(row => !selectedRows.includes(row));
-      this.gridApi.setRowData(newRowData);
+      this.gridApi = params;
     },
     // 공통코드 목록 조회
     listCode() {
@@ -80,6 +75,7 @@ export default {
         .then(res => {
           res.data.map(d => {
             d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
+            d.useYn = this.getUseYn(d.useYn);
             this.rowData.push(d);
           });
           this.dataLoading();
@@ -87,7 +83,7 @@ export default {
     },
     // 공통코드 추가
     addCode() {
-
+      console.log(this.gridApi.getRowDatas());
     },
     // 공통코드 삭제
     async removeCode() {
@@ -96,9 +92,6 @@ export default {
         snackbar.warning('삭제할 항목을 선택하세요.');
         return;
       }
-
-      // 테스트
-      this.removeSelectedRows();
 
       const confirm = await confirmUtil.question('삭제하시겠습니까?');
       if (!confirm) return;
@@ -113,8 +106,18 @@ export default {
 
       this.$http.delete('/code/remove', { data: removeCodeDto })
         .then(res => {
-          //this.gridApi.removeSelectedRows();
+          this.gridApi.removeSelectedRows();
+          snackbar.success('삭제되었습니다.');
         });
+    },
+    // 코드 사용여부 가공
+    getUseYn(useYn) {
+      switch (useYn) {
+        case 'Y':
+          return '사용';
+        case 'N':
+          return '미사용';
+      }
     },
     // 데이타 로딩
     dataLoading() {
