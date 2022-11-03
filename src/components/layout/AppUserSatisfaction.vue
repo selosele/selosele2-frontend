@@ -62,12 +62,14 @@ export default {
   },
   created() {
     // 만족도조사 코드 세팅
-    this.$store.state.satisCode.forEach((item, idx) => {
-      let obj = {
-        value: item.val,
-        text: item.nm,
-      };
-      this.satisArr.push(obj);
+    this.$store.state.code.forEach((item, idx) => {
+      if ('B01' === item.prefix) {
+        let obj = {
+          value: item.val,
+          text: item.nm,
+        };
+        this.satisArr.push(obj);
+      }
     });
   },
   methods: {
@@ -85,7 +87,6 @@ export default {
             snackbar.error(error.response.data.message);
             return;
           }
-          snackbar.error(process.env.VUE_APP_ERR_MSG);
         });
     },
   }

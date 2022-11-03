@@ -6,8 +6,8 @@ export default createStore({
   state: {
     // Token
     token: null,
-    // 공통코드 - 포스트/콘텐츠 만족도조사
-    satisCode: [],
+    // 공통코드
+    code: [],
     // 블로그 환경설정
     blogConfig: [],
   },
@@ -37,8 +37,8 @@ export default createStore({
       state.token = null;
       localStorage.removeItem('token');
     },
-    SET_SATIS_CODE(state, satisCode) {
-      state.satisCode = satisCode;
+    SET_CODE(state, code) {
+      state.code = code;
     },
     SET_BLOG_CONFIG(state, blogConfig) {
       state.blogConfig = blogConfig;
@@ -63,10 +63,9 @@ export default createStore({
       commit('CLEAR_TOKEN');
     },
     FETCH_CODE(ctx) {
-      // 포스트/콘텐츠 만족도조사
-      axios.get(`${process.env.VUE_APP_API_ENDPOINT}/code/list/B01`)
+      axios.get(`${process.env.VUE_APP_API_ENDPOINT}/code/list`)
         .then(res => {
-          ctx.commit('SET_SATIS_CODE', res.data);
+          ctx.commit('SET_CODE', res.data);
         }).catch(error => {
           snackbar.error(process.env.VUE_APP_ERR_MSG);
         });

@@ -232,7 +232,7 @@
       </ul>
     </form>
 
-    <ui-pagination />
+    <ui-pagination v-if="'main' === type" />
   </div>
 </template>
 
@@ -243,6 +243,9 @@ export default {
   name: 'app-post-list',
   components: {
     UiPagination,
+  },
+  props: {
+    type: String,
   },
 };
 </script>

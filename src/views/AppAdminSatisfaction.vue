@@ -80,10 +80,13 @@ export default {
       return this.$http.get('/satisfaction/list', { params: searchSatisfactiontDto })
         .then(res => {
           this.rowData = [];
-          
+
           res.data.map(d => {
             d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
-            d.score = this.getScore(d.score);
+            d.score = this.$store.state.code
+              .filter(v => 'B01' === v.prefix && (v.val === d.score))
+              .map(v => v.nm);
+
             this.rowData.push(d);
           });
         });

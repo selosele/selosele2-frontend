@@ -1,5 +1,5 @@
 <template>
-  <app-post-list />
+  <app-post-list :type="'main'" />
   <app-widget-config v-if="isLogin" />
 </template>
 
