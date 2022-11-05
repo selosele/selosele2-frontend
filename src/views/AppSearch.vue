@@ -28,18 +28,18 @@
                      label="대소문자 구분"
                      values="Y,N"
                      v-model="c"
-                     :checked="(this.$route.query['c'] === 'Y')" />
+                     :checked="('Y' === this.$route.query['c'])" />
       </div>
     </ui-form>
 
       <p class="search__info">
-        <template v-if="postList && postList.length === 0">
+        <template v-if="0 === listCnt">
           검색 결과를 찾을 수 없습니다.
         </template>
         
-        <template v-if="postList && postList.length > 0">
+        <template v-if="postList !== null && postList.length > 0">
           <strong class="search__info__txt">{{ this.$route.query['q'] }}</strong>에 대한 검색 결과는
-          <strong class="search__info__txt">{{ postList.length }}개</strong>입니다.
+          <strong class="search__info__txt">{{ listCnt }}개</strong>입니다.
       
           <a :href="googleSearchUrl"
               target="_blank"
@@ -52,51 +52,62 @@
       </p>
 
     <div class="search__results__wrapper" ref="resultsWrapper">
-      <template v-if="!dataLoaded">
-        <ui-skeletor height="1.3rem" />
-        <ui-skeletor height="1.3rem" />
-        <ui-skeletor height="1.3rem" />
-      </template>
+      <ui-loading :activeModel="dataLoaded"
+                  :fullPage="true" />
 
-      <template v-else>
-        <ul class="post__wrapper search__results">
-          <li class="post__wrapper__list" v-for="(post,i) in postList" :key="i">
-            <article>
-              <h2 class="post__title">
-                <router-link :to="`/post/${post.id}`">{{ post.title }}</router-link>
-              </h2>
+      <ul class="post__wrapper search__results" v-if="!dataLoaded">
+        <li class="post__wrapper__list" v-for="(post,i) in postList" :key="i">
+          <article>
+            <h2 class="post__title">
+              <router-link :to="`/post/${post.id}`" @click="saveToStorage">{{ post.title }}</router-link>
+            </h2>
 
-              <p class="post__og-image" v-if="post.ogImgUrl">
-                <span class="post__og-image__box">
-                  <img :src="post.ogImgUrl" alt="">
+            <p class="post__og-image" v-if="post.ogImgUrl">
+              <span class="post__og-image__box">
+                <img :src="post.ogImgUrl" alt="">
+              </span>
+            </p>
+  
+            <p class="post__cont">{{ post.rawText }}</p>
+
+            <div class="post__box__item-wrapper">
+              <span class="post__box__item post__box__item--regdate">
+                <i class="xi-time-o" aria-hidden="true"></i>
+                <span class="sr-only">등록일</span>
+                <time :datetime="$moment(post.regDate).format('YYYY-MM-DD HH:mm:ss')">
+                  {{ $moment(post.regDate).format('YYYY.MM.DD') }}
+                </time>
+              </span>
+
+              <template v-if="post.postCategory.length > 0">
+                <span class="post__box__item post__box__item--category"
+                      v-for="(category,i) in post.postCategory"
+                      :key="i">
+                  <span class="sr-only">카테고리</span> {{ category.category.nm }}
                 </span>
-              </p>
-    
-              <p class="post__cont">{{ post.rawText }}</p>
+              </template>
+            </div>
+          </article>
+        </li>
+      </ul>
 
-              <div class="post__box__item-wrapper">
-                <span class="post__box__item post__box__item--regdate">
-                  <i class="xi-time-o" aria-hidden="true"></i>
-                  <span class="sr-only">등록일</span>
-                  <time :datetime="$moment(post.regDate).format('YYYY-MM-DD HH:mm:ss')">
-                    {{ $moment(post.regDate).format('YYYY.MM.DD') }}
-                  </time>
-                </span>
-              </div>
-            </article>
-          </li>
-        </ul>
+      <p class="search__more__wrapper"
+          @click="more"
+          v-if="listCnt > pageSize && !isLastPage">
+        <button type="button" class="btn search__more">
+          <i class="xi-plus-circle" aria-hidden="true"></i> 더보기
+        </button>
+      </p>
 
-        <a href="#q"
-          :class="[
-            'btn search__to-input',
-            { 'search__to-input--active': this.searchToInputActive }
-            ]"
-          @click.prevent="searchToInput">
-          <i class="xi-search" aria-hidden="true"></i>
-          <span class="sr-only">검색 필드 바로가기</span>
-        </a>
-      </template>
+      <a href="#q"
+        :class="[
+          'btn search__to-input',
+          { 'search__to-input--active': this.searchToInputActive }
+          ]"
+        @click.prevent="searchToInput">
+        <i class="xi-search" aria-hidden="true"></i>
+        <span class="sr-only">검색 필드 바로가기</span>
+      </a>
     </div>
   </div>
 </template>
@@ -122,24 +133,28 @@ export default {
       q: this.$route.query['q'] || '',
       c: this.$route.query['c'] || 'N',
       tData: [],
-      postList: null,
+      page: 1,
+      nowPage: 1,
+      pageSize: 10,
+      listCnt: null,
+      postList: [],
       googleSearchUrl: '',
       searchToInputActive: false,
-      dataLoaded: true,
+      isLastPage: false,
+      dataLoaded: false,
     }
   },
   async created() {
     // 검색옵션 코드 세팅
-    this.$http.get('/code/list/A01')
-      .then(res => {
-        res.data.map((item, idx) => {
-          let obj = {
-            value: item.val,
-            text: item.nm,
-          };
-          this.tData.push(obj);
-        });
-      });
+    this.$store.state.code.map((d,i) => {
+      if ('A01' === d.prefix) {
+        let obj = {
+          value: d.val,
+          text: d.nm,
+        };
+        this.tData.push(obj);
+      }
+    });
   },
   beforeRouteUpdate(to, from, next) {
     // 페이지 전환 시 검색키워드 파라미터가 없으면 검색결과를 초기화
@@ -156,6 +171,8 @@ export default {
         t: this.t,
         q: this.q,
         c: this.c,
+        page: this.page,
+        pageSize: this.pageSize,
       });
       document.addEventListener('scroll', this.scroll);
     }
@@ -174,17 +191,41 @@ export default {
         return;
       }
       await this.dataLoading();
+
+      this.init();
+
+      values.page = this.page;
+      values.pageSize = this.pageSize;
+      
       await this.listPostSearch(values);
+    },
+    init() {
+      localStorage.getItem('searchPage') && localStorage.removeItem('searchPage');
+      localStorage.getItem('searchPostList') && localStorage.removeItem('searchPostList');
+
+      this.page = 1;
+      this.dataLoaded = false;
+
+      this.postList = [];
+      this.isLastPage = false;
     },
     // 포스트 검색
     listPostSearch(params) {
+      const storageList = localStorage.getItem('searchPostList');
+
       return this.$http.get('/post/search', { params: params })
         .then(async res => {
-          this.postList = [];
+          const resList = storageList ? JSON.parse(storageList) : res.data[0];
 
-          res.data.map(d => {
+          res.data[0].map(d => {
             this.postList.push(d);
           });
+
+          this.listCnt = res.data[1];
+
+          if (this.listCnt === this.postList.length) {
+            this.isLastPage = true;
+          }
 
           this.googleSearchUrl = encodeURI(`https://www.google.com/search?q=${this.q}`);
 
@@ -197,6 +238,27 @@ export default {
             }
           });
         });
+    },
+    // 뒤로가기 시 더보기 데이타 유지를 위해 페이지 값과 포스트 목록을 저장
+    saveToStorage() {
+      localStorage.setItem('searchPage', (localStorage.getItem('searchPage') ? this.nowPage : this.page+1));
+      localStorage.setItem('searchPostList', JSON.stringify(this.postList));
+    },
+    // 더보기
+    more() {
+      const storageList = localStorage.getItem('searchPostList');
+      // if (storageList) this.postList = [];
+
+      this.nowPage = parseInt(localStorage.getItem('searchPage')) || this.page;
+      this.page++;
+
+      this.listPostSearch({
+        t: this.t,
+        q: this.q,
+        c: this.c,
+        page: this.page,
+        pageSize: this.pageSize,
+      });
     },
     // 스크롤 시 검색 input으로 향하는 버튼 toggle
     scroll() {
@@ -213,12 +275,12 @@ export default {
     },
     // 데이타 로딩
     dataLoading() {
-      this.dataLoaded = false;
-      
+      this.dataLoaded = true;
+
       return Promise.resolve(
         setTimeout(() => {
-          this.dataLoaded = true;
-        }, 500)
+          this.dataLoaded = false;
+        }, 1000)
       );
     },
   }

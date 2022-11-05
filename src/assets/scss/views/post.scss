@@ -171,6 +171,13 @@
             border-color: $grey03;
          }
 
+         &--tag {
+            .mark {
+               margin-right: 0.25rem;
+               color: $sub-color03;
+            }
+         }
+
          &--like-count {
             background-color: $grey08;
          }
