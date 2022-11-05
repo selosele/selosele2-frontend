@@ -90,13 +90,22 @@ export default {
     // defaultColDef 옵션
     Object.assign(this.newDefaultColDef, this.originDefaultColDef, this.defaultColDef);
 
-    // columnDefs checkbox 기능
-    this.columnDefs.map(v => {
-      if ('_checked' === v.field) {
-        v.field = '';
-        v.width = 50;
-        v.headerCheckboxSelection = true;
-        v.checkboxSelection = true;
+    this.columnDefs.map((c,i) => {
+
+      // columnDefs rowNum 표출
+      if (c.rowNum) {
+        c.field = 'No';
+        c.width = c.width || 15;
+        this.rowData.map((r,j) => r.No = j+1);
+        delete c.rowNum;
+      }
+
+      // columnDefs checkbox 표출
+      if ('_checked' === c.field) {
+        c.field = '';
+        c.width = 50;
+        c.headerCheckboxSelection = true;
+        c.checkboxSelection = true;
       }
     });
 

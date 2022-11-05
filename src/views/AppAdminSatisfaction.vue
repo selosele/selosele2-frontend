@@ -51,6 +51,7 @@ export default {
   data() {
     return {
       columnDefs: [
+        { rowNum: true },
         { headerName: '페이지 URL', field: 'pagePath', width: 100 },
         { headerName: '만족도 점수', field: 'score', width: 80 },
         { headerName: '만족도 의견', field: 'comment' },
@@ -116,21 +117,6 @@ export default {
         isToday: 'N',
       });
       this.gridApi.setRowData(this.rowData);
-    },
-    // 만족도조사 점수 가공
-    getScore(score) {
-      switch (score) {
-        case '005':
-          return '매우 만족';
-        case '004':
-          return '만족';
-        case '003':
-          return '보통';
-        case '002':
-          return '불만족';
-        case '001':
-          return '매우 불만족';
-      }
     },
     // 데이타 로딩
     dataLoading() {
