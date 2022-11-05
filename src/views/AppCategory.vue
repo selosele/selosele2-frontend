@@ -28,8 +28,6 @@
 </template>
 
 <script>
-import snackbar from '@/utils/ui/Snackbar';
-
 export default {
   name: 'app-category',
   props: {
@@ -40,7 +38,7 @@ export default {
   data() {
     return {
       page: 1,
-      pageSize: 10,
+      pageSize: 20,
       listCnt: 0,
       postList: [],
       isLastPage: false,

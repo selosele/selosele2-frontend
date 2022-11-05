@@ -98,9 +98,9 @@ export default {
 
       let removeCodeDto = [];
 
-      rows.forEach((item,idx) => {
+      rows.forEach((d, i) => {
         removeCodeDto.push({
-          id: item.id,
+          id: d.id,
         });
       });
 

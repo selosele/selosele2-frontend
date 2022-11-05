@@ -62,11 +62,11 @@ export default {
   },
   created() {
     // 만족도조사 코드 세팅
-    this.$store.state.code.forEach((item, idx) => {
-      if ('B01' === item.prefix) {
+    this.$store.state.code.forEach((d, i) => {
+      if ('B01' === d.prefix) {
         let obj = {
-          value: item.val,
-          text: item.nm,
+          value: d.val,
+          text: d.nm,
         };
         this.satisArr.push(obj);
       }

@@ -52,7 +52,7 @@ export default {
   data() {
     return {
       page: 1,
-      pageSize: 10,
+      pageSize: 20,
       listCnt: 0,
       yearList: [],
       postList: [],
