@@ -11,8 +11,11 @@
         </button>
 
         <span class="post__check-all">
-          <input type="checkbox" id="checkAll" />
-          <label for="checkAll">포스트 전체 선택</label>
+          <ui-checkbox :name="'checkAll'"
+                       :id="'checkAll'"
+                       :label="'포스트 전체 선택'"
+                       values="Y,N"
+                       v-model="checkAll" />
         </span>
       </div>
 
@@ -30,7 +33,15 @@
                          :label="'포스트 삭제'"
                          :labelHidden="true"
                          :values="`${post.id},N`"
-                         v-model="post.id" />
+                         v-model="checkList[i]" />
+
+            <!-- <input type="hidden" :name="`ck${post.id}`" :value="post.id" />
+            <input type="checkbox" 
+                  :id="`ck${post.id}`"
+                  :name="`ck${post.id}`"
+                  :value="post.id"
+                  v-model="checkList" />
+            <label :for="`ck${post.id}`">sfda</label> -->
           </span>
 
           <article :aria-labelledby="`title${post.id}`" :aria-describedby="`cont${post.id}`" class="post__box">
@@ -90,6 +101,32 @@ export default {
     type: String,
     // 포스트 목록
     postList: Array,
+  },
+  data() {
+    return {
+      initList: [],
+      checkList: [],
+    }
+  },
+  mounted() {
+
+  },
+  computed: {
+    checkAll: {
+      get() {
+        console.log('this.checkList >>>', this.checkList);
+        return this.postList ? this.postList.length === this.checkList.length : false;
+      },
+      set(v) {
+        this.checkList = [];
+        
+        if ('Y' === v) {
+          this.postList.map(d => {
+            this.checkList.push(d.id);
+          });
+        }
+      }
+    },
   },
   methods: {
     onSubmit(values) {

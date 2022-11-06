@@ -2,29 +2,24 @@
   <Field type="checkbox"
          v-slot="{ field }"
          :name="name"
-         :value="values.split(',')[0]"
-         :unchecked-value="values.split(',')[1]">
+         :value="getValueByIdx(0)"
+         :unchecked-value="getValueByIdx(1)">
 
-    <input type="hidden" :name="name" :value="values.split(',')[1]">
+    <input type="hidden" :name="name" :value="getValueByIdx(1)">
 
     <input type="checkbox"
            :id="id"
            :title="title"
            :class="className"
            :checked="(field.checked = checked)"
-           :value="values.split(',')[0]"
-           :unchecked-value="values.split(',')[1]"
+           :value="getValueByIdx(0)"
+           :unchecked-value="getValueByIdx(1)"
            v-bind="field"
-           @change="$emit('update:modelValue', getValue($event))" />
+           @change="onChange" />
            
-    <label v-if="label"
-           :for="id">
-      <span class="sr-only" v-if="labelHidden">
-        {{ label }}
-      </span>
-      <template v-else>
-        {{ label }}
-      </template>
+    <label v-if="label" :for="id">
+      <span class="sr-only" v-if="labelHidden">{{ label }}</span>
+      <template v-else>{{ label }}</template>
     </label>
 
     <ErrorMessage class="form-field-error"
@@ -49,16 +44,33 @@ export default {
     checked: Boolean,               // checkbox checked
     label: String,                  // checkbox label
     labelHidden: Boolean,           // checkbox label hidden
-    modelValue: [String, Number],   // checkbox value
-    value: String,                  // checkbox true value
+    modelValue: [                   // checkbox value
+      String,
+      Number,
+      Boolean,
+      Array
+    ],
+    value: [                        // checkbox true value
+      String,
+      Number,
+      Boolean,
+      Array
+    ],
     values: String,                 // checkbox true value & false value
   },
   methods: {
+    onChange(e) {
+      console.log('modelValue >>>', this.modelValue);
+      this.$emit('update:modelValue', this.getValue(e));
+    },
     getValue(e) {
       if (e.target.checked) {
         return this.values.split(',')[0];
       }
       return this.values.split(',')[1];
+    },
+    getValueByIdx(i) {
+      return this.values.split(',')[i];
     },
   },
 }
