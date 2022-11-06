@@ -31,13 +31,13 @@ export default {
     ErrorMessage,
   },
   props: {
-    id: String,                   // radio id
-    name: String,                 // radio name
-    title: String,                // radio title
-    className: String,            // radio class
-    checked: Boolean,             // radio checked
-    label: String,                // radio label
-    modelValue: String,           // radio value
+    id: String,                     // radio id
+    name: String,                   // radio name
+    title: String,                  // radio title
+    className: String,              // radio class
+    checked: Boolean,               // radio checked
+    label: String,                  // radio label
+    modelValue: [String, Number],   // radio value
   },
 }
 </script>
