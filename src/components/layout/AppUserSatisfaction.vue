@@ -6,14 +6,14 @@
       <i class="xi-message" aria-hidden="true"></i> 이 페이지에서 제공하는 정보가 유익하셨나요?
     </p>
 
-    <ui-form class="satisfaction__frm" name="satisForm" @onSubmit="onSubmit">
+    <ui-form :class="'satisfaction__frm'" :name="'satisForm'" @onSubmit="onSubmit">
       <input type="hidden" name="pagePath" value="" />
 
       <div class="satisfaction__field">
         <ui-radio v-for="(item,i) in satisArr"
                   :key="i"
                   :id="`score${item.value}`"
-                  name="score"
+                  :name="'score'"
                   :checked="(item.value === this.satisArr[2].value)"
                   :label="item.text"
                   v-model="item.value" />
@@ -21,12 +21,12 @@
 
       <div class="satisfaction__field">
         <div class="satisfaction__field__inner">
-          <ui-form-field type="text"
-                         name="comment"
-                         id="comment"
-                         className="satisfaction__radio"
-                         title="의견"
-                         placeholder="의견을 입력하세요."
+          <ui-form-field :type="'text'"
+                         :name="'comment'"
+                         :id="'comment'"
+                         :className="'satisfaction__radio'"
+                         :title="'의견'"
+                         :placeholder="'의견을 입력하세요.'"
                          v-model="comment" />
           
           <button type="submit" class="btn satisfaction__btn">

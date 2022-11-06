@@ -1,19 +1,19 @@
 <template>
   <div class="search__wrapper">
-    <ui-form class="search__frm" name="searchForm" @onSubmit="onSubmit">
+    <ui-form :class="'search__frm'" :name="'searchForm'" @onSubmit="onSubmit">
       <div class="search__field" ref="searchField">
-        <ui-select name="t"
-                   title="검색 옵션"
-                   class="search__option" 
+        <ui-select :name="'t'"
+                   :title="'검색 옵션'"
+                   :class="'search__option'" 
                    v-model="t" 
                    :data="tData"
                    :selectedValue="this.$route.query['t']" />
 
-        <ui-form-field type="search"
-                       name="q"
-                       id="q"
-                       title="포스트 검색"
-                       placeholder="검색어를 입력하세요."
+        <ui-form-field :type="'search'"
+                       :name="'q'"
+                       :id="'q'"
+                       :title="'포스트 검색'"
+                       :placeholder="'검색어를 입력하세요.'"
                        v-model="q" />
 
         <button type="submit" class="search__btn">
@@ -23,10 +23,10 @@
       </div>
 
       <div class="search__detail">
-        <ui-checkbox name="c"
-                     id="c"
-                     label="대소문자 구분"
-                     values="Y,N"
+        <ui-checkbox :name="'c'"
+                     :id="'c'"
+                     :label="'대소문자 구분'"
+                     :values="'Y,N'"
                      v-model="c"
                      :checked="('Y' === this.$route.query['c'])" />
       </div>
@@ -81,8 +81,8 @@
 
               <template v-if="post.postCategory.length > 0">
                 <span class="post__box__item post__box__item--category"
-                      v-for="(category,i) in post.postCategory"
-                      :key="i">
+                      v-for="(category,j) in post.postCategory"
+                      :key="j">
                   <span class="sr-only">카테고리</span> {{ category.category.nm }}
                 </span>
               </template>
@@ -155,15 +155,7 @@ export default {
         this.tData.push(obj);
       }
     });
-  },
-  beforeRouteUpdate(to, from, next) {
-    // 페이지 전환 시 검색키워드 파라미터가 없으면 검색결과를 초기화
-    if (!to.query.q) {
-      this.postList = null;
-    }
-    next();
-  },
-  async mounted() {
+
     // 검색키워드 파라미터 값이 있으면 검색 메소드 실행
     if (this.$route.query['q']) {
       await this.dataLoading();
@@ -174,8 +166,17 @@ export default {
         page: this.page,
         pageSize: this.pageSize,
       });
-      document.addEventListener('scroll', this.scroll);
     }
+  },
+  beforeRouteUpdate(to, from, next) {
+    // 페이지 전환 시 검색키워드 파라미터가 없으면 검색결과를 초기화
+    if (!to.query.q) {
+      this.postList = null;
+    }
+    next();
+  },
+  mounted() {
+    document.addEventListener('scroll', this.scroll);
   },
   unmounted() {
     document.removeEventListener('scroll', this.scroll);
@@ -235,7 +236,7 @@ export default {
               q: this.q, 
               t: this.t, 
               c: this.c,
-            }
+            },
           });
         });
     },

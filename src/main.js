@@ -28,6 +28,8 @@ const app = createApp({
       error => {
         // JWT 만료/변조 시 강제 로그아웃
         if (401 === error.response.status) {
+          store.state.token = null;
+          
           this.$store.dispatch('LOGOUT')
             .then(res => {
               if (!this.$http.defaults.headers.common) return;
@@ -36,7 +38,12 @@ const app = createApp({
               this.$http.defaults.headers = {
                 'Cache-Control': 'no-cache',
               };
-              this.$router.push('/');
+              this.$router.push({
+                path: '/',
+                query: {
+                  e: moment().format('YYYYMMDDHHmmss'),
+                },
+              });
             });
         } else {
           snackbar.error(process.env.VUE_APP_ERR_MSG);

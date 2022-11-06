@@ -86,7 +86,7 @@ export default {
           this.$http.defaults.headers = {
             'Cache-Control': 'no-cache',
           };
-          this.$router.push('/');
+          this.$router.push('/a/goto');
         });
     },
     getBackgroundContrast() {

@@ -18,7 +18,14 @@
            @change="$emit('update:modelValue', getValue($event))" />
            
     <label v-if="label"
-           :for="id">{{ label }}</label>
+           :for="id">
+      <span class="sr-only" v-if="labelHidden">
+        {{ label }}
+      </span>
+      <template v-else>
+        {{ label }}
+      </template>
+    </label>
 
     <ErrorMessage class="form-field-error"
                   :name="name" />
@@ -35,15 +42,16 @@ export default {
     ErrorMessage,
   },
   props: {
-    id: String,                   // checkbox id
-    name: String,                 // checkbox name
-    title: String,                // checkbox title
-    className: String,            // checkbox class
-    checked: Boolean,             // checkbox checked
-    label: String,                // checkbox label
-    modelValue: String,           // checkbox value
-    value: String,                // checkbox true value
-    values: String,               // checkbox true value & false value
+    id: String,                     // checkbox id
+    name: String,                   // checkbox name
+    title: String,                  // checkbox title
+    className: String,              // checkbox class
+    checked: Boolean,               // checkbox checked
+    label: String,                  // checkbox label
+    labelHidden: Boolean,           // checkbox label hidden
+    modelValue: [String, Number],   // checkbox value
+    value: String,                  // checkbox true value
+    values: String,                 // checkbox true value & false value
   },
   methods: {
     getValue(e) {

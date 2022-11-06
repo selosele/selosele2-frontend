@@ -121,7 +121,7 @@ export default {
       return Promise.resolve(
         setTimeout(() => {
           this.dataLoaded = true;
-        }, 500)
+        }, 1000)
       );
     },
   },

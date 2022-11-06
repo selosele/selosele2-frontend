@@ -1,14 +1,14 @@
 <template>
   <div class="guestbook__wrapper">
-    <ui-form class="guestbook__write-frm" name="guestbookForm" @onSubmit="onSubmit">
+    <ui-form :class="'guestbook__write-frm'" :name="'guestbookForm'" @onSubmit="onSubmit">
       <div class="guestbook__write">
-        <ui-textarea name="guestbookWriteCont"
-                     id="guestbookWriteCont"
-                     title="방명록 내용 입력"
-                     placeholder="하고싶은 말을 남겨주세요."
-                     rules="required"
-                     cols="30"
-                     rows="4" />
+        <ui-textarea :name="'guestbookWriteCont'"
+                     :id="'guestbookWriteCont'"
+                     :title="'방명록 내용 입력'"
+                     :placeholder="'하고싶은 말을 남겨주세요.'"
+                     :rules="'required'"
+                     :cols="'30'"
+                     :rows="'4'" />
 
         <div class="guestbook__write__inputs">
           <label for="guestbook_write_author">

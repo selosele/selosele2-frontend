@@ -33,7 +33,7 @@
       }
     }
 
-    > a {
+    > .link {
       display: block;
       position: relative;
       width: 2rem;
@@ -43,6 +43,8 @@
       line-height: 2.1rem;
       color: $black05;
       text-align: center;
+      text-decoration: none;
+      cursor: pointer;
 
       @media (min-width: $min-large-width) {
         &:hover {
@@ -51,6 +53,11 @@
           background-color: $sub-color07;
           color: $sub-color03;
         }
+      }
+
+      &--disabled {
+        opacity: 0.5;
+        pointer-events: none;
       }
 
       > i {
@@ -62,17 +69,13 @@
     &--active {
       display: block;
 
-      > a {
+      > .link {
         z-index: 1;
         border-color: $main-color;
         background-color: $sub-color07;
         color: $sub-color03;
         cursor: default;
       }
-    }
-
-    &--total {
-      display: block;
     }
   }
 }
