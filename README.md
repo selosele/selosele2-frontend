@@ -9,7 +9,7 @@
 - DBMS : MariaDB
 - ORM : TypeORM
 - Port: 8080
-- 프론트엔드 구동 : ```npm start``` &rarr; ```npm run sass:watch```
+- 프론트엔드 구동 : ```npm start```
 - 프론트엔드 빌드 : ```npm run build```
 - [Backend 저장소](https://github.com/selosele/selosele2-backend)
 - [AS-IS 저장소](https://github.com/selosele/devblog)
