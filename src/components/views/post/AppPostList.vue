@@ -114,7 +114,6 @@ export default {
   computed: {
     checkAll: {
       get() {
-        console.log('this.checkList >>>', this.checkList);
         return this.postList ? this.postList.length === this.checkList.length : false;
       },
       set(v) {

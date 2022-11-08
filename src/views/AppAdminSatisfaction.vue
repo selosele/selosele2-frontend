@@ -30,6 +30,7 @@
     <ui-grid
       :columnDefs="columnDefs"
       :rowData="rowData"
+      :rowNumIndex="0"
       :pagination="true"
       @onGridReady="onGridReady"
       @cellDoubleClicked="cellDoubleClicked"
@@ -51,7 +52,7 @@ export default {
   data() {
     return {
       columnDefs: [
-        { rowNum: true },
+        { }, // rowNum
         { headerName: '페이지 URL', field: 'pagePath', width: 100 },
         { headerName: '만족도 점수', field: 'score', width: 80 },
         { headerName: '만족도 의견', field: 'comment' },

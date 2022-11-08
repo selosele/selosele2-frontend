@@ -5,10 +5,11 @@
   <app-post-list
     v-if="!dataLoaded"
     :type="'main'"
-    :postList="postList">
+    :postList="pagingPostList">
   
-    <ui-pagination :total="listCnt"
-                   :rows="pageSize"
+    <ui-pagination :value="postList"
+                   :total="listCnt"
+                   :rows="5"
                    :size="10"
                    @onPage="onPage" />
   </app-post-list>
@@ -29,41 +30,28 @@ export default {
   },
   data() {
     return {
-      page: 1,
-      pageSize: 5,
       listCnt: null,
       postList: [],
+      pagingPostList: [],
       dataLoaded: false,
     }
   },
   async created() {
     await this.dataLoading();
-    await this.listPost({
-      page: this.page,
-      pageSize: this.pageSize,
-    });
+    await this.listPost();
   },
   methods: {
-    init() {
-      this.postList = [];
-    },
     // Pagination 동작
     onPage(values) {
-      this.listPost({
-        page: values.page,
-        pageSize: this.pageSize,
-      });
+      this.pagingPostList = [...values.pageData];
     },
     // 포스트 목록 조회
-    listPost(params) {
-      return this.$http.get('/post/list', { params: params })
-      .then(res => {
-          this.init();
-          
+    listPost() {
+      return this.$http.get('/post/list')
+        .then(res => {
           res.data[0].map(d => {
             this.postList.push(d);
           });
-
           this.listCnt = res.data[1];
         });
     },

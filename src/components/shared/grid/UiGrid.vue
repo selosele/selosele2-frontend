@@ -12,6 +12,7 @@
     :paginationPageSize="paginationPageSize"
     @grid-ready="onGridReady"
     @cell-doubleclicked="cellDoubleClicked"
+    @rowData-updated="rowDataUpdated"
   >
   </ag-grid-vue>
 </template>
@@ -58,6 +59,10 @@ export default {
     rowData: {
       type: Array,
     },
+    // rowNum 표출 Index
+    rowNumIndex: Number,
+    // 체크박스 표출 Index
+    checkboxIndex: Number,
     // rowSelection 모드 (multiple: 여러개 선택)
     rowSelection: {
       type: String,
@@ -90,24 +95,8 @@ export default {
     // defaultColDef 옵션
     Object.assign(this.newDefaultColDef, this.originDefaultColDef, this.defaultColDef);
 
-    this.columnDefs.map((c,i) => {
-
-      // columnDefs rowNum 표출
-      if (c.rowNum) {
-        c.field = 'No';
-        c.width = c.width || 15;
-        this.rowData.map((r,j) => r.No = j+1);
-        delete c.rowNum;
-      }
-
-      // columnDefs checkbox 표출
-      if ('_checked' === c.field) {
-        c.field = '';
-        c.width = 50;
-        c.headerCheckboxSelection = true;
-        c.checkboxSelection = true;
-      }
-    });
+    // columnDefs 세팅
+    this.setColumnDefs();
 
     // columnDefs 정렬 기능
     Object.values(this.columnDefs)
@@ -149,6 +138,27 @@ export default {
     // row 가져오기
     getRowDatas() {
       return this.rowData;
+    },
+    // rowData 속성이 변경되었을 때
+    rowDataUpdated() {
+      this.setColumnDefs();
+    },
+    // columnDefs 세팅
+    setColumnDefs() {
+      this.columnDefs.map((c,i) => {
+        if (null !== this.rowNumIndex && i === this.rowNumIndex) {
+          c.field = 'No';
+          c.width = c.width || 15;
+          this.rowData.map((r,j) => r.No = j+1);
+        }
+        
+        if (null !== this.checkboxIndex && i === this.checkboxIndex) {
+          c.field = '';
+          c.width = 50;
+          c.headerCheckboxSelection = true;
+          c.checkboxSelection = true;
+        }
+      });
     },
   },
 }

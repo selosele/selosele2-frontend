@@ -57,6 +57,8 @@
 export default {
   name: 'ui-pagination',
   props: {
+    // Pagination 데이타
+    value: Array,
     // 한 페이지당 표출할 row 개수
     total: Number,
     // Pagination 데이타 총 개수
@@ -76,6 +78,9 @@ export default {
       pageNum: 1,
     }
   },
+  created() {
+    this.onPage(this.page);
+  },
   computed: {
     // Pagination 현재 번호
     page: {
@@ -84,7 +89,7 @@ export default {
       },
       set(i) {
         this.pageNum = i;
-      },
+      }
     },
     // Pagination 출력
     pages() {
@@ -93,6 +98,14 @@ export default {
         list.push(i);
       }
       return list;
+    },
+    // Pagination 건너뛸 목록 수
+    paginationSkip() {
+      return (this.page - 1) * this.rows;
+    },
+    // 한 페이지당 표출할 row 개수
+    paginationRows() {
+      return Math.ceil(this.paginationSkip / this.rows) * this.rows + this.rows;
     },
     // Pagination 시작 번호
     paginationStart() {
@@ -114,8 +127,12 @@ export default {
     onPage(i) {
       this.page = i;
 
+      // Paging 처리된 데이타
+      const pageData = this.value.slice(this.paginationSkip, this.paginationRows);
+
       this.$emit('onPage', {
         page: this.page,
+        pageData: pageData,
       });
     },
   },

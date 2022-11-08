@@ -24,6 +24,7 @@
       :defaultColDef="defaultColDef"
       :columnDefs="columnDefs"
       :rowData="rowData"
+      :checkboxIndex="0"
       :pagination="true"
       @onGridReady="onGridReady"
     >
@@ -47,7 +48,7 @@ export default {
         editable: true,
       },
       columnDefs: [
-        { field: '_checked' },
+        { }, // 체크박스
         { headerName: '코드 ID', field: 'id', width: 130 },
         { headerName: '코드 접두어', field: 'prefix', width: 130 },
         { headerName: '코드 값', field: 'val', width: 130 },
