@@ -5,8 +5,6 @@ import store from './store/store';
 import axios from 'axios';
 import { initDefineRule } from './validation';
 import { commonComputed } from '@/store/helper';
-import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
-import UiLoading from '@/components/shared/loading/UiLoading.vue';
 import moment from 'moment';
 import snackbar from '@/utils/ui/Snackbar';
 
@@ -72,6 +70,4 @@ app.config.globalProperties.$moment = moment;
 app
   .use(store)
   .use(router)
-  .component(UiSkeletor.name, UiSkeletor)
-  .component(UiLoading.name, UiLoading)
   .mount('#app');
