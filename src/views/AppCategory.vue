@@ -28,12 +28,17 @@
 </template>
 
 <script>
+import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
+
 export default {
   name: 'app-category',
   props: {
     type: String,
     nm: String,
     id: String,
+  },
+  components: {
+    UiSkeletor,
   },
   data() {
     return {

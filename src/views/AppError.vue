@@ -29,10 +29,13 @@
 </template>
 
 <script>
-import snackbar from '@/utils/ui/Snackbar';
+import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 
 export default {
   name: 'app-error',
+  components: {
+    UiSkeletor,
+  },
   data() {
     return {
       postList: [],

@@ -40,12 +40,14 @@
 </template>
 
 <script>
+import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import UiGrid from '@/components/shared/grid/UiGrid.vue';
 import UiDatepicker from '@/components/shared/form/UiDatepicker.vue';
 
 export default {
   name: 'app-admin-satisfaction',
   components: {
+    UiSkeletor,
     UiGrid,
     UiDatepicker,
   },

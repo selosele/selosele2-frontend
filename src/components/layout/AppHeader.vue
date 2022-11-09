@@ -57,12 +57,16 @@
 </template>
 
 <script>
+import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import confirmUtil from '@/utils/ui/Confirm';
 
 export default {
   name: 'app-header',
   props: {
     resStatus: String,
+  },
+  components: {
+    UiSkeletor,
   },
   data() {
     return {

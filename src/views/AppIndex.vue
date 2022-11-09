@@ -17,16 +17,19 @@
 </template>
 
 <script>
+import UiLoading from '@/components/shared/loading/UiLoading.vue';
+import UiPagination from '../components/shared/pagination/UiPagination.vue';
 import AppPostList from '../components/views/post/AppPostList.vue';
 import AppWidgetConfig from '../components/widget/AppWidgetConfig.vue';
-import UiPagination from '../components/shared/pagination/UiPagination.vue';
+import { isNotEmpty } from '@/utils/util';
 
 export default {
   name: 'app-index',
   components: {
+    UiLoading,
+    UiPagination,
     AppPostList,
     AppWidgetConfig,
-    UiPagination,
   },
   data() {
     return {
@@ -37,8 +40,25 @@ export default {
     }
   },
   async created() {
-    await this.dataLoading();
-    await this.listPost();
+    if (!this.hasStorePostList) {
+      await this.dataLoading();
+      await this.listPost();
+      return;
+    }
+    this.postList = [...this.storePostList];
+    this.listCnt = this.storePostListCnt;
+  },
+  computed: {
+    storePostList() {
+      return this.$store.getters.mainPostObj.postList;
+    },
+    storePostListCnt() {
+      return this.$store.getters.mainPostObj.listCnt;
+    },
+    hasStorePostList() {
+      return isNotEmpty(this.storePostList)
+            && 0 < this.storePostList.length;
+    },
   },
   methods: {
     // Pagination 동작
@@ -52,7 +72,13 @@ export default {
           res.data[0].map(d => {
             this.postList.push(d);
           });
+          
           this.listCnt = res.data[1];
+
+          this.$store.dispatch('FETCH_MAIN_POSTLIST', {
+            postList: this.postList,
+            listCnt: this.listCnt,
+          });
         });
     },
     // 데이타 로딩

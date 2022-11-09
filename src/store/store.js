@@ -4,12 +4,16 @@ import axios from 'axios';
 
 export default createStore({
   state: {
-    // Token
+    // JWT
     token: null,
     // 공통코드
     code: [],
     // 블로그 환경설정
     blogConfig: [],
+    // 사이드바
+    sidebar: {},
+    // 메인 포스트 목록
+    mainPostObj: [],
   },
   getters: {
     // 로그인 여부
@@ -27,6 +31,14 @@ export default createStore({
     blogConfig(state) {
       return state.blogConfig;
     },
+    // 사이드바
+    sidebar(state) {
+      return state.sidebar;
+    },
+    // 메인 포스트 목록
+    mainPostObj(state) {
+      return state.mainPostObj;
+    },
   },
   mutations: {
     SET_TOKEN(state, _token) {
@@ -42,6 +54,12 @@ export default createStore({
     },
     SET_BLOG_CONFIG(state, blogConfig) {
       state.blogConfig = blogConfig;
+    },
+    SET_SIDEBAR(state, sidebar) {
+      state.sidebar = sidebar;
+    },
+    SET_MAIN_POSTLIST(state, mainPostObj) {
+      state.mainPostObj = mainPostObj;
     },
   },
   actions: {
@@ -81,6 +99,12 @@ export default createStore({
             reject('no');
           });
       })
+    },
+    FETCH_SIDEBAR({ commit }, values) {
+      commit('SET_SIDEBAR', values);
+    },
+    FETCH_MAIN_POSTLIST({ commit }, values) {
+      commit('SET_MAIN_POSTLIST', values);
     },
   },
 });

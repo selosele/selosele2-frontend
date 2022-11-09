@@ -2,12 +2,12 @@
   <div class="login__wrapper">
     <div class="login__inner">
       <ui-form autocomplete="off" :class="'login__frm'" :name="'loginForm'" @onSubmit="onSubmit">
-        <ui-form-field :type="'text'" :name="'userId'" :title="'아이디 입력'" :placeholder="'아이디'" 
+        <ui-text-field :type="'text'" :name="'userId'" :title="'아이디 입력'" :placeholder="'아이디'" 
                        v-model="userId" 
                        :rules="'required|maxLength:10'" />
         
         <!-- 운영모드일 때 비밀번호 input에 minlength="8" maxlength="15" 속성 필요 -->
-        <ui-form-field :type="'password'" :name="'userPw'" :title="'비밀번호 입력'" :placeholder="'비밀번호'" 
+        <ui-text-field :type="'password'" :name="'userPw'" :title="'비밀번호 입력'" :placeholder="'비밀번호'" 
                        v-model="userPw" 
                        :rules="'required'" />
         
@@ -25,7 +25,7 @@
 
 <script>
 import UiForm from '@/components/shared/form/UiForm.vue';
-import UiFormField from '@/components/shared/form/UiFormField.vue';
+import UiTextField from '@/components/shared/form/UiTextField.vue';
 import confirmUtil from '@/utils/ui/Confirm';
 import snackbar from '@/utils/ui/Snackbar';
 
@@ -33,7 +33,7 @@ export default {
   name: 'app-login',
   components: {
     UiForm,
-    UiFormField,
+    UiTextField,
   },
   data() {
     return {

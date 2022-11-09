@@ -9,7 +9,7 @@
                    :data="tData"
                    :selectedValue="this.$route.query['t']" />
 
-        <ui-form-field :type="'search'"
+        <ui-text-field :type="'search'"
                        :name="'q'"
                        :id="'q'"
                        :title="'포스트 검색'"
@@ -113,8 +113,9 @@
 </template>
 
 <script>
+import UiLoading from '@/components/shared/loading/UiLoading.vue';
 import UiForm from '@/components/shared/form/UiForm.vue';
-import UiFormField from '@/components/shared/form/UiFormField.vue';
+import UiTextField from '@/components/shared/form/UiTextField.vue';
 import UiSelect from '@/components/shared/form/UiSelect.vue';
 import UiCheckbox from '@/components/shared/form/UiCheckbox.vue';
 import snackbar from '@/utils/ui/Snackbar';
@@ -122,8 +123,9 @@ import snackbar from '@/utils/ui/Snackbar';
 export default {
   name: 'app-search',
   components: {
+    UiLoading,
     UiForm,
-    UiFormField,
+    UiTextField,
     UiSelect,
     UiCheckbox,
   },

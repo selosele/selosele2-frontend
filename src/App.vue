@@ -17,18 +17,18 @@
       </header>
 
       <div class="page__body">
-        <div class="page__body--left" v-if="$route.meta.showSidebar !== false">
+        <div class="page__body--left" v-if="$route.meta.showSidebar">
           <router-view />
         </div>
         <router-view v-else />
 
-        <div class="page__body--right" v-if="$route.meta.showSidebar !== false">
+        <div class="page__body--right" v-if="$route.meta.showSidebar">
           <app-sidebar />
         </div>
       </div>
 
-      <app-user-satisfaction v-if="($route.meta.showSatis !== false
-                             && this.$store.state.blogConfig.showSatisYn === 'Y')" />
+      <app-user-satisfaction v-if="($route.meta.showSatis
+                                    && this.$store.getters.blogConfig.showSatisYn === 'Y')" />
     </app-main>
 
     <app-footer />
@@ -78,8 +78,7 @@ export default {
     this.$store.dispatch('FETCH_BLOG_CONFIG')
       .then(res => {
         this.resStatus = res;
-        
-        if ('no' === res) {
+        if ('no' === this.resStatus) {
           snackbar.error(process.env.VUE_APP_ERR_MSG);
           return;
         }

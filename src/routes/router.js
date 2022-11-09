@@ -8,6 +8,7 @@ import guestbook from './guestbook/guestbook';
 import admin from './admin/admin';
 import store from '@/store/store';
 import snackbar from '@/utils/ui/Snackbar';
+import { isEmpty } from '@/utils/util';
 
 const routes = [
   ...index,               // 메인
@@ -25,6 +26,13 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+
+  if (isEmpty(to.meta.showSidebar)) {
+    to.meta.showSidebar = true;
+  }
+  if (isEmpty(to.meta.showSatis)) {
+    to.meta.showSatis = true;
+  }
 
   // 로그인 중인데 로그인 페이지에 접근 시 리다이렉트
   if (store.getters.isLogin && '/a/goto' === to.path) {

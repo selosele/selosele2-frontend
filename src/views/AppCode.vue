@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import UiGrid from '@/components/shared/grid/UiGrid.vue';
 import snackbar from '@/utils/ui/Snackbar';
 import confirmUtil from '@/utils/ui/Confirm';
@@ -40,6 +41,7 @@ import confirmUtil from '@/utils/ui/Confirm';
 export default {
   name: 'app-code',
   components: {
+    UiSkeletor,
     UiGrid,
   },
   data() {

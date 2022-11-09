@@ -46,12 +46,16 @@
 </template>
 
 <script>
-import snackbar from '@/utils/ui/Snackbar';
+import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 
 export default {
   name: 'app-sidebar',
+  components: {
+    UiSkeletor,
+  },
   data() {
     return {
+      sidebar: {},
       widgetList: [],
       categoryList: [],
       tagList: [],
@@ -59,17 +63,32 @@ export default {
     }
   },
   async created() {
-    // 위젯 목록을 먼저 조회하고
-    await this.listWidget();
+    if (0 === Object.values(this.storeSidebar).length) {
+      // 위젯 목록을 먼저 조회하고
+      await this.listWidget();
 
-    // 위젯 skeleton ui 표출 메서드를 실행한다음
-    await this.dataLoading();
+      // 위젯 skeleton ui 표출 메서드를 실행한다음
+      await this.dataLoading();
 
-    // 카테고리, 태그를 동시에 조회한다.
-    await Promise.all([
-      this.listCategoryAndCount(),
-      this.listTagAndCount(),
-    ]);
+      // 카테고리, 태그를 동시에 조회한다.
+      await Promise.all([
+        this.listCategoryAndCount(),
+        this.listTagAndCount(),
+      ]);
+
+      this.$store.dispatch('FETCH_SIDEBAR', this.sidebar);
+      return;
+    }
+
+    this.dataLoaded = true;
+    this.widgetList = [...this.storeSidebar.widget];
+    this.categoryList = [...this.storeSidebar.category];
+    this.tagList = [...this.storeSidebar.tag];
+  },
+  computed: {
+    storeSidebar() {
+      return this.$store.getters.sidebar;
+    },
   },
   methods: {
     // 위젯 목록 조회
@@ -83,6 +102,7 @@ export default {
           res.data.map(d => {
             this.widgetList.push(d);
           });
+          this.sidebar.widget = this.widgetList;
         });
     },
     // 카테고리 목록 및 개수 조회
@@ -92,6 +112,7 @@ export default {
           res.data.map(d => {
             this.categoryList.push(d);
           });
+          this.sidebar.category = this.categoryList;
         });
     },
     // 태그 목록 및 개수 조회
@@ -101,11 +122,8 @@ export default {
           res.data.map(d => {
             this.tagList.push(d);
           });
+          this.sidebar.tag = this.tagList;
         });
-    },
-    // skeletor width 구하기
-    getSkeletorWidth(num) {
-      return Math.floor(Math.random() * num);
     },
     // font-size 구하기
     getFontSize(cnt) {

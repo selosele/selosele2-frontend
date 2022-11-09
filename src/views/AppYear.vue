@@ -45,10 +45,14 @@
 </template>
 
 <script>
+import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import snackbar from '@/utils/ui/Snackbar';
 
 export default {
   name: 'app-year',
+  components: {
+    UiSkeletor,
+  },
   data() {
     return {
       page: 1,

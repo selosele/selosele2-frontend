@@ -21,7 +21,7 @@
 
       <div class="satisfaction__field">
         <div class="satisfaction__field__inner">
-          <ui-form-field :type="'text'"
+          <ui-text-field :type="'text'"
                          :name="'comment'"
                          :id="'comment'"
                          :className="'satisfaction__radio'"
@@ -41,7 +41,7 @@
 
 <script>
 import UiForm from '@/components/shared/form/UiForm.vue';
-import UiFormField from '@/components/shared/form/UiFormField.vue';
+import UiTextField from '@/components/shared/form/UiTextField.vue';
 import UiRadio from '@/components/shared/form/UiRadio.vue';
 import confirmUtil from '@/utils/ui/Confirm';
 import snackbar from '@/utils/ui/Snackbar';
@@ -51,7 +51,7 @@ export default {
   name: 'app-user-satisfaction',
   components: {
     UiForm,
-    UiFormField,
+    UiTextField,
     UiRadio,
   },
   data() {
@@ -62,7 +62,7 @@ export default {
   },
   created() {
     // 만족도조사 코드 세팅
-    this.$store.state.code.forEach((d, i) => {
+    this.$store.state.code.map(d => {
       if ('B01' === d.prefix) {
         let obj = {
           value: d.val,
