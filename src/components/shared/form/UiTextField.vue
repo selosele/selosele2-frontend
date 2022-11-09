@@ -17,7 +17,7 @@
 import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
-  name: 'ui-form-field',
+  name: 'ui-text-field',
   components: {
     Field,
     ErrorMessage,
