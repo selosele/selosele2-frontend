@@ -42,18 +42,22 @@ export default {
     }
   },
   methods: {
-    onSubmit(values) {
-      this.$store.dispatch('LOGIN', values)
-        .then(res => {
-          if ('no' === res) {
-            snackbar.error('로그인에 실패했습니다.');
-            return;
+    async onSubmit(values) {
+      try {
+        let res = await this.$http.post('/auth/signin', values);
+        const token = res.data.accessToken;
+        
+        if (token) {
+          this.$http.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+          const loginRes = await this.$store.dispatch('LOGIN', token);
+          
+          if ('ok' === loginRes) {
+            this.$router.push('/');
           }
-          if (this.$http.defaults.headers.common) {
-            this.$http.defaults.headers.common['Authorization'] = `Bearer ${res}`;
-          }
-          this.$router.push('/');
-        });
+        }
+      } catch(error) {
+        snackbar.error(error.response.data.message);
+      }
     },
     async addUser() {
       const user = {

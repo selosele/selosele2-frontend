@@ -1,6 +1,4 @@
 import { createStore } from 'vuex';
-import snackbar from '@/utils/ui/Snackbar';
-import axios from 'axios';
 
 export default createStore({
   state: {
@@ -13,7 +11,7 @@ export default createStore({
     // 사이드바
     sidebar: {},
     // 메인 포스트 목록
-    mainPostObj: [],
+    mainPostObj: {},
   },
   getters: {
     // 로그인 여부
@@ -65,40 +63,25 @@ export default createStore({
   actions: {
     LOGIN({ commit }, values) {
       return new Promise((resolve, reject) => {
-        axios.post(`${process.env.VUE_APP_API_ENDPOINT}/auth/signin`, values)
-          .then(res => {
-            const token = res.data.accessToken;
-            if (token) {
-              commit('SET_TOKEN', token);
-              resolve(token);
-            }
-          }).catch(error => {
-            resolve('no');
-          });
+        commit('SET_MAIN_POSTLIST', {});
+        commit('SET_SIDEBAR', {});
+        commit('SET_TOKEN', values);
+        resolve('ok');
       });
     },
     LOGOUT({ commit }) {
-      commit('CLEAR_TOKEN');
-    },
-    FETCH_CODE(ctx) {
-      axios.get(`${process.env.VUE_APP_API_ENDPOINT}/code/list`)
-        .then(res => {
-          ctx.commit('SET_CODE', res.data);
-        }).catch(error => {
-          snackbar.error(process.env.VUE_APP_ERR_MSG);
-        });
-    },
-    FETCH_BLOG_CONFIG(ctx) {
       return new Promise((resolve, reject) => {
-        axios.get(`${process.env.VUE_APP_API_ENDPOINT}/blogconfig`)
-          .then(res => {
-            ctx.commit('SET_BLOG_CONFIG', res.data);
-            document.title = res.data.title;
-            resolve('ok');
-          }).catch(error => {
-            reject('no');
-          });
-      })
+        commit('SET_MAIN_POSTLIST', {});
+        commit('SET_SIDEBAR', {});
+        commit('CLEAR_TOKEN');
+        resolve('ok');
+      });
+    },
+    FETCH_CODE({ commit }, values) {
+      commit('SET_CODE', values);
+    },
+    FETCH_BLOG_CONFIG({ commit }, values) {
+      commit('SET_BLOG_CONFIG', values);
     },
     FETCH_SIDEBAR({ commit }, values) {
       commit('SET_SIDEBAR', values);

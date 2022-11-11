@@ -43,7 +43,6 @@ import AppMenu from './components/layout/AppMenu.vue';
 import AppSidebar from './components/layout/AppSidebar.vue';
 import AppSkipLinks from './components/layout/AppSkipLinks.vue';
 import AppUserSatisfaction from './components/layout/AppUserSatisfaction.vue';
-import snackbar from '@/utils/ui/Snackbar';
 
 import '@vuepic/vue-datepicker/dist/main.css';
 
@@ -73,15 +72,17 @@ export default {
     }
 
     // 공통코드
-    this.$store.dispatch('FETCH_CODE');
-    // 블로그 환경설정
-    this.$store.dispatch('FETCH_BLOG_CONFIG')
+    this.$http.get('/code/list')
       .then(res => {
-        this.resStatus = res;
-        if ('no' === this.resStatus) {
-          snackbar.error(process.env.VUE_APP_ERR_MSG);
-          return;
-        }
+        this.$store.dispatch('FETCH_CODE', res.data);
+      });
+
+    // 블로그 환경설정
+    this.$http.get('/blogconfig')
+      .then(res => {
+        this.$store.dispatch('FETCH_BLOG_CONFIG', res.data);
+        this.resStatus = 'ok';
+        document.title = res.data.title;
       });
   },
   mounted() {

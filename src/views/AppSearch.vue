@@ -265,6 +265,8 @@ export default {
     },
     // 스크롤 시 검색 input으로 향하는 버튼 toggle
     scroll() {
+      if (null === this.postList || 0 === this.postList.length) return;
+
       if (this.$refs.resultsWrapper && (window.pageYOffset >= this.$refs.resultsWrapper.offsetTop)) {
         this.searchToInputActive = true;
       } else {

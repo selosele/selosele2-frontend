@@ -23,26 +23,19 @@ const app = createApp({
     }
     this.$http.interceptors.response.use(
       response => response,
-      error => {
+      async error => {
         // JWT 만료/변조 시 강제 로그아웃
         if (401 === error.response.status) {
-          store.state.token = null;
-          
-          this.$store.dispatch('LOGOUT')
-            .then(res => {
-              if (!this.$http.defaults.headers.common) return;
-              
-              this.$http.defaults.headers.common['Authorization'] = null;
-              this.$http.defaults.headers = {
-                'Cache-Control': 'no-cache',
-              };
-              this.$router.push({
-                path: '/',
-                query: {
-                  e: moment().format('YYYYMMDDHHmmss'),
-                },
-              });
+          const res = await this.$store.dispatch('LOGOUT');
+          if ('ok' === res) {
+            this.$http.defaults.headers.common['Authorization'] = '';
+            this.$router.push({
+              path: '/',
+              query: {
+                e: moment().format('YYYYMMDDHHmmss'),
+              },
             });
+          }
         } else {
           snackbar.error(process.env.VUE_APP_ERR_MSG);
         }

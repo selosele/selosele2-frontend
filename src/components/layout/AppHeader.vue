@@ -84,14 +84,11 @@ export default {
       const confirm = await confirmUtil.question('로그아웃하시겠습니까?');
       if (!confirm) return;
 
-      this.$store.dispatch('LOGOUT')
-        .then(res => {
-          this.$http.defaults.headers.common['Authorization'] = null;
-          this.$http.defaults.headers = {
-            'Cache-Control': 'no-cache',
-          };
-          this.$router.push('/a/goto');
-        });
+      const res = await this.$store.dispatch('LOGOUT');
+      if ('ok' === res) {
+        this.$http.defaults.headers.common['Authorization'] = '';
+        this.$router.push('/a/goto');
+      }
     },
     getBackgroundContrast() {
       return this.$store.state.blogConfig.ogImgContrast;
