@@ -8,12 +8,16 @@
 
     <template v-else>
       <ul>
-        <li class="category__item" v-for="(post,i) in postList" :key="i">
-          <router-link :to="`/post/${post.id}`">
-            <strong class="category__title">{{ post.title }}</strong>
-            <span class="category__date">{{ post.regDate }}</span>
-          </router-link>
-        </li>
+        <template v-for="(post,i) in postList" :key="i">
+          <li :class="[
+            'category__item',
+            'Y' === post.secretYn && 'category__item--secret']">
+            <router-link :to="`/post/${post.id}`">
+              <strong class="category__title">{{ post.title }}</strong>
+              <span class="category__date">{{ post.regDate }}</span>
+            </router-link>
+          </li>
+        </template>
       </ul>
 
       <button type="button"
