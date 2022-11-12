@@ -45,6 +45,7 @@ export default {
       this.dataLoading();
       return;
     }
+    this.dataLoaded = true;
     this.postList = [...this.storePostList];
     this.listCnt = this.storePostListCnt;
   },
