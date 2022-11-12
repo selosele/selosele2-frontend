@@ -22,7 +22,7 @@
           <ui-skeletor height="1.3rem" v-if="i !== itemLoadedIndex" />
           <ui-skeletor height="1.3rem" v-if="i !== itemLoadedIndex" />
 
-          <template v-if="i === itemLoadedIndex && postList !== null && postList.length > 0">
+          <template v-if="i === itemLoadedIndex && null !== postList && 0 < postList.length">
             <li v-for="(post,j) in postList" :key="j">
               <router-link :to="`/post/${post.id}`">
                 <strong class="year__title">{{ post.title }}</strong>
@@ -33,9 +33,9 @@
         </ul>
 
         <button type="button"
-              class="btn--more"
-              @click="more(item.year, i)"
-              v-if="i === activeIndex && listCnt > pageSize && !isLastPage">
+                class="btn--more"
+                @click="more(item.year, i)"
+                v-if="i === activeIndex && listCnt > pageSize && !isLastPage">
           <i class="xi-ellipsis-h" aria-hidden="true"></i>
           <span class="sr-only">더보기</span>
         </button>

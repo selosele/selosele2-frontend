@@ -2,6 +2,7 @@
   "name": "selosele2",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "scripts": {
     "start": "npm run serve & \"npm run sass:watch\"",
     "serve": "vue-cli-service serve",
@@ -34,7 +35,8 @@
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "node-sass": "^7.0.3",
-    "sass-loader": "^13.0.2"
+    "sass-loader": "^13.0.2",
+    "vue3-markdown-it": "^1.0.10"
   },
   "eslintConfig": {
     "root": true,

@@ -22,7 +22,8 @@
           <a :href="href"
              :active="isActive"
              :class="{ 'router-link-active': isActive }"
-             @click.prevent="toggleMenu">블로그 관리</a>
+             @click.prevent="toggleMenu"
+             ref="menuLink">블로그 관리</a>
         </router-link>
 
         <transition name="fade">
@@ -51,16 +52,22 @@ export default {
       isShow: false,
     }
   },
-  watch: {
-    $route(to, from) {
-      // 페이지 전환 시 2차메뉴 닫히게 하기
-      this.isShow = false;
-    }
+  mounted() {
+    document.addEventListener('click', this.closeMenu);
+  },
+  unmounted() {
+    document.removeEventListener('click', this.closeMenu);
   },
   methods: {
     // 메뉴 Toggle
     toggleMenu() {
       this.isShow = !this.isShow;
+    },
+    // 메뉴 닫기
+    closeMenu(e) {
+      if (!this.$refs.menuLink.contains(e.target)) {
+        this.isShow = false;
+      }
     },
   },
 };
