@@ -67,14 +67,14 @@ export default {
       // 위젯 목록을 먼저 조회하고
       await this.listWidget();
 
-      // 위젯 skeleton ui 표출 메서드를 실행한다음
-      await this.dataLoading();
-
-      // 카테고리, 태그를 동시에 조회한다.
+      // 카테고리, 태그를 동시에 조회한다음
       await Promise.all([
         this.listCategoryAndCount(),
         this.listTagAndCount(),
       ]);
+
+      // 위젯 skeleton ui 표출 메서드를 실행한다.
+      this.dataLoading();
 
       this.$store.dispatch('FETCH_SIDEBAR', this.sidebar);
       return;
@@ -136,11 +136,11 @@ export default {
     },
     // 데이타 로딩
     dataLoading() {
-      return Promise.resolve(
-        setTimeout(() => {
-          this.dataLoaded = true;
-        }, 1000)
-      );
+      if (0 < this.widgetList.length 
+        && 0 < this.categoryList.length 
+        && 0 < this.tagList.length) {
+        this.dataLoaded = true;
+      }
     },
   },
 };

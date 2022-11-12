@@ -67,10 +67,10 @@ export default {
     }
   },
   async created() {
-    await this.dataLoading();
     await this.listSatisfaction({
       isToday: 'N',
     });
+    this.dataLoading();
   },
   methods: {
     onGridReady(params) {
@@ -123,11 +123,9 @@ export default {
     },
     // 데이타 로딩
     dataLoading() {
-      return Promise.resolve(
-        setTimeout(() => {
-          this.dataLoaded = true;
-        }, 500)
-      );
+      if (0 < this.rowData.length) {
+        this.dataLoaded = true;
+      }
     },
   },
 }

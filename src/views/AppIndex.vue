@@ -1,9 +1,9 @@
 <template>
-  <ui-loading :activeModel="dataLoaded"
+  <ui-loading :activeModel="!dataLoaded"
               :fullPage="true" />
 
   <app-post-list
-    v-if="!dataLoaded"
+    v-if="dataLoaded"
     :type="'main'"
     :postList="pagingPostList">
   
@@ -41,8 +41,8 @@ export default {
   },
   async created() {
     if (!this.hasStorePostList) {
-      await this.dataLoading();
       await this.listPost();
+      this.dataLoading();
       return;
     }
     this.postList = [...this.storePostList];
@@ -83,13 +83,9 @@ export default {
     },
     // 데이타 로딩
     dataLoading() {
-      this.dataLoaded = true;
-
-      return Promise.resolve(
-        setTimeout(() => {
-          this.dataLoaded = false;
-        }, 1000)
-      );
+      if (0 < this.postList.length) {
+        this.dataLoaded = true;
+      }
     },
   },
 };

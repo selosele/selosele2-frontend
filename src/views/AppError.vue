@@ -43,8 +43,8 @@ export default {
     }
   },
   async created() {
-    await this.dataLoading();
     await this.listPostByLimit(3);
+    this.dataLoading();
   },
   methods: {
     // 개수별 포스트 조회
@@ -59,11 +59,9 @@ export default {
     },
     // 데이타 로딩
     dataLoading() {
-      return Promise.resolve(
-        setTimeout(() => {
-          this.dataLoaded = true;
-        }, 500)
-      );
+      if (0 < this.postList.length) {
+        this.dataLoaded = true;
+      }
     },
   },
 }

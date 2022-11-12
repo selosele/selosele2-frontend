@@ -69,8 +69,8 @@ export default {
       this.dataLoaded = false;
       this.postList = [];
 
-      await this.dataLoading();
       await this.listPostByCategory();
+      this.dataLoading();
     },
     // 카테고리별 포스트 목록 조회
     listPostByCategory() {
@@ -99,11 +99,9 @@ export default {
     },
     // 데이타 로딩
     dataLoading() {
-      return Promise.resolve(
-        setTimeout(() => {
-          this.dataLoaded = true;
-        }, 500)
-      );
+      if (0 < this.postList.length) {
+        this.dataLoaded = true;
+      }
     },
   },
 }

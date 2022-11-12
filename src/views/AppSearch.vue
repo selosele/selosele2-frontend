@@ -52,10 +52,10 @@
       </p>
 
     <div class="search__results__wrapper" ref="resultsWrapper">
-      <ui-loading :activeModel="dataLoaded"
+      <ui-loading :activeModel="!dataLoaded"
                   :fullPage="true" />
 
-      <ul class="post__wrapper search__results" v-if="!dataLoaded">
+      <ul class="post__wrapper search__results" v-if="dataLoaded">
         <li class="post__wrapper__list" v-for="(post,i) in postList" :key="i">
           <article>
             <h2 class="post__title">
@@ -160,7 +160,6 @@ export default {
 
     // 검색키워드 파라미터 값이 있으면 검색 메소드 실행
     if (this.$route.query['q']) {
-      await this.dataLoading();
       await this.listPostSearch({
         t: this.t,
         q: this.q,
@@ -168,6 +167,7 @@ export default {
         page: this.page,
         pageSize: this.pageSize,
       });
+      this.dataLoading();
     }
   },
   beforeRouteUpdate(to, from, next) {
@@ -193,14 +193,14 @@ export default {
         snackbar.warning('검색어를 입력하세요.');
         return;
       }
-      await this.dataLoading();
-
+      
       this.init();
-
+      
       values.page = this.page;
       values.pageSize = this.pageSize;
       
       await this.listPostSearch(values);
+      this.dataLoading();
     },
     init() {
       localStorage.getItem('searchPage') && localStorage.removeItem('searchPage');
@@ -280,13 +280,9 @@ export default {
     },
     // 데이타 로딩
     dataLoading() {
-      this.dataLoaded = true;
-
-      return Promise.resolve(
-        setTimeout(() => {
-          this.dataLoaded = false;
-        }, 1000)
-      );
+      if (0 < this.postList.length) {
+        this.dataLoaded = true;
+      }
     },
   }
 };
