@@ -37,7 +37,7 @@ const app = createApp({
             });
           }
         } else {
-          snackbar.error(process.env.VUE_APP_ERR_MSG);
+          snackbar.error('오류가 발생했습니다.');
         }
         return Promise.reject(error);
       }
@@ -53,7 +53,7 @@ app.mixin({
 
 app.config.globalProperties.$rootUrl = window.location.origin;
 app.config.globalProperties.$http = axios.create({
-  baseURL: process.env.VUE_APP_API_ENDPOINT,
+  baseURL: '/api',
   headers: {
     'Cache-Control': 'no-cache',
   }
