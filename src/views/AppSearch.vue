@@ -53,7 +53,8 @@
 
     <div class="search__results__wrapper" ref="resultsWrapper">
       <ui-loading :activeModel="!dataLoaded"
-                  :fullPage="true" />
+                  :fullPage="true"
+                  v-if="$route.query['q'] && 0 < postList.length" />
 
       <ul class="post__wrapper search__results" v-if="dataLoaded">
         <li class="post__wrapper__list" v-for="(post,i) in postList" :key="i">
