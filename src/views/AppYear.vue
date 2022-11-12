@@ -75,9 +75,9 @@ export default {
       this.page = 1;
       this.dataLoaded = false;
       this.isLastPage = false;
-
-      await this.dataLoading();
+      
       await this.listYearAndCount();
+      this.dataLoading();
     },
     listYearAndCount() {
       return this.$http.get('/post/year/list')
@@ -136,11 +136,9 @@ export default {
     },
     // 데이타 로딩
     dataLoading() {
-      return Promise.resolve(
-        setTimeout(() => {
-          this.dataLoaded = true;
-        }, 500)
-      );
+      if (0 < this.yearList.length) {
+        this.dataLoaded = true;
+      }
     },
   },
 };
