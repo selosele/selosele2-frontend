@@ -46,7 +46,9 @@
 
           <article :aria-labelledby="`title${post.id}`" :aria-describedby="`cont${post.id}`" class="post__box">
             <h2 :id="`title${post.id}`" class="post__title">
-              <router-link :to="`/post/${post.id}`">{{ post.title }}</router-link>
+              <router-link :to="{ path: `/post/${post.id}`, query: { page } }">
+                {{ post.title }}
+              </router-link>
             </h2>
 
             <p :id="`cont${post.id}`" class="post__cont">{{ post.rawText }}</p>
@@ -60,7 +62,7 @@
                 </time>
               </span>
 
-              <template v-if="post.postCategory.length > 0">
+              <template v-if="0 < post.postCategory.length">
                 <span class="post__box__item post__box__item--category"
                       v-for="(category,j) in post.postCategory" :key="j">
                   <span class="sr-only">카테고리</span> {{ category.category.nm }}
@@ -99,6 +101,8 @@ export default {
   props: {
     // main: 메인, search: 검색
     type: String,
+    // 현재 페이지 번호
+    page: Number,
     // 포스트 목록
     postList: Array,
   },

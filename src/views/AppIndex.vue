@@ -5,10 +5,12 @@
   <app-post-list
     v-if="dataLoaded"
     :type="'main'"
+    :page="page"
     :postList="pagingPostList">
   
     <ui-pagination :value="postList"
                    :total="listCnt"
+                   :first="page"
                    :rows="5"
                    :size="10"
                    @onPage="onPage" />
@@ -33,6 +35,7 @@ export default {
   },
   data() {
     return {
+      page: null,
       listCnt: null,
       postList: [],
       pagingPostList: [],
@@ -40,6 +43,8 @@ export default {
     }
   },
   async created() {
+    this.page = parseInt(this.$route.query.page) || 1;
+
     if (!this.hasStorePostList) {
       await this.listPost();
       this.dataLoading();
@@ -64,6 +69,7 @@ export default {
   methods: {
     // Pagination 동작
     onPage(values) {
+      this.page = values.page;
       this.pagingPostList = [...values.pageData];
     },
     // 포스트 목록 조회

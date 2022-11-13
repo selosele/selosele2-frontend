@@ -61,6 +61,11 @@ export default {
     value: Array,
     // 한 페이지당 표출할 row 개수
     total: Number,
+    // 시작 페이지 번호
+    first: {
+      type: Number,
+      default: 1,
+    },
     // Pagination 데이타 총 개수
     rows: {
       type: Number,
@@ -75,7 +80,7 @@ export default {
   data() {
     return {
       // Pagination 현재 번호
-      pageNum: 1,
+      pageNum: this.first,
     }
   },
   created() {
@@ -128,7 +133,13 @@ export default {
       this.page = i;
 
       // Paging 처리된 데이타
-      const pageData = this.value.slice(this.paginationSkip, this.paginationRows);
+      let pageData = this.value.slice(this.paginationSkip, this.paginationRows);
+      
+      // 페이지 번호와 매칭되는 데이타가 없으면 1페이지로 이동 (예: 6페이지로 갔는데 데이타가 없을 때)
+      if (0 === pageData.length) {
+        this.onPage(1);
+        return;
+      }
 
       this.$emit('onPage', {
         page: this.page,

@@ -1,9 +1,9 @@
 <template>
   <div class="category__wrapper">
     <template v-if="!dataLoaded">
-      <ui-skeletor height="1.3rem" />
-      <ui-skeletor height="1.3rem" />
-      <ui-skeletor height="1.3rem" />
+      <ui-skeletor :height="'1.3rem'" />
+      <ui-skeletor :height="'1.3rem'" />
+      <ui-skeletor :height="'1.3rem'" />
     </template>
 
     <template v-else>

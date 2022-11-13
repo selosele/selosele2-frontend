@@ -1,8 +1,10 @@
 <template>
   <div class="year__wrapper">
-    <ui-skeletor height="1.3rem" v-if="!dataLoaded" />
-    <ui-skeletor height="1.3rem" v-if="!dataLoaded" />
-    <ui-skeletor height="1.3rem" v-if="!dataLoaded" />
+    <template v-if="!dataLoaded">
+      <ui-skeletor height="1.3rem" />
+      <ui-skeletor height="1.3rem" />
+      <ui-skeletor height="1.3rem" />
+    </template>
 
     <template v-else>
       <template v-for="(item,i) in yearList" :key="i">

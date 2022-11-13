@@ -24,6 +24,8 @@ const app = createApp({
     this.$http.interceptors.response.use(
       response => response,
       async error => {
+        snackbar.error('오류가 발생했습니다.');
+
         // JWT 만료/변조 시 강제 로그아웃
         if (401 === error.response.status) {
           const res = await this.$store.dispatch('LOGOUT');
@@ -36,9 +38,12 @@ const app = createApp({
               },
             });
           }
-        } else {
-          snackbar.error('오류가 발생했습니다.');
         }
+        // 404 에러
+        if (404 === error.response.status) {
+          this.$router.push('/error');
+        }
+
         return Promise.reject(error);
       }
     );
