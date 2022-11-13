@@ -59,9 +59,9 @@ router.beforeEach((to, from, next) => {
 router.afterEach((to, from) => {
 
   // 포스트 상세 조회 페이지 title 값 갱신
-  // if ('/post/:id' === to.matched[0].path) {
-  //   console.log('router.currentRoute', router.currentRoute);
-  // }
+  if ('/post/:id' === to.matched[0].path) {
+    console.log('router.currentRoute', router.currentRoute);
+  }
 
   // 카테고리, 태그별 포스트 페이지 title 값 갱신
   if ('/category/:nm:/:id' === to.matched[0].path) {
