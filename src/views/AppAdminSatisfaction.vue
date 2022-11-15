@@ -1,48 +1,51 @@
 <template>
-  <template v-if="!dataLoaded">
-    <ui-skeletor height="1.3rem" />
-    <ui-skeletor height="1.3rem" />
-    <ui-skeletor height="1.3rem" />
-  </template>
+  <app-content-wrapper :pageTitle="pageTitle">
+    <template v-if="!dataLoaded">
+      <ui-skeletor height="1.3rem" />
+      <ui-skeletor height="1.3rem" />
+      <ui-skeletor height="1.3rem" />
+    </template>
 
-  <template v-else>
-    <div class="d-flex justify-content--right gap--10 mb--15">
-      <ui-datepicker
-        v-model="regDate"
-        @onClear="onClear"
-        @update:modelValue="listByRegDate"
+    <template v-else>
+      <div class="d-flex justify-content--right gap--10 mb--15">
+        <ui-datepicker
+          v-model="regDate"
+          @onClear="onClear"
+          @update:modelValue="listByRegDate"
+        >
+        </ui-datepicker>
+
+        <button
+          type="button"
+          class="btn btn--secondary"
+          @click="listByAllDate">전체
+        </button>
+
+        <button
+          type="button"
+          class="btn btn--dark"
+          @click="listByNowDate">Today
+        </button>
+      </div>
+
+      <ui-grid
+        :columnDefs="columnDefs"
+        :rowData="rowData"
+        :rowNumIndex="0"
+        :pagination="true"
+        @onGridReady="onGridReady"
+        @cellDoubleClicked="cellDoubleClicked"
       >
-      </ui-datepicker>
-
-      <button
-        type="button"
-        class="btn btn--secondary"
-        @click="listByAllDate">전체
-      </button>
-
-      <button
-        type="button"
-        class="btn btn--dark"
-        @click="listByNowDate">Today
-      </button>
-    </div>
-
-    <ui-grid
-      :columnDefs="columnDefs"
-      :rowData="rowData"
-      :rowNumIndex="0"
-      :pagination="true"
-      @onGridReady="onGridReady"
-      @cellDoubleClicked="cellDoubleClicked"
-    >
-    </ui-grid>
-  </template>
+      </ui-grid>
+    </template>
+  </app-content-wrapper>
 </template>
 
 <script>
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import UiGrid from '@/components/shared/grid/UiGrid.vue';
 import UiDatepicker from '@/components/shared/form/UiDatepicker.vue';
+import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-admin-satisfaction',
@@ -53,6 +56,7 @@ export default {
   },
   data() {
     return {
+      pageTitle: '만족도조사 관리',
       columnDefs: [
         { }, // rowNum
         { headerName: '페이지 URL', field: 'pagePath', width: 100 },
@@ -67,6 +71,9 @@ export default {
     }
   },
   async created() {
+    // 페이지 타이틀 세팅
+    breadCrumbService.setPageTitle(this.pageTitle);
+
     await this.listSatisfaction({
       isToday: 'N',
     });

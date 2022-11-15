@@ -1,21 +1,23 @@
 <template>
-  <ui-loading :activeModel="!dataLoaded"
-              :fullPage="true" />
+  <app-content-wrapper :pageTitle="pageTitle">
+    <ui-loading :activeModel="!dataLoaded"
+                :fullPage="true" />
 
-  <app-post-list
-    v-if="dataLoaded"
-    :type="'main'"
-    :page="page"
-    :postList="pagingPostList">
-  
-    <ui-pagination :value="postList"
-                   :total="listCnt"
-                   :first="page"
-                   :rows="5"
-                   :size="10"
-                   @onPage="onPage" />
-  </app-post-list>
-  <app-widget-config v-if="isLogin" />
+    <app-post-list
+      v-if="dataLoaded"
+      :type="'main'"
+      :page="page"
+      :postList="pagingPostList">
+    
+      <ui-pagination :value="postList"
+                    :total="listCnt"
+                    :first="page"
+                    :rows="5"
+                    :size="10"
+                    @onPage="onPage" />
+    </app-post-list>
+    <app-widget-config v-if="isLogin" />
+  </app-content-wrapper>
 </template>
 
 <script>
@@ -24,6 +26,7 @@ import UiPagination from '../components/shared/pagination/UiPagination.vue';
 import AppPostList from '../components/views/post/AppPostList.vue';
 import AppWidgetConfig from '../components/widget/AppWidgetConfig.vue';
 import { isNotEmpty } from '@/utils/util';
+import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-index',
@@ -35,6 +38,7 @@ export default {
   },
   data() {
     return {
+      pageTitle: '',
       page: null,
       listCnt: null,
       postList: [],
@@ -43,6 +47,9 @@ export default {
     }
   },
   async created() {
+    // 페이지 타이틀 세팅
+    breadCrumbService.setPageTitle(this.pageTitle);
+
     this.page = parseInt(this.$route.query.page) || 1;
 
     if (!this.hasStorePostList) {

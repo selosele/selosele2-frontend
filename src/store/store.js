@@ -6,6 +6,8 @@ export default createStore({
     token: null,
     // 공통코드
     code: [],
+    // 페이지 타이틀
+    pageTitle: '',
     // 블로그 환경설정
     blogConfig: [],
     // 사이드바
@@ -24,6 +26,10 @@ export default createStore({
     },
     isProduction() {
       return 'production' === process.env.NODE_ENV;
+    },
+    // 페이지 타이틀
+    pageTitle(state) {
+      return state.pageTitle;
     },
     // 블로그 환경설정
     blogConfig(state) {
@@ -49,6 +55,9 @@ export default createStore({
     },
     SET_CODE(state, code) {
       state.code = code;
+    },
+    SET_PAGE_TITLE(state, pageTitle) {
+      state.pageTitle = pageTitle;
     },
     SET_BLOG_CONFIG(state, blogConfig) {
       state.blogConfig = blogConfig;
@@ -79,6 +88,9 @@ export default createStore({
     },
     FETCH_CODE({ commit }, values) {
       commit('SET_CODE', values);
+    },
+    FETCH_PAGE_TITLE({ commit }, values) {
+      commit('SET_PAGE_TITLE', values);
     },
     FETCH_BLOG_CONFIG({ commit }, values) {
       commit('SET_BLOG_CONFIG', values);

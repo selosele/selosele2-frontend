@@ -1,116 +1,118 @@
 <template>
-  <div class="search__wrapper">
-    <ui-form :class="'search__frm'" :name="'searchForm'" @onSubmit="onSubmit">
-      <div class="search__field" ref="searchField">
-        <ui-select :name="'t'"
-                   :title="'검색 옵션'"
-                   :class="'search__option'" 
-                   v-model="t" 
-                   :data="tData"
-                   :selectedValue="this.$route.query['t']" />
+  <app-content-wrapper :pageTitle="pageTitle">
+    <div class="search__wrapper">
+      <ui-form :class="'search__frm'" :name="'searchForm'" @onSubmit="onSubmit">
+        <div class="search__field" ref="searchField">
+          <ui-select :name="'t'"
+                    :title="'검색 옵션'"
+                    :class="'search__option'" 
+                    v-model="t" 
+                    :data="tData"
+                    :selectedValue="this.$route.query['t']" />
 
-        <ui-text-field :type="'search'"
-                       :name="'q'"
-                       :id="'q'"
-                       :title="'포스트 검색'"
-                       :placeholder="'검색어를 입력하세요.'"
-                       v-model="q" />
+          <ui-text-field :type="'search'"
+                        :name="'q'"
+                        :id="'q'"
+                        :title="'포스트 검색'"
+                        :placeholder="'검색어를 입력하세요.'"
+                        v-model="q" />
 
-        <button type="submit" class="search__btn">
-          <i class="xi-search" aria-hidden="true"></i>
-          <span class="sr-only">검색</span>
-        </button>
-      </div>
+          <button type="submit" class="search__btn">
+            <i class="xi-search" aria-hidden="true"></i>
+            <span class="sr-only">검색</span>
+          </button>
+        </div>
 
-      <div class="search__detail">
-        <ui-checkbox :name="'c'"
-                     :id="'c'"
-                     :label="'대소문자 구분'"
-                     :values="'Y,N'"
-                     v-model="c"
-                     :checked="('Y' === this.$route.query['c'])" />
-      </div>
-    </ui-form>
+        <div class="search__detail">
+          <ui-checkbox :name="'c'"
+                      :id="'c'"
+                      :label="'대소문자 구분'"
+                      :values="'Y,N'"
+                      v-model="c"
+                      :checked="('Y' === this.$route.query['c'])" />
+        </div>
+      </ui-form>
 
-      <p class="search__info">
-        <template v-if="0 === listCnt">
-          검색 결과를 찾을 수 없습니다.
-        </template>
+        <p class="search__info">
+          <template v-if="0 === listCnt">
+            검색 결과를 찾을 수 없습니다.
+          </template>
+          
+          <template v-if="postList !== null && postList.length > 0">
+            <strong class="search__info__txt">{{ this.$route.query['q'] }}</strong>에 대한 검색 결과는
+            <strong class="search__info__txt">{{ listCnt }}개</strong>입니다.
         
-        <template v-if="postList !== null && postList.length > 0">
-          <strong class="search__info__txt">{{ this.$route.query['q'] }}</strong>에 대한 검색 결과는
-          <strong class="search__info__txt">{{ listCnt }}개</strong>입니다.
-      
-          <a :href="googleSearchUrl"
-              target="_blank"
-              title="새창"
-              rel="noopener noreferrer nofollow"
-              class="btn btn--dark search__google">
-            <i class="xi-google" aria-hidden="true"></i> Google에서 검색
-          </a>
-        </template>
-      </p>
+            <a :href="googleSearchUrl"
+                target="_blank"
+                title="새창"
+                rel="noopener noreferrer nofollow"
+                class="btn btn--dark search__google">
+              <i class="xi-google" aria-hidden="true"></i> Google에서 검색
+            </a>
+          </template>
+        </p>
 
-    <div class="search__results__wrapper" ref="resultsWrapper">
-      <ui-loading :activeModel="!dataLoaded"
-                  :fullPage="true"
-                  v-if="$route.query['q'] && 0 < postList.length" />
+      <div class="search__results__wrapper" ref="resultsWrapper">
+        <ui-loading :activeModel="!dataLoaded"
+                    :fullPage="true"
+                    v-if="$route.query['q'] && 0 < postList.length" />
 
-      <ul class="post__wrapper search__results" v-if="dataLoaded">
-        <li class="post__wrapper__list" v-for="(post,i) in postList" :key="i">
-          <article>
-            <h2 class="post__title">
-              <router-link :to="`/post/${post.id}`" @click="saveToStorage">{{ post.title }}</router-link>
-            </h2>
+        <ul class="post__wrapper search__results" v-if="dataLoaded">
+          <li class="post__wrapper__list" v-for="(post,i) in postList" :key="i">
+            <article>
+              <h2 class="post__title">
+                <router-link :to="`/post/${post.id}`" @click="saveToStorage">{{ post.title }}</router-link>
+              </h2>
 
-            <p class="post__og-image" v-if="post.ogImgUrl">
-              <span class="post__og-image__box">
-                <img :src="post.ogImgUrl" alt="">
-              </span>
-            </p>
-  
-            <p class="post__cont">{{ post.rawText }}</p>
-
-            <div class="post__box__item-wrapper">
-              <span class="post__box__item post__box__item--regdate">
-                <i class="xi-time-o" aria-hidden="true"></i>
-                <span class="sr-only">등록일</span>
-                <time :datetime="$moment(post.regDate).format('YYYY-MM-DD HH:mm:ss')">
-                  {{ $moment(post.regDate).format('YYYY.MM.DD') }}
-                </time>
-              </span>
-
-              <template v-if="post.postCategory.length > 0">
-                <span class="post__box__item post__box__item--category"
-                      v-for="(category,j) in post.postCategory"
-                      :key="j">
-                  <span class="sr-only">카테고리</span> {{ category.category.nm }}
+              <p class="post__og-image" v-if="post.ogImgUrl">
+                <span class="post__og-image__box">
+                  <img :src="post.ogImgUrl" alt="">
                 </span>
-              </template>
-            </div>
-          </article>
-        </li>
-      </ul>
+              </p>
+    
+              <p class="post__cont">{{ post.rawText }}</p>
 
-      <p class="search__more__wrapper"
-          @click="more"
-          v-if="listCnt > pageSize && !isLastPage">
-        <button type="button" class="btn search__more">
-          <i class="xi-plus-circle" aria-hidden="true"></i> 더보기
-        </button>
-      </p>
+              <div class="post__box__item-wrapper">
+                <span class="post__box__item post__box__item--regdate">
+                  <i class="xi-time-o" aria-hidden="true"></i>
+                  <span class="sr-only">등록일</span>
+                  <time :datetime="$moment(post.regDate).format('YYYY-MM-DD HH:mm:ss')">
+                    {{ $moment(post.regDate).format('YYYY.MM.DD') }}
+                  </time>
+                </span>
 
-      <a href="#q"
-        :class="[
-          'btn search__to-input',
-          { 'search__to-input--active': this.searchToInputActive }
-          ]"
-        @click.prevent="searchToInput">
-        <i class="xi-search" aria-hidden="true"></i>
-        <span class="sr-only">검색 필드 바로가기</span>
-      </a>
+                <template v-if="post.postCategory.length > 0">
+                  <span class="post__box__item post__box__item--category"
+                        v-for="(category,j) in post.postCategory"
+                        :key="j">
+                    <span class="sr-only">카테고리</span> {{ category.category.nm }}
+                  </span>
+                </template>
+              </div>
+            </article>
+          </li>
+        </ul>
+
+        <p class="search__more__wrapper"
+            @click="more"
+            v-if="listCnt > pageSize && !isLastPage">
+          <button type="button" class="btn search__more">
+            <i class="xi-plus-circle" aria-hidden="true"></i> 더보기
+          </button>
+        </p>
+
+        <a href="#q"
+          :class="[
+            'btn search__to-input',
+            { 'search__to-input--active': this.searchToInputActive }
+            ]"
+          @click.prevent="searchToInput">
+          <i class="xi-search" aria-hidden="true"></i>
+          <span class="sr-only">검색 필드 바로가기</span>
+        </a>
+      </div>
     </div>
-  </div>
+  </app-content-wrapper>
 </template>
 
 <script>
@@ -120,6 +122,7 @@ import UiTextField from '@/components/shared/form/UiTextField.vue';
 import UiSelect from '@/components/shared/form/UiSelect.vue';
 import UiCheckbox from '@/components/shared/form/UiCheckbox.vue';
 import snackbar from '@/utils/ui/Snackbar';
+import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-search',
@@ -136,6 +139,7 @@ export default {
       q: this.$route.query['q'] || '',
       c: this.$route.query['c'] || 'N',
       tData: [],
+      pageTitle: '포스트 검색',
       page: 1,
       nowPage: 1,
       pageSize: 10,
@@ -148,6 +152,9 @@ export default {
     }
   },
   async created() {
+    // 페이지 타이틀 세팅
+    breadCrumbService.setPageTitle(this.pageTitle);
+
     // 검색옵션 코드 세팅
     this.$store.state.code.map((d,i) => {
       if ('A01' === d.prefix) {

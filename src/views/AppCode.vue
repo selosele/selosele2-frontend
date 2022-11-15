@@ -1,35 +1,37 @@
 <template>
-  <template v-if="!dataLoaded">
-    <ui-skeletor height="1.3rem" />
-    <ui-skeletor height="1.3rem" />
-    <ui-skeletor height="1.3rem" />
-  </template>
+  <app-content-wrapper :pageTitle="pageTitle">
+    <template v-if="!dataLoaded">
+      <ui-skeletor height="1.3rem" />
+      <ui-skeletor height="1.3rem" />
+      <ui-skeletor height="1.3rem" />
+    </template>
 
-  <template v-else>
-    <div class="d-flex justify-content--right gap--10 mb--15">
-      <button
-        type="button"
-        class="btn btn--primary"
-        @click="addCode">추가
-      </button>
+    <template v-else>
+      <div class="d-flex justify-content--right gap--10 mb--15">
+        <button
+          type="button"
+          class="btn btn--primary"
+          @click="addCode">추가
+        </button>
 
-      <button
-        type="button"
-        class="btn btn--dark"
-        @click="removeCode">삭제
-      </button>
-    </div>
+        <button
+          type="button"
+          class="btn btn--dark"
+          @click="removeCode">삭제
+        </button>
+      </div>
 
-    <ui-grid
-      :defaultColDef="defaultColDef"
-      :columnDefs="columnDefs"
-      :rowData="rowData"
-      :checkboxIndex="0"
-      :pagination="true"
-      @onGridReady="onGridReady"
-    >
-    </ui-grid>
-  </template>
+      <ui-grid
+        :defaultColDef="defaultColDef"
+        :columnDefs="columnDefs"
+        :rowData="rowData"
+        :checkboxIndex="0"
+        :pagination="true"
+        @onGridReady="onGridReady"
+      >
+      </ui-grid>
+    </template>
+  </app-content-wrapper>
 </template>
 
 <script>
@@ -37,6 +39,7 @@ import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import UiGrid from '@/components/shared/grid/UiGrid.vue';
 import snackbar from '@/utils/ui/Snackbar';
 import confirmUtil from '@/utils/ui/Confirm';
+import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-code',
@@ -46,6 +49,7 @@ export default {
   },
   data() {
     return {
+      pageTitle: '공통코드 관리',
       defaultColDef: {
         editable: true,
       },
@@ -65,6 +69,9 @@ export default {
     }
   },
   async created() {
+    // 페이지 타이틀 세팅
+    breadCrumbService.setPageTitle(this.pageTitle);
+
     await this.listCode();
     this.dataLoading();
   },

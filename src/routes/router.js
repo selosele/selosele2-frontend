@@ -15,7 +15,7 @@ const routes = [
   ...index,               // 메인
   ...error,               // 에러
   ...auth,                // 권한
-  ...post,              // 검색
+  ...post,                // 검색
   ...search,              // 검색
   ...archive,             // 아카이브
   ...guestbook,           // 방명록
@@ -25,6 +25,12 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    return { top: 0, left: 0 }; // 새 경로로 이동할 때 스크롤 위치를 초기화해준다.
+  },
 });
 
 router.beforeEach((to, from, next) => {
@@ -53,29 +59,6 @@ router.beforeEach((to, from, next) => {
     next('/error');
   } else {
     next();
-  }
-});
-
-router.afterEach((to, from) => {
-
-  // 포스트 상세 조회 페이지 title 값 갱신
-  if ('/post/:id' === to.matched[0].path) {
-    console.log('router.currentRoute', router.currentRoute);
-  }
-
-  // 카테고리, 태그별 포스트 페이지 title 값 갱신
-  if ('/category/:nm:/:id' === to.matched[0].path) {
-    to.meta.title = `'${to.params.nm}' 카테고리의 글`;
-  }
-  if ('/tag/:nm:/:id' === to.matched[0].path) {
-    to.meta.title = `'${to.params.nm}' 태그의 글`;
-  }
-
-  // Application title 값 갱신
-  if (to.meta.title) {
-    document.title = `${to.meta.title} - ${store.getters.blogConfig.title}`;
-  } else {
-    document.title = store.getters.blogConfig.title;
   }
 });
 

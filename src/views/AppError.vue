@@ -1,35 +1,38 @@
 <template>
-  <div class="error__wrapper">
-    <p class="error__message">방문을 원하시는 페이지의 주소가 잘못 입력되었거나, 변경 혹은 삭제되어 페이지를 찾을 수 없습니다.</p>
+  <app-content-wrapper :pageTitle="pageTitle">
+    <div class="error__wrapper">
+      <p class="error__message">방문을 원하시는 페이지의 주소가 잘못 입력되었거나, 변경 혹은 삭제되어 페이지를 찾을 수 없습니다.</p>
 
-    <div class="popular-post__list">
-      <h2 class="popular-post__title">이런 글은 어떠신가요?</h2>
+      <div class="popular-post__list">
+        <h2 class="popular-post__title">이런 글은 어떠신가요?</h2>
 
-      <ul>
-        <ui-skeletor class="popular-post__list__item" v-if="!dataLoaded" />
-        <ui-skeletor marginTop="0" class="popular-post__list__item" v-if="!dataLoaded" />
-        <ui-skeletor marginTop="0" class="popular-post__list__item" v-if="!dataLoaded" />
+        <ul>
+          <ui-skeletor class="popular-post__list__item" v-if="!dataLoaded" />
+          <ui-skeletor marginTop="0" class="popular-post__list__item" v-if="!dataLoaded" />
+          <ui-skeletor marginTop="0" class="popular-post__list__item" v-if="!dataLoaded" />
 
-        <template v-if="postList.length > 0 && dataLoaded">
-          <li class="popular-post__list__item" v-for="(post,i) in postList" :key="i">
-            <router-link :to="`/post/${post.id}`">
-              <p class="popular-post__list__image">
-                <img :src="post.ogImgUrl" alt="" v-if="post.ogImgUrl">
-                <span class="popular-post__list__no-image" v-else>{{ post.title.substring(0,1) }}</span>
-              </p>
-              <p class="popular-post__list__title">
-                <span>{{ post.title }}</span>
-              </p>
-            </router-link>
-          </li>
-        </template>
-      </ul>
+          <template v-if="postList.length > 0 && dataLoaded">
+            <li class="popular-post__list__item" v-for="(post,i) in postList" :key="i">
+              <router-link :to="`/post/${post.id}`">
+                <p class="popular-post__list__image">
+                  <img :src="post.ogImgUrl" alt="" v-if="post.ogImgUrl">
+                  <span class="popular-post__list__no-image" v-else>{{ post.title.substring(0,1) }}</span>
+                </p>
+                <p class="popular-post__list__title">
+                  <span>{{ post.title }}</span>
+                </p>
+              </router-link>
+            </li>
+          </template>
+        </ul>
+      </div>
     </div>
-  </div>
+  </app-content-wrapper>
 </template>
 
 <script>
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
+import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-error',
@@ -38,11 +41,15 @@ export default {
   },
   data() {
     return {
+      pageTitle: '페이지를 찾을 수 없습니다.',
       postList: [],
       dataLoaded: false,
     }
   },
   async created() {
+    // 페이지 타이틀 세팅
+    breadCrumbService.setPageTitle(this.pageTitle);
+
     await this.listPostByLimit(3);
     this.dataLoading();
   },

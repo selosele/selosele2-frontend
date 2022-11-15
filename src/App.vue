@@ -7,15 +7,6 @@
     <app-menu />
 
     <app-main ref="mainWrapper">
-      <header :class="[
-        'page__header',
-        $route.meta.pageType !== 'home' ? '' : 'sr-only'
-        ]">
-        <h1 class="page__title">
-          {{ $route.meta.pageType !== 'home' ? $route.meta.title : '최근 포스트' }}
-        </h1>
-      </header>
-
       <div class="page__body">
         <div class="page__body--left" v-if="$route.meta.showSidebar">
           <router-view />
@@ -27,8 +18,7 @@
         </div>
       </div>
 
-      <app-user-satisfaction v-if="($route.meta.showSatis
-                                    && this.$store.getters.blogConfig.showSatisYn === 'Y')" />
+      <app-user-satisfaction v-if="($route.meta.showSatis && this.$store.getters.blogConfig.showSatisYn === 'Y')" />
     </app-main>
 
     <app-footer />
@@ -36,13 +26,13 @@
 </template>
 
 <script>
-import AppHeader from './components/layout/AppHeader.vue';
-import AppFooter from './components/layout/AppFooter.vue';
-import AppMain from './components/layout/AppMain.vue';
-import AppMenu from './components/layout/AppMenu.vue';
-import AppSidebar from './components/layout/AppSidebar.vue';
-import AppSkipLinks from './components/layout/AppSkipLinks.vue';
-import AppUserSatisfaction from './components/layout/AppUserSatisfaction.vue';
+import AppHeader from '@/components/layout/AppHeader.vue';
+import AppFooter from '@/components/layout/AppFooter.vue';
+import AppMain from '@/components/layout/AppMain.vue';
+import AppMenu from '@/components/layout/AppMenu.vue';
+import AppSidebar from '@/components/layout/AppSidebar.vue';
+import AppSkipLinks from '@/components/layout/AppSkipLinks.vue';
+import AppUserSatisfaction from '@/components/layout/AppUserSatisfaction.vue';
 
 import '@vuepic/vue-datepicker/dist/main.css';
 
@@ -71,13 +61,13 @@ export default {
       this.$http.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }
 
-    // 공통코드
+    // 공통코드 목록 조회
     this.$http.get('/code/list')
       .then(res => {
         this.$store.dispatch('FETCH_CODE', res.data);
       });
 
-    // 블로그 환경설정
+    // 블로그 환경설정 정보 조회
     this.$http.get('/blogconfig')
       .then(res => {
         this.$store.dispatch('FETCH_BLOG_CONFIG', res.data);

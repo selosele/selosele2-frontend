@@ -1,54 +1,57 @@
 <template>
-  <div class="year__wrapper">
-    <template v-if="!dataLoaded">
-      <ui-skeletor height="1.3rem" />
-      <ui-skeletor height="1.3rem" />
-      <ui-skeletor height="1.3rem" />
-    </template>
-
-    <template v-else>
-      <template v-for="(item,i) in yearList" :key="i">
-        <h2 class="year__list-title">
-          <button type="button"
-                  :class="[
-                    'year__list-btn',
-                    { 'year__list-btn--active': i === activeIndex }
-                    ]"
-                  @click="toggleList(item.year, i)">
-            <span class="year__list-name">{{ item.year }}</span>년에 작성된 포스트
-            (<span class="sr-only">개수 : </span>{{ item.count }})
-          </button>
-        </h2>
-
-        <ul class="year__list" v-if="i === activeIndex">
-          <ui-skeletor height="1.3rem" v-if="i !== itemLoadedIndex" />
-          <ui-skeletor height="1.3rem" v-if="i !== itemLoadedIndex" />
-
-          <template v-if="i === itemLoadedIndex && null !== postList && 0 < postList.length">
-            <li v-for="(post,j) in postList" :key="j">
-              <router-link :to="`/post/${post.id}`">
-                <strong class="year__title">{{ post.title }}</strong>
-                <span class="year__date">{{ post.regDate }}</span>
-              </router-link>
-            </li>
-          </template>
-        </ul>
-
-        <button type="button"
-                class="btn--more"
-                @click="more(item.year, i)"
-                v-if="i === activeIndex && listCnt > pageSize && !isLastPage">
-          <i class="xi-ellipsis-h" aria-hidden="true"></i>
-          <span class="sr-only">더보기</span>
-        </button>
+  <app-content-wrapper :pageTitle="pageTitle">
+    <div class="year__wrapper">
+      <template v-if="!dataLoaded">
+        <ui-skeletor height="1.3rem" />
+        <ui-skeletor height="1.3rem" />
+        <ui-skeletor height="1.3rem" />
       </template>
-    </template>
-  </div>
+
+      <template v-else>
+        <template v-for="(item,i) in yearList" :key="i">
+          <h2 class="year__list-title">
+            <button type="button"
+                    :class="[
+                      'year__list-btn',
+                      { 'year__list-btn--active': i === activeIndex }
+                      ]"
+                    @click="toggleList(item.year, i)">
+              <span class="year__list-name">{{ item.year }}</span>년에 작성된 포스트
+              (<span class="sr-only">개수 : </span>{{ item.count }})
+            </button>
+          </h2>
+
+          <ul class="year__list" v-if="i === activeIndex">
+            <ui-skeletor height="1.3rem" v-if="i !== itemLoadedIndex" />
+            <ui-skeletor height="1.3rem" v-if="i !== itemLoadedIndex" />
+
+            <template v-if="i === itemLoadedIndex && null !== postList && 0 < postList.length">
+              <li v-for="(post,j) in postList" :key="j">
+                <router-link :to="`/post/${post.id}`">
+                  <strong class="year__title">{{ post.title }}</strong>
+                  <span class="year__date">{{ post.regDate }}</span>
+                </router-link>
+              </li>
+            </template>
+          </ul>
+
+          <button type="button"
+                  class="btn--more"
+                  @click="more(item.year, i)"
+                  v-if="i === activeIndex && listCnt > pageSize && !isLastPage">
+            <i class="xi-ellipsis-h" aria-hidden="true"></i>
+            <span class="sr-only">더보기</span>
+          </button>
+        </template>
+      </template>
+    </div>
+  </app-content-wrapper>
 </template>
 
 <script>
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import snackbar from '@/utils/ui/Snackbar';
+import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-year',
@@ -57,6 +60,7 @@ export default {
   },
   data() {
     return {
+      pageTitle: '연도별 모아보기',
       page: 1,
       pageSize: 20,
       listCnt: 0,
@@ -70,6 +74,9 @@ export default {
     }
   },
   created() {
+    // 페이지 타이틀 세팅
+    breadCrumbService.setPageTitle(this.pageTitle);
+    
     this.init();
   },
   methods: {

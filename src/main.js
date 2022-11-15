@@ -7,6 +7,7 @@ import { initDefineRule } from './validation';
 import { commonComputed } from '@/store/helper';
 import moment from 'moment';
 import snackbar from '@/utils/ui/Snackbar';
+import AppContentWrapper from '@/components/layout/AppContentWrapper.vue';
 
 //import '@/assets/scss/style.scss';
 
@@ -26,7 +27,7 @@ const app = createApp({
       async error => {
         snackbar.error('오류가 발생했습니다.');
 
-        // JWT 만료/변조 시 강제 로그아웃
+        // 권한 오류, JWT 만료/변조 시 강제 로그아웃
         if (401 === error.response.status) {
           const res = await this.$store.dispatch('LOGOUT');
           if ('ok' === res) {
@@ -68,4 +69,5 @@ app.config.globalProperties.$moment = moment;
 app
   .use(store)
   .use(router)
+  .component('AppContentWrapper', AppContentWrapper)
   .mount('#app');
