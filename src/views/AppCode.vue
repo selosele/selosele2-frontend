@@ -37,8 +37,7 @@
 <script>
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import UiGrid from '@/components/shared/grid/UiGrid.vue';
-import snackbar from '@/utils/ui/Snackbar';
-import confirmUtil from '@/utils/ui/Confirm';
+import messageUtil from '@/utils/ui/MessageUtil';
 import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
@@ -99,11 +98,11 @@ export default {
     async removeCode() {
       const rows = this.gridApi.getSelectedRows();
       if (0 === rows.length) {
-        snackbar.warning('삭제할 항목을 선택하세요.');
+        messageUtil.toastWarning('삭제할 항목을 선택하세요.');
         return;
       }
 
-      const confirm = await confirmUtil.question('삭제하시겠습니까?');
+      const confirm = await messageUtil.confirmQuestion('삭제하시겠습니까?');
       if (!confirm) return;
 
       let removeCodeDto = [];
@@ -117,7 +116,7 @@ export default {
       this.$http.delete('/code/remove', { data: removeCodeDto })
         .then(res => {
           this.gridApi.removeSelectedRows();
-          snackbar.success('삭제되었습니다.');
+          messageUtil.toastSuccess('삭제되었습니다.');
         });
     },
     // 코드 사용여부 가공

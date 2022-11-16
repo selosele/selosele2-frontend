@@ -43,8 +43,7 @@
 import UiForm from '@/components/shared/form/UiForm.vue';
 import UiTextField from '@/components/shared/form/UiTextField.vue';
 import UiRadio from '@/components/shared/form/UiRadio.vue';
-import confirmUtil from '@/utils/ui/Confirm';
-import snackbar from '@/utils/ui/Snackbar';
+import messageUtil from '@/utils/ui/MessageUtil';
 import { isIn } from '@/utils/util';
 
 export default {
@@ -76,15 +75,15 @@ export default {
     async onSubmit(values) {
       values.pagePath = decodeURIComponent(this.$route.path);
       
-      const confirm = await confirmUtil.success('제출하시겠습니까?');
+      const confirm = await messageUtil.confirmSuccess('제출하시겠습니까?');
       if (!confirm) return;
 
       this.$http.post('/satisfaction', values)
         .then(res => {
-          snackbar.success('참여해주셔서 감사합니다.');
+          messageUtil.toastSuccess('참여해주셔서 감사합니다.');
         }).catch(error => {
           if (isIn(error.response.status, 403, 400)) {
-            snackbar.error(error.response.data.message);
+            messageUtil.toastError(error.response.data.message);
             return;
           }
         });

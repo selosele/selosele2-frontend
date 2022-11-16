@@ -72,7 +72,6 @@ export default {
       .then(res => {
         this.$store.dispatch('FETCH_BLOG_CONFIG', res.data);
         this.resStatus = 'ok';
-        document.title = res.data.title;
       });
   },
   mounted() {

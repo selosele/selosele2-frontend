@@ -139,7 +139,7 @@
 <script>
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import Markdown from 'vue3-markdown-it';
-import snackbar from '@/utils/ui/Snackbar';
+import messageUtil from '@/utils/ui/MessageUtil';
 import { isNotEmpty } from '@/utils/util';
 import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
 
@@ -223,7 +223,7 @@ export default {
     // 포스트 URL 복사
     copyPostUrl() {
       navigator.clipboard.writeText(this.postUrl);
-      snackbar.success('URL이 복사되었습니다.');
+      messageUtil.toastSuccess('URL이 복사되었습니다.');
     },
     // 포스트 공유
     sharePost(code) {

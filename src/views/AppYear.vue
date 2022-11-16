@@ -50,7 +50,7 @@
 
 <script>
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
-import snackbar from '@/utils/ui/Snackbar';
+import messageUtil from '@/utils/ui/MessageUtil';
 import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
@@ -122,7 +122,7 @@ export default {
       return this.$http.get(`/post/year/list/${year}`, { params: paginationDto })
         .then(res => {
           if (0 === res.data[0].length) {
-            snackbar.info('마지막 페이지입니다.');
+            messageUtil.toastInfo('마지막 페이지입니다.');
             return;
           }
 

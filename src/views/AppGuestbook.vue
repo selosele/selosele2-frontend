@@ -163,7 +163,7 @@
 <script>
 import UiForm from '@/components/shared/form/UiForm.vue';
 import UiTextarea from '@/components/shared/form/UiTextarea.vue';
-import alertUtil from '@/utils/ui/Alert';
+import messageUtil from '@/utils/ui/MessageUtil';
 import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
@@ -183,7 +183,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      alertUtil.success('test');
+      messageUtil.alertSuccess('test');
     },
   },
 };

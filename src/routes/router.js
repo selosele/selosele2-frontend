@@ -8,7 +8,7 @@ import archive from './archive/archive';
 import guestbook from './guestbook/guestbook';
 import admin from './admin/admin';
 import store from '@/store/store';
-import snackbar from '@/utils/ui/Snackbar';
+import messageUtil from '@/utils/ui/MessageUtil';
 import { isEmpty } from '@/utils/util';
 
 const routes = [
@@ -44,7 +44,7 @@ router.beforeEach((to, from, next) => {
 
   // 로그인 중인데 로그인 페이지에 접근 시 리다이렉트
   if (store.getters.isLogin && '/a/goto' === to.path) {
-    snackbar.info('이미 로그인되어 있습니다.');
+    messageUtil.toastInfo('이미 로그인되어 있습니다.');
     next('/');
   }
 

@@ -2,13 +2,14 @@
  * 권한 Service
  */
 class AuthService {
+
   user = null;
   
   constructor() {
     this.user = this.getUser();
   }
 
-  // JWT로부터 사용자 정보 받아오기
+  // JWT에서 사용자 정보 추출
   getUser() {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -30,7 +31,7 @@ class AuthService {
     return roles.every(v => this.user.userRole.filter(r => r.roleId === v).length > 0);
   }
 
-  // 권한 1개라도 있는지 확인
+  // 권한이 1개라도 있는지 확인
   hasRoleOr(...roles) {
     return roles.some(v => this.user.userRole.filter(r => r.roleId === v).length > 0);
   }

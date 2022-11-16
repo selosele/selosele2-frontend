@@ -6,7 +6,7 @@ import axios from 'axios';
 import { initDefineRule } from './validation';
 import { commonComputed } from '@/store/helper';
 import moment from 'moment';
-import snackbar from '@/utils/ui/Snackbar';
+import messageUtil from '@/utils/ui/MessageUtil';
 import AppContentWrapper from '@/components/layout/AppContentWrapper.vue';
 
 //import '@/assets/scss/style.scss';
@@ -25,7 +25,7 @@ const app = createApp({
     this.$http.interceptors.response.use(
       response => response,
       async error => {
-        snackbar.error('오류가 발생했습니다.');
+        messageUtil.toastError('오류가 발생했습니다.');
 
         // 권한 오류, JWT 만료/변조 시 강제 로그아웃
         if (401 === error.response.status) {

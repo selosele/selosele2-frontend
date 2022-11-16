@@ -58,7 +58,7 @@
 
 <script>
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
-import confirmUtil from '@/utils/ui/Confirm';
+import messageUtil from '@/utils/ui/MessageUtil';
 
 export default {
   name: 'app-header',
@@ -81,7 +81,7 @@ export default {
   },
   methods: {
     async logout() {
-      const confirm = await confirmUtil.question('로그아웃하시겠습니까?');
+      const confirm = await messageUtil.confirmQuestion('로그아웃하시겠습니까?');
       if (!confirm) return;
 
       const res = await this.$store.dispatch('LOGOUT');

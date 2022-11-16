@@ -121,7 +121,7 @@ import UiForm from '@/components/shared/form/UiForm.vue';
 import UiTextField from '@/components/shared/form/UiTextField.vue';
 import UiSelect from '@/components/shared/form/UiSelect.vue';
 import UiCheckbox from '@/components/shared/form/UiCheckbox.vue';
-import snackbar from '@/utils/ui/Snackbar';
+import messageUtil from '@/utils/ui/MessageUtil';
 import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
@@ -194,11 +194,11 @@ export default {
   methods: {
     async onSubmit(values) {
       if (!this.t.trim()) {
-        snackbar.warning('검색옵션을 선택하세요.');
+        messageUtil.toastWarning('검색옵션을 선택하세요.');
         return;
       }
       if (!this.q.trim()) {
-        snackbar.warning('검색어를 입력하세요.');
+        messageUtil.toastWarning('검색어를 입력하세요.');
         return;
       }
       

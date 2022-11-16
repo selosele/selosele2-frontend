@@ -28,8 +28,7 @@
 <script>
 import UiForm from '@/components/shared/form/UiForm.vue';
 import UiTextField from '@/components/shared/form/UiTextField.vue';
-import confirmUtil from '@/utils/ui/Confirm';
-import snackbar from '@/utils/ui/Snackbar';
+import messageUtil from '@/utils/ui/MessageUtil';
 import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
@@ -64,7 +63,7 @@ export default {
           }
         }
       } catch(error) {
-        snackbar.error(error.response.data.message);
+        messageUtil.toastError(error.response.data.message);
       }
     },
     async addUser() {
@@ -75,22 +74,22 @@ export default {
       };
 
       if (!user.userId.trim()) {
-        snackbar.warning('아이디를 입력하세요.');
+        messageUtil.toastWarning('아이디를 입력하세요.');
         return;
       }
       if (!user.userPw.trim()) {
-        snackbar.warning('비밀번호를 입력하세요.');
+        messageUtil.toastWarning('비밀번호를 입력하세요.');
         return;
       }
 
-      const confirm = await confirmUtil.success('사용자를 생성하시겠습니까?');
+      const confirm = await messageUtil.confirmSuccess('사용자를 생성하시겠습니까?');
       if (!confirm) {
         return;
       }
 
       this.$http.post('/auth/signup', user)
         .then(res => {
-          snackbar.success('사용자 생성에 성공했습니다.');
+          messageUtil.toastSuccess('사용자 생성에 성공했습니다.');
         });
     },
   },
