@@ -22,9 +22,9 @@
 
 <script>
 import UiLoading from '@/components/shared/loading/UiLoading.vue';
-import UiPagination from '../components/shared/pagination/UiPagination.vue';
-import AppPostList from '../components/views/post/AppPostList.vue';
-import AppWidgetConfig from '../components/widget/AppWidgetConfig.vue';
+import UiPagination from '@/components/shared/pagination/UiPagination.vue';
+import AppPostList from '@/components/views/post/AppPostList.vue';
+import AppWidgetConfig from '@/components/widget/AppWidgetConfig.vue';
 import { isNotEmpty } from '@/utils/util';
 import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
 
@@ -69,8 +69,7 @@ export default {
       return this.$store.getters.mainPostObj.listCnt;
     },
     hasStorePostList() {
-      return isNotEmpty(this.storePostList)
-            && 0 < this.storePostList.length;
+      return isNotEmpty(this.storePostList) && 0 < this.storePostList.length;
     },
   },
   methods: {

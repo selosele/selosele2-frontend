@@ -10,7 +10,7 @@
       
       <!-- START : 콘텐츠 내용 영역 -->
       <div class="post__contents__body line-numbers">
-        <Markdown :source="post.cont" />
+        <Markdown :source="post.cont" :plugins="plugins" />
       </div>
       <!-- END : 콘텐츠 내용 영역 -->
 
@@ -86,6 +86,20 @@
           <i class="xi-facebook-official" aria-hidden="true"></i>
           <span class="sr-only">페이스북 공유</span>
         </button>
+
+        <template v-if="isLogin">
+          <router-link to="/write" class="btn post__contents__btn post__contents__btn--write">
+            <i class="xi-pen" aria-hidden="true"></i> 포스트 작성
+          </router-link>
+
+          <router-link to="/edit/post/14" class="btn post__contents__btn post__contents__btn--edit">
+              <i class="xi-pen" aria-hidden="true"></i> 포스트 수정
+          </router-link>
+
+          <button type="button" class="btn post__contents__btn post__contents__btn--delete">
+              <i class="xi-trash" aria-hidden="true"></i> 포스트 삭제
+          </button>
+        </template>
       </div>
 
       <nav class="post__contents__paginations">
@@ -139,11 +153,17 @@
 <script>
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import Markdown from 'vue3-markdown-it';
+import MarkdownItFootnote from 'markdown-it-footnote';
 import messageUtil from '@/utils/ui/MessageUtil';
 import { isNotEmpty } from '@/utils/util';
 import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
 
-import 'highlight.js/styles/monokai.css';
+/**
+ * hightlight 테마
+ * https://highlightjs.org/static/demo/
+ * https://github.com/highlightjs/highlight.js/tree/main/src/styles
+ */
+import 'highlight.js/styles/stackoverflow-dark.css';
 
 export default {
   name: 'app-post-view',
@@ -153,6 +173,9 @@ export default {
   },
   data() {
     return {
+      plugins: [
+        // { plugin: MarkdownItFootnote },
+      ],
       pageTitle: '',
       page: this.$route.query.page,
       post: null,
@@ -168,6 +191,7 @@ export default {
   },
   watch: {
     $route(to, from) {
+      // to.hash가 없을 때만 init 메소드를 실행하면, /post/443#footnote1에서 뒤로가기 시 작동안함
       this.init(to.params.id);
     },
   },
