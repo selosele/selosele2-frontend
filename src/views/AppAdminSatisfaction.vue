@@ -1,9 +1,9 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
     <template v-if="!dataLoaded">
-      <ui-skeletor height="1.3rem" />
-      <ui-skeletor height="1.3rem" />
-      <ui-skeletor height="1.3rem" />
+      <ui-skeletor height="1.3rem"></ui-skeletor>
+      <ui-skeletor height="1.3rem"></ui-skeletor>
+      <ui-skeletor height="1.3rem"></ui-skeletor>
     </template>
 
     <template v-else>
@@ -45,7 +45,7 @@
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import UiGrid from '@/components/shared/grid/UiGrid.vue';
 import UiDatepicker from '@/components/shared/form/UiDatepicker.vue';
-import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
+import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-admin-satisfaction',
@@ -72,7 +72,7 @@ export default {
   },
   async created() {
     // 페이지 타이틀 세팅
-    breadCrumbService.setPageTitle(this.pageTitle);
+    breadcrumbService.setPageTitle(this.pageTitle);
 
     await this.listSatisfaction({
       isToday: 'N',

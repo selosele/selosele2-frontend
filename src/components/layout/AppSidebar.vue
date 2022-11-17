@@ -1,8 +1,8 @@
 <template>
   <aside class="sidebar">
     <template v-if="!dataLoaded">
-      <ui-skeletor height="8rem" />
-      <ui-skeletor height="8rem" />
+      <ui-skeletor height="8rem"></ui-skeletor>
+      <ui-skeletor height="8rem"></ui-skeletor>
     </template>
 
     <template v-else>

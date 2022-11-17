@@ -16,7 +16,8 @@
                   :name="'score'"
                   :checked="(item.value === this.satisArr[2].value)"
                   :label="item.text"
-                  v-model="item.value" />
+                  v-model="item.value">
+        </ui-radio>
       </div>
 
       <div class="satisfaction__field">
@@ -27,7 +28,8 @@
                          :className="'satisfaction__radio'"
                          :title="'의견'"
                          :placeholder="'의견을 입력하세요.'"
-                         v-model="comment" />
+                         v-model="comment">
+          </ui-text-field>
           
           <button type="submit" class="btn satisfaction__btn">
             <i class="xi-check-min" aria-hidden="true"></i>

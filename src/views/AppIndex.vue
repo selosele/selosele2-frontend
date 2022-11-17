@@ -1,7 +1,6 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
-    <ui-loading :activeModel="!dataLoaded"
-                :fullPage="true" />
+    <ui-loading :activeModel="!dataLoaded" :fullPage="true"></ui-loading>
 
     <app-post-list
       v-if="dataLoaded"
@@ -10,11 +9,12 @@
       :postList="pagingPostList">
     
       <ui-pagination :value="postList"
-                    :total="listCnt"
-                    :first="page"
-                    :rows="5"
-                    :size="10"
-                    @onPage="onPage" />
+                     :total="listCnt"
+                     :first="page"
+                     :rows="5"
+                     :size="10"
+                     @onPage="onPage">
+      </ui-pagination>
     </app-post-list>
     <app-widget-config v-if="isLogin" />
   </app-content-wrapper>
@@ -26,7 +26,7 @@ import UiPagination from '@/components/shared/pagination/UiPagination.vue';
 import AppPostList from '@/components/views/post/AppPostList.vue';
 import AppWidgetConfig from '@/components/widget/AppWidgetConfig.vue';
 import { isNotEmpty } from '@/utils/util';
-import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
+import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-index',
@@ -48,7 +48,7 @@ export default {
   },
   async created() {
     // 페이지 타이틀 세팅
-    breadCrumbService.setPageTitle(this.pageTitle);
+    breadcrumbService.setPageTitle(this.pageTitle);
 
     this.page = parseInt(this.$route.query.page) || 1;
 

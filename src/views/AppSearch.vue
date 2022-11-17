@@ -8,14 +8,16 @@
                     :class="'search__option'" 
                     v-model="t" 
                     :data="tData"
-                    :selectedValue="this.$route.query['t']" />
+                    :selectedValue="this.$route.query['t']">
+          </ui-select>
 
           <ui-text-field :type="'search'"
                         :name="'q'"
                         :id="'q'"
                         :title="'포스트 검색'"
                         :placeholder="'검색어를 입력하세요.'"
-                        v-model="q" />
+                        v-model="q">
+          </ui-text-field>
 
           <button type="submit" class="search__btn">
             <i class="xi-search" aria-hidden="true"></i>
@@ -29,7 +31,8 @@
                       :label="'대소문자 구분'"
                       :values="'Y,N'"
                       v-model="c"
-                      :checked="('Y' === this.$route.query['c'])" />
+                      :checked="('Y' === this.$route.query['c'])">
+          </ui-checkbox>
         </div>
       </ui-form>
 
@@ -55,7 +58,8 @@
       <div class="search__results__wrapper" ref="resultsWrapper">
         <ui-loading :activeModel="!dataLoaded"
                     :fullPage="true"
-                    v-if="$route.query['q'] && 0 < postList.length" />
+                    v-if="$route.query['q'] && 0 < postList.length">
+        </ui-loading>
 
         <ul class="post__wrapper search__results" v-if="dataLoaded">
           <li class="post__wrapper__list" v-for="(post,i) in postList" :key="i">
@@ -122,7 +126,7 @@ import UiTextField from '@/components/shared/form/UiTextField.vue';
 import UiSelect from '@/components/shared/form/UiSelect.vue';
 import UiCheckbox from '@/components/shared/form/UiCheckbox.vue';
 import messageUtil from '@/utils/ui/MessageUtil';
-import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
+import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-search',
@@ -153,7 +157,7 @@ export default {
   },
   async created() {
     // 페이지 타이틀 세팅
-    breadCrumbService.setPageTitle(this.pageTitle);
+    breadcrumbService.setPageTitle(this.pageTitle);
 
     // 검색옵션 코드 세팅
     this.$store.state.code.map((d,i) => {

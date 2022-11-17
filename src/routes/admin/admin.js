@@ -1,5 +1,6 @@
 export default [
   {
+    // 블로그 환경설정 페이지
     path: '/admin/blogconfig',
     component: () => import('@/views/AppBlogConfig.vue'),
     meta: {
@@ -9,6 +10,7 @@ export default [
     },
   },
   {
+    // 공통코드 관리 페이지
     path: '/admin/code',
     component: () => import('@/views/AppCode.vue'),
     meta: {
@@ -18,6 +20,7 @@ export default [
     },
   },
   {
+    // 만족도조사 관리 페이지
     path: '/admin/satisfaction',
     component: () => import('@/views/AppAdminSatisfaction.vue'),
     meta: {

@@ -2,9 +2,9 @@
   <app-content-wrapper :pageTitle="pageTitle">
     <div class="category__wrapper">
       <template v-if="!dataLoaded">
-        <ui-skeletor :height="'1.3rem'" />
-        <ui-skeletor :height="'1.3rem'" />
-        <ui-skeletor :height="'1.3rem'" />
+        <ui-skeletor :height="'1.3rem'"></ui-skeletor>
+        <ui-skeletor :height="'1.3rem'"></ui-skeletor>
+        <ui-skeletor :height="'1.3rem'"></ui-skeletor>
       </template>
 
       <template v-else>
@@ -36,7 +36,7 @@
 <script>
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import { isNotEmpty } from '@/utils/util';
-import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
+import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-category',
@@ -62,9 +62,9 @@ export default {
     this.init();
   },
   watch: {
-    $route(to, from) {
+    '$route.params.id': function(id) {
       this.init();
-    },
+    }
   },
   methods: {
     async init() {
@@ -102,7 +102,7 @@ export default {
 
           // 페이지 타이틀 세팅
           this.pageTitle = `'${category.nm}' ${category.type}의 글`;
-          breadCrumbService.setPageTitle(this.pageTitle);
+          breadcrumbService.setPageTitle(this.pageTitle);
         });
     },
     more() {

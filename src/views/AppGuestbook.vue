@@ -164,7 +164,7 @@
 import UiForm from '@/components/shared/form/UiForm.vue';
 import UiTextarea from '@/components/shared/form/UiTextarea.vue';
 import messageUtil from '@/utils/ui/MessageUtil';
-import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
+import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-guestbook',
@@ -179,7 +179,7 @@ export default {
   },
   created() {
     // 페이지 타이틀 세팅
-    breadCrumbService.setPageTitle(this.pageTitle);
+    breadcrumbService.setPageTitle(this.pageTitle);
   },
   methods: {
     onSubmit() {

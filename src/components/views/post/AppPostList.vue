@@ -15,7 +15,8 @@
                        :id="'checkAll'"
                        :label="'포스트 전체 선택'"
                        values="Y,N"
-                       v-model="checkAll" />
+                       v-model="checkAll">
+          </ui-checkbox>
         </span>
       </div>
 
@@ -33,7 +34,8 @@
                          :label="'포스트 삭제'"
                          :labelHidden="true"
                          :values="`${post.id},N`"
-                         v-model="checkList[i]" />
+                         v-model="checkList[i]">
+            </ui-checkbox>
 
             <!-- <input type="hidden" :name="`ck${post.id}`" :value="post.id" />
             <input type="checkbox" 
@@ -84,7 +86,7 @@
       </ul>
     </ui-form>
 
-    <slot />
+    <slot></slot>
   </div>
 </template>
 

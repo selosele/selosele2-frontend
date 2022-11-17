@@ -1,27 +1,28 @@
 <template>
-  <app-skip-links />
+  <app-skip-links></app-skip-links>
 
   <div id="body" :class="{ 'scroll-down': !scrollDown }">
-    <app-header :resStatus="resStatus" />
+    <app-header :resStatus="resStatus"></app-header>
 
-    <app-menu />
+    <app-menu></app-menu>
 
     <app-main ref="mainWrapper">
       <div class="page__body">
         <div class="page__body--left" v-if="$route.meta.showSidebar">
-          <router-view />
+          <router-view></router-view>
         </div>
-        <router-view v-else />
+        <router-view v-else></router-view>
 
         <div class="page__body--right" v-if="$route.meta.showSidebar">
-          <app-sidebar />
+          <app-sidebar></app-sidebar>
         </div>
       </div>
 
-      <app-user-satisfaction v-if="($route.meta.showSatis && 'Y' === this.$store.getters.blogConfig.showSatisYn)" />
+      <app-user-satisfaction v-if="($route.meta.showSatis && 'Y' === this.$store.getters.blogConfig.showSatisYn)" >
+      </app-user-satisfaction>
     </app-main>
 
-    <app-footer />
+    <app-footer></app-footer>
   </div>
 </template>
 

@@ -7,9 +7,9 @@
         <h2 class="popular-post__title">이런 글은 어떠신가요?</h2>
 
         <ul>
-          <ui-skeletor class="popular-post__list__item" v-if="!dataLoaded" />
-          <ui-skeletor marginTop="0" class="popular-post__list__item" v-if="!dataLoaded" />
-          <ui-skeletor marginTop="0" class="popular-post__list__item" v-if="!dataLoaded" />
+          <ui-skeletor class="popular-post__list__item" v-if="!dataLoaded"></ui-skeletor>
+          <ui-skeletor marginTop="0" class="popular-post__list__item" v-if="!dataLoaded"></ui-skeletor>
+          <ui-skeletor marginTop="0" class="popular-post__list__item" v-if="!dataLoaded"></ui-skeletor>
 
           <template v-if="postList.length > 0 && dataLoaded">
             <li class="popular-post__list__item" v-for="(post,i) in postList" :key="i">
@@ -32,7 +32,7 @@
 
 <script>
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
-import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
+import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-error',
@@ -48,7 +48,7 @@ export default {
   },
   async created() {
     // 페이지 타이틀 세팅
-    breadCrumbService.setPageTitle(this.pageTitle);
+    breadcrumbService.setPageTitle(this.pageTitle);
 
     await this.listPostByLimit(3);
     this.dataLoading();

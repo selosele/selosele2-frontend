@@ -156,7 +156,7 @@
 </template>
 
 <script>
-import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
+import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-blog-config',
@@ -167,7 +167,7 @@ export default {
   },
   created() {
     // 페이지 타이틀 세팅
-    breadCrumbService.setPageTitle(this.pageTitle);
+    breadcrumbService.setPageTitle(this.pageTitle);
   },
 }
 </script>

@@ -8,7 +8,7 @@
     </h1>
   </header>
 
-  <slot />
+  <slot></slot>
 </template>
 
 <script>

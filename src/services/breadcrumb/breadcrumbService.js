@@ -4,7 +4,7 @@ import { isNotEmpty } from '@/utils/util';
 /**
  * Breadcrumb Service
  */
- class BreadCrumbService {
+ class BreadcrumbService {
 
   constructor() {
   }
@@ -20,6 +20,6 @@ import { isNotEmpty } from '@/utils/util';
   
 }
 
-const breadCrumbService = new BreadCrumbService();
+const breadcrumbService = new BreadcrumbService();
 
-export default breadCrumbService;
+export default breadcrumbService;

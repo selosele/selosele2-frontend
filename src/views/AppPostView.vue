@@ -1,16 +1,16 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
     <template v-if="!dataLoaded">
-      <ui-skeletor height="1.3rem" />
-      <ui-skeletor height="1.3rem" />
-      <ui-skeletor height="1.3rem" />
+      <ui-skeletor height="1.3rem"></ui-skeletor>
+      <ui-skeletor height="1.3rem"></ui-skeletor>
+      <ui-skeletor height="1.3rem"></ui-skeletor>
     </template>
 
     <template v-if="dataLoaded && null !== post">
       
       <!-- START : 콘텐츠 내용 영역 -->
       <div class="post__contents__body line-numbers">
-        <Markdown :source="post.cont" :plugins="plugins" />
+        <Markdown :source="post.cont" :plugins="plugins"></Markdown>
       </div>
       <!-- END : 콘텐츠 내용 영역 -->
 
@@ -30,7 +30,7 @@
           <time :datetime="post.regDate">{{ post.regDate }}</time>
         </span>
 
-        <span class="post__contents__date post__contents__date--modified-at">
+        <span class="post__contents__date post__contents__date--modified-at" v-if="post.modDate">
           <strong>
             <i class="xi-time" aria-hidden="true"></i> 수정일
           </strong>
@@ -41,8 +41,8 @@
       <div class="post__contents__info-wrapper">
         <template v-if="0 < post.postCategory.length">
           <router-link v-for="(category,i) in post.postCategory" :key="i"
-                      :to="`/category/${category.category.id}`" 
-                      class="btn post__contents__info post__contents__info--category">
+                       :to="`/category/${category.category.id}`" 
+                       class="btn post__contents__info post__contents__info--category">
             <span class="sr-only">카테고리</span>
             <i class="xi-folder-open" aria-hidden="true"></i> {{ category.category.nm }}
           </router-link>
@@ -50,8 +50,8 @@
         
         <template v-if="0 < post.postTag.length">
           <router-link v-for="(tag,i) in post.postTag" :key="i"
-                      :to="`/tag/${tag.tag.id}`" 
-                      class="btn post__contents__info post__contents__info--tag">
+                       :to="`/tag/${tag.tag.id}`" 
+                       class="btn post__contents__info post__contents__info--tag">
             <span class="sr-only">태그</span>
             <i class="xi-tags" aria-hidden="true"></i> {{ tag.tag.nm }}
           </router-link>
@@ -156,7 +156,7 @@ import Markdown from 'vue3-markdown-it';
 import MarkdownItFootnote from 'markdown-it-footnote';
 import messageUtil from '@/utils/ui/MessageUtil';
 import { isNotEmpty } from '@/utils/util';
-import breadCrumbService from '@/services/breadcrumb/breadcrumbService';
+import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 
 /**
  * hightlight 테마
@@ -190,10 +190,9 @@ export default {
     this.init(this.$route.params.id);
   },
   watch: {
-    $route(to, from) {
-      // to.hash가 없을 때만 init 메소드를 실행하면, /post/443#footnote1에서 뒤로가기 시 작동안함
-      this.init(to.params.id);
-    },
+    '$route.params.id': function(id) {
+      this.init(id);
+    }
   },
   methods: {
     async init(id) {
@@ -219,11 +218,14 @@ export default {
         .then(res => {
           this.post = { ...res.data };
           this.post.regDate = this.$moment(this.post.regDate).format('YYYY-MM-DD HH:mm:ss');
-          this.post.modDate = this.$moment(this.post.modDate).format('YYYY-MM-DD HH:mm:ss');
+
+          if (isNotEmpty(this.post.modDate)) {
+            this.post.modDate = this.$moment(this.post.modDate).format('YYYY-MM-DD HH:mm:ss');
+          }
 
           // 페이지 타이틀 세팅
           this.pageTitle = this.post.title;
-          breadCrumbService.setPageTitle(this.pageTitle);
+          breadcrumbService.setPageTitle(this.pageTitle);
         });
     },
     // 이전/다음 포스트 조회
