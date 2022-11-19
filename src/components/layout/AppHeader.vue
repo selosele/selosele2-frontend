@@ -9,9 +9,9 @@
       'masthead__top',
       { 'masthead--image': this.$store.state.blogConfig.ogImgUrl }]"
          :style="[
-          { backgroundImage: this.$store.state.blogConfig.ogImgUrl && getBackgroundImage() },
-          { backgroundPositionX: this.$store.state.blogConfig.ogImgUrl && getBackgroundPosition('x') },
-          { backgroundPositionY: this.$store.state.blogConfig.ogImgUrl && getBackgroundPosition('y') }
+          { backgroundImage: this.$store.state.blogConfig.ogImgUrl && backgroundImage },
+          { backgroundPositionX: this.$store.state.blogConfig.ogImgUrl && backgroundPosition('x') },
+          { backgroundPositionY: this.$store.state.blogConfig.ogImgUrl && backgroundPosition('y') }
          ]">
       <div class="masthead__util-wrapper">
         <template v-if="!isLogin && isDevelopment">
@@ -79,32 +79,35 @@ export default {
       this.dataLoading(this.resStatus);
     },
   },
+  computed: {
+    backgroundContrast() {
+      return this.$store.state.blogConfig.ogImgContrast;
+    },
+    backgroundImageUrl() {
+      return this.$store.state.blogConfig.ogImgUrl;
+    },
+    backgroundImage() {
+      return `
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, ${this.backgroundContrast}),
+        rgba(0, 0, 0, ${this.backgroundContrast})),
+        url(${this.backgroundImageUrl}
+      )
+      `;
+    },
+  },
   methods: {
     async logout() {
       const confirm = await messageUtil.confirmQuestion('로그아웃하시겠습니까?');
       if (!confirm) return;
 
-      const res = await this.$store.dispatch('LOGOUT');
+      const res = await this.$store.dispatch('LOGOUT', this.$http);
       if ('ok' === res) {
-        this.$http.defaults.headers.common['Authorization'] = '';
         this.$router.push('/a/goto');
       }
     },
-    getBackgroundContrast() {
-      return this.$store.state.blogConfig.ogImgContrast;
-    },
-    getBackgroundImageUrl() {
-      return this.$store.state.blogConfig.ogImgUrl;
-    },
-    getBackgroundImage() {
-      return `linear-gradient(
-                to bottom,
-                rgba(0, 0, 0, ${this.getBackgroundContrast()}),
-                rgba(0, 0, 0, ${this.getBackgroundContrast()})),
-                url(${this.getBackgroundImageUrl()}
-              )`;
-    },
-    getBackgroundPosition(xy) {
+    backgroundPosition(xy) {
       if ('x' === xy) {
         return `${this.$store.state.blogConfig.ogImgPosX}%`;
       }

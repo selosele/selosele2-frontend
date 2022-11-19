@@ -10,6 +10,8 @@ export default createStore({
     pageTitle: '',
     // 블로그 환경설정
     blogConfig: [],
+    // 메뉴 목록
+    menuList: [],
     // 사이드바
     sidebar: {},
     // 메인 포스트 목록
@@ -34,6 +36,10 @@ export default createStore({
     // 블로그 환경설정
     blogConfig(state) {
       return state.blogConfig;
+    },
+    // 메뉴
+    menuList(state) {
+      return state.menuList;
     },
     // 사이드바
     sidebar(state) {
@@ -62,6 +68,9 @@ export default createStore({
     SET_BLOG_CONFIG(state, blogConfig) {
       state.blogConfig = blogConfig;
     },
+    SET_MENU_LIST(state, menuList) {
+      state.menuList = menuList;
+    },
     SET_SIDEBAR(state, sidebar) {
       state.sidebar = sidebar;
     },
@@ -72,17 +81,20 @@ export default createStore({
   actions: {
     LOGIN({ commit }, values) {
       return new Promise((resolve, reject) => {
-        commit('SET_MAIN_POSTLIST', {});
-        commit('SET_SIDEBAR', {});
         commit('SET_TOKEN', values);
+        commit('SET_MAIN_POSTLIST', {});
+        commit('SET_MENU_LIST', []);
+        commit('SET_SIDEBAR', {});
         resolve('ok');
       });
     },
-    LOGOUT({ commit }) {
+    LOGOUT({ commit }, http) {
       return new Promise((resolve, reject) => {
-        commit('SET_MAIN_POSTLIST', {});
-        commit('SET_SIDEBAR', {});
+        http.defaults.headers.common['Authorization'] = '';
         commit('CLEAR_TOKEN');
+        commit('SET_MAIN_POSTLIST', {});
+        commit('SET_MENU_LIST', []);
+        commit('SET_SIDEBAR', {});
         resolve('ok');
       });
     },
@@ -94,6 +106,9 @@ export default createStore({
     },
     FETCH_BLOG_CONFIG({ commit }, values) {
       commit('SET_BLOG_CONFIG', values);
+    },
+    FETCH_MENU_LIST({ commit }, values) {
+      commit('SET_MENU_LIST', values);
     },
     FETCH_SIDEBAR({ commit }, values) {
       commit('SET_SIDEBAR', values);
