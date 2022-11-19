@@ -15,7 +15,7 @@ const routes = [
   ...index,               // 메인
   ...error,               // 에러
   ...auth,                // 권한
-  ...post,                // 검색
+  ...post,                // 포스트
   ...search,              // 검색
   ...archive,             // 아카이브
   ...guestbook,           // 방명록

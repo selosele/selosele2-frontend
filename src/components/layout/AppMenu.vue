@@ -60,7 +60,11 @@ export default {
   methods: {
     // 메뉴 목록 조회
     listMenu() {
-      return this.$http.get('/menu/list')
+      let listMenuDto = {
+        useYn: 'Y',
+      };
+
+      return this.$http.get('/menu/list', { params: listMenuDto })
         .then(res => {
           res.data.map(d => {
             this.menuList.push(d);

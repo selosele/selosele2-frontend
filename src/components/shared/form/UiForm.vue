@@ -1,16 +1,21 @@
 <template>
   <Form :name="name"
         @submit="onSubmit"
-        @reset="$emit('onReset')">
+        @reset="$emit('onReset')"
+  >
     <slot></slot>
   </Form>
 </template>
 
 <script>
+import { isEmpty } from '@/utils/util';
 import { Form } from 'vee-validate';
 
 export default {
   name: 'ui-form',
+  props: {
+    name: String  // form name
+  },
   components: {
     Form,
   },
@@ -19,9 +24,13 @@ export default {
       const formValues = this.getFormValues();
       this.$emit('onSubmit', formValues);
     },
-    // Form Values -> JSON으로 가공
+    /**
+     * Form Values -> JSON으로 가공
+     * Form Values를 onSubmit() 메서드의 values 파라미터로 받을시,
+     * 처음부터 checked 상태인 체크박스, 라디오 버튼의 값을 못 가져오는 문제가 있어 커스텀 메서드를 만들었다.
+     */
     getFormValues() {
-      if (undefined === this.name || null === this.name) {
+      if (isEmpty(this.name)) {
         throw new Error('Form name 속성값이 누락되었습니다.');
       }
 
@@ -38,9 +47,6 @@ export default {
       
       return obj;
     },
-  },
-  props: {
-    name: String  // form name
   },
 }
 </script>

@@ -8,7 +8,8 @@
       marginTop,
     }"
     :class="['skeletor-box', cssClass]"
-  />
+  >
+  </span>
 </template>
 
 <script>

@@ -8,6 +8,17 @@ export const initDefineRule = () => {
     }
     return true;
   });
+
+  defineRule('minLength', (value, [limit]) => {
+    if (!value || !value.length) {
+      return true;
+    }
+    if (value.length < limit) {
+      return `${limit}자 이상 입력하세요.`;
+    }
+    return true;
+  });
+
   defineRule('maxLength', (value, [limit]) => {
     if (!value || !value.length) {
       return true;

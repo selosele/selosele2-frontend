@@ -70,11 +70,11 @@
         gap: 1.5rem;
       }
 
-      @media (min-width: $min-big-width) {
-        width: calc(100% + 1.5rem);
-        margin-left: -0.75rem;
-        margin-right: -0.75rem;
-      }
+      // @media (min-width: $min-big-width) {
+      //   width: calc(100% + 1.5rem);
+      //   margin-left: -0.75rem;
+      //   margin-right: -0.75rem;
+      // }
 
       > .skeletor-box {
         height: 5.8rem;

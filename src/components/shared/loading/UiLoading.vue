@@ -1,7 +1,8 @@
 <template>
   <loading v-model:active="active"
            :can-cancel="cancel"
-           :is-full-page="fullPage" />
+           :is-full-page="fullPage">
+  </loading>
 </template>
 
 <script>
