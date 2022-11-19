@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import { isNotEmpty } from '@/utils/util';
+
 export default {
   name: 'app-menu',
   data() {
@@ -48,6 +50,12 @@ export default {
   },
   unmounted() {
     document.removeEventListener('click', this.closeMenu);
+  },
+  watch: {
+    '$store.state.token': function(token) {
+      this.menuList = [];
+      this.listMenu();
+    }
   },
   methods: {
     // 메뉴 목록 조회
@@ -69,7 +77,7 @@ export default {
     },
     // 메뉴 닫기
     closeMenu(e) {
-      if (!this.$refs.menuLink.includes(e.target)) {
+      if (isNotEmpty(this.$refs.menuLink) && !this.$refs.menuLink.includes(e.target)) {
         this.activeIndex = -1;
       }
     },

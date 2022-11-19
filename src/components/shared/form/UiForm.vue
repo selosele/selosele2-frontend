@@ -2,7 +2,7 @@
   <Form :name="name"
         @submit="onSubmit"
         @reset="$emit('onReset')">
-    <slot />
+    <slot></slot>
   </Form>
 </template>
 

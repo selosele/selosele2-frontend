@@ -4,19 +4,20 @@
       <ui-form :class="'search__frm'" :name="'searchForm'" @onSubmit="onSubmit">
         <div class="search__field" ref="searchField">
           <ui-select :name="'t'"
-                    :title="'검색 옵션'"
-                    :class="'search__option'" 
-                    v-model="t" 
-                    :data="tData"
-                    :selectedValue="this.$route.query['t']">
+                     :title="'검색 옵션'"
+                     :class="'search__option'"
+                     :data="tData"
+                     :selectedValue="this.$route.query['t']"
+                     v-model="t">
           </ui-select>
 
           <ui-text-field :type="'search'"
-                        :name="'q'"
-                        :id="'q'"
-                        :title="'포스트 검색'"
-                        :placeholder="'검색어를 입력하세요.'"
-                        v-model="q">
+                         :name="'q'"
+                         :id="'q'"
+                         :ref="'q'"
+                         :title="'포스트 검색'"
+                         :placeholder="'검색어를 입력하세요.'"
+                         v-model="q">
           </ui-text-field>
 
           <button type="submit" class="search__btn">
@@ -27,11 +28,11 @@
 
         <div class="search__detail">
           <ui-checkbox :name="'c'"
-                      :id="'c'"
-                      :label="'대소문자 구분'"
-                      :values="'Y,N'"
-                      v-model="c"
-                      :checked="('Y' === this.$route.query['c'])">
+                       :id="'c'"
+                       :label="'대소문자 구분'"
+                       :values="'Y,N'"
+                       :checked="('Y' === this.$route.query['c'])"
+                       v-model="c">
           </ui-checkbox>
         </div>
       </ui-form>
@@ -87,8 +88,7 @@
 
                 <template v-if="post.postCategory.length > 0">
                   <span class="post__box__item post__box__item--category"
-                        v-for="(category,j) in post.postCategory"
-                        :key="j">
+                        v-for="(category,j) in post.postCategory" :key="j">
                     <span class="sr-only">카테고리</span> {{ category.category.nm }}
                   </span>
                 </template>
@@ -98,22 +98,22 @@
         </ul>
 
         <p class="search__more__wrapper"
-            @click="more"
-            v-if="listCnt > pageSize && !isLastPage">
+           @click="more"
+           v-if="listCnt > pageSize && !isLastPage">
           <button type="button" class="btn search__more">
             <i class="xi-plus-circle" aria-hidden="true"></i> 더보기
           </button>
         </p>
 
-        <a href="#q"
-          :class="[
-            'btn search__to-input',
-            { 'search__to-input--active': this.searchToInputActive }
-            ]"
-          @click.prevent="searchToInput">
+        <button type="button"
+                :class="[
+                  'btn search__to-input',
+                  { 'search__to-input--active': this.toInputActive }
+                ]"
+                @click.prevent="toInput">
           <i class="xi-search" aria-hidden="true"></i>
           <span class="sr-only">검색 필드 바로가기</span>
-        </a>
+        </button>
       </div>
     </div>
   </app-content-wrapper>
@@ -127,6 +127,7 @@ import UiSelect from '@/components/shared/form/UiSelect.vue';
 import UiCheckbox from '@/components/shared/form/UiCheckbox.vue';
 import messageUtil from '@/utils/ui/MessageUtil';
 import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
+import { isNotEmpty } from '@/utils/util';
 
 export default {
   name: 'app-search',
@@ -150,7 +151,7 @@ export default {
       listCnt: null,
       postList: [],
       googleSearchUrl: '',
-      searchToInputActive: false,
+      toInputActive: false,
       isLastPage: false,
       dataLoaded: false,
     }
@@ -215,8 +216,8 @@ export default {
       this.dataLoading();
     },
     init() {
-      localStorage.getItem('searchPage') && localStorage.removeItem('searchPage');
-      localStorage.getItem('searchPostList') && localStorage.removeItem('searchPostList');
+      if (isNotEmpty(localStorage.getItem('searchPage'))) localStorage.removeItem('searchPage');
+      if (isNotEmpty(localStorage.getItem('searchPostList'))) localStorage.removeItem('searchPostList');
 
       this.page = 1;
       this.dataLoaded = false;
@@ -280,15 +281,16 @@ export default {
       if (null === this.postList || 0 === this.postList.length) return;
 
       if (this.$refs.resultsWrapper && (window.pageYOffset >= this.$refs.resultsWrapper.offsetTop)) {
-        this.searchToInputActive = true;
+        this.toInputActive = true;
       } else {
-        this.searchToInputActive = false;
+        this.toInputActive = false;
       }
     },
     // 검색 필드로 focus
-    searchToInput() {
+    toInput() {
       const st = this.$refs.searchField.offsetTop - 100;
       window.scrollTo(0, st);
+      this.$refs.q.focus();
     },
     // 데이타 로딩
     dataLoading() {

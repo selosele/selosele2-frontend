@@ -18,7 +18,7 @@
         </div>
       </div>
 
-      <app-user-satisfaction v-if="($route.meta.showSatis && 'Y' === this.$store.getters.blogConfig.showSatisYn)" >
+      <app-user-satisfaction v-if="($route.meta.showSatis && 'Y' === this.$store.getters.blogConfig.showSatisYn)">
       </app-user-satisfaction>
     </app-main>
 
@@ -56,25 +56,9 @@ export default {
     };
   },
   created() {
-    // JWT 세팅
-    const token = localStorage.getItem('token');
-    if (token) {
-      this.$http.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    }
-
-    // 공통코드 목록 조회
-    this.$http.get('/code/list')
-      .then(res => {
-        this.$store.dispatch('FETCH_CODE', res.data);
-      });
-
-    // 블로그 환경설정 정보 조회
-    this.$http.get('/blogconfig')
-      .then(res => {
-        this.$store.dispatch('FETCH_BLOG_CONFIG', res.data);
-        this.resStatus = 'ok';
-        document.title = res.data.title;
-      });
+    this.initJwt();
+    this.listCode();
+    this.getBlogConfig();
   },
   mounted() {
     this.lastScrollTop = window.pageYOffset;
@@ -84,6 +68,29 @@ export default {
     document.removeEventListener('scroll', this.scroll);
   },
   methods: {
+    // JWT 세팅
+    initJwt() {
+      const token = localStorage.getItem('token');
+      if (token) {
+        this.$http.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      }
+    },
+    // 공통코드 목록 조회
+    listCode() {
+      this.$http.get('/code/list')
+        .then(res => {
+          this.$store.dispatch('FETCH_CODE', res.data);
+        });
+    },
+    // 블로그 환경설정 정보 조회
+    getBlogConfig() {
+      this.$http.get('/blogconfig')
+        .then(res => {
+          this.$store.dispatch('FETCH_BLOG_CONFIG', res.data);
+          this.resStatus = 'ok';
+          document.title = res.data.title;
+        });
+    },
     scroll() {
       if (1420 > window.outerWidth || 0 > window.pageYOffset) {
         return;

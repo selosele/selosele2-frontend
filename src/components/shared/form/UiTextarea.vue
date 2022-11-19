@@ -1,6 +1,7 @@
 <template>
   <Field as="textarea"
          :id="id"
+         :ref="id"
          :name="name"
          :title="title"
          :class="className"
@@ -9,10 +10,12 @@
          :rows="rows"
          :rules="rules"
          :value="modelValue"
-         @input="$emit('update:modelValue', $event.target.value)" />
+         @input="$emit('update:modelValue', $event.target.value)"
+  >
+  </Field>
 
-  <ErrorMessage class="form-field-error"
-                :name="name" />
+  <ErrorMessage class="form-field-error" :name="name">
+  </ErrorMessage>
 </template>
 
 <script>

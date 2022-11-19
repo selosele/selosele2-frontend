@@ -1,5 +1,6 @@
 <template>
   <select :id="id"
+          :ref="id"
           :name="name"
           :title="title"
           :class="className"

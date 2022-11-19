@@ -6,6 +6,7 @@
 
     <input type="radio"
            :id="id"
+           :ref="id"
            :title="title"
            :class="className"
            :checked="(field.checked = checked)"
@@ -13,11 +14,10 @@
            v-bind="field"
            @change="$emit('update:modelValue', $event.target.value)" />
 
-    <label v-if="label"
-          :for="id">{{ label }}</label>
+    <label v-if="label" :for="id">{{ label }}</label>
 
-    <ErrorMessage class="form-field-error"
-                  :name="name" />
+    <ErrorMessage class="form-field-error" :name="name">
+    </ErrorMessage>
   </Field>
 </template>
 

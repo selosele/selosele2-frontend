@@ -9,6 +9,7 @@
 
     <input type="checkbox"
            :id="id"
+           :ref="id"
            :title="title"
            :class="className"
            :checked="(field.checked = checked)"
@@ -22,8 +23,8 @@
       <template v-else>{{ label }}</template>
     </label>
 
-    <ErrorMessage class="form-field-error"
-                  :name="name" />
+    <ErrorMessage class="form-field-error" :name="name">
+    </ErrorMessage>
   </Field>
 </template>
 

@@ -1,16 +1,19 @@
 <template>
   <Field :type="type"
          :id="id"
+         :ref="id"
          :name="name"
          :title="title"
          :class="className"
          :placeholder="placeholder"
          :rules="rules"
          :value="modelValue"
-         @input="$emit('update:modelValue', $event.target.value)" />
+         @input="$emit('update:modelValue', $event.target.value)"
+  >
+  </Field>
 
-  <ErrorMessage class="form-field-error"
-                :name="name" />
+  <ErrorMessage class="form-field-error" :name="name">
+  </ErrorMessage>
 </template>
 
 <script>
@@ -31,6 +34,11 @@ export default {
     placeholder: String,        // input placeholder
     rules: String,              // input validation rules
     modelValue: String,         // input modelValue
+  },
+  methods: {
+    focus() {
+      this.$refs[this.id].$el.focus();
+    }
   },
 }
 </script>
