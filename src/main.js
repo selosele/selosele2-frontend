@@ -69,8 +69,7 @@ app.config.warnHandler = (msg, vm, trace) => {
   return null;
 };
 
-app
-  .use(store)
-  .use(router)
-  .component('AppContentWrapper', AppContentWrapper)
-  .mount('#app');
+app.use(store)
+   .use(router)
+   .component('AppContentWrapper', AppContentWrapper)
+   .mount('#app');
