@@ -18,7 +18,7 @@
         </div>
       </div>
 
-      <app-user-satisfaction v-if="($route.meta.showSatis && 'Y' === this.$store.getters.blogConfig.showSatisYn)">
+      <app-user-satisfaction v-if="($route.meta.showSatis && 'Y' === this.$store.state.blogConfig.showSatisYn)">
       </app-user-satisfaction>
     </app-main>
 

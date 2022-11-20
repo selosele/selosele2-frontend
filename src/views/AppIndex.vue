@@ -63,10 +63,10 @@ export default {
   },
   computed: {
     storePostList() {
-      return this.$store.getters.mainPostObj.postList;
+      return this.$store.state.mainPostObj.postList;
     },
     storePostListCnt() {
-      return this.$store.getters.mainPostObj.listCnt;
+      return this.$store.state.mainPostObj.listCnt;
     },
     hasStorePostList() {
       return isNotEmpty(this.storePostList) && 0 < this.storePostList.length;

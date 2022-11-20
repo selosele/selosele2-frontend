@@ -27,22 +27,6 @@ export default createStore({
     isProduction() {
       return 'production' === process.env.NODE_ENV;
     },
-    // 페이지 타이틀
-    pageTitle(state) {
-      return state.pageTitle;
-    },
-    // 블로그 환경설정
-    blogConfig(state) {
-      return state.blogConfig;
-    },
-    // 사이드바
-    sidebar(state) {
-      return state.sidebar;
-    },
-    // 메인 포스트 목록
-    mainPostObj(state) {
-      return state.mainPostObj;
-    },
   },
   mutations: {
     SET_TOKEN(state, _token) {

@@ -87,7 +87,7 @@ export default {
   },
   computed: {
     storeSidebar() {
-      return this.$store.getters.sidebar;
+      return this.$store.state.sidebar;
     },
   },
   methods: {
