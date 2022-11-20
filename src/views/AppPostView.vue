@@ -20,10 +20,14 @@
       <!-- END : 콘텐츠 내용 영역 -->
 
       <div class="post__contents__like-wrapper">
-        <button type="button" class="btn post__contents__like-btn" title="포스트 추천하기">
-          <i class="xi-heart-o" aria-hidden="true"></i>
+        <button type="button"
+                class="btn post__contents__like-btn"
+                :title="isPostLiked ? '포스트 추천 해제하기' : '포스트 추천하기'"
+                @click="savePostLike(post.id)">
+          <i class="xi-heart" aria-hidden="true" v-if="isPostLiked"></i>
+          <i class="xi-heart-o" aria-hidden="true" v-if="!isPostLiked"></i>
           <span class="sr-only">추천수</span>
-          <span id="like_cnt" class="post__contents__like-cnt">{{ post.postLike.length }}</span>
+          <span id="like_cnt" class="post__contents__like-cnt">{{ postLikeCnt }}</span>
         </button>
       </div>
 
@@ -191,6 +195,8 @@ export default {
       prevPost: null,
       nextPost: null,
       postUrl: null,
+      postLikeCnt: 0,
+      isPostLiked: false,
       snsCodeList: [],
       dataLoaded: false,
     }
@@ -213,11 +219,13 @@ export default {
 
       await Promise.all([
         this.getPost(id),
+        this.getPostLike(id),
         this.listPrevAndNextPost(id),
       ]);
       this.dataLoading();
 
       this.postUrl = this.$nowUrl;
+      this.postLikeCnt = this.post.postLike.length;
       this.snsCodeList = this.$store.state.code
         .filter(d => 'C01' === d.prefix);
     },
@@ -239,11 +247,33 @@ export default {
     },
     // 이전/다음 포스트 조회
     listPrevAndNextPost(id) {
-      return this.$http.get(`/post/prevNext/${id}`)
+      return this.$http.get(`/post/prevnext/${id}`)
         .then(res => {
           const [prev, next] = res.data;
           this.prevPost = prev || null;
           this.nextPost = next || null;
+        });
+    },
+    // 포스트 추천 정보 조회
+    getPostLike(id) {
+      return this.$http.get(`/post/like/${id}`)
+        .then(res => {
+          if (isNotEmpty(res.data)) {
+            this.isPostLiked = true;
+          } else {
+            this.isPostLiked = false;
+          }
+        });
+    },
+    // 포스트 추천/추천 해제
+    savePostLike(id) {
+      return this.$http.post(`/post/like/${id}`)
+        .then(res => {
+          if (0 === this.postLikeCnt && -1 === res.data) return;
+          this.getPostLike(id);
+          this.postLikeCnt += res.data;
+        }).catch(error => {
+          messageUtil.toastError(error.response.data.message);
         });
     },
     // 목록으로 돌아가기
