@@ -110,7 +110,7 @@
                   'btn search__to-input',
                   { 'search__to-input--active': this.toInputActive }
                 ]"
-                @click.prevent="toInput">
+                @click="toInput">
           <i class="xi-search" aria-hidden="true"></i>
           <span class="sr-only">검색 필드 바로가기</span>
         </button>

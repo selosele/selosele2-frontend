@@ -73,19 +73,23 @@
           <span class="sr-only">URL 복사</span>
         </button>
         
-        <button type="button"
-                class="btn post__contents__sns post__contents__sns--twitter"
-                @click="sharePost(this.snsCodeList[0].id)">
-          <i class="xi-twitter" aria-hidden="true"></i>
-          <span class="sr-only">트위터 공유</span>
-        </button>
+        <a :href="`https://twitter.com/intent/tweet?text=${encodeURI(post.title)}%20${encodeURI($nowUrl)}`"
+           target="_blank"
+           title="새창"
+           rel="noopener noreferrer nofollow"
+           class="btn post__contents__sns post__contents__sns--twitter">
+            <i class="xi-twitter" aria-hidden="true"></i>
+            <span class="sr-only">트위터 공유</span>
+        </a>
 
-        <button type="button"
-                class="btn post__contents__sns post__contents__sns--facebook"
-                @click="sharePost(this.snsCodeList[1].id)">
-          <i class="xi-facebook-official" aria-hidden="true"></i>
-          <span class="sr-only">페이스북 공유</span>
-        </button>
+        <a :href="`https://www.facebook.com/sharer/sharer.php?u=${encodeURI($nowUrl)}`"
+           target="_blank"
+           title="새창"
+           rel="noopener noreferrer nofollow"
+           class="btn post__contents__sns post__contents__sns--facebook">
+            <i class="xi-facebook-official" aria-hidden="true"></i>
+            <span class="sr-only">페이스북 공유</span>
+        </a>
 
         <template v-if="isLogin">
           <router-link to="/write" class="btn post__contents__btn post__contents__btn--write">
@@ -208,7 +212,7 @@ export default {
       ]);
       this.dataLoading();
 
-      this.postUrl = location.href;
+      this.postUrl = this.$nowUrl;
       this.snsCodeList = this.$store.state.code
         .filter(d => 'C01' === d.prefix);
     },
@@ -250,20 +254,6 @@ export default {
     copyPostUrl() {
       navigator.clipboard.writeText(this.postUrl);
       messageUtil.toastSuccess('URL이 복사되었습니다.');
-    },
-    // 포스트 공유
-    sharePost(code) {
-      let url = '';
-      // 트위터
-      if (code === this.snsCodeList[0].id) {
-        url = `https://twitter.com/intent/tweet?text=${encodeURI(this.post.title)}%20${encodeURI(location.href)}`;
-      }
-      // 페이스북
-      if (code === this.snsCodeList[1].id) {
-        url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURI(location.href)}`;
-      }
-      let win = window.open();
-      win.location = url;
     },
     // 데이타 로딩
     dataLoading() {

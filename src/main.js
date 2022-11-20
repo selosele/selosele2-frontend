@@ -57,6 +57,7 @@ app.mixin({
 });
 
 app.config.globalProperties.$rootUrl = window.location.origin;
+app.config.globalProperties.$nowUrl = window.location.href;
 app.config.globalProperties.$http = axios.create({
   baseURL: '/api',
   headers: {
