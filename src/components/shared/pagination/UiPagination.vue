@@ -14,7 +14,7 @@
         <span :class="[
                 'link',
                 { 'link--disabled': page <= 1 }]"
-              @click="onPage(this.page-1)">
+              @click="onPage(page-1)">
           <i class="xi-angle-left" aria-hidden="true"></i>
           <span class="sr-only">이전 페이지</span>
         </span>
@@ -35,7 +35,7 @@
         <span :class="[
                 'link',
                 { 'link--disabled': page >= paginationTotal }]"
-              @click="onPage(this.page+1)">
+              @click="onPage(page+1)">
           <i class="xi-angle-right" aria-hidden="true"></i>
           <span class="sr-only">다음 페이지</span>
         </span>
@@ -150,4 +150,6 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+@import '@/assets/scss/components/pagination.scss';
+</style>

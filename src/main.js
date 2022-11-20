@@ -65,6 +65,10 @@ app.config.globalProperties.$http = axios.create({
 });
 app.config.globalProperties.$moment = moment;
 
+app.config.warnHandler = (msg, vm, trace) => {
+  return null;
+};
+
 app
   .use(store)
   .use(router)

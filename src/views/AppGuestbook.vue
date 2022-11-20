@@ -80,7 +80,7 @@
               <div class="guestbook__reply__btns-inner">
                 <label :for="`replyAuthor${i}`">닉네임
                   <ui-text-field :type="'text'"
-                                 :name="'replyAuthor'"
+                                 :name="'author'"
                                  :id="`replyAuthor${i}`"
                                  :className="'guestbook__input'"
                                  :rules="'required|maxLength:20'">
@@ -89,7 +89,7 @@
 
                 <label :for="`replyPw${i}`">비밀번호
                   <ui-text-field :type="'password'"
-                                 :name="`replyPw${i}`"
+                                 :name="'authorPw'"
                                  :id="`replyPw${i}`"
                                  :className="'guestbook__input'"
                                  :rules="'required|minLength:8|maxLength:15'">
