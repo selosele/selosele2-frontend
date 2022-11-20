@@ -1,13 +1,18 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
     <template v-if="!dataLoaded">
-      <ui-skeletor height="1.3rem"></ui-skeletor>
-      <ui-skeletor height="1.3rem"></ui-skeletor>
-      <ui-skeletor height="1.3rem"></ui-skeletor>
+      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
+      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
+      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
     </template>
 
     <template v-if="dataLoaded && null !== post">
-      
+
+      <meta property="og:title" :content="post.title">
+      <meta property="og:url" :content="$nowUrl">
+      <meta property="og:description" :content="post.title">
+      <meta property="og:image" :content="post.ogImgUrl">
+
       <!-- START : 콘텐츠 내용 영역 -->
       <div class="post__contents__body line-numbers">
         <Markdown :source="post.cont" :plugins="plugins"></Markdown>
@@ -18,7 +23,7 @@
         <button type="button" class="btn post__contents__like-btn" title="포스트 추천하기">
           <i class="xi-heart-o" aria-hidden="true"></i>
           <span class="sr-only">추천수</span>
-          <span id="like_cnt" class="post__contents__like-cnt">{{ post.likeCnt }}</span>
+          <span id="like_cnt" class="post__contents__like-cnt">{{ post.postLike.length }}</span>
         </button>
       </div>
 

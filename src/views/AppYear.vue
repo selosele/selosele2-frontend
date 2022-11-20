@@ -2,9 +2,9 @@
   <app-content-wrapper :pageTitle="pageTitle">
     <div class="year__wrapper">
       <template v-if="!dataLoaded">
-        <ui-skeletor height="1.3rem"></ui-skeletor>
-        <ui-skeletor height="1.3rem"></ui-skeletor>
-        <ui-skeletor height="1.3rem"></ui-skeletor>
+        <ui-skeletor :height="'1.3rem'"></ui-skeletor>
+        <ui-skeletor :height="'1.3rem'"></ui-skeletor>
+        <ui-skeletor :height="'1.3rem'"></ui-skeletor>
       </template>
 
       <template v-else>
@@ -22,8 +22,8 @@
           </h2>
 
           <ul class="year__list" v-if="i === activeIndex">
-            <ui-skeletor height="1.3rem" v-if="i !== itemLoadedIndex"></ui-skeletor>
-            <ui-skeletor height="1.3rem" v-if="i !== itemLoadedIndex"></ui-skeletor>
+            <ui-skeletor :height="'1.3rem'" v-if="i !== itemLoadedIndex"></ui-skeletor>
+            <ui-skeletor :height="'1.3rem'" v-if="i !== itemLoadedIndex"></ui-skeletor>
 
             <template v-if="i === itemLoadedIndex && null !== postList && 0 < postList.length">
               <li v-for="(post,j) in postList" :key="j">

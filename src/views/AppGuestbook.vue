@@ -40,9 +40,9 @@
       </ui-form>
 
       <template v-if="!dataLoaded">
-        <ui-skeletor height="1.3rem"></ui-skeletor>
-        <ui-skeletor height="1.3rem"></ui-skeletor>
-        <ui-skeletor height="1.3rem"></ui-skeletor>
+        <ui-skeletor :height="'1.3rem'"></ui-skeletor>
+        <ui-skeletor :height="'1.3rem'"></ui-skeletor>
+        <ui-skeletor :height="'1.3rem'"></ui-skeletor>
       </template>
 
       <ul class="guestbook__depth1" v-if="dataLoaded">

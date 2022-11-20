@@ -1,9 +1,9 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
     <template v-if="!dataLoaded">
-      <ui-skeletor height="1.3rem"></ui-skeletor>
-      <ui-skeletor height="1.3rem"></ui-skeletor>
-      <ui-skeletor height="1.3rem"></ui-skeletor>
+      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
+      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
+      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
     </template>
 
     <template v-else>
