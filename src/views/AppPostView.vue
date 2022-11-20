@@ -262,7 +262,8 @@ export default {
       if (code === this.snsCodeList[1].id) {
         url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURI(location.href)}`;
       }
-      window.open(url, '_blank', 'width=600,height=600');
+      let win = window.open();
+      win.location.href = url;
     },
     // 데이타 로딩
     dataLoading() {
