@@ -201,7 +201,7 @@ export default {
     scroll() {
       const { scrollY } = window;
       const { clientHeight, scrollHeight } = document.documentElement;
-      const bottomOfPage = (clientHeight + scrollY + 200) >= scrollHeight;
+      const bottomOfPage = (clientHeight + scrollY + 100) >= scrollHeight;
       
       if (bottomOfPage && !this.isScrolled) {
         setTimeout(() => {
