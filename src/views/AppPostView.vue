@@ -263,7 +263,7 @@ export default {
         url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURI(location.href)}`;
       }
       let win = window.open();
-      win.location.href = url;
+      win.location = url;
     },
     // 데이타 로딩
     dataLoading() {
