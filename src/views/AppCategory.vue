@@ -85,7 +85,7 @@ export default {
       
       let category = {};
 
-      return this.$http.get(`/post/${this.type}/list/${this.id}`, { params: paginationDto })
+      return this.$http.get(`/post/${this.type}/${this.id}`, { params: paginationDto })
         .then(res => {
           res.data[0].map(d => {
             category.type = isNotEmpty(d.postCategory) ? '카테고리' : '태그';

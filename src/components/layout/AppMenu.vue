@@ -64,7 +64,7 @@ export default {
         useYn: 'Y',
       };
 
-      return this.$http.get('/menu/list', { params: listMenuDto })
+      return this.$http.get('/menu', { params: listMenuDto })
         .then(res => {
           res.data.map(d => {
             this.menuList.push(d);

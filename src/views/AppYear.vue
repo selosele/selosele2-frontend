@@ -89,7 +89,7 @@ export default {
       this.dataLoading();
     },
     listYearAndCount() {
-      return this.$http.get('/post/year/list')
+      return this.$http.get('/post/year')
         .then(res => {
           res.data.map(d => {
             this.yearList.push(d);
@@ -119,7 +119,7 @@ export default {
         pageSize: this.pageSize,
       };
       
-      return this.$http.get(`/post/year/list/${year}`, { params: paginationDto })
+      return this.$http.get(`/post/year/${year}`, { params: paginationDto })
         .then(res => {
           if (0 === res.data[0].length) {
             messageUtil.toastInfo('마지막 페이지입니다.');

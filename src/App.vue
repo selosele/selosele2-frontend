@@ -77,7 +77,7 @@ export default {
     },
     // 공통코드 목록 조회
     listCode() {
-      this.$http.get('/code/list')
+      this.$http.get('/code')
         .then(res => {
           this.$store.dispatch('FETCH_CODE', res.data);
         });

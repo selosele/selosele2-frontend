@@ -24,7 +24,7 @@
 
             <label for="writePw">비밀번호
               <ui-text-field :type="'password'"
-                             :name="'authoPw'"
+                             :name="'authorPw'"
                              :id="'writePw'"
                              :className="'guestbook__input'"
                              :rules="'required|minLength:8|maxLength:15'">
@@ -32,8 +32,15 @@
             </label>
 
             <div class="guestbook__write__btns d-flex-w gap--10">
-              <button type="reset" class="btn btn--secondary guestbook__btn guestbook__btn--reset">다시작성</button>
-              <button type="submit" class="btn btn--primary guestbook__btn guestbook__btn--write">등록</button>
+              <ui-button :type="'reset'"
+                         :color="'secondary'"
+                         :className="'guestbook__btn guestbook__btn--reset'">다시작성
+              </ui-button>
+
+              <ui-button :type="'submit'"
+                         :color="'primary'"
+                         :className="'guestbook__btn guestbook__btn--write'">등록
+              </ui-button>
             </div>
           </div>
         </div>
@@ -47,7 +54,7 @@
 
       <ul class="guestbook__depth1" v-if="dataLoaded">
         <li class="guestbook__depth1__list" v-for="(guestbook,i) in guestbookList" :key="i">
-          <p class="guestbook__cont">{{ guestbook.cont }}</p>
+          <p class="guestbook__cont" v-html="guestbook.cont"></p>
 
           <div class="guestbook__cont__info depth1">
             <span class="guestbook__author">
@@ -65,40 +72,58 @@
             </span>
           </div>
 
-          <div class="guestbook__reply__wrapper">
-            <ui-textarea :name="'cont'"
-                         :id="`replyCont${i}`"
-                         :className="'guestbook__reply__cont'"
-                         :title="'댓글 입력'"
-                         :placeholder="'댓글을 작성해주세요.'"
-                         :cols="'30'"
-                         :rows="'3'"
-                         :rules="'required'">
-            </ui-textarea>
-
-            <div class="guestbook__reply__btns">
-              <div class="guestbook__reply__btns-inner">
-                <label :for="`replyAuthor${i}`">닉네임
-                  <ui-text-field :type="'text'"
-                                 :name="'author'"
-                                 :id="`replyAuthor${i}`"
-                                 :className="'guestbook__input'"
-                                 :rules="'required|maxLength:20'">
-                  </ui-text-field>
-                </label>
-
-                <label :for="`replyPw${i}`">비밀번호
-                  <ui-text-field :type="'password'"
-                                 :name="'authorPw'"
-                                 :id="`replyPw${i}`"
-                                 :className="'guestbook__input'"
-                                 :rules="'required|minLength:8|maxLength:15'">
-                  </ui-text-field>
-                </label>
-              </div>
-
-              <button type="button" class="btn btn--primary guestbook__btn guestbook__btn--reply-write">등록</button>
+          <template v-if="0 < guestbook.guestbookReply.length">
+            <button type="button"
+                    class="guestbook__btn guestbook__btn--reply-open"
+                    :title="`댓글 ${guestbook.guestbookReply.length}개 펼쳐보기`">
+              <i class="xi-message" aria-hidden="true"></i> 
+              <span class="reply_cnt">{{ guestbook.guestbookReply.length > 99 ? '99+' : guestbook.guestbookReply.length }}</span>
+            </button>
+  
+            <div class="guestbook__depth2">
+              <ul></ul>
             </div>
+          </template>
+
+          <div class="guestbook__reply__wrapper">
+            <ui-form :name="'guestbookReplyForm'">
+              <ui-textarea :name="'cont'"
+                           :id="`replyCont${i}`"
+                           :className="'guestbook__reply__cont'"
+                           :title="'댓글 입력'"
+                           :placeholder="'댓글을 남겨주세요.'"
+                           :cols="'30'"
+                           :rows="'3'"
+                           :rules="'required'">
+              </ui-textarea>
+
+              <div class="guestbook__reply__btns">
+                <div class="guestbook__reply__btns-inner">
+                  <label :for="`replyAuthor${i}`">닉네임
+                    <ui-text-field :type="'text'"
+                                   :name="'author'"
+                                   :id="`replyAuthor${i}`"
+                                   :className="'guestbook__input'"
+                                   :rules="'required|maxLength:20'">
+                    </ui-text-field>
+                  </label>
+
+                  <label :for="`replyPw${i}`">비밀번호
+                    <ui-text-field :type="'password'"
+                                   :name="'authorPw'"
+                                   :id="`replyPw${i}`"
+                                   :className="'guestbook__input'"
+                                   :rules="'required|minLength:8|maxLength:15'">
+                    </ui-text-field>
+                  </label>
+                </div>
+
+                <ui-button :type="'submit'"
+                           :color="'primary'"
+                           :className="'guestbook__btn guestbook__btn--reply-write'">등록
+                </ui-button>
+              </div>
+            </ui-form>
           </div>
 
           <div class="guestbook__reply__toggle">
@@ -177,7 +202,7 @@ export default {
         pageSize: this.pageSize,
       };
 
-      return this.$http.get('/guestbook/list', { params: paginationDto })
+      return this.$http.get('/guestbook', { params: paginationDto })
         .then(res => {
           if (0 === res.data[0].length) {
             this.isScrolled = false;
@@ -185,6 +210,7 @@ export default {
           }
 
           res.data[0].map(d => {
+            d.cont = d.cont.replace('\n', '<br>');
             d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
 
             if (isNotEmpty(d.modDate)) {
@@ -211,8 +237,21 @@ export default {
         }, 500);
       }
     },
-    onSubmit() {
-      messageUtil.alertSuccess('test');
+    async onSubmit(values) {
+      const confirm = await messageUtil.confirmSuccess('방명록을 등록하시겠습니까?');
+      if (!confirm) return;
+
+      this.$http.post('/guestbook', values)
+        .then(res => {
+          const guestbook = { ...res.data };
+          
+          guestbook.regDate = this.$moment(guestbook.regDate).format('YYYY-MM-DD HH:mm:ss');
+
+          this.guestbookList.push(guestbook);
+          this.guestbookList = this.guestbookList.sort((a,b) => b.id - a.id);
+
+          messageUtil.toastSuccess('방명록이 등록되었습니다.');
+        });
     },
     // 데이타 로딩
     dataLoading() {

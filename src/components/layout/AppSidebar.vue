@@ -97,7 +97,7 @@ export default {
         useYn: 'Y',
       };
 
-      return this.$http.get('/widget/list', { params: listWidgetDto })
+      return this.$http.get('/widget', { params: listWidgetDto })
         .then(res => {
           res.data.map(d => {
             this.widgetList.push(d);
@@ -107,7 +107,7 @@ export default {
     },
     // 카테고리 목록 및 개수 조회
     listCategoryAndCount() {
-      return this.$http.get('/category/list')
+      return this.$http.get('/category')
         .then(res => {
           res.data.map(d => {
             this.categoryList.push(d);
@@ -117,7 +117,7 @@ export default {
     },
     // 태그 목록 및 개수 조회
     listTagAndCount() {
-      return this.$http.get('/tag/list')
+      return this.$http.get('/tag')
         .then(res => {
           res.data.map(d => {
             this.tagList.push(d);

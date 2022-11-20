@@ -88,7 +88,7 @@ export default {
     },
     // 만족도조사 목록 조회
     listSatisfaction(searchSatisfactiontDto) {
-      return this.$http.get('/satisfaction/list', { params: searchSatisfactiontDto })
+      return this.$http.get('/satisfaction', { params: searchSatisfactiontDto })
         .then(res => {
           this.rowData = [];
 

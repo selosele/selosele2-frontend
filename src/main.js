@@ -8,6 +8,7 @@ import { commonComputed } from '@/store/helper';
 import moment from 'moment';
 import messageUtil from '@/utils/ui/MessageUtil';
 import AppContentWrapper from '@/components/layout/AppContentWrapper.vue';
+import UiButton from '@/components/shared/button/UiButton.vue';
 
 //import '@/assets/scss/style.scss';
 
@@ -73,4 +74,5 @@ app.config.warnHandler = (msg, vm, trace) => {
 app.use(store)
    .use(router)
    .component('AppContentWrapper', AppContentWrapper)
+   .component('UiButton', UiButton)
    .mount('#app');

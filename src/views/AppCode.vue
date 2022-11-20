@@ -80,7 +80,7 @@ export default {
     },
     // 공통코드 목록 조회
     listCode() {
-      return this.$http.get('/code/list')
+      return this.$http.get('/code')
         .then(res => {
           res.data.map(d => {
             d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
@@ -113,7 +113,7 @@ export default {
         });
       });
 
-      this.$http.delete('/code/remove', { data: removeCodeDto })
+      this.$http.delete('/code', { data: removeCodeDto })
         .then(res => {
           this.gridApi.removeSelectedRows();
           messageUtil.toastSuccess('삭제되었습니다.');

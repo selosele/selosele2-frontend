@@ -1,9 +1,10 @@
 <template>
   <div id="masthead" class="masthead">
-    <button type="button" id="menu_open" class="btn masthead__menu-open">
+    <ui-button :type="'button'"
+               :className="'masthead__menu-open'">
       <i class="xi-bars" aria-hidden="true"></i>
       <span class="sr-only">메뉴</span>
-    </button>
+    </ui-button>
 
     <div :class="[
       'masthead__top',
@@ -15,24 +16,26 @@
          ]">
       <div class="masthead__util-wrapper">
         <template v-if="!isLogin && isDevelopment">
-          <router-link to="/a/goto" class="btn masthead__util">
+          <ui-button :routerLink="'/a/goto'"
+                     :className="'masthead__util'">
             <i class="xi-log-in" aria-hidden="true"></i>
             <span class="sr-only">로그인</span>
-          </router-link>
+          </ui-button>
         </template>
 
         <template v-if="isLogin">
-          <button type="button"
-                  class="btn masthead__util"
-                  @click="logout">
+          <ui-button :type="'button'"
+                     :className="'masthead__util'"
+                     @click="logout">
             <i class="xi-power-off" aria-hidden="true"></i>
             <span class="sr-only">로그아웃</span>
-          </button>
-  
-          <router-link to="/admin/blogconfig" class="btn masthead__util">
+          </ui-button>
+
+          <ui-button :routerLink="'/admin/blogconfig'"
+                     :className="'masthead__util'">
             <i class="xi-cog" aria-hidden="true"></i>
             <span class="sr-only">환경설정</span>
-          </router-link>
+          </ui-button>
         </template>
       </div>
 

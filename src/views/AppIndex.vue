@@ -80,7 +80,7 @@ export default {
     },
     // 포스트 목록 조회
     listPost() {
-      return this.$http.get('/post/list')
+      return this.$http.get('/post')
         .then(res => {
           res.data[0].map(d => {
             this.postList.push(d);
