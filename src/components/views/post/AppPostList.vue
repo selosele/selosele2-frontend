@@ -2,13 +2,17 @@
   <div class="post-list__wrapper">
     <ui-form :name="'postListForm'" @onSubmit="onSubmit">
       <div class="post__btn-wrapper" v-if="isLogin && 'main' === type">
-        <router-link to="/write" class="post__btn btn btn--light">
+        <ui-button :routerLink="'/write'"
+                   :color="'light'"
+                   :className="'post__btn'">
           <i class="xi-pen" aria-hidden="true"></i> 포스트 작성
-        </router-link>
+        </ui-button>
 
-        <button type="submit" class="post__btn btn btn--dark">
+        <ui-button :type="'submit'"
+                   :color="'dark'"
+                   :className="'post__btn'">
           <i class="xi-trash" aria-hidden="true"></i> 포스트 삭제
-        </button>
+        </ui-button>
 
         <span class="post__check-all">
           <ui-checkbox :name="'checkAll'"

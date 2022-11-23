@@ -15,17 +15,15 @@
         >
         </ui-datepicker>
 
-        <button
-          type="button"
-          class="btn btn--secondary"
-          @click="listByAllDate">전체
-        </button>
+        <ui-button :type="'button'"
+                   :color="'secondary'"
+                   @click="listByAllDate">전체
+        </ui-button>
 
-        <button
-          type="button"
-          class="btn btn--dark"
-          @click="listByNowDate">Today
-        </button>
+        <ui-button :type="'button'"
+                   :color="'dark'"
+                   @click="listByNowDate">Today
+        </ui-button>
       </div>
 
       <ui-grid

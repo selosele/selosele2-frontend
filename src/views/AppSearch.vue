@@ -45,14 +45,16 @@
           <template v-if="postList !== null && postList.length > 0">
             <strong class="search__info__txt">{{ this.$route.query['q'] }}</strong>에 대한 검색 결과는
             <strong class="search__info__txt">{{ listCnt }}개</strong>입니다.
-        
-            <a :href="googleSearchUrl"
-                target="_blank"
-                title="새창"
-                rel="noopener noreferrer nofollow"
-                class="btn btn--dark search__google">
+
+            <ui-button :type="'link'"
+                       :color="'dark'"
+                       :className="'btn--dark search__google'"
+                       :href="googleSearchUrl"
+                       :target="'_blank'"
+                       :title="'새창'"
+                       :rel="'noopener noreferrer nofollow'">
               <i class="xi-google" aria-hidden="true"></i> Google에서 검색
-            </a>
+            </ui-button>
           </template>
         </p>
 
@@ -100,9 +102,11 @@
         <p class="search__more__wrapper"
            @click="more"
            v-if="listCnt > pageSize && !isLastPage">
-          <button type="button" class="btn search__more">
+
+          <ui-button :type="'button'"
+                     :className="'search__more'">
             <i class="xi-plus-circle" aria-hidden="true"></i> 더보기
-          </button>
+          </ui-button>
         </p>
 
         <button type="button"

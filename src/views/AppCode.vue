@@ -8,17 +8,15 @@
 
     <template v-else>
       <div class="d-flex justify-content--right gap--10 mb--15">
-        <button
-          type="button"
-          class="btn btn--primary"
-          @click="addCode">추가
-        </button>
+        <ui-button :type="'button'"
+                   :color="'primary'"
+                   @click="addCode">추가
+        </ui-button>
 
-        <button
-          type="button"
-          class="btn btn--dark"
-          @click="removeCode">삭제
-        </button>
+        <ui-button :type="'button'"
+                   :color="'dark'"
+                   @click="removeCode">삭제
+        </ui-button>
       </div>
 
       <ui-grid
