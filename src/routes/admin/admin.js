@@ -1,7 +1,7 @@
 export default [
   {
     // 블로그 환경설정 페이지
-    path: '/admin/blogconfig',
+    path: '/admin/blog-config',
     component: () => import('@/views/AppBlogConfig.vue'),
     meta: {
       requiresAuth: true,

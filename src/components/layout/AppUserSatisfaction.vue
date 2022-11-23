@@ -25,16 +25,17 @@
           <ui-text-field :type="'text'"
                          :name="'comment'"
                          :id="'comment'"
-                         :className="'satisfaction__radio'"
+                         :className="'satisfaction__comment'"
                          :title="'의견'"
                          :placeholder="'의견을 입력하세요.'"
                          v-model="comment">
           </ui-text-field>
-          
-          <button type="submit" class="btn satisfaction__btn">
+
+          <ui-button :type="'submit'"
+                     :className="'satisfaction__btn'">
             <i class="xi-check-min" aria-hidden="true"></i>
             <span class="sr-only">제출</span>
-          </button>
+          </ui-button>
         </div>
       </div>
     </ui-form>
@@ -94,6 +95,6 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/components/satisfaction.scss';
 </style>

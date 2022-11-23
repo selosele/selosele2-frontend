@@ -164,7 +164,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import 'ag-grid-community/styles//ag-grid.css';
 @import 'ag-grid-community/styles//ag-theme-alpine.css';
 

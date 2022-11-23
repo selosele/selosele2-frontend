@@ -74,7 +74,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/views/error.scss';
 @import '@/assets/scss/components/popular.scss';
 </style>

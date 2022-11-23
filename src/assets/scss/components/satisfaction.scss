@@ -1,255 +1,101 @@
-.satisfaction {
-  $size: 0.7rem;
+.satisfaction__wrapper:deep {
+  overflow: hidden;
+  margin-top: 3rem;
+  padding-bottom: 1.2rem;
+  font-size: 0.85rem;
 
-  &__wrapper {
-    overflow: hidden;
-    margin-top: 3rem;
-    padding-bottom: 1.2rem;
-    font-size: 0.85rem;
-
-    @media (min-width: $min-big-width) {
-      width: calc(100% - #{$sidebar-width + 2});
-    }
+  @media (min-width: $min-big-width) {
+    width: calc(100% - #{$sidebar-width + 2});
   }
 
-  &__title {
-    display: flex;
-    position: relative;
-    margin: 0;
-    padding: 0.5rem $size 0.5rem 2rem;
-    font-weight: 700;
-    font-size: 1rem;
-    line-height: 1.4;
-    align-items: center;
-    flex-wrap: wrap;
-
-    @media (min-width: $min-big-width) {
-      padding: 0.5rem $size - 0.5 0.5rem 2rem;
+  .satisfaction {
+    $size: 0.7rem;
+  
+    &__title {
+      display: flex;
+      position: relative;
+      margin: 0;
+      padding: 0.5rem $size 0.5rem 2rem;
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 1.4;
+      align-items: center;
+      flex-wrap: wrap;
+  
+      @media (min-width: $min-big-width) {
+        padding: 0.5rem $size - 0.5 0.5rem 2rem;
+      }
+  
+      i {
+        position: absolute;
+        top: 0.6rem;
+        left: 0.5rem;
+        border-radius: 50%;
+        font-size: 1.2em;
+        color: $sub-color03;
+        text-align: center;
+      }
     }
-
-    i {
-      position: absolute;
-      top: 0.6rem;
-      left: 0.5rem;
-      border-radius: 50%;
-      font-size: 1.2em;
-      color: $sub-color03;
-      text-align: center;
-    }
-  }
-
-  &__field {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 0.8rem;
-    padding: 0 $size;
-
-    @media (min-width: $min-small-width) {
-      margin-top: 0.9rem;
-    }
-
-    &:first-of-type {
-      gap: 0.4rem 1rem;
-
-      input[type='radio'] {
-        + label {
-          margin-right: 0;
+  
+    &__field {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 0.8rem;
+      padding: 0 $size;
+  
+      @media (min-width: $min-small-width) {
+        margin-top: 0.9rem;
+      }
+  
+      &:first-of-type {
+        gap: 0.4rem 1rem;
+  
+        input[type='radio'] {
+          + label {
+            margin-right: 0;
+          }
+        }
+      }
+  
+      &__inner {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-end;
+  
+        @media (min-width: $min-small-width) {
+          justify-content: flex-start;
         }
       }
     }
-
-    &__inner {
-      display: flex;
-      width: 100%;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: flex-end;
-
-      @media (min-width: $min-small-width) {
-        justify-content: flex-start;
-      }
-    }
-
-    input[type='text'] {
+  
+    &__comment {
       width: calc(100% - 2rem);
       height: 2rem;
       border: 0;
       border-bottom: 1px solid $grey06;
       background-color: transparent;
       line-height: 2rem;
-
+  
       @media (min-width: $min-standard-width) {
         width: 30rem;
       }
     }
-  }
-
-  &__btn {
-    display: inline-flex;
-    min-width: 0;
-    width: 1.8rem;
-    height: 1.8rem;
-    padding: 0;
-    border-radius: 50%;
-    font-size: 1.7rem;
-    line-height: 1;
-    color: $sub-color03;
-    text-shadow: none;
-    justify-content: center;
-    align-items: center;
-  }
-
-  &__sort {
-    &--mini {
+  
+    &__btn {
       display: inline-flex;
       min-width: 0;
-      width: 1.2rem;
-      height: 1.2rem;
-      margin-left: 0.2rem;
+      width: 1.8rem;
+      height: 1.8rem;
+      padding: 0;
       border-radius: 50%;
-      border-color: $black03;
-      font-size: 0.9rem;
+      font-size: 1.7rem;
+      line-height: 1;
+      color: $sub-color03;
       text-shadow: none;
-      vertical-align: -0.1rem;
       justify-content: center;
       align-items: center;
-
-      &--active {
-        background-color: $black03;
-        color: $grey12;
-      }
-
-      @media (min-width: $min-large-width) {
-        &:hover {
-          background-color: $black03;
-          color: $grey12;
-        }
-      }
-    }
-  }
-
-  &__data {
-    td {
-      text-align: center;
-    }
-  }
-
-  &__btns {
-    display: flex;
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: space-between;
-
-    select {
-      width: 100%;
-
-      @media (min-width: $min-medium-width) {
-        width: 5rem;
-      }
-    }
-
-    button {
-      min-width: 0;
-      width: 100%;
-      background-color: $black02;
-      color: $grey12;
-
-      @media (min-width: $min-mini-width) {
-        width: calc(50% - 0.25rem);
-      }
-
-      @media (min-width: $min-medium-width) {
-        width: auto;
-      }
-    }
-
-    .left {
-      display: flex;
-      width: 100%;
-      flex-wrap: wrap;
-
-      @media (min-width: $min-medium-width) {
-        width: auto;
-      }
-    }
-
-    .right {
-      display: flex;
-      width: 100%;
-      margin-top: 0.5rem;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-
-      @media (min-width: $min-medium-width) {
-        width: auto;
-        margin-top: 0;
-      }
-    }
-  }
-
-  &__select {
-    width: 100%;
-
-    @media (min-width: $min-medium-width) {
-      width: auto;
-    }
-  }
-
-  &__date {
-    display: block;
-    width: 100%;
-    position: relative;
-
-    @media (min-width: $min-medium-width) {
-      display: inline-block;
-      width: 8rem;
-    }
-
-    input[type='text'] {
-      display: block;
-      width: 100%;
-      font-size: 0.85rem;
-      color: $grey10;
-
-      &::placeholder {
-        color: $grey10;
-      }
-    }
-
-    i {
-      display: flex;
-      position: absolute;
-      top: 0;
-      right: 0.5rem;
-      width: auto;
-      height: 100%;
-      align-items: center;
-      pointer-events: none;
-    }
-  }
-
-  &__data {
-    &__comment {
-      display: block;
-
-      &--ellipsis {
-        @include ellipsis;
-      }
-
-      &-layer {
-        position: absolute;
-        top: 0.5rem;
-        left: 0;
-        z-index: 1;
-        width: 100%;
-        padding: 0.5rem;
-        border-radius: 0.5rem;
-        background-color: $grey12;
-        font-size: 0.8rem;
-        line-height: 1.6;
-        box-shadow: rgba(0, 0, 0, 0.1) 0 0.25rem 0.75rem;
-        box-sizing: border-box;
-      }
     }
   }
 }

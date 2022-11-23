@@ -31,7 +31,7 @@
             <span class="sr-only">로그아웃</span>
           </ui-button>
 
-          <ui-button :routerLink="'/admin/blogconfig'"
+          <ui-button :routerLink="'/admin/blog-config'"
                      :className="'masthead__util'">
             <i class="xi-cog" aria-hidden="true"></i>
             <span class="sr-only">환경설정</span>
@@ -132,6 +132,6 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/components/header.scss';
 </style>
