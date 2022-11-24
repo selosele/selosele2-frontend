@@ -1,13 +1,15 @@
 <template>
   <button :type="type"
-          :class="`btn ${btnColor} ${className}`"
+          :class="`btn ${btnColor}`"
           @click="$emit('click')"
+          v-bind="$attrs"
           v-if="!routerLink && 'link' !== type">
     <slot></slot>
   </button>
 
   <router-link :to="routerLink"
-               :class="`btn ${btnColor} ${className}`"
+               :class="`btn ${btnColor}`"
+               v-bind="$attrs"
                v-if="routerLink && 'link' !== type">
     <slot></slot>
   </router-link>
@@ -16,7 +18,8 @@
      :target="target"
      :title="title"
      :rel="rel"
-     :class="`btn ${btnColor} ${className}`"
+     :class="`btn ${btnColor}`"
+     v-bind="$attrs"
      v-if="!routerLink && 'link' === type">
     <slot></slot>
   </a>
@@ -38,8 +41,6 @@ export default {
       type: String,
       default: '',
     },
-    // button className
-    className: [String, Object, Array],
     // link
     routerLink: {
       type: String,

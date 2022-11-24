@@ -4,10 +4,10 @@
          :ref="id"
          :name="name"
          :title="title"
-         :class="className"
          :placeholder="placeholder"
          :rules="rules"
          :value="modelValue"
+         v-bind="$attrs"
          @input="$emit('update:modelValue', $event.target.value)"
   >
   </Field>
@@ -30,7 +30,6 @@ export default {
     id: String,                 // input id
     name: String,               // input name
     title: String,              // input title
-    className: String,          // input class
     placeholder: String,        // input placeholder
     rules: String,              // input validation rules
     modelValue: String,         // input modelValue

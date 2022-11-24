@@ -3,8 +3,8 @@
           :ref="id"
           :name="name"
           :title="title"
-          :class="className"
           :rules="rules"
+          v-bind="$attrs"
           @change="$emit('update:modelValue', $event.target.value)">
 
     <option value=""
@@ -34,7 +34,6 @@ export default {
     id: String,                           // select id
     name: String,                         // select name
     title: String,                        // select title
-    className: String,                    // select class
     rules: String,                        // select validation rules
     selectedValue: [String, Number],      // select selected value
     data: Array,                          // select data

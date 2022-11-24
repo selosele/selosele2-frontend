@@ -17,7 +17,7 @@
               <ui-text-field :type="'text'"
                              :name="'author'"
                              :id="'writeAuthor'"
-                             :className="'guestbook__input'"
+                             :class="'guestbook__input'"
                              :rules="'required|maxLength:20'">
               </ui-text-field>
             </label>
@@ -26,7 +26,7 @@
               <ui-text-field :type="'password'"
                              :name="'authorPw'"
                              :id="'writePw'"
-                             :className="'guestbook__input'"
+                             :class="'guestbook__input'"
                              :rules="'required|minLength:8|maxLength:15'">
               </ui-text-field>
             </label>
@@ -34,12 +34,12 @@
             <div class="guestbook__write__btns d-flex-w gap--10">
               <ui-button :type="'reset'"
                          :color="'secondary'"
-                         :className="'guestbook__btn guestbook__btn--reset'">다시작성
+                         :class="'guestbook__btn guestbook__btn--reset'">다시작성
               </ui-button>
 
               <ui-button :type="'submit'"
                          :color="'primary'"
-                         :className="'guestbook__btn guestbook__btn--write'">등록
+                         :class="'guestbook__btn guestbook__btn--write'">등록
               </ui-button>
             </div>
           </div>
@@ -89,7 +89,7 @@
             <ui-form :name="'guestbookReplyForm'">
               <ui-textarea :name="'cont'"
                            :id="`replyCont${i}`"
-                           :className="'guestbook__reply__cont'"
+                           :class="'guestbook__reply__cont'"
                            :title="'댓글 입력'"
                            :placeholder="'댓글을 남겨주세요.'"
                            :cols="'30'"
@@ -103,7 +103,7 @@
                     <ui-text-field :type="'text'"
                                    :name="'author'"
                                    :id="`replyAuthor${i}`"
-                                   :className="'guestbook__input'"
+                                   :class="'guestbook__input'"
                                    :rules="'required|maxLength:20'">
                     </ui-text-field>
                   </label>
@@ -112,7 +112,7 @@
                     <ui-text-field :type="'password'"
                                    :name="'authorPw'"
                                    :id="`replyPw${i}`"
-                                   :className="'guestbook__input'"
+                                   :class="'guestbook__input'"
                                    :rules="'required|minLength:8|maxLength:15'">
                     </ui-text-field>
                   </label>
@@ -120,7 +120,7 @@
 
                 <ui-button :type="'submit'"
                            :color="'primary'"
-                           :className="'guestbook__btn guestbook__btn--reply-write'">등록
+                           :class="'guestbook__btn guestbook__btn--reply-write'">등록
                 </ui-button>
               </div>
             </ui-form>

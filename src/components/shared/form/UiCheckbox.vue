@@ -11,7 +11,6 @@
            :id="id"
            :ref="id"
            :title="title"
-           :class="className"
            :checked="(field.checked = checked)"
            :value="getValueByIdx(0)"
            :unchecked-value="getValueByIdx(1)"
@@ -41,7 +40,6 @@ export default {
     id: String,                     // checkbox id
     name: String,                   // checkbox name
     title: String,                  // checkbox title
-    className: String,              // checkbox class
     checked: Boolean,               // checkbox checked
     label: String,                  // checkbox label
     labelHidden: Boolean,           // checkbox label hidden

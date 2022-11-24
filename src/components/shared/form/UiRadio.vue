@@ -8,7 +8,6 @@
            :id="id"
            :ref="id"
            :title="title"
-           :class="className"
            :checked="(field.checked = checked)"
            :value="modelValue"
            v-bind="field"
@@ -34,7 +33,6 @@ export default {
     id: String,                     // radio id
     name: String,                   // radio name
     title: String,                  // radio title
-    className: String,              // radio class
     checked: Boolean,               // radio checked
     label: String,                  // radio label
     modelValue: [String, Number],   // radio value

@@ -2,7 +2,7 @@
   <div class="masthead__wrapper">
     <div id="masthead" class="masthead">
       <ui-button :type="'button'"
-                :className="'masthead__menu-open'">
+                :class="'masthead__menu-open'">
         <i class="xi-bars" aria-hidden="true"></i>
         <span class="sr-only">메뉴</span>
       </ui-button>
@@ -18,7 +18,7 @@
         <div class="masthead__util-wrapper">
           <template v-if="!isLogin && isDevelopment">
             <ui-button :routerLink="'/a/goto'"
-                      :className="'masthead__util'">
+                      :class="'masthead__util'">
               <i class="xi-log-in" aria-hidden="true"></i>
               <span class="sr-only">로그인</span>
             </ui-button>
@@ -26,14 +26,14 @@
 
           <template v-if="isLogin">
             <ui-button :type="'button'"
-                       :className="'masthead__util'"
+                       :class="'masthead__util'"
                        @click="logout">
               <i class="xi-power-off" aria-hidden="true"></i>
               <span class="sr-only">로그아웃</span>
             </ui-button>
 
             <ui-button :routerLink="'/admin/blog-config'"
-                       :className="'masthead__util'">
+                       :class="'masthead__util'">
               <i class="xi-cog" aria-hidden="true"></i>
               <span class="sr-only">환경설정</span>
             </ui-button>

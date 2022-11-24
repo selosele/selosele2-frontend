@@ -48,7 +48,7 @@
 
             <ui-button :type="'link'"
                        :color="'dark'"
-                       :className="'btn--dark search__google'"
+                       :class="'btn--dark search__google'"
                        :href="googleSearchUrl"
                        :target="'_blank'"
                        :title="'새창'"
@@ -64,47 +64,17 @@
                     v-if="$route.query['q'] && 0 < postList.length">
         </ui-loading>
 
-        <ul class="post__wrapper search__results" v-if="dataLoaded">
-          <li class="post__wrapper__list" v-for="(post,i) in postList" :key="i">
-            <article>
-              <h2 class="post__title">
-                <router-link :to="`/post/${post.id}`" @click="saveToStorage">{{ post.title }}</router-link>
-              </h2>
-
-              <p class="post__og-image" v-if="post.ogImgUrl">
-                <span class="post__og-image__box">
-                  <img :src="post.ogImgUrl" alt="">
-                </span>
-              </p>
-    
-              <p class="post__cont">{{ post.rawText }}</p>
-
-              <div class="post__box__item-wrapper">
-                <span class="post__box__item post__box__item--regdate">
-                  <i class="xi-time-o" aria-hidden="true"></i>
-                  <span class="sr-only">등록일</span>
-                  <time :datetime="$moment(post.regDate).format('YYYY-MM-DD HH:mm:ss')">
-                    {{ $moment(post.regDate).format('YYYY.MM.DD') }}
-                  </time>
-                </span>
-
-                <template v-if="post.postCategory.length > 0">
-                  <span class="post__box__item post__box__item--category"
-                        v-for="(category,j) in post.postCategory" :key="j">
-                    <span class="sr-only">카테고리</span> {{ category.category.nm }}
-                  </span>
-                </template>
-              </div>
-            </article>
-          </li>
-        </ul>
+        <app-post-list-detail :type="'search'"
+                              :postList="postList"
+                              v-if="dataLoaded">
+        </app-post-list-detail>
 
         <p class="search__more__wrapper"
            @click="more"
            v-if="listCnt > pageSize && !isLastPage">
 
           <ui-button :type="'button'"
-                     :className="'search__more'">
+                     :class="'search__more'">
             <i class="xi-plus-circle" aria-hidden="true"></i> 더보기
           </ui-button>
         </p>
@@ -129,6 +99,7 @@ import UiForm from '@/components/shared/form/UiForm.vue';
 import UiTextField from '@/components/shared/form/UiTextField.vue';
 import UiSelect from '@/components/shared/form/UiSelect.vue';
 import UiCheckbox from '@/components/shared/form/UiCheckbox.vue';
+import AppPostListDetail from '@/components/views/post/AppPostListDetail.vue';
 import messageUtil from '@/utils/ui/MessageUtil';
 import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 import { isNotEmpty } from '@/utils/util';
@@ -141,6 +112,7 @@ export default {
     UiTextField,
     UiSelect,
     UiCheckbox,
+    AppPostListDetail,
   },
   data() {
     return {
@@ -166,7 +138,7 @@ export default {
 
     // 검색옵션 코드 세팅
     this.$store.state.code.map((d,i) => {
-      if ('A01' === d.prefix) {
+      if ('A01' === d.prefix && 'Y' === d.useYn) {
         let obj = {
           value: d.val,
           text: d.nm,

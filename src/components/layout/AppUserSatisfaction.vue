@@ -25,14 +25,14 @@
           <ui-text-field :type="'text'"
                          :name="'comment'"
                          :id="'comment'"
-                         :className="'satisfaction__comment'"
+                         :class="'satisfaction__comment'"
                          :title="'의견'"
                          :placeholder="'의견을 입력하세요.'"
                          v-model="comment">
           </ui-text-field>
 
           <ui-button :type="'submit'"
-                     :className="'satisfaction__btn'">
+                     :class="'satisfaction__btn'">
             <i class="xi-check-min" aria-hidden="true"></i>
             <span class="sr-only">제출</span>
           </ui-button>
