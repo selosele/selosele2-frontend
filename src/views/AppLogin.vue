@@ -8,7 +8,7 @@
                          :title="'아이디 입력'"
                          :placeholder="'아이디'"
                          :rules="'required|maxLength:10'"
-                         v-model="userId" >
+                         v-model="userId">
           </ui-text-field>
           
           <!-- 운영모드일 때 비밀번호 input에 minlength="8" maxlength="15" 속성 필요 -->

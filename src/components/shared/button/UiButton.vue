@@ -1,6 +1,7 @@
 <template>
   <button :type="type"
           :class="`btn ${btnColor}`"
+          :title="title"
           @click="$emit('click')"
           v-bind="$attrs"
           v-if="!routerLink && 'link' !== type">

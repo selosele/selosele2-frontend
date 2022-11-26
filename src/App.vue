@@ -24,6 +24,8 @@
 
     <app-footer></app-footer>
   </div>
+
+  <modals-container></modals-container>
 </template>
 
 <script>
@@ -34,6 +36,7 @@ import AppMenu from '@/components/layout/AppMenu.vue';
 import AppSidebar from '@/components/layout/AppSidebar.vue';
 import AppSkipLinks from '@/components/layout/AppSkipLinks.vue';
 import AppUserSatisfaction from '@/components/layout/AppUserSatisfaction.vue';
+import { ModalsContainer } from 'vue-final-modal';
 
 import '@vuepic/vue-datepicker/dist/main.css';
 
@@ -47,6 +50,7 @@ export default {
     AppSidebar,
     AppSkipLinks,
     AppUserSatisfaction,
+    ModalsContainer,
   },
   data() {
     return {

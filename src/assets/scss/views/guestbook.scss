@@ -460,7 +460,6 @@
         right: $size - 0.5rem;
   
         &-list {
-          display: none;
           position: absolute;
           top: calc(100% + 0.4rem);
           right: 0;
@@ -496,7 +495,7 @@
             gap: 0.3rem;
           }
         }
-     }
+      }
     }
   }
 }

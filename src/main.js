@@ -8,7 +8,10 @@ import { commonComputed } from '@/store/helper';
 import moment from 'moment';
 import messageUtil from '@/utils/ui/MessageUtil';
 import AppContentWrapper from '@/components/layout/AppContentWrapper.vue';
+import UiModal from '@/components/shared/modal/UiModal.vue';
 import UiButton from '@/components/shared/button/UiButton.vue';
+import { $vfm } from 'vue-final-modal';
+import { vfmPlugin } from 'vue-final-modal';
 
 import '@/assets/scss/style.scss';
 
@@ -66,6 +69,7 @@ app.config.globalProperties.$http = axios.create({
   }
 });
 app.config.globalProperties.$moment = moment;
+app.config.globalProperties.$modal = $vfm;
 
 // Production Tip 비활성화(안되는듯)
 app.config.warnHandler = (msg, vm, trace) => {
@@ -74,6 +78,8 @@ app.config.warnHandler = (msg, vm, trace) => {
 
 app.use(store)
    .use(router)
+   .use(vfmPlugin)
    .component('app-content-wrapper', AppContentWrapper)
+   .component('ui-modal', UiModal)
    .component('ui-button', UiButton)
    .mount('#app');

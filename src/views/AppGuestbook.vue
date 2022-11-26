@@ -127,20 +127,20 @@
           </div>
 
           <div class="guestbook__reply__toggle">
-            <button type="button" class="guestbook__reply__btn--toggle">
+            <button type="button" class="guestbook__reply__btn--toggle" @click="toggleMenu(i)">
               <i class="xi-cog" aria-hidden="true"></i>
               <span class="sr-only">방명록 수정/삭제</span>
             </button>
 
-            <div class="guestbook__reply__toggle-list">
+            <div class="guestbook__reply__toggle-list" v-show="i === activeIndex">
               <ul>
                 <li>
-                  <button type="button" class="guestbook__btn--edit1">
+                  <button type="button" class="guestbook__btn--edit1" ref="guestbookMenuBtn" @click="openModal('update', guestbook.id)">
                     <i class="xi-pen-o" aria-hidden="true"></i> 방명록 수정
                   </button>
                 </li>
                 <li>
-                  <button type="button" class="guestbook__btn--delete1">
+                  <button type="button" class="guestbook__btn--delete1" ref="guestbookMenuBtn" @click="openModal('remove', guestbook.id)">
                     <i class="xi-trash-o" aria-hidden="true"></i> 방명록 삭제
                   </button>
                 </li>
@@ -161,6 +161,7 @@ import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import messageUtil from '@/utils/ui/MessageUtil';
 import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 import { isNotEmpty } from '@/utils/util';
+import AppRemoveGuestbookModal from '@/components/views/guestbook/AppRemoveGuestbookModal.vue';
 
 export default {
   name: 'app-guestbook',
@@ -169,6 +170,7 @@ export default {
     UiTextField,
     UiTextarea,
     UiSkeletor,
+    AppRemoveGuestbookModal,
   },
   data() {
     return {
@@ -177,7 +179,9 @@ export default {
       pageSize: 6,
       listCnt: 0,
       guestbookList: [],
+      activeIndex: -1,
       isScrolled: false,
+      isLastPage: false,
       dataLoaded: false,
     }
   },
@@ -190,9 +194,11 @@ export default {
   },
   mounted() {
     window.addEventListener('scroll', this.scroll);
+    document.addEventListener('click', this.closeMenu);
   },
   unmounted() {
     window.removeEventListener('scroll', this.scroll);
+    document.removeEventListener('click', this.closeMenu);
   },
   methods: {
     // 방명록 목록 조회
@@ -221,20 +227,53 @@ export default {
           });
 
           this.listCnt = res.data[1];
+
+          if (this.listCnt === this.guestbookList.length) {
+            this.isLastPage = true;
+          }
+          
           this.isScrolled = false;
         });
     },
+    // 방명록 메뉴 Toggle
+    toggleMenu(i) {
+      event.stopPropagation();
+
+      if (i === this.activeIndex) {
+        this.activeIndex = -1;
+        return;
+      }
+      this.activeIndex = i;
+    },
+    // 방명록 메뉴 닫기
+    closeMenu(e) {
+      if (isNotEmpty(this.$refs.guestbookMenuBtn) && !this.$refs.guestbookMenuBtn.includes(e.target)) {
+        this.activeIndex = -1;
+      }
+    },
+    // 방명록 무한 스크롤
     scroll() {
       const { scrollY } = window;
       const { clientHeight, scrollHeight } = document.documentElement;
       const bottomOfPage = (clientHeight + scrollY + 100) >= scrollHeight;
       
       if (bottomOfPage && !this.isScrolled) {
+        if (this.isLastPage) return;
+
         setTimeout(() => {
           this.isScrolled = true; // 스크롤 중복 실행 방지
           this.page++;
           this.listGuestbook();
         }, 500);
+      }
+    },
+    // 방명록 수정/삭제 Modal
+    openModal(type, id) {
+      if ('remove' === type) {
+        this.$modal.show({
+          component: AppRemoveGuestbookModal,
+          bind: { id },
+        });
       }
     },
     async onSubmit(values) {
