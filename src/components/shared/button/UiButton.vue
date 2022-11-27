@@ -1,6 +1,6 @@
 <template>
   <button :type="type"
-          :class="`btn ${btnColor}`"
+          :class="`btn ${btnColor}${btnBlock}`"
           :title="title"
           @click="$emit('click')"
           v-bind="$attrs"
@@ -9,7 +9,7 @@
   </button>
 
   <router-link :to="routerLink"
-               :class="`btn ${btnColor}`"
+               :class="`btn ${btnColor}${btnBlock}`"
                v-bind="$attrs"
                v-if="routerLink && 'link' !== type">
     <slot></slot>
@@ -19,7 +19,7 @@
      :target="target"
      :title="title"
      :rel="rel"
-     :class="`btn ${btnColor}`"
+     :class="`btn ${btnColor}${btnBlock}`"
      v-bind="$attrs"
      v-if="!routerLink && 'link' === type">
     <slot></slot>
@@ -41,6 +41,11 @@ export default {
     color: {
       type: String,
       default: '',
+    },
+    // block button
+    block: {
+      type: Boolean,
+      default: false,
     },
     // link
     routerLink: {
@@ -72,6 +77,12 @@ export default {
     btnColor() {
       if (isNotEmpty(this.color)) {
         return `btn--${this.color}`;
+      }
+      return '';
+    },
+    btnBlock() {
+      if (isNotEmpty(this.block) && true === this.block) {
+        return ` btn--block`;
       }
       return '';
     }

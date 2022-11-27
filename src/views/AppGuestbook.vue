@@ -13,19 +13,19 @@
           </ui-textarea>
 
           <div class="guestbook__write__inputs">
-            <label for="writeAuthor">닉네임
+            <label for="guestbookWriteAuthor">닉네임
               <ui-text-field :type="'text'"
                              :name="'author'"
-                             :id="'writeAuthor'"
+                             :id="'guestbookWriteAuthor'"
                              :class="'guestbook__input'"
                              :rules="'required|maxLength:20'">
               </ui-text-field>
             </label>
 
-            <label for="writePw">비밀번호
+            <label for="guestbookWritePw">비밀번호
               <ui-text-field :type="'password'"
                              :name="'authorPw'"
-                             :id="'writePw'"
+                             :id="'guestbookWritePw'"
                              :class="'guestbook__input'"
                              :rules="'required|minLength:8|maxLength:15'">
               </ui-text-field>
@@ -135,12 +135,12 @@
             <div class="guestbook__reply__toggle-list" v-show="i === activeIndex">
               <ul>
                 <li>
-                  <button type="button" class="guestbook__btn--edit1" ref="guestbookMenuBtn" @click="openModal('update', guestbook.id)">
+                  <button type="button" class="guestbook__btn--edit1" ref="guestbookMenuBtn" @click="openModal('update', guestbook)">
                     <i class="xi-pen-o" aria-hidden="true"></i> 방명록 수정
                   </button>
                 </li>
                 <li>
-                  <button type="button" class="guestbook__btn--delete1" ref="guestbookMenuBtn" @click="openModal('remove', guestbook.id)">
+                  <button type="button" class="guestbook__btn--delete1" ref="guestbookMenuBtn" @click="openModal('remove', guestbook)">
                     <i class="xi-trash-o" aria-hidden="true"></i> 방명록 삭제
                   </button>
                 </li>
@@ -161,6 +161,7 @@ import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import messageUtil from '@/utils/ui/MessageUtil';
 import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 import { isNotEmpty } from '@/utils/util';
+import AppUpdateGuestbookModal from '@/components/views/guestbook/AppUpdateGuestbookModal.vue';
 import AppRemoveGuestbookModal from '@/components/views/guestbook/AppRemoveGuestbookModal.vue';
 
 export default {
@@ -170,7 +171,6 @@ export default {
     UiTextField,
     UiTextarea,
     UiSkeletor,
-    AppRemoveGuestbookModal,
   },
   data() {
     return {
@@ -199,6 +199,30 @@ export default {
   unmounted() {
     window.removeEventListener('scroll', this.scroll);
     document.removeEventListener('click', this.closeMenu);
+  },
+  watch: {
+    // 방명록이 수정되고 Modal이 close됐을 때 실행됨
+    '$store.state.updatedGuestbook': function(updatedGuestbook) {
+      if (0 < Object.values(updatedGuestbook).length) {
+        const { id, author, cont, modDate } = updatedGuestbook;
+        const foundIdx = this.guestbookList.findIndex(d => d.id == id);
+
+        this.guestbookList[foundIdx].author = author;
+        this.guestbookList[foundIdx].cont = cont;
+        this.guestbookList[foundIdx].modDate = modDate;
+        this.$store.dispatch('FETCH_UPDATED_GUESTBOOK', {});
+      }
+    },
+    // 방명록이 삭제되고 Modal이 close됐을 때 실행됨
+    '$store.state.removedGuestbook': function(removedGuestbook) {
+      if (0 < Object.values(removedGuestbook).length) {
+        const { id } = removedGuestbook;
+        const foundIdx = this.guestbookList.findIndex(d => d.id == id);
+
+        this.guestbookList.splice(foundIdx, 1);
+        this.$store.dispatch('FETCH_REMOVED_GUESTBOOK', {});
+      }
+    },
   },
   methods: {
     // 방명록 목록 조회
@@ -268,11 +292,17 @@ export default {
       }
     },
     // 방명록 수정/삭제 Modal
-    openModal(type, id) {
+    openModal(type, guestbook) {
+      if ('update' === type) {
+        this.$modal.show({
+          component: AppUpdateGuestbookModal,
+          bind: { guestbook },
+        });
+      }
       if ('remove' === type) {
         this.$modal.show({
           component: AppRemoveGuestbookModal,
-          bind: { id },
+          bind: { id: guestbook.id },
         });
       }
     },

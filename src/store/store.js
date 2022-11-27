@@ -14,6 +14,10 @@ export default createStore({
     sidebar: {},
     // 메인 포스트 목록
     mainPostObj: {},
+    // 수정된 방명록
+    updatedGuestbook: {},
+    // 삭제된 방명록
+    removedGuestbook: {},
   },
   getters: {
     // 로그인 여부
@@ -52,6 +56,12 @@ export default createStore({
     SET_MAIN_POSTLIST(state, mainPostObj) {
       state.mainPostObj = mainPostObj;
     },
+    SET_UPDATED_GUESTBOOK(state, updatedGuestbook) {
+      state.updatedGuestbook = updatedGuestbook;
+    },
+    SET_REMOVED_GUESTBOOK(state, removedGuestbook) {
+      state.removedGuestbook = removedGuestbook;
+    },
   },
   actions: {
     LOGIN({ commit }, values) {
@@ -85,6 +95,12 @@ export default createStore({
     },
     FETCH_MAIN_POSTLIST({ commit }, values) {
       commit('SET_MAIN_POSTLIST', values);
+    },
+    FETCH_UPDATED_GUESTBOOK({ commit }, values) {
+      commit('SET_UPDATED_GUESTBOOK', values);
+    },
+    FETCH_REMOVED_GUESTBOOK({ commit }, values) {
+      commit('SET_REMOVED_GUESTBOOK', values);
     },
   },
 });

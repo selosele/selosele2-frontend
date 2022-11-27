@@ -65,7 +65,7 @@ export default {
   created() {
     // 만족도조사 코드 세팅
     this.$store.state.code.map(d => {
-      if ('B01' === d.prefix) {
+      if ('Y' === d.useYn && 'B01' === d.prefix) {
         let obj = {
           value: d.val,
           text: d.nm,

@@ -43,6 +43,7 @@ export default {
         .then(res => {
           messageUtil.toastSuccess('방명록이 삭제되었습니다.');
           this.$modal.hide(this.$options.name);
+          this.$store.dispatch('FETCH_REMOVED_GUESTBOOK', values);
         }).catch(error => {
           messageUtil.toastError(error.response.data.message);
         });

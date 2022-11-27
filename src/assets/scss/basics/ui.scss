@@ -7,6 +7,12 @@
 .btn {
   @include btn();
 
+  // 버튼 크기
+  &--block {
+    display: block;
+    width: 100%;
+  }
+
   // 색상 버튼
   &--primary {
     background-color: $main-color;
