@@ -147,7 +147,7 @@
           </tbody>
       </table>
 
-      <div class="d-flex-w justify-content--center gap--10 mt--20 mb--20">
+      <div class="d-flex-w flex--center gap--10 mt--20 mb--20">
         <button type="button" class="blog-config__btn btn btn--primary">수정</button>
         <button type="button" class="blog-config__btn btn btn--secondary">다시작성</button>
       </div>

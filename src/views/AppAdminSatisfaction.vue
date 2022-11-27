@@ -7,7 +7,7 @@
     </template>
 
     <template v-else>
-      <div class="d-flex justify-content--right gap--10 mb--15">
+      <div class="d-flex flex--right gap--10 mb--15">
         <ui-datepicker
           v-model="regDate"
           @onClear="onClear"

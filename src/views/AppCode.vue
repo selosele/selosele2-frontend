@@ -7,7 +7,7 @@
     </template>
 
     <template v-else>
-      <div class="d-flex justify-content--right gap--10 mb--15">
+      <div class="d-flex flex--right gap--10 mb--15">
         <ui-button :type="'button'"
                    :color="'primary'"
                    @click="addCode">추가
@@ -19,15 +19,24 @@
         </ui-button>
       </div>
 
-      <ui-grid
-        :defaultColDef="defaultColDef"
-        :columnDefs="columnDefs"
-        :rowData="rowData"
-        :checkboxIndex="0"
-        :pagination="true"
-        @onGridReady="onGridReady"
-      >
-      </ui-grid>
+      <ui-split-pane>
+        <ui-pane>
+          <ui-grid
+            :defaultColDef="defaultColDef"
+            :columnDefs="columnDefs"
+            :rowData="rowData"
+            :checkboxIndex="0"
+            :pagination="true"
+            @onGridReady="onGridReady"
+            @rowClicked="rowClicked"
+          >
+          </ui-grid>
+        </ui-pane>
+        
+        <ui-pane v-if="expanded">
+          <app-save-code :code="code" :key="code.id"></app-save-code>
+        </ui-pane>
+      </ui-split-pane>
     </template>
   </app-content-wrapper>
 </template>
@@ -35,6 +44,9 @@
 <script>
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import UiGrid from '@/components/shared/grid/UiGrid.vue';
+import UiSplitPane from '@/components/shared/splitter/UiSplitPane.vue';
+import UiPane from '@/components/shared/splitter/UiPane.vue';
+import AppSaveCode from '@/components/views/code/AppSaveCode.vue';
 import messageUtil from '@/utils/ui/MessageUtil';
 import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 
@@ -43,13 +55,13 @@ export default {
   components: {
     UiSkeletor,
     UiGrid,
+    UiSplitPane,
+    UiPane,
+    AppSaveCode,
   },
   data() {
     return {
       pageTitle: '공통코드 관리',
-      defaultColDef: {
-        editable: true,
-      },
       columnDefs: [
         { }, // 체크박스
         { headerName: '코드 ID', field: 'id', width: 130 },
@@ -61,7 +73,9 @@ export default {
         { headerName: '코드 사용여부', field: 'useYn', width: 150, align: 'center' },
       ],
       rowData: [],
+      code: null,
       gridApi: null,
+      expanded: false,
       dataLoaded: false,
     }
   },
@@ -75,6 +89,13 @@ export default {
   methods: {
     onGridReady(params) {
       this.gridApi = params;
+    },
+    rowClicked(params) {
+      this.$http.get(`/code/${params.data.id}`)
+        .then(res => {
+          this.code = { ...res.data };
+          this.expanded = true;
+        });
     },
     // 공통코드 목록 조회
     listCode() {
@@ -90,6 +111,9 @@ export default {
     },
     // 공통코드 추가
     addCode() {
+      this.code = {};
+      this.code.id = null;
+      this.expanded = true;
       console.log(this.gridApi.getRowDatas());
     },
     // 공통코드 삭제

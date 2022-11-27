@@ -7,6 +7,7 @@
          :placeholder="placeholder"
          :cols="cols"
          :rows="rows"
+         :readonly="readonly"
          :rules="rules"
          :value="modelValue"
          v-bind="$attrs"
@@ -34,6 +35,7 @@ export default {
     placeholder: String,        // textarea placeholder
     cols: String,               // textarea cols
     rows: String,               // textarea rows
+    readonly: Boolean,          // textarea readonly
     rules: String,              // textarea validation rules
     modelValue: String,         // textarea modelValue
   },

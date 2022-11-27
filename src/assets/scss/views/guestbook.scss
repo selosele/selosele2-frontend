@@ -13,7 +13,6 @@
 
   textarea {
     font-size: 0.85rem;
-    resize: vertical;
   }
 
   input {
@@ -50,11 +49,9 @@
       margin: 2rem 0 0 0;
       font-size: 0.9rem;
     }
-  
-    &__bot-api {
-      display: flex;
-      justify-content: flex-end;
-      flex-wrap: wrap;
+
+    &__textarea {
+      resize: vertical;
     }
   
     &__write {
@@ -67,22 +64,25 @@
       &__inputs {
         margin-top: 1rem;
         @include clearfix;
-  
+      }
+
+      &__input-box {
+        display: flex;
+        margin-top: 0.7rem;
+        font-size: 0.85rem;
+        vertical-align: top;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+
         > label {
-          display: flex;
-          margin-top: 0.7rem;
-          font-size: 0.85rem;
-          vertical-align: top;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 0.35rem;
-  
-          @media (min-width: $min-medium-width) {
-            display: inline-flex;
-            margin-top: 0;
-            margin-right: 0.7rem;
-            gap: 0.7rem;
-          }
+          margin-top: 0.3rem;
+        }
+
+        @media (min-width: $min-medium-width) {
+          display: inline-flex;
+          margin-top: 0;
+          margin-right: 0.7rem;
+          gap: 0.7rem;
         }
       }
   
@@ -200,7 +200,6 @@
       &-edit {
         display: block;
         margin-bottom: 0.5rem;
-        resize: vertical;
   
         &-wrapper {
           display: flex;
@@ -377,6 +376,63 @@
         }
       }
     }
+
+    &__btn {
+      &--toggle {
+        @include btn(
+          $width: 1.5rem,
+          $min-width: null,
+          $height: 1.5rem,
+          $line-height: 1.5rem,
+          $padding: 0,
+          $box-shadow: null,
+          $text-shadow: null,
+        );
+     }
+    }
+
+    &__toggle {
+      position: absolute;
+      top: $size - 0.5rem;
+      right: $size - 0.5rem;
+
+      &-list {
+        position: absolute;
+        top: calc(100% + 0.4rem);
+        right: 0;
+        z-index: 1;
+        width: 6.3rem;
+        padding: 0.5rem;
+        border: 1px solid $grey05;
+        background-color: $grey12;
+        box-shadow: rgba(0,0,0,0.3) 1px 1px 0.25rem;
+        box-sizing: border-box;
+
+        &--active {
+          display: block;
+        }
+
+        ul {
+          padding-left: 0;
+          list-style: none;
+        }
+
+        li {
+          + li {
+              margin-top: 0.6rem;
+          }
+        }
+
+        button {
+          display: flex;
+          width: 100%;
+          background-color: transparent;
+          font-size: 0.75rem;
+          align-items: center;
+          gap: 0.3rem;
+        }
+      }
+    }
   
     &__reply {
       &__wrapper {
@@ -424,20 +480,6 @@
         }
       }
   
-      &__btn {
-        &--toggle {
-          @include btn(
-            $width: 1.5rem,
-            $min-width: null,
-            $height: 1.5rem,
-            $line-height: 1.5rem,
-            $padding: 0,
-            $box-shadow: null,
-            $text-shadow: null,
-          );
-       }
-      }
-  
       &-more {
         display: flex;
         width: 100%;
@@ -451,49 +493,6 @@
         &--disabled {
           opacity: 0.4;
           pointer-events: none;
-        }
-      }
-  
-      &__toggle {
-        position: absolute;
-        top: $size - 0.5rem;
-        right: $size - 0.5rem;
-  
-        &-list {
-          position: absolute;
-          top: calc(100% + 0.4rem);
-          right: 0;
-          z-index: 1;
-          width: 6.3rem;
-          padding: 0.5rem;
-          border: 1px solid $grey05;
-          background-color: $grey12;
-          box-shadow: rgba(0,0,0,0.3) 1px 1px 0.25rem;
-          box-sizing: border-box;
-  
-          &--active {
-            display: block;
-          }
-  
-          ul {
-            padding-left: 0;
-            list-style: none;
-          }
-  
-          li {
-            + li {
-                margin-top: 0.6rem;
-            }
-          }
-  
-          button {
-            display: flex;
-            width: 100%;
-            background-color: transparent;
-            font-size: 0.75rem;
-            align-items: center;
-            gap: 0.3rem;
-          }
         }
       }
     }

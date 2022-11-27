@@ -3,19 +3,18 @@
     <ui-form :name="'removeGuestbookForm'" @onSubmit="onSubmit">
       <input type="hidden" name="id" :value="guestbook.id">
 
-      <div class="d-flex-w gap--10">
-        <ui-textarea :name="'cont'"
-                     :id="'guestbookUpdateCont'"
-                     :title="'방명록 내용 입력'"
-                     :placeholder="'하고싶은 말을 남겨주세요.'"
-                     :cols="'30'"
-                     :rows="'4'"
-                     :rules="'required'"
-                     :value="guestbook.cont">
-        </ui-textarea>
-      </div>
+      <ui-textarea :name="'cont'"
+                   :id="'guestbookUpdateCont'"
+                   :class="'resize--vertical'"
+                   :title="'방명록 내용 입력'"
+                   :placeholder="'하고싶은 말을 남겨주세요.'"
+                   :cols="'30'"
+                   :rows="'4'"
+                   :rules="'required'"
+                   :value="guestbook.cont">
+      </ui-textarea>
 
-      <div class="d-flex-w gap--10 mt--10">
+      <div class="d-flex-w gap--15 mt--20">
         <label for="guestbookUpdateAuthor">닉네임
             <ui-text-field :type="'text'"
                             :name="'author'"
@@ -62,7 +61,7 @@ export default {
   },
   methods: {
     async onSubmit(values) {
-      const confirm = await messageUtil.confirmInfo('방명록을 수정하시겠습니까?');
+      const confirm = await messageUtil.confirmSuccess('방명록을 수정하시겠습니까?');
       if (!confirm) return;
       
       this.$http.put(`/guestbook/${values.id}`, values)
@@ -78,6 +77,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>

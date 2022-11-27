@@ -135,3 +135,14 @@ input.dp__input {
     text-align: right;
   }
 }
+
+// Splitter
+.splitpanes__splitter {
+  ~ .splitpanes__pane {
+    .pane {
+      &__content-wrapper {
+        padding: 1rem;
+      }
+    }
+  }
+}

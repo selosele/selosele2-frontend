@@ -5,6 +5,7 @@
          :name="name"
          :title="title"
          :placeholder="placeholder"
+         :readonly="readonly"
          :rules="rules"
          :value="modelValue"
          v-bind="$attrs"
@@ -31,6 +32,7 @@ export default {
     name: String,               // input name
     title: String,              // input title
     placeholder: String,        // input placeholder
+    readonly: Boolean,          // input readonly
     rules: String,              // input validation rules
     modelValue: String,         // input modelValue
   },

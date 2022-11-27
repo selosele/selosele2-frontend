@@ -11,6 +11,7 @@
     :pagination="pagination"
     :paginationPageSize="paginationPageSize"
     @grid-ready="onGridReady"
+    @cell-clicked="cellClicked"
     @cell-doubleclicked="cellDoubleClicked"
     @rowData-updated="rowDataUpdated"
   >
@@ -125,6 +126,10 @@ export default {
       this.gridApi.__proto__.removeSelectedRows = () => this.removeSelectedRows();
 
       this.$emit('onGridReady', this.gridApi);
+    },
+    // row를 클릭했을 때
+    cellClicked(params) {
+      this.$emit('cellClicked', params);
     },
     // row를 더블클릭했을 때
     cellDoubleClicked(params) {

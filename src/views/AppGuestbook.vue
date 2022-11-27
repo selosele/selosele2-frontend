@@ -5,6 +5,7 @@
         <div class="guestbook__write">
           <ui-textarea :name="'cont'"
                        :id="'guestbookWriteCont'"
+                       :class="'guestbook__textarea'"
                        :title="'방명록 내용 입력'"
                        :placeholder="'하고싶은 말을 남겨주세요.'"
                        :cols="'30'"
@@ -13,23 +14,29 @@
           </ui-textarea>
 
           <div class="guestbook__write__inputs">
-            <label for="guestbookWriteAuthor">닉네임
-              <ui-text-field :type="'text'"
-                             :name="'author'"
-                             :id="'guestbookWriteAuthor'"
-                             :class="'guestbook__input'"
-                             :rules="'required|maxLength:20'">
-              </ui-text-field>
-            </label>
+            <div class="guestbook__write__input-box">
+              <label for="guestbookWriteAuthor">닉네임</label>
+              <div>
+                <ui-text-field :type="'text'"
+                               :name="'author'"
+                               :id="'guestbookWriteAuthor'"
+                               :class="'guestbook__input'"
+                               :rules="'required|maxLength:20'">
+                </ui-text-field>
+              </div>
+            </div>
 
-            <label for="guestbookWritePw">비밀번호
-              <ui-text-field :type="'password'"
-                             :name="'authorPw'"
-                             :id="'guestbookWritePw'"
-                             :class="'guestbook__input'"
-                             :rules="'required|minLength:8|maxLength:15'">
-              </ui-text-field>
-            </label>
+            <div class="guestbook__write__input-box">
+              <label for="guestbookWritePw">비밀번호</label>
+              <div>
+                <ui-text-field :type="'password'"
+                               :name="'authorPw'"
+                               :id="'guestbookWritePw'"
+                               :class="'guestbook__input'"
+                               :rules="'required|minLength:8|maxLength:15'">
+                </ui-text-field>
+              </div>
+            </div>
 
             <div class="guestbook__write__btns d-flex-w gap--10">
               <ui-button :type="'reset'"
@@ -85,54 +92,15 @@
             </div>
           </template>
 
-          <div class="guestbook__reply__wrapper">
-            <ui-form :name="'guestbookReplyForm'">
-              <ui-textarea :name="'cont'"
-                           :id="`replyCont${i}`"
-                           :class="'guestbook__reply__cont'"
-                           :title="'댓글 입력'"
-                           :placeholder="'댓글을 남겨주세요.'"
-                           :cols="'30'"
-                           :rows="'3'"
-                           :rules="'required'">
-              </ui-textarea>
+          <app-guestbook-reply :idx="i"></app-guestbook-reply>
 
-              <div class="guestbook__reply__btns">
-                <div class="guestbook__reply__btns-inner">
-                  <label :for="`replyAuthor${i}`">닉네임
-                    <ui-text-field :type="'text'"
-                                   :name="'author'"
-                                   :id="`replyAuthor${i}`"
-                                   :class="'guestbook__input'"
-                                   :rules="'required|maxLength:20'">
-                    </ui-text-field>
-                  </label>
-
-                  <label :for="`replyPw${i}`">비밀번호
-                    <ui-text-field :type="'password'"
-                                   :name="'authorPw'"
-                                   :id="`replyPw${i}`"
-                                   :class="'guestbook__input'"
-                                   :rules="'required|minLength:8|maxLength:15'">
-                    </ui-text-field>
-                  </label>
-                </div>
-
-                <ui-button :type="'submit'"
-                           :color="'primary'"
-                           :class="'guestbook__btn guestbook__btn--reply-write'">등록
-                </ui-button>
-              </div>
-            </ui-form>
-          </div>
-
-          <div class="guestbook__reply__toggle">
-            <button type="button" class="guestbook__reply__btn--toggle" @click="toggleMenu(i)">
+          <div class="guestbook__toggle">
+            <button type="button" class="guestbook__btn--toggle" @click="toggleMenu(i)">
               <i class="xi-cog" aria-hidden="true"></i>
               <span class="sr-only">방명록 수정/삭제</span>
             </button>
 
-            <div class="guestbook__reply__toggle-list" v-show="i === activeIndex">
+            <div class="guestbook__toggle-list" v-show="i === activeIndex">
               <ul>
                 <li>
                   <button type="button" class="guestbook__btn--edit1" ref="guestbookMenuBtn" @click="openModal('update', guestbook)">
@@ -161,6 +129,7 @@ import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import messageUtil from '@/utils/ui/MessageUtil';
 import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 import { isNotEmpty } from '@/utils/util';
+import AppGuestbookReply from '@/components/views/guestbook/AppGuestbookReply.vue';
 import AppUpdateGuestbookModal from '@/components/views/guestbook/AppUpdateGuestbookModal.vue';
 import AppRemoveGuestbookModal from '@/components/views/guestbook/AppRemoveGuestbookModal.vue';
 
@@ -171,6 +140,7 @@ export default {
     UiTextField,
     UiTextarea,
     UiSkeletor,
+    AppGuestbookReply,
   },
   data() {
     return {
@@ -288,7 +258,7 @@ export default {
           this.isScrolled = true; // 스크롤 중복 실행 방지
           this.page++;
           this.listGuestbook();
-        }, 500);
+        }, 100);
       }
     },
     // 방명록 수정/삭제 Modal

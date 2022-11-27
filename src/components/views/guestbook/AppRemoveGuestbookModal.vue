@@ -4,12 +4,16 @@
       <input type="hidden" name="id" :value="id">
 
       <div class="d-flex-w gap--10">
-        <ui-text-field :type="'password'"
-                       :name="'authorPw'"
-                       :title="'비밀번호 입력'"
-                       :placeholder="'비밀번호 입력'"
-                       :rules="'required|minLength:8|maxLength:15'">
-        </ui-text-field>
+        <div>
+          <ui-text-field :type="'password'"
+                         :name="'authorPw'"
+                         :id="'guestbookRemovePw'"
+                         :title="'비밀번호 입력'"
+                         :placeholder="'비밀번호 입력'"
+                         :readonly="isLogin"
+                         :rules="!isLogin ? 'required|minLength:8|maxLength:15' : ''">
+          </ui-text-field>
+        </div>
 
         <ui-button :type="'submit'"
                    :color="'primary'">삭제
@@ -36,7 +40,7 @@ export default {
   },
   methods: {
     async onSubmit(values) {
-      const confirm = await messageUtil.confirmInfo('방명록을 삭제하시겠습니까?');
+      const confirm = await messageUtil.confirmSuccess('방명록을 삭제하시겠습니까?');
       if (!confirm) return;
       
       this.$http.delete(`/guestbook/${values.id}`, { data: values })
@@ -52,6 +56,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>

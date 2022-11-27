@@ -28,7 +28,7 @@
   }
 }
 
-.justify-content {
+.flex {
   &--left {
     justify-content: flex-start !important;
   }
@@ -46,12 +46,12 @@
   }
 }
 
-.align-items {
+.flex {
   &--top {
     align-items: start !important;
   }
 
-  &--center {
+  &--middle {
     align-items: center !important;
   }
 
@@ -124,6 +124,13 @@
 
   &--20 {
     gap: 1rem !important;
+  }
+}
+
+// textarea
+.resize {
+  &--vertical {
+    resize: vertical;
   }
 }
 
