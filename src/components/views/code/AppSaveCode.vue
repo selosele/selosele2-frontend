@@ -1,5 +1,16 @@
 <template>
   <ui-form :name="'saveCodeForm'" @onSubmit="onSubmit">
+    <label for="codeId">코드 ID</label>
+    <div>
+      <ui-text-field :type="'text'"
+                     :name="'id'"
+                     :id="'codeId'"
+                     :rules="'required'"
+                     :value="code.id"
+                     :readonly="true">
+      </ui-text-field>
+    </div>
+
     <label for="codePrefix">코드 접두어</label>
     <div>
       <ui-text-field :type="'text'"
@@ -97,8 +108,13 @@ export default {
     async onSubmit(values) {
       console.log('수정', values);
 
-      // const confirm = await messageUtil.confirmSuccess('코드를 수정하시겠습니까?');
-      // if (!confirm) return;
+      const confirm = await messageUtil.confirmSuccess('코드를 수정하시겠습니까?');
+      if (!confirm) return;
+
+      this.$http.put(`/code/${values.id}`, values)
+        .then(res => {
+          messageUtil.toastSuccess('수정되었습니다.');
+        });
     },
   },
 }

@@ -19,5 +19,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.splitpanes--vertical .splitpanes__pane {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 </style>

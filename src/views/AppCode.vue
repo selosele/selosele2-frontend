@@ -114,7 +114,6 @@ export default {
       this.code = {};
       this.code.id = null;
       this.expanded = true;
-      console.log(this.gridApi.getRowDatas());
     },
     // 공통코드 삭제
     async removeCode() {
