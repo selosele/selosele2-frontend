@@ -14,9 +14,9 @@
                   :key="i"
                   :id="`score${item.value}`"
                   :name="'score'"
-                  :checked="(item.value === this.satisArr[2].value)"
                   :label="item.text"
-                  v-model="item.value">
+                  :value="item.value"
+                  v-model="defaultScore">
         </ui-radio>
       </div>
 
@@ -59,6 +59,7 @@ export default {
   data() {
     return {
       satisArr: [],
+      defaultScore: '',
       comment: '',
     }
   },
@@ -66,13 +67,14 @@ export default {
     // 만족도조사 코드 세팅
     this.$store.state.code.map(d => {
       if ('Y' === d.useYn && 'B01' === d.prefix) {
-        let obj = {
+        this.satisArr.push({
           value: d.val,
           text: d.nm,
-        };
-        this.satisArr.push(obj);
+        });
       }
     });
+
+    this.defaultScore = this.satisArr[2].value;
   },
   methods: {
     async onSubmit(values) {

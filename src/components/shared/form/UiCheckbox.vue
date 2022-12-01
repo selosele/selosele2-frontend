@@ -1,30 +1,22 @@
 <template>
   <Field type="checkbox"
-         v-slot="{ field }"
          :name="name"
+         :id="id"
+         :ref="id"
+         :title="title"
+         :rules="rules"
          :value="getValueByIdx(0)"
-         :unchecked-value="getValueByIdx(1)">
-
-    <input type="hidden" :name="name" :value="getValueByIdx(1)">
-
-    <input type="checkbox"
-           :id="id"
-           :ref="id"
-           :title="title"
-           :checked="(field.checked = checked)"
-           :value="getValueByIdx(0)"
-           :unchecked-value="getValueByIdx(1)"
-           v-bind="field"
-           @change="onChange" />
-           
-    <label v-if="label" :for="id">
-      <span class="sr-only" v-if="labelHidden">{{ label }}</span>
-      <template v-else>{{ label }}</template>
-    </label>
-
-    <ErrorMessage class="form-field-error" :name="name">
-    </ErrorMessage>
+         :unchecked-value="getValueByIdx(1)"
+         v-model="mv">
   </Field>
+
+  <label v-if="label" :for="id">
+    <span class="sr-only" v-if="labelHidden">{{ label }}</span>
+    <template v-else>{{ label }}</template>
+  </label>
+
+  <ErrorMessage class="form-field-error" :name="name">
+  </ErrorMessage>
 </template>
 
 <script>
@@ -43,19 +35,20 @@ export default {
     checked: Boolean,               // checkbox checked
     label: String,                  // checkbox label
     labelHidden: Boolean,           // checkbox label hidden
-    modelValue: [                   // checkbox value
-      String,
-      Number,
-      Boolean,
-      Array
-    ],
-    value: [                        // checkbox true value
-      String,
-      Number,
-      Boolean,
-      Array
-    ],
+    rules: String,                  // checkbox validation rules
+    modelValue: {                   // checkbox modelValue
+      default: '',
+    },
+    value: {                        // checkbox true value
+      type: [String, Number, Boolean, Array],
+      default: undefined,
+    },
     values: String,                 // checkbox true value & false value
+  },
+  data() {
+    return {
+      mv: this.modelValue,
+    }
   },
   methods: {
     onChange(e) {

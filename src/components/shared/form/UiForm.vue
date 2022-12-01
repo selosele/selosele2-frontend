@@ -21,13 +21,14 @@ export default {
   },
   methods: {
     onSubmit(values) {
-      const formValues = this.getFormValues();
-      this.$emit('onSubmit', formValues);
+      // const formValues = this.getFormValues();
+      this.$emit('onSubmit', values);
     },
     /**
      * Form Values -> JSON으로 가공
      * Form Values를 onSubmit() 메서드의 values 파라미터로 받을시,
      * 처음부터 checked 상태인 체크박스, 라디오 버튼의 값을 못 가져오는 문제가 있어 커스텀 메서드를 만들었다.
+     * 2022.12.01. 해당 문제를 해결했고, 아래 메서드는 필요 없게 되었음.
      */
     getFormValues() {
       if (isEmpty(this.name)) {
