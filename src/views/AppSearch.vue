@@ -175,8 +175,6 @@ export default {
   },
   methods: {
     async onSubmit(values) {
-      console.log(values);
-
       if (!this.t.trim()) {
         messageUtil.toastWarning('검색옵션을 선택하세요.');
         return;
