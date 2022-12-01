@@ -4,6 +4,7 @@
       <ui-form :class="'search__frm'" :name="'searchForm'" @onSubmit="onSubmit">
         <div class="search__field" ref="searchField">
           <ui-select :name="'t'"
+                     :id="'t'"
                      :title="'검색 옵션'"
                      :class="'search__option'"
                      :data="tData"
@@ -31,7 +32,6 @@
                        :id="'c'"
                        :label="'대소문자 구분'"
                        :values="'Y,N'"
-                       :checked="('Y' === this.$route.query['c'])"
                        v-model="c">
           </ui-checkbox>
         </div>
@@ -138,7 +138,7 @@ export default {
 
     // 검색옵션 코드 세팅
     this.$store.state.code.map((d,i) => {
-      if ('A01' === d.prefix && 'Y' === d.useYn) {
+      if ('Y' === d.useYn && 'A01' === d.prefix) {
         let obj = {
           value: d.val,
           text: d.nm,
@@ -156,6 +156,7 @@ export default {
         page: this.page,
         pageSize: this.pageSize,
       });
+      
       this.dataLoading();
     }
   },
@@ -174,6 +175,8 @@ export default {
   },
   methods: {
     async onSubmit(values) {
+      console.log(values);
+
       if (!this.t.trim()) {
         messageUtil.toastWarning('검색옵션을 선택하세요.');
         return;
@@ -224,9 +227,9 @@ export default {
           await this.$router.push({
             path: '/search', 
             query: {
-              q: this.q, 
-              t: this.t, 
-              c: this.c,
+              q: params.q, 
+              t: params.t, 
+              c: params.c,
             },
           });
         });

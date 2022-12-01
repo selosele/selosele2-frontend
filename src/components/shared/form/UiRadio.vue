@@ -1,23 +1,18 @@
 <template>
   <Field type="radio"
-         v-slot="{ field }"
          :name="name"
-         :value="modelValue">
-
-    <input type="radio"
-           :id="id"
-           :ref="id"
-           :title="title"
-           :checked="(field.checked = checked)"
-           :value="modelValue"
-           v-bind="field"
-           @change="$emit('update:modelValue', $event.target.value)" />
-
-    <label v-if="label" :for="id">{{ label }}</label>
-
-    <ErrorMessage class="form-field-error" :name="name">
-    </ErrorMessage>
+         :id="id"
+         :ref="id"
+         :title="title"
+         :rules="rules"
+         :value="value"
+         v-model="mv">
   </Field>
+
+  <label v-if="label" :for="id">{{ label }}</label>
+
+  <ErrorMessage class="form-field-error" :name="name">
+  </ErrorMessage>
 </template>
 
 <script>
@@ -33,9 +28,20 @@ export default {
     id: String,                     // radio id
     name: String,                   // radio name
     title: String,                  // radio title
-    checked: Boolean,               // radio checked
     label: String,                  // radio label
-    modelValue: [String, Number],   // radio value
+    rules: String,                  // radio validation rules
+    value: {                        // radio value
+      type: [String, Number],
+      default: undefined,
+    },        
+    modelValue: {                   // radio modelValue
+      default: '',
+    }
+  },
+  data() {
+    return {
+      mv: this.modelValue,
+    }
   },
 }
 </script>
