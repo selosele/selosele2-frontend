@@ -7,7 +7,8 @@
     </p>
 
     <ui-form :class="'satisfaction__frm'" :name="'satisForm'" @onSubmit="onSubmit">
-      <input type="hidden" name="pagePath" value="" />
+      <ui-hidden-field :name="'pagePath'" :value="''">
+      </ui-hidden-field>
 
       <div class="satisfaction__field">
         <ui-radio v-for="(item,i) in satisArr"

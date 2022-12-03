@@ -23,4 +23,11 @@ export default {
   overflow-x: hidden;
   overflow-y: auto;
 }
+
+.splitpanes__splitter {
+  ~ .splitpanes__pane {
+    border: 1px solid $grey15;
+    box-sizing: border-box;
+  }
+}
 </style>

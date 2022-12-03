@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { AgGridVue } from "ag-grid-vue3";
+import { AgGridVue } from 'ag-grid-vue3';
 
 export default {
   name: 'ui-grid',
@@ -122,10 +122,13 @@ export default {
       this.gridApi = params.api;
       this.gridApi.sizeColumnsToFit();
 
-      this.gridApi.__proto__.getRowDatas = () => this.getRowDatas();
-      this.gridApi.__proto__.removeSelectedRows = () => this.removeSelectedRows();
+      const newGridApi = Object.assign(this.gridApi, {
+        getRowDatas: () => this.getRowDatas(),
+        getRowNodes: () => this.getRowNodes(),
+        removeSelectedRows: () => this.removeSelectedRows(),
+      });
 
-      this.$emit('onGridReady', this.gridApi);
+      this.$emit('onGridReady', newGridApi);
     },
     // row를 클릭했을 때
     cellClicked(params) {
@@ -140,9 +143,15 @@ export default {
       const rows = this.gridApi.getSelectedRows();
       return this.gridApi.updateRowData({ remove: rows });
     },
-    // row 가져오기
+    // row datas 가져오기
     getRowDatas() {
       return this.rowData;
+    },
+    // row nodes 가져오기
+    getRowNodes() {
+      let rowData = [];
+      this.gridApi.forEachNode(node => rowData.push(node.data));
+      return rowData;
     },
     // rowData 속성이 변경되었을 때
     rowDataUpdated() {

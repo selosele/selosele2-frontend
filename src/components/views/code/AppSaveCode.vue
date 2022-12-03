@@ -1,13 +1,16 @@
 <template>
   <ui-split-form :name="'saveCodeForm'" @onSubmit="onSubmit">
+    <ui-hidden-field :name="'originId'" :value="code.id">
+    </ui-hidden-field>
+
     <label for="codeId">코드 ID</label>
     <div>
       <ui-text-field :type="'text'"
                      :name="'id'"
                      :id="'codeId'"
                      :rules="'required'"
-                     :value="code.id"
-                     :readonly="true">
+                     :readonly="true"
+                     v-model="id">
       </ui-text-field>
     </div>
 
@@ -17,7 +20,7 @@
                      :name="'prefix'"
                      :id="'codePrefix'"
                      :rules="'required'"
-                     :value="code.prefix">
+                     v-model="prefix">
       </ui-text-field>
     </div>
 
@@ -27,7 +30,7 @@
                      :name="'val'"
                      :id="'codeVal'"
                      :rules="'required'"
-                     :value="code.val">
+                     v-model="val">
       </ui-text-field>
     </div>
 
@@ -72,11 +75,13 @@
 
 <script>
 import UiSplitForm from '@/components/shared/form/UiSplitForm.vue';
+import UiHiddenField from '@/components/shared/form/UiHiddenField.vue';
 import UiTextField from '@/components/shared/form/UiTextField.vue';
 import UiTextarea from '@/components/shared/form/UiTextarea.vue';
 import UiRadio from '@/components/shared/form/UiRadio.vue';
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import messageUtil from '@/utils/ui/MessageUtil';
+import { isEmpty } from '@/utils/util';
 
 export default {
   name: 'app-save-code',
@@ -86,6 +91,7 @@ export default {
   },
   components: {
     UiSplitForm,
+    UiHiddenField,
     UiTextField,
     UiTextarea,
     UiSkeletor,
@@ -93,23 +99,47 @@ export default {
   },
   data() {
     return {
+      id: '',
+      prefix: '',
+      val: '',
       useYn: '',
     }
   },
   created() {
+    this.prefix = this.code.prefix;
+    this.val = this.code.val;
+    this.id = this.prefix + this.val || '';
     this.useYn = this.code.useYn;
+  },
+  watch: {
+    prefix: function(val, oldVal) {
+      this.id = val + this.val;
+    },
+    val: function(val, oldVal) {
+      this.id = this.prefix + val;
+    },
   },
   methods: {
     async onSubmit(values) {
-      console.log('수정', values);
+      console.log('저장', values);
 
-      const confirm = await messageUtil.confirmSuccess('코드를 수정하시겠습니까?');
+      const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;
 
-      this.$http.put(`/code/${values.id}`, values)
-        .then(res => {
-          messageUtil.toastSuccess('수정되었습니다.');
-        });
+      if (isEmpty(values.originId)) {
+        this.$http.post('/code/', values)
+          .then(res => {
+            messageUtil.toastSuccess('저장되었습니다.');
+            this.$emit('onSaveCode');
+          });
+      } else {
+        this.$http.put(`/code/${values.id}`, values)
+          .then(res => {
+            messageUtil.toastSuccess('저장되었습니다.');
+            this.$emit('onSaveCode');
+          });
+      }
+
     },
   },
 }

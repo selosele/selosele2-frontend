@@ -34,7 +34,12 @@
         </ui-pane>
         
         <ui-pane v-if="isSplitterActive">
-          <app-save-code :code="code" :key="code.id"></app-save-code>
+          <app-save-code
+            :code="code"
+            :key="code.id"
+            @onSaveCode="onSaveCode"
+          >
+          </app-save-code>
         </ui-pane>
       </ui-split-pane>
     </template>
@@ -103,8 +108,9 @@ export default {
           res.data.map(d => {
             d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
             d.useYn = this.getUseYn(d.useYn);
-            this.rowData.push(d);
           });
+
+          this.rowData = [...res.data];
           this.dataLoading();
         });
     },
@@ -112,7 +118,7 @@ export default {
     addCode() {
       this.code = {};
       this.code.id = null;
-      this.expanded = true;
+      this.$store.commit('Splitter/TOGGLE', true);
     },
     // 공통코드 삭제
     async removeCode() {
@@ -127,7 +133,7 @@ export default {
 
       let removeCodeDto = [];
 
-      rows.forEach((d, i) => {
+      rows.forEach((d,i) => {
         removeCodeDto.push({
           id: d.id,
         });
@@ -137,7 +143,15 @@ export default {
         .then(res => {
           this.gridApi.removeSelectedRows();
           messageUtil.toastSuccess('삭제되었습니다.');
+
+          this.$store.commit('Splitter/TOGGLE', false);
+          this.$store.dispatch('Code/FETCH_CODE', this.gridApi.getRowNodes());
         });
+    },
+    // 그리드 갱신
+    async onSaveCode() {
+      await this.listCode();
+      this.$store.dispatch('Code/FETCH_CODE', this.rowData);
     },
     // 코드 사용여부 가공
     getUseYn(useYn) {
