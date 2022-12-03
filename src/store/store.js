@@ -5,27 +5,34 @@ import { BlogConfig } from '@/store/modules/BlogConfig';
 import { Layout } from '@/store/modules/Layout';
 import { Post } from '@/store/modules/Post';
 import { Guestbook } from '@/store/modules/Guestbook';
+import { Splitter } from '@/store/modules/Splitter';
 
 export default createStore({
   modules: {
-    Code,           // 공통코드 Store
-    Auth,           // 인증·인가 Store
-    BlogConfig,     // 블로그 환경설정 Store
-    Layout,         // 레이아웃 Store
-    Post,           // 포스트 Store
-    Guestbook,      // 방명록 Store
+    Code,           // 공통코드
+    Auth,           // 인증·인가
+    BlogConfig,     // 블로그 환경설정
+    Layout,         // 레이아웃
+    Post,           // 포스트
+    Guestbook,      // 방명록
+    Splitter,       // Splitter
   },
   getters: {
+    // 개발 모드 구분
+    isDevelopment() {
+      return 'development' === process.env.NODE_ENV;
+    },
+    // 운영 모드 구분
+    isProduction() {
+      return 'production' === process.env.NODE_ENV;
+    },
     // 로그인 여부
     isLogin(state) {
       return state.Auth.token !== null;
     },
-    // 개발/운영모드 구분
-    isDevelopment() {
-      return 'development' === process.env.NODE_ENV;
-    },
-    isProduction() {
-      return 'production' === process.env.NODE_ENV;
-    },
+    // Splitter 활성화 여부
+    isSplitterActive(state) {
+      return state.Splitter.isActive;
+    }
   },
 });

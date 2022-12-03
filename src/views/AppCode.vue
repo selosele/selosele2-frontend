@@ -33,7 +33,7 @@
           </ui-grid>
         </ui-pane>
         
-        <ui-pane v-if="expanded">
+        <ui-pane v-if="isSplitterActive">
           <app-save-code :code="code" :key="code.id"></app-save-code>
         </ui-pane>
       </ui-split-pane>
@@ -48,7 +48,7 @@ import UiSplitPane from '@/components/shared/splitter/UiSplitPane.vue';
 import UiPane from '@/components/shared/splitter/UiPane.vue';
 import AppSaveCode from '@/components/views/code/AppSaveCode.vue';
 import messageUtil from '@/utils/ui/MessageUtil';
-import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
+import breadcrumbService from '@/services/breadcrumb/BreadcrumbService';
 
 export default {
   name: 'app-code',
@@ -75,7 +75,6 @@ export default {
       rowData: [],
       code: null,
       gridApi: null,
-      expanded: false,
       dataLoaded: false,
     }
   },
@@ -94,7 +93,7 @@ export default {
       this.$http.get(`/code/${params.data.id}`)
         .then(res => {
           this.code = { ...res.data };
-          this.expanded = true;
+          this.$store.commit('Splitter/TOGGLE', true);
         });
     },
     // 공통코드 목록 조회

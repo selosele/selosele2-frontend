@@ -2,7 +2,7 @@
   <app-content-wrapper :pageTitle="pageTitle">
     <div class="login__wrapper">
       <div class="login__inner">
-        <ui-form autocomplete="off" :class="'login__frm'" :name="'loginForm'" @onSubmit="onSubmit">
+        <ui-form :autocomplete="'off'" :class="'login__frm'" :name="'loginForm'" @onSubmit="onSubmit">
           <ui-text-field :type="'text'"
                          :name="'userId'"
                          :title="'아이디 입력'"
@@ -37,7 +37,7 @@
 import UiForm from '@/components/shared/form/UiForm.vue';
 import UiTextField from '@/components/shared/form/UiTextField.vue';
 import messageUtil from '@/utils/ui/MessageUtil';
-import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
+import breadcrumbService from '@/services/breadcrumb/BreadcrumbService';
 import { isBlank } from '@/utils/util';
 
 export default {

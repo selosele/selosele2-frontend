@@ -171,7 +171,7 @@ import Markdown from 'vue3-markdown-it';
 import MarkdownItFootnote from 'markdown-it-footnote';
 import messageUtil from '@/utils/ui/MessageUtil';
 import { isNotEmpty } from '@/utils/util';
-import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
+import breadcrumbService from '@/services/breadcrumb/BreadcrumbService';
 
 /**
  * hightlight 테마

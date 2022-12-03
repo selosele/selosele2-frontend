@@ -25,6 +25,7 @@ export default {
   },
   methods: {
     onClose() {
+      this.$store.commit('Splitter/TOGGLE', false);
       this.$emit('onClose');
     },
   },

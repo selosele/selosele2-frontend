@@ -4,7 +4,7 @@ import { isNotEmpty } from '@/utils/util';
 /**
  * Breadcrumb Service
  */
- class BreadcrumbService {
+class BreadcrumbService {
 
   constructor() {
   }

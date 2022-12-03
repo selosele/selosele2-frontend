@@ -36,7 +36,7 @@
 <script>
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import { isNotEmpty } from '@/utils/util';
-import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
+import breadcrumbService from '@/services/breadcrumb/BreadcrumbService';
 
 export default {
   name: 'app-category',

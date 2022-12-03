@@ -20,9 +20,6 @@ export default {
       default: '500px',
     },
   },
-  mounted() {
-    console.log(this);
-  }
 }
 </script>
 

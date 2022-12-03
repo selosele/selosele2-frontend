@@ -32,7 +32,7 @@
 
 <script>
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
-import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
+import breadcrumbService from '@/services/breadcrumb/BreadcrumbService';
 
 export default {
   name: 'app-error',

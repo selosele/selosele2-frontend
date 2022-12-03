@@ -43,7 +43,7 @@
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import UiGrid from '@/components/shared/grid/UiGrid.vue';
 import UiDatepicker from '@/components/shared/form/UiDatepicker.vue';
-import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
+import breadcrumbService from '@/services/breadcrumb/BreadcrumbService';
 
 export default {
   name: 'app-admin-satisfaction',

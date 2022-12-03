@@ -127,7 +127,7 @@ import UiTextField from '@/components/shared/form/UiTextField.vue';
 import UiTextarea from '@/components/shared/form/UiTextarea.vue';
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import messageUtil from '@/utils/ui/MessageUtil';
-import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
+import breadcrumbService from '@/services/breadcrumb/BreadcrumbService';
 import { isNotEmpty } from '@/utils/util';
 import AppGuestbookReply from '@/components/views/guestbook/AppGuestbookReply.vue';
 import AppUpdateGuestbookModal from '@/components/views/guestbook/AppUpdateGuestbookModal.vue';

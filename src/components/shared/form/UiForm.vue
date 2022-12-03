@@ -1,5 +1,6 @@
 <template>
   <Form :name="name"
+        :autocomplete="autocomplete"
         @submit="onSubmit"
         @reset="$emit('onReset')"
   >
@@ -13,7 +14,8 @@ import { Form } from 'vee-validate';
 export default {
   name: 'ui-form',
   props: {
-    name: String  // form name
+    name: String,         // form name
+    autocomplete: String  // form autocomplete
   },
   components: {
     Form,
