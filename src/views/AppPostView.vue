@@ -228,7 +228,7 @@ export default {
 
       this.postUrl = this.$nowUrl;
       this.postLikeCnt = this.post.postLike.length;
-      this.snsCodeList = this.$store.state.code
+      this.snsCodeList = this.$store.state.Code.data
         .filter(d => 'C01' === d.prefix);
     },
     // 포스트 조회

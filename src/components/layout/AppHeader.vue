@@ -2,23 +2,23 @@
   <div class="masthead__wrapper">
     <div id="masthead" class="masthead">
       <ui-button :type="'button'"
-                :class="'masthead__menu-open'">
+                 :class="'masthead__menu-open'">
         <i class="xi-bars" aria-hidden="true"></i>
         <span class="sr-only">메뉴</span>
       </ui-button>
 
       <div :class="[
         'masthead__top',
-        { 'masthead--image': this.$store.state.blogConfig.ogImgUrl }]"
+        { 'masthead--image': $store.state.BlogConfig.data.ogImgUrl }]"
           :style="[
-            { backgroundImage: this.$store.state.blogConfig.ogImgUrl && backgroundImage },
-            { backgroundPositionX: this.$store.state.blogConfig.ogImgUrl && backgroundPosition('x') },
-            { backgroundPositionY: this.$store.state.blogConfig.ogImgUrl && backgroundPosition('y') }
+            { backgroundImage: $store.state.BlogConfig.data.ogImgUrl && backgroundImage },
+            { backgroundPositionX: $store.state.BlogConfig.data.ogImgUrl && backgroundPosition('x') },
+            { backgroundPositionY: $store.state.BlogConfig.data.ogImgUrl && backgroundPosition('y') }
           ]">
         <div class="masthead__util-wrapper">
           <template v-if="!isLogin && isDevelopment">
             <ui-button :routerLink="'/a/goto'"
-                      :class="'masthead__util'">
+                       :class="'masthead__util'">
               <i class="xi-log-in" aria-hidden="true"></i>
               <span class="sr-only">로그인</span>
             </ui-button>
@@ -42,17 +42,17 @@
 
         <div class="masthead__inner">
           <div class="masthead__info">
-            <router-link to="/" class="site-title">{{ this.$store.state.blogConfig.title }}</router-link>
+            <router-link to="/" class="site-title">{{ $store.state.BlogConfig.data.title }}</router-link>
 
             <div class="masthead__author">
-              <p class="masthead__author-avatar" v-if="this.$store.state.blogConfig.avatarImgUrl">
+              <p class="masthead__author-avatar" v-if="$store.state.BlogConfig.data.avatarImgUrl">
                 <ui-skeletor v-if="!dataLoaded" />
                 <img v-else
-                    :src=this.$store.state.blogConfig.avatarImgUrl 
-                    :alt=this.$store.state.blogConfig.author />
+                    :src=$store.state.BlogConfig.data.avatarImgUrl 
+                    :alt=$store.state.BlogConfig.data.author />
               </p>
 
-              <p class="masthead__author-name">{{ this.$store.state.blogConfig.author }}</p>
+              <p class="masthead__author-name">{{ $store.state.BlogConfig.data.author }}</p>
             </div>
           </div>
         </div>
@@ -86,10 +86,10 @@ export default {
   },
   computed: {
     backgroundContrast() {
-      return this.$store.state.blogConfig.ogImgContrast;
+      return this.$store.state.BlogConfig.data.ogImgContrast;
     },
     backgroundImageUrl() {
-      return this.$store.state.blogConfig.ogImgUrl;
+      return this.$store.state.BlogConfig.data.ogImgUrl;
     },
     backgroundImage() {
       return `
@@ -107,17 +107,17 @@ export default {
       const confirm = await messageUtil.confirmQuestion('로그아웃하시겠습니까?');
       if (!confirm) return;
 
-      const res = await this.$store.dispatch('LOGOUT', this.$http);
+      const res = await this.$store.dispatch('Auth/LOGOUT', this.$http);
       if ('ok' === res) {
         this.$router.push('/a/goto');
       }
     },
     backgroundPosition(xy) {
       if ('x' === xy) {
-        return `${this.$store.state.blogConfig.ogImgPosX}%`;
+        return `${this.$store.state.BlogConfig.data.ogImgPosX}%`;
       }
       if ('y' === xy) {
-        return `${this.$store.state.blogConfig.ogImgPosY}%`;
+        return `${this.$store.state.BlogConfig.data.ogImgPosY}%`;
       }
     },
     // 데이타 로딩

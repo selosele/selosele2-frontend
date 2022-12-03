@@ -1,0 +1,36 @@
+<template>
+  <ui-form>
+    <slot></slot>
+
+    <div class="d-flex gap--10 mt--15">
+      <ui-button :type="'submit'"
+                 :color="'primary'">저장
+      </ui-button>
+
+      <ui-button :type="'button'"
+                 :color="'secondary'"
+                 @click="onClose">닫기
+      </ui-button>
+    </div>
+  </ui-form>
+</template>
+
+<script>
+import UiForm from '@/components/shared/form/UiForm.vue';
+
+export default {
+  name: 'ui-split-form',
+  components: {
+    UiForm,
+  },
+  methods: {
+    onClose() {
+      this.$emit('onClose');
+    },
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+
+</style>

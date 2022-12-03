@@ -10,7 +10,7 @@ export const isNotEmpty = (value) => {
 
 // 문자열 값이 비었는지 확인
 export const isBlank = (value) => {
-  return isEmpty(value) && 0 === value.trim().length;
+  return isEmpty(value) || 0 === value.trim().length;
 };
 
 // 문자열 값이 있는지 확인

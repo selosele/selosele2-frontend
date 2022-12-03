@@ -18,7 +18,7 @@
         </div>
       </div>
 
-      <app-user-satisfaction v-if="($route.meta.showSatis && 'Y' === this.$store.state.blogConfig.showSatisYn)">
+      <app-user-satisfaction v-if="($route.meta.showSatis && 'Y' === this.$store.state.BlogConfig.data.showSatisYn)">
       </app-user-satisfaction>
     </app-main>
 
@@ -83,14 +83,14 @@ export default {
     listCode() {
       this.$http.get('/code')
         .then(res => {
-          this.$store.dispatch('FETCH_CODE', res.data);
+          this.$store.dispatch('Code/FETCH_CODE', res.data);
         });
     },
     // 블로그 환경설정 정보 조회
     getBlogConfig() {
       this.$http.get('/blogconfig')
         .then(res => {
-          this.$store.dispatch('FETCH_BLOG_CONFIG', res.data);
+          this.$store.dispatch('BlogConfig/FETCH_BLOG_CONFIG', res.data);
           this.resStatus = 'ok';
           document.title = res.data.title;
         });

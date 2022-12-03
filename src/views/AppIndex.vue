@@ -63,10 +63,10 @@ export default {
   },
   computed: {
     storePostList() {
-      return this.$store.state.mainPostObj.postList;
+      return this.$store.state.Post.mainPostObj.postList;
     },
     storePostListCnt() {
-      return this.$store.state.mainPostObj.listCnt;
+      return this.$store.state.Post.mainPostObj.listCnt;
     },
     hasStorePostList() {
       return isNotEmpty(this.storePostList) && 0 < this.storePostList.length;
@@ -88,7 +88,7 @@ export default {
           
           this.listCnt = res.data[1];
 
-          this.$store.dispatch('FETCH_MAIN_POSTLIST', {
+          this.$store.dispatch('Post/FETCH_MAIN_POSTLIST', {
             postList: this.postList,
             listCnt: this.listCnt,
           });

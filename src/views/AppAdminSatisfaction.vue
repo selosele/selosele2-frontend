@@ -92,7 +92,7 @@ export default {
 
           res.data.map(d => {
             d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
-            d.score = this.$store.state.code
+            d.score = this.$store.state.Code.data
               .filter(v => 'B01' === v.prefix && (v.val === d.score))
               .map(v => v.nm);
 

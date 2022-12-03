@@ -68,7 +68,7 @@ export default {
         .then(res => {
           messageUtil.toastSuccess('방명록이 수정되었습니다.');
           this.$modal.hide(this.$options.name);
-          this.$store.dispatch('FETCH_UPDATED_GUESTBOOK', res.data);
+          this.$store.dispatch('Guestbook/FETCH_UPDATED_GUESTBOOK', res.data);
         }).catch(error => {
           messageUtil.toastError(error.response.data.message);
         });

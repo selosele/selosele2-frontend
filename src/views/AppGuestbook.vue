@@ -172,7 +172,7 @@ export default {
   },
   watch: {
     // 방명록이 수정되고 Modal이 close됐을 때 실행됨
-    '$store.state.updatedGuestbook': function(updatedGuestbook) {
+    '$store.state.Guestbook.updatedGuestbook': function(updatedGuestbook) {
       if (0 < Object.values(updatedGuestbook).length) {
         const { id, author, cont, modDate } = updatedGuestbook;
         const foundIdx = this.guestbookList.findIndex(d => d.id == id);
@@ -180,17 +180,17 @@ export default {
         this.guestbookList[foundIdx].author = author;
         this.guestbookList[foundIdx].cont = cont;
         this.guestbookList[foundIdx].modDate = modDate;
-        this.$store.dispatch('FETCH_UPDATED_GUESTBOOK', {});
+        this.$store.dispatch('Guestbook/FETCH_UPDATED_GUESTBOOK', {});
       }
     },
     // 방명록이 삭제되고 Modal이 close됐을 때 실행됨
-    '$store.state.removedGuestbook': function(removedGuestbook) {
+    '$store.state.Guestbook.removedGuestbook': function(removedGuestbook) {
       if (0 < Object.values(removedGuestbook).length) {
         const { id } = removedGuestbook;
         const foundIdx = this.guestbookList.findIndex(d => d.id == id);
 
         this.guestbookList.splice(foundIdx, 1);
-        this.$store.dispatch('FETCH_REMOVED_GUESTBOOK', {});
+        this.$store.dispatch('Guestbook/FETCH_REMOVED_GUESTBOOK', {});
       }
     },
   },

@@ -1,5 +1,5 @@
 <template>
-  <ui-form :name="'saveCodeForm'" @onSubmit="onSubmit">
+  <ui-split-form :name="'saveCodeForm'" @onSubmit="onSubmit">
     <label for="codeId">코드 ID</label>
     <div>
       <ui-text-field :type="'text'"
@@ -67,16 +67,11 @@
                 v-model="useYn">
       </ui-radio>
     </div>
-
-    <ui-button :type="'submit'"
-               :color="'primary'"
-               :class="'mt--15'">수정
-    </ui-button>
-  </ui-form>
+  </ui-split-form>
 </template>
 
 <script>
-import UiForm from '@/components/shared/form/UiForm.vue';
+import UiSplitForm from '@/components/shared/form/UiSplitForm.vue';
 import UiTextField from '@/components/shared/form/UiTextField.vue';
 import UiTextarea from '@/components/shared/form/UiTextarea.vue';
 import UiRadio from '@/components/shared/form/UiRadio.vue';
@@ -90,7 +85,7 @@ export default {
     code: Object,
   },
   components: {
-    UiForm,
+    UiSplitForm,
     UiTextField,
     UiTextarea,
     UiSkeletor,

@@ -3,14 +3,14 @@ import { defineRule } from 'vee-validate';
 export const initDefineRule = () => {
   
   defineRule('required', value => {
-    if (!value || !value.length) {
+    if (!value || !value.trim().length) {
       return '필수 입력 항목입니다.';
     }
     return true;
   });
 
   defineRule('minLength', (value, [limit]) => {
-    if (!value || !value.length) {
+    if (!value || !value.trim().length) {
       return true;
     }
     if (value.length < limit) {
@@ -20,7 +20,7 @@ export const initDefineRule = () => {
   });
 
   defineRule('maxLength', (value, [limit]) => {
-    if (!value || !value.length) {
+    if (!value || !value.trim().length) {
       return true;
     }
     if (value.length > limit) {

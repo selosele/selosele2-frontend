@@ -52,7 +52,7 @@ export default {
     document.removeEventListener('click', this.closeMenu);
   },
   watch: {
-    '$store.state.token': function(token) {
+    '$store.state.Auth.token': function(token) {
       this.menuList = [];
       this.listMenu();
     }

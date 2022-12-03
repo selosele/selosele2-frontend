@@ -76,7 +76,7 @@ export default {
       // 위젯 skeleton ui 표출 메서드를 실행한다.
       this.dataLoading();
 
-      this.$store.dispatch('FETCH_SIDEBAR', this.sidebar);
+      this.$store.dispatch('Layout/FETCH_SIDEBAR', this.sidebar);
       return;
     }
 
@@ -87,7 +87,7 @@ export default {
   },
   computed: {
     storeSidebar() {
-      return this.$store.state.sidebar;
+      return this.$store.state.Layout.sidebar;
     },
   },
   methods: {

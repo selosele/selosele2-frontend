@@ -38,6 +38,7 @@ import UiForm from '@/components/shared/form/UiForm.vue';
 import UiTextField from '@/components/shared/form/UiTextField.vue';
 import messageUtil from '@/utils/ui/MessageUtil';
 import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
+import { isBlank } from '@/utils/util';
 
 export default {
   name: 'app-login',
@@ -64,7 +65,7 @@ export default {
         
         if (token) {
           this.$http.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-          const loginRes = await this.$store.dispatch('LOGIN', token);
+          const loginRes = await this.$store.dispatch('Auth/LOGIN', token);
           
           if ('ok' === loginRes) {
             this.$router.push('/');
@@ -81,11 +82,12 @@ export default {
         roleId: '',
       };
 
-      if (!user.userId.trim()) {
+      if (isBlank(user.userId)) {
         messageUtil.toastWarning('아이디를 입력하세요.');
         return;
       }
-      if (!user.userPw.trim()) {
+      
+      if (isBlank(user.userPw)) {
         messageUtil.toastWarning('비밀번호를 입력하세요.');
         return;
       }

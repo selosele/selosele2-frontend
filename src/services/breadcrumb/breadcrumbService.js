@@ -12,9 +12,9 @@ import { isNotEmpty } from '@/utils/util';
   // 페이지 타이틀 변경
   setPageTitle(pageTitle) {
     if (isNotEmpty(pageTitle)) {
-      document.title = `${pageTitle} - ${store.state.blogConfig.title}`;
+      document.title = `${pageTitle} - ${store.state.BlogConfig.data.title}`;
     } else {
-      document.title = store.state.blogConfig.title;
+      document.title = store.state.BlogConfig.data.title;
     }
   }
   

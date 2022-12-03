@@ -102,7 +102,7 @@ import UiCheckbox from '@/components/shared/form/UiCheckbox.vue';
 import AppPostListDetail from '@/components/views/post/AppPostListDetail.vue';
 import messageUtil from '@/utils/ui/MessageUtil';
 import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
-import { isNotEmpty } from '@/utils/util';
+import { isBlank, isNotEmpty } from '@/utils/util';
 
 export default {
   name: 'app-search',
@@ -137,7 +137,7 @@ export default {
     breadcrumbService.setPageTitle(this.pageTitle);
 
     // 검색옵션 코드 세팅
-    this.$store.state.code.map((d,i) => {
+    this.$store.state.Code.data.map((d,i) => {
       if ('Y' === d.useYn && 'A01' === d.prefix) {
         let obj = {
           value: d.val,
@@ -175,11 +175,12 @@ export default {
   },
   methods: {
     async onSubmit(values) {
-      if (!this.t.trim()) {
+      if (isBlank(this.t)) {
         messageUtil.toastWarning('검색옵션을 선택하세요.');
         return;
       }
-      if (!this.q.trim()) {
+      
+      if (isBlank(this.q)) {
         messageUtil.toastWarning('검색어를 입력하세요.');
         return;
       }

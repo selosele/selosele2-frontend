@@ -65,7 +65,7 @@ export default {
   },
   created() {
     // 만족도조사 코드 세팅
-    this.$store.state.code.map(d => {
+    this.$store.state.Code.data.map(d => {
       if ('Y' === d.useYn && 'B01' === d.prefix) {
         this.satisArr.push({
           value: d.val,

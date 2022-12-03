@@ -1,28 +1,24 @@
 import { createStore } from 'vuex';
+import { Code } from '@/store/modules/Code';
+import { Auth } from '@/store/modules/Auth';
+import { BlogConfig } from '@/store/modules/BlogConfig';
+import { Layout } from '@/store/modules/Layout';
+import { Post } from '@/store/modules/Post';
+import { Guestbook } from '@/store/modules/Guestbook';
 
 export default createStore({
-  state: {
-    // JWT
-    token: null,
-    // 공통코드
-    code: [],
-    // 페이지 타이틀
-    pageTitle: '',
-    // 블로그 환경설정
-    blogConfig: [],
-    // 사이드바
-    sidebar: {},
-    // 메인 포스트 목록
-    mainPostObj: {},
-    // 수정된 방명록
-    updatedGuestbook: {},
-    // 삭제된 방명록
-    removedGuestbook: {},
+  modules: {
+    Code,           // 공통코드 Store
+    Auth,           // 인증·인가 Store
+    BlogConfig,     // 블로그 환경설정 Store
+    Layout,         // 레이아웃 Store
+    Post,           // 포스트 Store
+    Guestbook,      // 방명록 Store
   },
   getters: {
     // 로그인 여부
     isLogin(state) {
-      return state.token !== null;
+      return state.Auth.token !== null;
     },
     // 개발/운영모드 구분
     isDevelopment() {
@@ -30,77 +26,6 @@ export default createStore({
     },
     isProduction() {
       return 'production' === process.env.NODE_ENV;
-    },
-  },
-  mutations: {
-    SET_TOKEN(state, _token) {
-      state.token = _token;
-      localStorage.setItem('token', _token);
-    },
-    CLEAR_TOKEN(state) {
-      state.token = null;
-      localStorage.removeItem('token');
-    },
-    SET_CODE(state, code) {
-      state.code = code;
-    },
-    SET_PAGE_TITLE(state, pageTitle) {
-      state.pageTitle = pageTitle;
-    },
-    SET_BLOG_CONFIG(state, blogConfig) {
-      state.blogConfig = blogConfig;
-    },
-    SET_SIDEBAR(state, sidebar) {
-      state.sidebar = sidebar;
-    },
-    SET_MAIN_POSTLIST(state, mainPostObj) {
-      state.mainPostObj = mainPostObj;
-    },
-    SET_UPDATED_GUESTBOOK(state, updatedGuestbook) {
-      state.updatedGuestbook = updatedGuestbook;
-    },
-    SET_REMOVED_GUESTBOOK(state, removedGuestbook) {
-      state.removedGuestbook = removedGuestbook;
-    },
-  },
-  actions: {
-    LOGIN({ commit }, values) {
-      return new Promise((resolve, reject) => {
-        commit('SET_TOKEN', values);
-        commit('SET_MAIN_POSTLIST', {});
-        commit('SET_SIDEBAR', {});
-        resolve('ok');
-      });
-    },
-    LOGOUT({ commit }, http) {
-      return new Promise((resolve, reject) => {
-        http.defaults.headers.common['Authorization'] = '';
-        commit('CLEAR_TOKEN');
-        commit('SET_MAIN_POSTLIST', {});
-        commit('SET_SIDEBAR', {});
-        resolve('ok');
-      });
-    },
-    FETCH_CODE({ commit }, values) {
-      commit('SET_CODE', values);
-    },
-    FETCH_PAGE_TITLE({ commit }, values) {
-      commit('SET_PAGE_TITLE', values);
-    },
-    FETCH_BLOG_CONFIG({ commit }, values) {
-      commit('SET_BLOG_CONFIG', values);
-    },
-    FETCH_SIDEBAR({ commit }, values) {
-      commit('SET_SIDEBAR', values);
-    },
-    FETCH_MAIN_POSTLIST({ commit }, values) {
-      commit('SET_MAIN_POSTLIST', values);
-    },
-    FETCH_UPDATED_GUESTBOOK({ commit }, values) {
-      commit('SET_UPDATED_GUESTBOOK', values);
-    },
-    FETCH_REMOVED_GUESTBOOK({ commit }, values) {
-      commit('SET_REMOVED_GUESTBOOK', values);
     },
   },
 });
