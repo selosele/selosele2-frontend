@@ -22,7 +22,6 @@
       <ui-split-pane>
         <ui-pane>
           <ui-grid
-            :defaultColDef="defaultColDef"
             :columnDefs="columnDefs"
             :rowData="rowData"
             :checkboxIndex="0"
@@ -124,7 +123,7 @@ export default {
     async removeCode() {
       const rows = this.gridApi.getSelectedRows();
       if (0 === rows.length) {
-        messageUtil.toastWarning('삭제할 항목을 선택하세요.');
+        messageUtil.toastWarning('삭제할 코드를 선택하세요.');
         return;
       }
 

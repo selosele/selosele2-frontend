@@ -79,15 +79,15 @@
           </ui-button>
         </p>
 
-        <button type="button"
-                :class="[
-                  'btn search__to-input',
-                  { 'search__to-input--active': this.toInputActive }
-                ]"
-                @click="toInput">
+        <ui-button :type="'button'"
+                   :class="[
+                    'search__to-input',
+                    { 'search__to-input--active': this.toInputActive }
+                   ]"
+                   @click="toInput">
           <i class="xi-search" aria-hidden="true"></i>
           <span class="sr-only">검색 필드 바로가기</span>
-        </button>
+        </ui-button>
       </div>
     </div>
   </app-content-wrapper>
@@ -138,7 +138,7 @@ export default {
 
     // 검색옵션 코드 세팅
     this.$store.state.Code.data.map((d,i) => {
-      if ('Y' === d.useYn && 'A01' === d.prefix) {
+      if ('A01' === d.prefix) {
         let obj = {
           value: d.val,
           text: d.nm,

@@ -5,6 +5,7 @@
          :name="name"
          :title="title"
          :rules="rules"
+         v-bind="$attrs"
          v-model="mv">
 
     <option value=""
@@ -19,6 +20,9 @@
               :selected="d.value === selectedValue">{{ d.text }}</option>
     </template>
   </Field>
+
+  <ErrorMessage class="form-field-error" :name="name">
+  </ErrorMessage>
 </template>
 
 <script>

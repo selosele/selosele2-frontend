@@ -7,16 +7,15 @@
                          :name="'userId'"
                          :title="'아이디 입력'"
                          :placeholder="'아이디'"
-                         :rules="'required|maxLength:10'"
+                         :rules="'required|max:10'"
                          v-model="userId">
           </ui-text-field>
           
-          <!-- 운영모드일 때 비밀번호 input에 minlength="8" maxlength="15" 속성 필요 -->
           <ui-text-field :type="'password'"
                          :name="'userPw'"
                          :title="'비밀번호 입력'"
                          :placeholder="'비밀번호'"
-                         :rules="'required'"
+                         :rules="userPwRules"
                          v-model="userPw">
           </ui-text-field>
           
@@ -57,6 +56,15 @@ export default {
     // 페이지 타이틀 세팅
     breadcrumbService.setPageTitle(this.pageTitle);
   },
+  computed: {
+    // 비밀번호 Validation rules
+    userPwRules() {
+      if ('production' === process.env.NODE_ENV) {
+        return 'required|min:8|max:15';
+      }
+      return 'required';
+    },
+  },
   methods: {
     async onSubmit(values) {
       try {
@@ -76,18 +84,18 @@ export default {
       }
     },
     async addUser() {
-      const user = {
+      const addUserDto = {
         userId: this.userId,
         userPw: this.userPw,
         roleId: '',
       };
 
-      if (isBlank(user.userId)) {
+      if (isBlank(addUserDto.userId)) {
         messageUtil.toastWarning('아이디를 입력하세요.');
         return;
       }
       
-      if (isBlank(user.userPw)) {
+      if (isBlank(addUserDto.userPw)) {
         messageUtil.toastWarning('비밀번호를 입력하세요.');
         return;
       }
@@ -97,7 +105,7 @@ export default {
         return;
       }
 
-      this.$http.post('/auth/user', user)
+      this.$http.post('/auth/user', addUserDto)
         .then(res => {
           messageUtil.toastSuccess('사용자 생성에 성공했습니다.');
         });

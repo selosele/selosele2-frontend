@@ -46,7 +46,7 @@
 
               <ui-button :type="'submit'"
                          :color="'primary'"
-                         :class="'guestbook__btn guestbook__btn--write'">등록
+                         :class="'guestbook__btn guestbook__btn--write'">저장
               </ui-button>
             </div>
           </div>
@@ -277,7 +277,7 @@ export default {
       }
     },
     async onSubmit(values) {
-      const confirm = await messageUtil.confirmSuccess('방명록을 등록하시겠습니까?');
+      const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;
 
       this.$http.post('/guestbook', values)
@@ -289,7 +289,7 @@ export default {
           this.guestbookList.push(guestbook);
           this.guestbookList = this.guestbookList.sort((a,b) => b.id - a.id);
 
-          messageUtil.toastSuccess('방명록이 등록되었습니다.');
+          messageUtil.toastSuccess('저장되었습니다.');
         });
     },
     // 데이타 로딩

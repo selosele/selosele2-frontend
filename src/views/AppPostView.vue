@@ -21,15 +21,15 @@
         <!-- END : 콘텐츠 내용 영역 -->
   
         <div class="post__contents__like-wrapper">
-          <button type="button"
-                  class="btn post__contents__like-btn"
-                  :title="isPostLiked ? '포스트 추천 해제하기' : '포스트 추천하기'"
-                  @click="savePostLike(post.id)">
+          <ui-button :type="'button'"
+                     :class="'post__contents__like-btn'"
+                     :title="isPostLiked ? '포스트 추천 해제하기' : '포스트 추천하기'"
+                     @click="savePostLike(post.id)">
             <i class="xi-heart" aria-hidden="true" v-if="isPostLiked"></i>
             <i class="xi-heart-o" aria-hidden="true" v-if="!isPostLiked"></i>
             <span class="sr-only">추천수</span>
             <span id="like_cnt" class="post__contents__like-cnt">{{ postLikeCnt }}</span>
-          </button>
+          </ui-button>
         </div>
   
         <div class="post__contents__date-wrapper">
@@ -69,19 +69,19 @@
         </div>
   
         <div class="post__contents__btns">
-          <button type="button"
-                  class="btn post__contents__btn post__contents__btn--list"
-                  @click="goToList">
+          <ui-button :type="'button'"
+                     :class="'post__contents__btn post__contents__btn--list'"
+                     @click="goToList">
             <i class="xi-backspace" aria-hidden="true"></i>
             <span class="sr-only">목록으로</span>
-          </button>
+          </ui-button>
   
-          <button type="button"
-                  class="btn post__contents__btn post__contents__btn--copy"
-                  @click="copyPostUrl">
+          <ui-button :type="'button'"
+                     :class="'post__contents__btn post__contents__btn--copy'"
+                     @click="copyPostUrl">
             <i class="xi-link" aria-hidden="true"></i>
             <span class="sr-only">URL 복사</span>
-          </button>
+          </ui-button>
           
           <a :href="`https://twitter.com/intent/tweet?text=${encodeURI(post.title)}%20${encodeURI($nowUrl)}`"
              target="_blank"
@@ -102,16 +102,16 @@
           </a>
   
           <template v-if="isLogin">
-            <router-link to="/write" class="btn post__contents__btn post__contents__btn--write">
+            <router-link to="/add-post" class="btn post__contents__btn post__contents__btn--write">
               <i class="xi-pen" aria-hidden="true"></i> 포스트 작성
             </router-link>
   
-            <router-link to="/edit/post/14" class="btn post__contents__btn post__contents__btn--edit">
-                <i class="xi-pen" aria-hidden="true"></i> 포스트 수정
+            <router-link to="/edit-post/14" class="btn post__contents__btn post__contents__btn--edit">
+              <i class="xi-pen" aria-hidden="true"></i> 포스트 수정
             </router-link>
   
             <button type="button" class="btn post__contents__btn post__contents__btn--delete">
-                <i class="xi-trash" aria-hidden="true"></i> 포스트 삭제
+              <i class="xi-trash" aria-hidden="true"></i> 포스트 삭제
             </button>
           </template>
         </div>

@@ -1,32 +1,21 @@
-import { defineRule } from 'vee-validate';
+import { defineRule, configure } from 'vee-validate';
+import { required, min, max } from '@vee-validate/rules';
+import { localize } from '@vee-validate/i18n';
 
 export const initDefineRule = () => {
   
-  defineRule('required', value => {
-    if (!value || !value.trim().length) {
-      return '필수 입력 항목입니다.';
-    }
-    return true;
-  });
+  defineRule('required', required);
+  defineRule('min', min);
+  defineRule('max', max);
 
-  defineRule('minLength', (value, [limit]) => {
-    if (!value || !value.trim().length) {
-      return true;
-    }
-    if (value.length < limit) {
-      return `${limit}자 이상 입력하세요.`;
-    }
-    return true;
-  });
-
-  defineRule('maxLength', (value, [limit]) => {
-    if (!value || !value.trim().length) {
-      return true;
-    }
-    if (value.length > limit) {
-      return `${limit}자 이하로 입력하세요.`;
-    }
-    return true;
+  configure({
+    generateMessage: localize('ko', {
+      messages: {
+        required: '필수 입력 항목입니다.',
+        min: '0:{length}자 이상 입력하세요.',
+        max: '0:{length}자 이하로 입력하세요.',
+      },
+    }),
   });
 
 };

@@ -1,8 +1,30 @@
 <template>
   <div class="post-list__wrapper">
-    <ui-form :name="'postListForm'" @onSubmit="onSubmit">
-      <div class="post__btn-wrapper" v-if="isLogin && 'main' === type">
-        <ui-button :routerLink="'/write'"
+    <ui-form :name="'postListForm'" @onSubmit="removePost">
+      <ui-form :name="'postCategoryForm'" @onSubmit="listPostByCategory">
+        <div class="post__category-filter d-flex-w gap--10">
+          <div>
+            <ui-select :name="'categoryId'"
+                       :id="'categoryId'"
+                       :class="'post__category-filter-select'"
+                       :title="'카테고리 선택'"
+                       :defaultValue="'카테고리 선택'"
+                       :data="categoryList"
+                       :rules="'required'">
+            </ui-select>
+          </div>
+
+          <ui-button :type="'submit'"
+                     :color="'dark'"
+                     :class="'post__category-filter-btn'">
+            <span class="sr-only">카테고리 조회</span>
+            <i aria-hidden="true" class="xi-check"></i>
+          </ui-button>
+        </div>
+      </ui-form>
+
+      <div class="post__btn-wrapper mt--15" v-if="isLogin && 'main' === type">
+        <ui-button :routerLink="'/add-post'"
                    :color="'light'"
                    :class="'post__btn'">
           <i class="xi-pen" aria-hidden="true"></i> 포스트 작성
@@ -37,6 +59,7 @@
 
 <script>
 import UiForm from '@/components/shared/form/UiForm.vue';
+import UiSelect from '@/components/shared/form/UiSelect.vue';
 import UiCheckbox from '@/components/shared/form/UiCheckbox.vue';
 import AppPostListDetail from '@/components/views/post/AppPostListDetail.vue';
 
@@ -44,6 +67,7 @@ export default {
   name: 'app-post-list',
   components: {
     UiForm,
+    UiSelect,
     UiCheckbox,
     AppPostListDetail,
   },
@@ -54,6 +78,8 @@ export default {
     page: Number,
     // 포스트 목록
     postList: Array,
+    // 포스트 카테고리 목록
+    categoryList: Array,
   },
   data() {
     return {
@@ -78,8 +104,16 @@ export default {
     },
   },
   methods: {
-    onSubmit(values) {
-      // console.log(values);
+    // 포스트 삭제
+    removePost(values) {
+      console.log(values);
+    },
+    // 카테고리 필터링
+    listPostByCategory(values) {
+      this.$http.get('/post', { params: values })
+        .then(res => {
+          this.$emit('listPost', res.data);
+        });
     },
   },
 };

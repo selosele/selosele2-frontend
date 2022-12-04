@@ -49,6 +49,7 @@
       <ui-textarea :type="'text'"
                    :name="'desc'"
                    :id="'codeDesc'"
+                   :class="'resize--vertical'"
                    :rules="'required'"
                    :value="code.desc">
       </ui-textarea>
@@ -121,8 +122,6 @@ export default {
   },
   methods: {
     async onSubmit(values) {
-      console.log('저장', values);
-
       const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;
 

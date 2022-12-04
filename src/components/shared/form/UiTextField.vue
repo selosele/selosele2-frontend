@@ -1,16 +1,21 @@
 <template>
   <Field :type="type"
-         :id="id"
-         :ref="id"
          :name="name"
-         :title="title"
-         :placeholder="placeholder"
-         :readonly="readonly"
+         :value="value"
          :rules="rules"
-         :value="modelValue"
-         v-bind="$attrs"
-         @input="$emit('update:modelValue', $event.target.value)"
-  >
+         v-slot="{ field }">
+
+    <input :type="type"
+           :id="id"
+           :ref="(el) => { inputEl = el }"
+           :name="name"
+           :title="title"
+           :placeholder="placeholder"
+           :readonly="readonly"
+           :value="value"
+           v-bind="{ ...field, ...$attrs }"
+           @input="onInput($event)"
+    >
   </Field>
 
   <ErrorMessage class="form-field-error" :name="name">
@@ -18,7 +23,8 @@
 </template>
 
 <script>
-import { Field, ErrorMessage } from 'vee-validate';
+import { ref } from 'vue';
+import { Field, ErrorMessage, useField } from 'vee-validate';
 
 export default {
   name: 'ui-text-field',
@@ -34,12 +40,45 @@ export default {
     placeholder: String,        // input placeholder
     readonly: Boolean,          // input readonly
     rules: String,              // input validation rules
-    modelValue: String,         // input modelValue
+    value: {                    // input value
+      type: [String, Number],
+      default: undefined,
+    },        
+    modelValue: {               // input modelValue
+      default: '',
+    },
   },
-  methods: {
-    focus() {
-      this.$refs[this.id].$el.focus();
-    }
+  setup(props, { emit }) {
+    const {
+      value: inputValue,
+      errorMessage,
+      handleBlur,
+      handleChange,
+      meta,
+    } = useField(props.name, props.rules, {
+      initialValue: props.modelValue,
+      valueProp: props.modelValue,
+    });
+
+    const inputEl = ref(null);
+
+    const onInput = (e) => {
+      emit('update:modelValue', e.target.value);
+    };
+
+    const focus = () => {
+      inputEl.value.focus();
+    };
+
+    return {
+      inputEl,
+      onInput,
+      focus,
+      handleChange,
+      errorMessage,
+      inputValue,
+      meta,
+    };
   },
 }
 </script>

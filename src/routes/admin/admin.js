@@ -20,6 +20,16 @@ export default [
     },
   },
   {
+    // 콘텐츠 관리 페이지
+    path: '/admin/content',
+    component: () => import('@/views/AppContent.vue'),
+    meta: {
+      requiresAuth: true,
+      showSidebar: false,
+      showSatis: false,
+    },
+  },
+  {
     // 만족도조사 관리 페이지
     path: '/admin/satisfaction',
     component: () => import('@/views/AppAdminSatisfaction.vue'),

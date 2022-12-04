@@ -6,9 +6,12 @@
       v-if="dataLoaded"
       :type="'main'"
       :page="page"
-      :postList="pagingPostList">
+      :postList="pagingPostList"
+      :categoryList="categoryList"
+      @listPost="listPostByCategory">
     
       <ui-pagination :value="postList"
+                     :key="postList"
                      :total="listCnt"
                      :first="page"
                      :rows="5"
@@ -16,7 +19,8 @@
                      @onPage="onPage">
       </ui-pagination>
     </app-post-list>
-    <app-widget-config v-if="isLogin" />
+
+    <app-widget-config v-if="isLogin"></app-widget-config>
   </app-content-wrapper>
 </template>
 
@@ -43,6 +47,7 @@ export default {
       listCnt: null,
       postList: [],
       pagingPostList: [],
+      categoryList: [],
       dataLoaded: false,
     }
   },
@@ -52,14 +57,9 @@ export default {
 
     this.page = parseInt(this.$route.query.page) || 1;
 
-    if (!this.hasStorePostList) {
-      await this.listPost();
-      this.dataLoading();
-      return;
-    }
-    this.dataLoaded = true;
-    this.postList = [...this.storePostList];
-    this.listCnt = this.storePostListCnt;
+    this.listCategoryAndCount();
+
+    this.init();
   },
   computed: {
     storePostList() {
@@ -78,6 +78,16 @@ export default {
       this.page = values.page;
       this.pagingPostList = [...values.pageData];
     },
+    async init() {
+      if (!this.hasStorePostList) {
+        await this.listPost();
+        this.dataLoading();
+        return;
+      }
+      this.dataLoaded = true;
+      this.postList = [...this.storePostList];
+      this.listCnt = this.storePostListCnt;
+    },
     // 포스트 목록 조회
     listPost() {
       return this.$http.get('/post')
@@ -91,6 +101,28 @@ export default {
           this.$store.dispatch('Post/FETCH_MAIN_POSTLIST', {
             postList: this.postList,
             listCnt: this.listCnt,
+          });
+        });
+    },
+    // 카테고리 필터링
+    listPostByCategory(values) {
+      this.postList = [...values[0]];
+      this.listCnt = values[1];
+    },
+    // 카테고리 목록 및 개수 조회
+    listCategoryAndCount() {
+      this.categoryList.push({
+        value: '0',
+        text: '전체',
+      });
+      
+      return this.$http.get('/category')
+        .then(res => {
+          res.data.map(d => {
+            this.categoryList.push({
+              value: d.id,
+              text: d.nm,
+            });
           });
         });
     },

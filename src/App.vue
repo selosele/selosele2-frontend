@@ -83,7 +83,8 @@ export default {
     listCode() {
       this.$http.get('/code')
         .then(res => {
-          this.$store.dispatch('Code/FETCH_CODE', res.data);
+          const codeList = res.data.filter(d => 'Y' === d.useYn);
+          this.$store.dispatch('Code/FETCH_CODE', codeList);
         });
     },
     // 블로그 환경설정 정보 조회

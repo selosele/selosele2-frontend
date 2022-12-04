@@ -34,7 +34,7 @@
 
         <ui-button :type="'submit'"
                    :color="'primary'"
-                   :class="'guestbook__btn guestbook__btn--reply-write'">등록
+                   :class="'guestbook__btn guestbook__btn--reply-write'">저장
         </ui-button>
       </div>
     </ui-form>
