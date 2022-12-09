@@ -81,7 +81,7 @@ export default {
     },
     // 메뉴 닫기
     closeMenu(e) {
-      if (isNotEmpty(this.$refs.menuLink) && !this.$refs.menuLink.includes(e.target)) {
+      if (isNotEmpty(this.$refs['menuLink']) && !this.$refs['menuLink'].includes(e.target)) {
         this.activeIndex = -1;
       }
     },

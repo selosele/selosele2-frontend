@@ -100,7 +100,7 @@ export default {
       if (1420 > window.outerWidth || 0 > window.pageYOffset) {
         return;
       }
-      if (Math.abs(window.pageYOffset - this.lastScrollTop) < this.$refs.mainWrapper.getOffsetTop()) {
+      if (Math.abs(window.pageYOffset - this.lastScrollTop) < this.$refs['mainWrapper'].getOffsetTop()) {
         return;
       }
       this.scrollDown = window.pageYOffset < this.lastScrollTop;

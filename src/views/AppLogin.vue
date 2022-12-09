@@ -2,7 +2,12 @@
   <app-content-wrapper :pageTitle="pageTitle">
     <div class="login__wrapper">
       <div class="login__inner">
-        <ui-form :autocomplete="'off'" :class="'login__frm'" :name="'loginForm'" @onSubmit="onSubmit">
+        <ui-form :autocomplete="'off'"
+                 :class="'login__frm'"
+                 :name="'loginForm'"
+                 :ref="'loginForm'"
+                 @onSubmit="onSubmit"
+        >
           <ui-text-field :type="'text'"
                          :name="'userId'"
                          :title="'아이디 입력'"
@@ -37,7 +42,6 @@ import UiForm from '@/components/shared/form/UiForm.vue';
 import UiTextField from '@/components/shared/form/UiTextField.vue';
 import messageUtil from '@/utils/ui/MessageUtil';
 import breadcrumbService from '@/services/breadcrumb/BreadcrumbService';
-import { isBlank } from '@/utils/util';
 
 export default {
   name: 'app-login',
@@ -57,7 +61,7 @@ export default {
     breadcrumbService.setPageTitle(this.pageTitle);
   },
   computed: {
-    // 비밀번호 Validation rules
+    // 비밀번호 유효성 검증 rules
     userPwRules() {
       if ('production' === process.env.NODE_ENV) {
         return 'required|min:8|max:15';
@@ -67,20 +71,16 @@ export default {
   },
   methods: {
     async onSubmit(values) {
-      try {
-        let res = await this.$http.post('/auth/signin', values);
-        const token = res.data.accessToken;
+      let res = await this.$http.post('/auth/signin', values);
+      const token = res.data.accessToken;
+      
+      if (token) {
+        this.$http.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        const loginRes = await this.$store.dispatch('Auth/LOGIN', token);
         
-        if (token) {
-          this.$http.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-          const loginRes = await this.$store.dispatch('Auth/LOGIN', token);
-          
-          if ('ok' === loginRes) {
-            this.$router.push('/');
-          }
+        if ('ok' === loginRes) {
+          this.$router.push('/');
         }
-      } catch(error) {
-        messageUtil.toastError(error.response.data.message);
       }
     },
     async addUser() {
@@ -90,13 +90,8 @@ export default {
         roleId: '',
       };
 
-      if (isBlank(addUserDto.userId)) {
-        messageUtil.toastWarning('아이디를 입력하세요.');
-        return;
-      }
-      
-      if (isBlank(addUserDto.userPw)) {
-        messageUtil.toastWarning('비밀번호를 입력하세요.');
+      const runValidate = await this.$refs['loginForm'].validateAll();
+      if (!runValidate.valid) {
         return;
       }
 

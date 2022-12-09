@@ -14,6 +14,7 @@ import { $vfm } from 'vue-final-modal';
 import { vfmPlugin } from 'vue-final-modal';
 
 import '@/assets/scss/style.scss';
+import { isNotBlank } from './utils/util';
 
 initDefineRule();
 
@@ -26,10 +27,16 @@ const app = createApp({
     if (token) {
       this.$store.commit('Auth/SET_TOKEN', token);
     }
+
     this.$http.interceptors.response.use(
       response => response,
       async error => {
-        messageUtil.toastError('오류가 발생했습니다.');
+        if (isNotBlank(error.response.data.type) && 'BIZ' === error.response.data.type) {
+          // 비즈니스 로직 예외 처리
+          messageUtil.toastError(error.response.data.message);
+        } else {
+          messageUtil.toastError('오류가 발생했습니다.');
+        }
 
         // 권한 오류, JWT 만료/변조 시 강제 로그아웃
         if (401 === error.response.status) {
@@ -38,7 +45,7 @@ const app = createApp({
             this.$router.push({
               path: '/',
               query: {
-                e: moment().format('YYYYMMDDHHmmss'),
+                e: this.$moment().format('YYYYMMDDHHmmss'),
               },
             });
           }

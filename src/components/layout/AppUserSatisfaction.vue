@@ -48,7 +48,6 @@ import UiForm from '@/components/shared/form/UiForm.vue';
 import UiTextField from '@/components/shared/form/UiTextField.vue';
 import UiRadio from '@/components/shared/form/UiRadio.vue';
 import messageUtil from '@/utils/ui/MessageUtil';
-import { isIn } from '@/utils/util';
 
 export default {
   name: 'app-user-satisfaction',
@@ -87,11 +86,6 @@ export default {
       this.$http.post('/satisfaction', values)
         .then(res => {
           messageUtil.toastSuccess('참여해주셔서 감사합니다.');
-        }).catch(error => {
-          if (isIn(error.response.status, 403, 400)) {
-            messageUtil.toastError(error.response.data.message);
-            return;
-          }
         });
     },
   }

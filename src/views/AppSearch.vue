@@ -258,7 +258,7 @@ export default {
     scroll() {
       if (null === this.postList || 0 === this.postList.length) return;
 
-      if (this.$refs.resultsWrapper && (window.pageYOffset >= this.$refs.resultsWrapper.offsetTop)) {
+      if (this.$refs['resultsWrapper'] && (window.pageYOffset >= this.$refs['resultsWrapper'].offsetTop)) {
         this.toInputActive = true;
       } else {
         this.toInputActive = false;
@@ -266,9 +266,9 @@ export default {
     },
     // 검색 필드로 focus
     toInput() {
-      const st = this.$refs.searchField.offsetTop - 100;
+      const st = this.$refs['searchField'].offsetTop - 100;
       window.scrollTo(0, st);
-      this.$refs.q.focus();
+      this.$refs['q'].focus();
     },
     // 데이타 로딩
     dataLoading() {

@@ -241,7 +241,7 @@ export default {
     },
     // 방명록 메뉴 닫기
     closeMenu(e) {
-      if (isNotEmpty(this.$refs.guestbookMenuBtn) && !this.$refs.guestbookMenuBtn.includes(e.target)) {
+      if (isNotEmpty(this.$refs['guestbookMenuBtn']) && !this.$refs['guestbookMenuBtn'].includes(e.target)) {
         this.activeIndex = -1;
       }
     },

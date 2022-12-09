@@ -11,7 +11,7 @@ export default {
   name: 'app-main',
   methods: {
     getOffsetTop() {
-      return this.$refs.mainWrapper.offsetTop;
+      return this.$refs['mainWrapper'].offsetTop;
     },
   },
 };

@@ -12,7 +12,7 @@
                          :title="'비밀번호 입력'"
                          :placeholder="'비밀번호 입력'"
                          :readonly="isLogin"
-                         :rules="!isLogin ? 'required|minLength:8|maxLength:15' : ''">
+                         :rules="!isLogin ? 'required|min:8|max:15' : ''">
           </ui-text-field>
         </div>
 
@@ -27,6 +27,7 @@
 <script>
 import UiForm from '@/components/shared/form/UiForm.vue';
 import UiTextField from '@/components/shared/form/UiTextField.vue';
+import UiHiddenField from '@/components/shared/form/UiHiddenField.vue';
 import messageUtil from '@/utils/ui/MessageUtil';
 
 export default {
@@ -38,6 +39,7 @@ export default {
   components: {
     UiForm,
     UiTextField,
+    UiHiddenField,
   },
   methods: {
     async onSubmit(values) {
@@ -49,8 +51,6 @@ export default {
           messageUtil.toastSuccess('방명록이 삭제되었습니다.');
           this.$modal.hide(this.$options.name);
           this.$store.dispatch('Guestbook/FETCH_REMOVED_GUESTBOOK', values);
-        }).catch(error => {
-          messageUtil.toastError(error.response.data.message);
         });
     },
   },

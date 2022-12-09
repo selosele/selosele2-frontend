@@ -274,8 +274,6 @@ export default {
           if (0 === this.postLikeCnt && -1 === res.data) return;
           this.getPostLike(id);
           this.postLikeCnt += res.data;
-        }).catch(error => {
-          messageUtil.toastError(error.response.data.message);
         });
     },
     // 목록으로 돌아가기

@@ -1,3 +1,5 @@
+import { isNotBlank } from "@/utils/util";
+
 /**
  * 인증·인가 Store
  */
@@ -22,7 +24,7 @@ export const Auth = {
         commit('Auth/SET_TOKEN', values, { root: true });
         commit('Post/SET_MAIN_POSTLIST', {}, { root: true });
         commit('Layout/SET_SIDEBAR', {}, { root: true });
-        resolve('ok');
+        resolve(isNotBlank(values) ? 'ok' : 'no');
       });
     },
     LOGOUT({ commit }, http) {
