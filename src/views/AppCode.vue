@@ -67,7 +67,7 @@ export default {
     return {
       pageTitle: '공통코드 관리',
       columnDefs: [
-        { }, // 체크박스
+        { pinned: 'left' }, // 체크박스
         { headerName: '코드 ID', field: 'id', width: 130 },
         { headerName: '코드 접두어', field: 'prefix', width: 130 },
         { headerName: '코드 값', field: 'val', width: 130 },
@@ -122,6 +122,7 @@ export default {
     // 공통코드 삭제
     async removeCode() {
       const rows = this.gridApi.getSelectedRows();
+
       if (0 === rows.length) {
         messageUtil.toastWarning('삭제할 코드를 선택하세요.');
         return;
@@ -132,7 +133,7 @@ export default {
 
       let removeCodeDto = [];
 
-      rows.forEach((d,i) => {
+      rows.forEach(d => {
         removeCodeDto.push({
           id: d.id,
         });
@@ -155,10 +156,8 @@ export default {
     // 코드 사용여부 가공
     getUseYn(useYn) {
       switch (useYn) {
-        case 'Y':
-          return '사용';
-        case 'N':
-          return '미사용';
+        case 'Y': return '사용';
+        case 'N': return '미사용';
       }
     },
     // 데이타 로딩

@@ -38,9 +38,12 @@ export default {
       default: '',
     }
   },
-  data() {
-    return {
-      mv: this.modelValue,
+  computed: {
+    mv: {
+      get() {
+        return this.modelValue;
+      },
+      set(v) {}
     }
   },
 }

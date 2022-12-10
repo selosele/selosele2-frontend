@@ -5,9 +5,11 @@
          :ref="id"
          :title="title"
          :rules="rules"
-         :value="getValueByIdx(0)"
+         :value="value || getValueByIdx(0)"
          :unchecked-value="getValueByIdx(1)"
-         v-model="mv">
+         v-bind="$attrs"
+         v-model="mv"
+         @change="onChange($event)">
   </Field>
 
   <label v-if="label" :for="id">
@@ -20,6 +22,7 @@
 </template>
 
 <script>
+import { isBlank } from '@/utils/util';
 import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
@@ -40,28 +43,32 @@ export default {
       default: '',
     },
     value: {                        // checkbox true value
-      type: [String, Number, Boolean, Array],
+      type: [String, Number],
       default: undefined,
     },
     values: String,                 // checkbox true value & false value
   },
-  data() {
-    return {
-      mv: this.modelValue,
+  computed: {
+    mv: {
+      get() {
+        return this.modelValue;
+      },
+      set(v) {}
     }
   },
   methods: {
     onChange(e) {
-      console.log('modelValue >>>', this.modelValue);
-      this.$emit('update:modelValue', this.getValue(e));
+      this.$emit('update:modelValue', e.target.value);
     },
     getValue(e) {
       if (e.target.checked) {
+        if (isBlank(this.values)) return '';
         return this.values.split(',')[0];
       }
       return this.values.split(',')[1];
     },
     getValueByIdx(i) {
+      if (isBlank(this.values)) return '';
       return this.values.split(',')[i];
     },
   },

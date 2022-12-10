@@ -1,4 +1,5 @@
 <template>
+  {{chkList}} {{checkAll}}
   <ul :class="['post__wrapper', { 'search__results': 'search' === type }]">
     <li class="post__wrapper__list" v-for="(post,i) in postList" :key="i">
       <div :class="['post__wrapper__list__item', 
@@ -7,22 +8,14 @@
                   { 'post__wrapper__list__item--secret': 'Y' === post.secretYn },
         ]">
         <span class="post__check only-input" v-if="isLogin && 'main' === type">
-          <ui-checkbox :name="`checkPost${post.id}`"
-                        :id="`checkPost${post.id}`"
-                        :class="'post__checkbox'"
-                        :label="'포스트 삭제'"
-                        :labelHidden="true"
-                        :values="`${post.id},N`">
-                        <!-- v-model="checkList[i]" -->
+          <ui-checkbox :name="'checkPost'"
+                       :id="`checkPost${post.id}`"
+                       :class="'post__checkbox'"
+                       :label="'포스트 삭제'"
+                       :labelHidden="true"
+                       :value="post.id"
+                       v-model="chkList[i]">
           </ui-checkbox>
-  
-          <!-- <input type="hidden" :name="`ck${post.id}`" :value="post.id" />
-          <input type="checkbox" 
-                :id="`ck${post.id}`"
-                :name="`ck${post.id}`"
-                :value="post.id"
-                v-model="checkList" />
-          <label :for="`ck${post.id}`">sfda</label> -->
         </span>
   
         <article :aria-labelledby="`title${post.id}`" :aria-describedby="`cont${post.id}`" class="post__box">
@@ -88,9 +81,23 @@ export default {
     postList: Array,
     // 체크박스 삭제용 배열
     checkList: Array,
+    // 전체 삭제 체크박스 선택 여부
+    checkAll: {
+      type: Boolean,
+      default: false,
+    },
   },
   components: {
     UiCheckbox,
+  },
+  computed: {
+    chkList: {
+      get() {
+        // if (!this.checkAll) return [];
+        return this.checkList;
+      },
+      set(v) {}
+    },
   },
 }
 </script>

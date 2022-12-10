@@ -1,6 +1,13 @@
 <template>
-  <ui-form>
-    <slot></slot>
+  <ui-form :name="name"
+           :ref="name"
+           :autocomplete="autocomplete"
+           v-slot="{ validateAll, validateField }"
+  >
+
+    <slot :validateAll="validateAll"
+          :validateField="validateField">
+    </slot>
 
     <div class="d-flex gap--10 mt--15">
       <ui-button :type="'submit'"

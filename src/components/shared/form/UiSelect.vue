@@ -45,9 +45,12 @@ export default {
     defaultValueDisabled: Boolean,        // select default value 비활성화 여부 (비활성화 false - 기본값, 활성화 true)
     modelValue: String,                   // select modelValue
   },
-  data() {
-    return {
-      mv: this.modelValue,
+  computed: {
+    mv: {
+      get() {
+        return this.modelValue;
+      },
+      set(v) {}
     }
   },
 }

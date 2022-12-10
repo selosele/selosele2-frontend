@@ -82,7 +82,7 @@ import UiTextarea from '@/components/shared/form/UiTextarea.vue';
 import UiRadio from '@/components/shared/form/UiRadio.vue';
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import messageUtil from '@/utils/ui/MessageUtil';
-import { isEmpty } from '@/utils/util';
+import { isBlank, isEmpty } from '@/utils/util';
 
 export default {
   name: 'app-save-code',
@@ -109,14 +109,22 @@ export default {
   created() {
     this.prefix = this.code.prefix;
     this.val = this.code.val;
-    this.id = this.prefix + this.val || '';
+    this.id = (this.prefix || '') + (this.val || '');
     this.useYn = this.code.useYn;
   },
   watch: {
     prefix: function(val, oldVal) {
+      if (isBlank(val) || isBlank(this.val)) {
+        this.id = '';
+        return;
+      }
       this.id = val + this.val;
     },
     val: function(val, oldVal) {
+      if (isBlank(val) || isBlank(this.prefix)) {
+        this.id = '';
+        return;
+      }
       this.id = this.prefix + val;
     },
   },
@@ -126,7 +134,7 @@ export default {
       if (!confirm) return;
 
       if (isEmpty(values.originId)) {
-        this.$http.post('/code/', values)
+        this.$http.post('/code', values)
           .then(res => {
             messageUtil.toastSuccess('저장되었습니다.');
             this.$emit('onSaveCode');
@@ -138,7 +146,6 @@ export default {
             this.$emit('onSaveCode');
           });
       }
-
     },
   },
 }

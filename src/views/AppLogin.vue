@@ -102,7 +102,7 @@ export default {
 
       this.$http.post('/auth/user', addUserDto)
         .then(res => {
-          messageUtil.toastSuccess('사용자 생성에 성공했습니다.');
+          messageUtil.toastSuccess('사용자가 생성되었습니다.');
         });
     },
   },

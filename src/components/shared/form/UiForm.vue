@@ -5,7 +5,9 @@
         @submit="onSubmit"
         @reset="$emit('onReset')"
   >
-    <slot></slot>
+    <slot :validateAll="validateAll"
+          :validateField="validateField">
+    </slot>
   </Form>
 </template>
 

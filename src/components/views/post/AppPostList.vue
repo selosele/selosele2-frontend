@@ -49,7 +49,8 @@
       <app-post-list-detail :type="type"
                             :page="page"
                             :postList="postList"
-                            :checkList="checkList">
+                            :checkList="checkList"
+                            :checkAll="checkAll">
       </app-post-list-detail>
     </ui-form>
 
@@ -62,6 +63,7 @@ import UiForm from '@/components/shared/form/UiForm.vue';
 import UiSelect from '@/components/shared/form/UiSelect.vue';
 import UiCheckbox from '@/components/shared/form/UiCheckbox.vue';
 import AppPostListDetail from '@/components/views/post/AppPostListDetail.vue';
+import { isNotEmpty } from '@/utils/util';
 
 export default {
   name: 'app-post-list',
@@ -90,16 +92,21 @@ export default {
   computed: {
     checkAll: {
       get() {
-        return this.postList ? this.postList.length === this.checkList.length : false;
+        if (isNotEmpty(this.postList) && 0 < this.postList.length) {
+          return this.postList.length === this.checkList.length;
+        }
+        return false;
       },
       set(v) {
-        this.checkList = [];
-        
+        let checkList = [];
+
         if ('Y' === v) {
           this.postList.map(d => {
-            this.checkList.push(d.id);
+            checkList.push(d.id);
           });
         }
+
+        this.checkList = checkList;
       }
     },
   },
