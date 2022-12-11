@@ -130,6 +130,15 @@ export default {
   methods: {
     // Pagination 동작
     onPage(i) {
+      if (0 === this.value.length) {
+        this.$emit('onPage', {
+          page: 1,
+          pageData: [],
+        });
+        
+        return;
+      }
+
       this.page = i;
 
       // Paging 처리된 데이타

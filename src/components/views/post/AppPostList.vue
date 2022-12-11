@@ -2,7 +2,7 @@
   <div class="post-list__wrapper">
     <ui-form :name="'postListForm'" @onSubmit="removePost">
       <ui-form :name="'postCategoryForm'" @onSubmit="listPostByCategory">
-        <div class="post__category-filter d-flex-w gap--10">
+        <div class="post__category-filter d-flex-w gap--10 mb--15">
           <div>
             <ui-select :name="'categoryId'"
                        :id="'categoryId'"
@@ -16,9 +16,9 @@
 
           <ui-button :type="'submit'"
                      :color="'dark'"
+                     :title="'선택한 카테고리로 포스트 조회'"
                      :class="'post__category-filter-btn'">
-            <span class="sr-only">카테고리 조회</span>
-            <i aria-hidden="true" class="xi-check"></i>
+            <i class="xi-check" aria-hidden="true"></i>
           </ui-button>
         </div>
       </ui-form>
@@ -41,16 +41,18 @@
                        :id="'checkAll'"
                        :label="'포스트 전체 선택'"
                        :values="'Y,N'"
-                       v-model="checkAll">
+                       v-model="checkAll"
+                       @click="onClick($event)">
           </ui-checkbox>
         </span>
       </div>
 
       <app-post-list-detail :type="type"
                             :page="page"
+                            :key="postList"
                             :postList="postList"
                             :checkList="checkList"
-                            :checkAll="checkAll">
+                            :checkAll="isCheckAll">
       </app-post-list-detail>
     </ui-form>
 
@@ -64,6 +66,7 @@ import UiSelect from '@/components/shared/form/UiSelect.vue';
 import UiCheckbox from '@/components/shared/form/UiCheckbox.vue';
 import AppPostListDetail from '@/components/views/post/AppPostListDetail.vue';
 import { isNotEmpty } from '@/utils/util';
+import messageUtil from '@/utils/ui/MessageUtil';
 
 export default {
   name: 'app-post-list',
@@ -86,14 +89,13 @@ export default {
   data() {
     return {
       initList: [],
-      checkList: [],
     }
   },
   computed: {
     checkAll: {
       get() {
         if (isNotEmpty(this.postList) && 0 < this.postList.length) {
-          return this.postList.length === this.checkList.length;
+          return this.isCheckAll;
         }
         return false;
       },
@@ -106,14 +108,44 @@ export default {
           });
         }
 
-        this.checkList = checkList;
+        this.$store.dispatch('Post/FETCH_CHECKLIST', checkList);
       }
+    },
+    checkList: {
+      get() {
+        return this.$store.state.Post.checkList;
+      },
+      set(v) {}
+    },
+    isCheckAll: {
+      get() {
+        return this.$store.state.Post.checkAll;
+      },
+      set(v) {}
     },
   },
   methods: {
     // 포스트 삭제
-    removePost(values) {
-      console.log(values);
+    async removePost(values) {
+      if (0 === values.checkPost.length) {
+        messageUtil.toastWarning('삭제할 포스트를 선택하세요.');
+        return;
+      }
+
+      const checkPostList = values.checkPost.map(d => {
+        let obj = {};
+        obj.id = d;
+        return obj;
+      });
+
+      const confirm = await messageUtil.confirmSuccess('포스트를 삭제하시겠습니까?');
+      if (!confirm) return;
+
+      this.$http.delete('/post', { data: checkPostList })
+        .then(res => {
+          messageUtil.toastSuccess('삭제되었습니다.');
+          this.$emit('removePost');
+        });
     },
     // 카테고리 필터링
     listPostByCategory(values) {
@@ -121,6 +153,9 @@ export default {
         .then(res => {
           this.$emit('listPost', res.data);
         });
+    },
+    onClick(e) {
+      this.$store.dispatch('Post/FETCH_CHECKALL', e.target.checked);
     },
   },
 };

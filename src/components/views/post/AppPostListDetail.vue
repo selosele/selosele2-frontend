@@ -1,11 +1,11 @@
 <template>
-  {{chkList}} {{checkAll}}
   <ul :class="['post__wrapper', { 'search__results': 'search' === type }]">
     <li class="post__wrapper__list" v-for="(post,i) in postList" :key="i">
       <div :class="['post__wrapper__list__item', 
                   { 'post__wrapper__list__item--logined': isLogin && 'main' === type },
                   { 'post__wrapper__list__item--pin': 'Y' === post.pinYn && 'main' === type },
                   { 'post__wrapper__list__item--secret': 'Y' === post.secretYn },
+                  { 'post__wrapper__list__item--new': isNewPost(post.regDate) },
         ]">
         <span class="post__check only-input" v-if="isLogin && 'main' === type">
           <ui-checkbox :name="'checkPost'"
@@ -14,7 +14,8 @@
                        :label="'포스트 삭제'"
                        :labelHidden="true"
                        :value="post.id"
-                       v-model="chkList[i]">
+                       v-model="chkList"
+                       @click="onClick($event)">
           </ui-checkbox>
         </span>
   
@@ -90,13 +91,29 @@ export default {
   components: {
     UiCheckbox,
   },
+  data() {
+    return {
+      nowDate: this.$moment().format('YYYYMMDD'),
+    }
+  },
   computed: {
     chkList: {
       get() {
-        // if (!this.checkAll) return [];
+        if (!this.checkAll) return [];
         return this.checkList;
       },
       set(v) {}
+    },
+  },
+  methods: {
+    isNewPost(regDate) {
+      return this.nowDate === this.$moment(regDate).format('YYYYMMDD');
+    },
+    onClick(e) {
+      if (!e.target.checked) {
+        // 2022.12.11. 포스트 체크박스 1개를 체크 해제하면 모든 포스트가 체크 해제되서 주석 처리함. 추후 리팩토링
+        // this.$store.dispatch('Post/FETCH_CHECKALL', false);
+      }
     },
   },
 }

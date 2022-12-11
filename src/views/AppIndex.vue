@@ -8,7 +8,8 @@
       :page="page"
       :postList="pagingPostList"
       :categoryList="categoryList"
-      @listPost="listPostByCategory">
+      @listPost="listPostByCategory"
+      @removePost="refreshPostList">
     
       <ui-pagination :value="postList"
                      :key="postList"
@@ -77,6 +78,9 @@ export default {
     onPage(values) {
       this.page = values.page;
       this.pagingPostList = [...values.pageData];
+
+      this.$store.dispatch('Post/FETCH_CHECKLIST', []);
+      this.$store.dispatch('Post/FETCH_CHECKALL', false);
     },
     async init() {
       if (!this.hasStorePostList) {
@@ -84,25 +88,32 @@ export default {
         this.dataLoading();
         return;
       }
+      
       this.dataLoaded = true;
       this.postList = [...this.storePostList];
       this.listCnt = this.storePostListCnt;
     },
     // 포스트 목록 조회
-    listPost() {
-      return this.$http.get('/post')
-        .then(res => {
-          res.data[0].map(d => {
-            this.postList.push(d);
-          });
-          
-          this.listCnt = res.data[1];
+    async listPost() {
+      const post = await this.$http.get('/post');
 
-          this.$store.dispatch('Post/FETCH_MAIN_POSTLIST', {
-            postList: this.postList,
-            listCnt: this.listCnt,
-          });
-        });
+      post.data[0].map(d => {
+        this.postList.push(d);
+      });
+      
+      this.listCnt = post.data[1];
+
+      this.$store.dispatch('Post/FETCH_MAIN_POSTLIST', {
+        postList: this.postList,
+        listCnt: this.listCnt,
+      });
+
+      return post;
+    },
+    // 포스트 리스트 갱신
+    async refreshPostList() {
+      const post = await this.listPost();
+      this.listPostByCategory(post.data);
     },
     // 카테고리 필터링
     listPostByCategory(values) {
