@@ -81,7 +81,7 @@ import UiTextField from '@/components/shared/form/UiTextField.vue';
 import UiTextarea from '@/components/shared/form/UiTextarea.vue';
 import UiRadio from '@/components/shared/form/UiRadio.vue';
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
-import messageUtil from '@/utils/ui/MessageUtil';
+import messageUtil from '@/utils/ui/messageUtil';
 import { isBlank, isEmpty } from '@/utils/util';
 
 export default {

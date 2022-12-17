@@ -156,7 +156,7 @@
 </template>
 
 <script>
-import breadcrumbService from '@/services/breadcrumb/BreadcrumbService';
+import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-blog-config',

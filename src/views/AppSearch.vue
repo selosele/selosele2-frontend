@@ -100,8 +100,8 @@ import UiTextField from '@/components/shared/form/UiTextField.vue';
 import UiSelect from '@/components/shared/form/UiSelect.vue';
 import UiCheckbox from '@/components/shared/form/UiCheckbox.vue';
 import AppPostListDetail from '@/components/views/post/AppPostListDetail.vue';
-import messageUtil from '@/utils/ui/MessageUtil';
-import breadcrumbService from '@/services/breadcrumb/BreadcrumbService';
+import messageUtil from '@/utils/ui/messageUtil';
+import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 import { isBlank, isNotEmpty } from '@/utils/util';
 
 export default {

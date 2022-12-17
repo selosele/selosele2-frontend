@@ -40,8 +40,8 @@
 <script>
 import UiForm from '@/components/shared/form/UiForm.vue';
 import UiTextField from '@/components/shared/form/UiTextField.vue';
-import messageUtil from '@/utils/ui/MessageUtil';
-import breadcrumbService from '@/services/breadcrumb/BreadcrumbService';
+import messageUtil from '@/utils/ui/messageUtil';
+import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-login',

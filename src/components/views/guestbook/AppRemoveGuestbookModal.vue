@@ -28,7 +28,7 @@
 import UiForm from '@/components/shared/form/UiForm.vue';
 import UiTextField from '@/components/shared/form/UiTextField.vue';
 import UiHiddenField from '@/components/shared/form/UiHiddenField.vue';
-import messageUtil from '@/utils/ui/MessageUtil';
+import messageUtil from '@/utils/ui/messageUtil';
 
 export default {
   name: 'app-remove-guestbook-modal',

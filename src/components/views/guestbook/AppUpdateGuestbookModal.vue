@@ -47,7 +47,7 @@
 import UiForm from '@/components/shared/form/UiForm.vue';
 import UiTextField from '@/components/shared/form/UiTextField.vue';
 import UiTextarea from '@/components/shared/form/UiTextarea.vue';
-import messageUtil from '@/utils/ui/MessageUtil';
+import messageUtil from '@/utils/ui/messageUtil';
 
 export default {
   name: 'app-update-guestbook-modal',

@@ -66,7 +66,7 @@ import UiSelect from '@/components/shared/form/UiSelect.vue';
 import UiCheckbox from '@/components/shared/form/UiCheckbox.vue';
 import AppPostListDetail from '@/components/views/post/AppPostListDetail.vue';
 import { isNotEmpty } from '@/utils/util';
-import messageUtil from '@/utils/ui/MessageUtil';
+import messageUtil from '@/utils/ui/messageUtil';
 
 export default {
   name: 'app-post-list',

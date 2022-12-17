@@ -63,7 +63,7 @@
 
 <script>
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
-import messageUtil from '@/utils/ui/MessageUtil';
+import messageUtil from '@/utils/ui/messageUtil';
 
 export default {
   name: 'app-header',

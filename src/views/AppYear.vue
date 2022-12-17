@@ -50,8 +50,8 @@
 
 <script>
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
-import messageUtil from '@/utils/ui/MessageUtil';
-import breadcrumbService from '@/services/breadcrumb/BreadcrumbService';
+import messageUtil from '@/utils/ui/messageUtil';
+import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-year',

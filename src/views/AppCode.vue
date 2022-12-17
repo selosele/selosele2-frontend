@@ -51,8 +51,8 @@ import UiGrid from '@/components/shared/grid/UiGrid.vue';
 import UiSplitPane from '@/components/shared/splitter/UiSplitPane.vue';
 import UiPane from '@/components/shared/splitter/UiPane.vue';
 import AppSaveCode from '@/components/views/code/AppSaveCode.vue';
-import messageUtil from '@/utils/ui/MessageUtil';
-import breadcrumbService from '@/services/breadcrumb/BreadcrumbService';
+import messageUtil from '@/utils/ui/messageUtil';
+import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-code',

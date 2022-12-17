@@ -178,9 +178,9 @@ import UiForm from '@/components/shared/form/UiForm.vue';
 import UiHiddenField from '@/components/shared/form/UiHiddenField.vue';
 import Markdown from 'vue3-markdown-it';
 import MarkdownItFootnote from 'markdown-it-footnote';
-import messageUtil from '@/utils/ui/MessageUtil';
+import messageUtil from '@/utils/ui/messageUtil';
 import { isNotBlank, isNotEmpty } from '@/utils/util';
-import breadcrumbService from '@/services/breadcrumb/BreadcrumbService';
+import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 
 /**
  * hightlight 테마

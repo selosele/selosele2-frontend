@@ -6,7 +6,7 @@ import axios from 'axios';
 import { initDefineRule } from './validation';
 import { commonComputed } from '@/store/helper';
 import moment from 'moment';
-import messageUtil from '@/utils/ui/MessageUtil';
+import messageUtil from '@/utils/ui/messageUtil';
 import AppContentWrapper from '@/components/layout/AppContentWrapper.vue';
 import UiModal from '@/components/shared/modal/UiModal.vue';
 import UiButton from '@/components/shared/button/UiButton.vue';
