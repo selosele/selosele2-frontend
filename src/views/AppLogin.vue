@@ -63,7 +63,7 @@ export default {
   computed: {
     // 비밀번호 유효성 검증 rules
     userPwRules() {
-      if ('production' === process.env.NODE_ENV) {
+      if (this.isProduction) {
         return 'required|min:8|max:15';
       }
       return 'required';
