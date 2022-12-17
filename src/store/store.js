@@ -24,7 +24,7 @@ export default createStore({
     },
     // 로컬 환경이 아닐 경우
     isProduction() {
-      return !this.isDevelopment;
+      return 'localhost' !== location.hostname && '127.0.0.1' !== location.hostname;
     },
     // 로그인 여부
     isLogin(state) {
