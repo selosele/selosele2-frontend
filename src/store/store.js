@@ -18,13 +18,13 @@ export default createStore({
     Splitter,       // Splitter
   },
   getters: {
-    // 개발 모드 구분
+    // 로컬 환경일 경우
     isDevelopment() {
-      return 'development' === process.env.NODE_ENV;
+      return 'localhost' === location.hostname || '127.0.0.1' === location.hostname;
     },
-    // 운영 모드 구분
+    // 로컬 환경이 아닐 경우
     isProduction() {
-      return 'production' === process.env.NODE_ENV;
+      return !this.isDevelopment;
     },
     // 로그인 여부
     isLogin(state) {
