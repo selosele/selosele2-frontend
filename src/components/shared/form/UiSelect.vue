@@ -35,15 +35,24 @@ export default {
     ErrorMessage,
   },
   props: {
-    id: String,                           // select id
-    name: String,                         // select name
-    title: String,                        // select title
-    rules: String,                        // select validation rules
-    defaultValue: [String, Number],       // select default value
-    selectedValue: [String, Number],      // select selected value
-    data: Array,                          // select data
-    defaultValueDisabled: Boolean,        // select default value 비활성화 여부 (비활성화 false - 기본값, 활성화 true)
-    modelValue: String,                   // select modelValue
+    /** select id */
+    id: String,
+    /** select name */
+    name: String,
+    /** select title */
+    title: String,
+    /** select validation rules */
+    rules: String,
+    /** select default value */
+    defaultValue: [String, Number],
+    /** select selected value */
+    selectedValue: [String, Number],
+    /** select data */
+    data: Array,
+    /** select default value 비활성화 여부 (비활성화 false - 기본값, 활성화 true) */
+    defaultValueDisabled: Boolean,
+    /** select modelValue */
+    modelValue: String,
   },
   computed: {
     mv: {

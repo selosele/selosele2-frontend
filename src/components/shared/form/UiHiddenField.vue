@@ -19,10 +19,14 @@ export default {
     ErrorMessage,
   },
   props: {
-    type: String,               // input type
-    id: String,                 // input id
-    name: String,               // input name
-    modelValue: String,         // input modelValue
+    /** input type */
+    type: String,
+    /** input id */
+    id: String,
+    /** input name */
+    name: String,
+    /** input modelValue */
+    modelValue: String,
   },
 }
 </script>

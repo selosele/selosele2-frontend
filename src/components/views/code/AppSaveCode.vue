@@ -75,28 +75,14 @@
 </template>
 
 <script>
-import UiSplitForm from '@/components/shared/form/UiSplitForm.vue';
-import UiHiddenField from '@/components/shared/form/UiHiddenField.vue';
-import UiTextField from '@/components/shared/form/UiTextField.vue';
-import UiTextarea from '@/components/shared/form/UiTextarea.vue';
-import UiRadio from '@/components/shared/form/UiRadio.vue';
-import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import messageUtil from '@/utils/ui/messageUtil';
 import { isBlank, isEmpty } from '@/utils/util';
 
 export default {
   name: 'app-save-code',
   props: {
-    // 코드 정보
+    /** 코드 정보 */
     code: Object,
-  },
-  components: {
-    UiSplitForm,
-    UiHiddenField,
-    UiTextField,
-    UiTextarea,
-    UiSkeletor,
-    UiRadio,
   },
   data() {
     return {
@@ -129,6 +115,7 @@ export default {
     },
   },
   methods: {
+    /** 공통코드 저장 */
     async onSubmit(values) {
       const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;

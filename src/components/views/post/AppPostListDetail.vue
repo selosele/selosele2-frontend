@@ -69,8 +69,6 @@
 </template>
 
 <script>
-import UiCheckbox from '@/components/shared/form/UiCheckbox.vue';
-
 export default {
   name: 'app-post-list-detail',
   props: {
@@ -87,9 +85,6 @@ export default {
       type: Boolean,
       default: false,
     },
-  },
-  components: {
-    UiCheckbox,
   },
   data() {
     return {

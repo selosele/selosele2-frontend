@@ -173,9 +173,6 @@
 </template>
 
 <script>
-import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
-import UiForm from '@/components/shared/form/UiForm.vue';
-import UiHiddenField from '@/components/shared/form/UiHiddenField.vue';
 import Markdown from 'vue3-markdown-it';
 import MarkdownItFootnote from 'markdown-it-footnote';
 import messageUtil from '@/utils/ui/messageUtil';
@@ -192,9 +189,6 @@ import 'highlight.js/styles/stackoverflow-dark.css';
 export default {
   name: 'app-post-view',
   components: {
-    UiSkeletor,
-    UiForm,
-    UiHiddenField,
     Markdown,
   },
   data() {
@@ -223,6 +217,7 @@ export default {
     }
   },
   methods: {
+    /** 초기 세팅 */
     async init(id) {
       this.dataLoaded = false;
       this.post = null;
@@ -243,7 +238,7 @@ export default {
       this.snsCodeList = this.$store.state.Code.data
         .filter(d => 'C01' === d.prefix);
     },
-    // 포스트 조회
+    /** 포스트 조회 */
     getPost(id) {
       return this.$http.get(`/post/${id}`)
         .then(res => {
@@ -259,7 +254,7 @@ export default {
           breadcrumbService.setPageTitle(this.pageTitle);
         });
     },
-    // 이전/다음 포스트 조회
+    /** 이전/다음 포스트 조회 */
     listPrevAndNextPost(id) {
       return this.$http.get(`/post/prevnext/${id}`)
         .then(res => {
@@ -268,7 +263,7 @@ export default {
           this.nextPost = next || null;
         });
     },
-    // 포스트 추천 정보 조회
+    /** 포스트 추천 정보 조회 */
     getPostLike(id) {
       return this.$http.get(`/post/like/${id}`)
         .then(res => {
@@ -279,7 +274,7 @@ export default {
           }
         });
     },
-    // 포스트 추천/추천 해제
+    /** 포스트 추천/추천 해제 */
     savePostLike(id) {
       return this.$http.post(`/post/like/${id}`)
         .then(res => {
@@ -288,7 +283,7 @@ export default {
           this.postLikeCnt += res.data;
         });
     },
-    // 포스트 삭제
+    /** 포스트 삭제 */
     async onSubmit(values) {
       const confirm = await messageUtil.confirmSuccess('포스트를 삭제하시겠습니까?');
       if (!confirm) return;
@@ -299,7 +294,7 @@ export default {
           this.goToList();
         });
     },
-    // 목록으로 돌아가기
+    /** 목록으로 돌아가기 */
     goToList() {
       this.$router.push({
         path: '/',
@@ -308,12 +303,12 @@ export default {
         },
       });
     },
-    // 포스트 URL 복사
+    /** 포스트 URL 복사 */
     copyPostUrl() {
       navigator.clipboard.writeText(this.postUrl);
       messageUtil.toastSuccess('URL이 복사되었습니다.');
     },
-    // 데이타 로딩
+    /** 데이타 로딩 */
     dataLoading() {
       if (isNotEmpty(this.post)) {
         this.dataLoaded = true;

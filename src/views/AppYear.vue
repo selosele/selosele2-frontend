@@ -49,15 +49,11 @@
 </template>
 
 <script>
-import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import messageUtil from '@/utils/ui/messageUtil';
 import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-year',
-  components: {
-    UiSkeletor,
-  },
   data() {
     return {
       pageTitle: '연도별 모아보기',
@@ -80,6 +76,7 @@ export default {
     this.init();
   },
   methods: {
+    /** 초기 세팅 */
     async init() {
       this.page = 1;
       this.dataLoaded = false;
@@ -88,6 +85,7 @@ export default {
       await this.listYearAndCount();
       this.dataLoading();
     },
+    /** 포스트의 연도 및 개수 조회 */
     listYearAndCount() {
       return this.$http.get('/post/year')
         .then(res => {
@@ -97,6 +95,7 @@ export default {
           this.listLoaded = true;
         });
     },
+    /** 목록 toggle */
     toggleList(year, idx) {
       this.page = 1;
       this.listCnt = 0;
@@ -113,6 +112,7 @@ export default {
 
       this.listPostByYear(year, idx);
     },
+    /** 연도별 포스트 목록 조회 */
     listPostByYear(year, idx) {
       let paginationDto = {
         page: this.page,
@@ -139,11 +139,12 @@ export default {
           }
         });
     },
+    /** 더보기 */
     more(year, idx) {
       this.page++;
       this.listPostByYear(year, idx);
     },
-    // 데이타 로딩
+    /** 데이타 로딩 */
     dataLoading() {
       if (0 < this.yearList.length) {
         this.dataLoaded = true;

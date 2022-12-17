@@ -1,6 +1,4 @@
-/**
- * 블로그 환경설정 Store
- */
+/** 블로그 환경설정 Store */
 export const BlogConfig = {
   namespaced: true,
   state: () => ({

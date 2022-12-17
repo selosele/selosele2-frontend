@@ -46,13 +46,8 @@
 </template>
 
 <script>
-import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
-
 export default {
   name: 'app-sidebar',
-  components: {
-    UiSkeletor,
-  },
   data() {
     return {
       sidebar: {},
@@ -91,7 +86,7 @@ export default {
     },
   },
   methods: {
-    // 위젯 목록 조회
+    /** 위젯 목록 조회 */
     listWidget() {
       let listWidgetDto = {
         useYn: 'Y',
@@ -105,7 +100,7 @@ export default {
           this.sidebar.widget = this.widgetList;
         });
     },
-    // 카테고리 목록 및 개수 조회
+    /** 카테고리 목록 및 개수 조회 */
     listCategoryAndCount() {
       return this.$http.get('/category')
         .then(res => {
@@ -115,7 +110,7 @@ export default {
           this.sidebar.category = this.categoryList;
         });
     },
-    // 태그 목록 및 개수 조회
+    /** 태그 목록 및 개수 조회 */
     listTagAndCount() {
       return this.$http.get('/tag')
         .then(res => {
@@ -125,7 +120,7 @@ export default {
           this.sidebar.tag = this.tagList;
         });
     },
-    // font-size 구하기
+    /** font-size 구하기 */
     getFontSize(cnt) {
       // 최소값
       if (4 >= cnt) return 80;
@@ -134,7 +129,7 @@ export default {
       // 계산된 값
       return 25 * cnt;
     },
-    // 데이타 로딩
+    /** 데이타 로딩 */
     dataLoading() {
       if (0 < this.widgetList.length 
         && 0 < this.categoryList.length 

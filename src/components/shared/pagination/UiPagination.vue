@@ -57,21 +57,21 @@
 export default {
   name: 'ui-pagination',
   props: {
-    // Pagination 데이타
+    /** Pagination 데이타 */
     value: Array,
-    // 한 페이지당 표출할 row 개수
+    /** 한 페이지당 표출할 row 개수 */
     total: Number,
-    // 시작 페이지 번호
+    /** 시작 페이지 번호 */
     first: {
       type: Number,
       default: 1,
     },
-    // Pagination 데이타 총 개수
+    /** Pagination 데이타 총 개수 */
     rows: {
       type: Number,
       default: 10,
     },
-    // Pagination 개수
+    /** Pagination 개수 */
     size: {
       type: Number,
       default: 5,
@@ -79,7 +79,7 @@ export default {
   },
   data() {
     return {
-      // Pagination 현재 번호
+      /** Pagination 현재 번호 */
       pageNum: this.first,
     }
   },
@@ -87,7 +87,7 @@ export default {
     this.onPage(this.page);
   },
   computed: {
-    // Pagination 현재 번호
+    /** Pagination 현재 번호 */
     page: {
       get() {
         return this.pageNum;
@@ -96,7 +96,7 @@ export default {
         this.pageNum = i;
       }
     },
-    // Pagination 출력
+    /** Pagination 출력 */
     pages() {
       let list = [];
       for (let i = this.paginationStart; i <= this.paginationEnd; i++) {
@@ -104,31 +104,31 @@ export default {
       }
       return list;
     },
-    // Pagination 건너뛸 목록 수
+    /** Pagination 건너뛸 목록 수 */
     paginationSkip() {
       return (this.page - 1) * this.rows;
     },
-    // 한 페이지당 표출할 row 개수
+    /** 한 페이지당 표출할 row 개수 */
     paginationRows() {
       return Math.ceil(this.paginationSkip / this.rows) * this.rows + this.rows;
     },
-    // Pagination 시작 번호
+    /** Pagination 시작 번호 */
     paginationStart() {
       const startPage = (parseInt(this.page / this.size - 1) * this.size) + 1;
       return this.page >= this.size ? this.size-1 : startPage;
     },
-    // Pagination 끝 번호
+    /** Pagination 끝 번호 */
     paginationEnd() {
       const lastPage = parseInt(this.page / this.size) * this.size + this.size;
       return lastPage <= this.paginationTotal ? lastPage : this.paginationTotal;
     },
-    // Pagination 전체 개수
+    /** Pagination 전체 개수 */
     paginationTotal() {
       return Math.ceil(this.total / this.rows);
     },
   },
   methods: {
-    // Pagination 동작
+    /** Pagination 동작 */
     onPage(i) {
       if (0 === this.value.length) {
         this.$emit('onPage', {

@@ -1,8 +1,6 @@
 import { isNotBlank } from "@/utils/util";
 
-/**
- * 인증·인가 Store
- */
+/** 인증·인가 Store */
 export const Auth = {
   namespaced: true,
   state: () => ({

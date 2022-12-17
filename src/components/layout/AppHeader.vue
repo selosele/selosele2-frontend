@@ -62,16 +62,12 @@
 </template>
 
 <script>
-import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import messageUtil from '@/utils/ui/messageUtil';
 
 export default {
   name: 'app-header',
   props: {
     resStatus: String,
-  },
-  components: {
-    UiSkeletor,
   },
   data() {
     return {
@@ -103,6 +99,7 @@ export default {
     },
   },
   methods: {
+    /** 로그아웃 */
     async logout() {
       const confirm = await messageUtil.confirmQuestion('로그아웃하시겠습니까?');
       if (!confirm) return;
@@ -112,6 +109,7 @@ export default {
         this.$router.push('/a/goto');
       }
     },
+    /** background position 가져오기 */
     backgroundPosition(xy) {
       if ('x' === xy) {
         return `${this.$store.state.BlogConfig.data.ogImgPosX}%`;
@@ -120,7 +118,7 @@ export default {
         return `${this.$store.state.BlogConfig.data.ogImgPosY}%`;
       }
     },
-    // 데이타 로딩
+    /** 데이타 로딩 */
     dataLoading(resStatus) {
       return Promise.resolve(
         setTimeout(() => {

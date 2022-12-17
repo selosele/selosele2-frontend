@@ -38,17 +38,11 @@
 </template>
 
 <script>
-import UiForm from '@/components/shared/form/UiForm.vue';
-import UiTextField from '@/components/shared/form/UiTextField.vue';
 import messageUtil from '@/utils/ui/messageUtil';
 import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-login',
-  components: {
-    UiForm,
-    UiTextField,
-  },
   data() {
     return {
       pageTitle: '로그인',
@@ -61,7 +55,7 @@ export default {
     breadcrumbService.setPageTitle(this.pageTitle);
   },
   computed: {
-    // 비밀번호 유효성 검증 rules
+    /** 비밀번호 유효성 검증 rules */
     userPwRules() {
       if (this.isProduction) {
         return 'required|min:8|max:15';
@@ -70,6 +64,7 @@ export default {
     },
   },
   methods: {
+    /** 로그인 */
     async onSubmit(values) {
       let res = await this.$http.post('/auth/signin', values);
       const token = res.data.accessToken;
@@ -83,6 +78,7 @@ export default {
         }
       }
     },
+    /** 사용자 생성 */
     async addUser() {
       const addUserDto = {
         userId: this.userId,
@@ -91,14 +87,10 @@ export default {
       };
 
       const runValidate = await this.$refs['loginForm'].validateAll();
-      if (!runValidate.valid) {
-        return;
-      }
+      if (!runValidate.valid) return;
 
       const confirm = await messageUtil.confirmSuccess('사용자를 생성하시겠습니까?');
-      if (!confirm) {
-        return;
-      }
+      if (!confirm) return;
 
       this.$http.post('/auth/user', addUserDto)
         .then(res => {

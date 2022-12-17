@@ -33,18 +33,27 @@ export default {
     ErrorMessage,
   },
   props: {
-    type: String,               // input type
-    id: String,                 // input id
-    name: String,               // input name
-    title: String,              // input title
-    placeholder: String,        // input placeholder
-    readonly: Boolean,          // input readonly
-    rules: String,              // input validation rules
-    value: {                    // input value
+    /** input type */
+    type: String,
+    /** input id */
+    id: String,
+    /** input name */
+    name: String,
+    /** input title */
+    title: String,
+    /** input placeholder */
+    placeholder: String,
+    /** input readonly */
+    readonly: Boolean,
+    /** input validation rules */
+    rules: String,
+    /** input value */
+    value: {
       type: [String, Number],
       default: undefined,
-    },        
-    modelValue: {               // input modelValue
+    },
+    /** input modelValue */
+    modelValue: {
       default: '',
     },
   },

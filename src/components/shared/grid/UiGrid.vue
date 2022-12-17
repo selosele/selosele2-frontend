@@ -27,54 +27,54 @@ export default {
     AgGridVue,
   },
   props: {
-    // Grid Width값
+    /** Grid Width값 */
     width: {
       type: String,
       default: '100%',
     },
-    // Grid Height값
+    /** Grid Height값 */
     height: {
       type: String,
       default: '500px',
     },
-    // 기본 Column 설정
+    /** 기본 Column 설정 */
     defaultColDef: {
       type: Object,
       default: () => ({}),
     },
-    // Column 설정
+    /** Column 설정 */
     columnDefs: {
       type: Array,
     },
-    // 로딩 템플릿
+    /** 로딩 템플릿 */
     overlayLoadingTemplate: {
       type: String,
       default: `<span class="ag-overlay-loading-center">Loading...</span>`,
     },
-    // row 없을 때 템플릿
+    /** row 없을 때 템플릿 */
     overlayNoRowsTemplate: {
       type: String,
       default: `<span>조회 결과가 없습니다.</span>`,
     },
-    // rowData
+    /** rowData */
     rowData: {
       type: Array,
     },
-    // rowNum 표출 Index
+    /** rowNum 표출 Index */
     rowNumIndex: Number,
-    // 체크박스 표출 Index
+    /** 체크박스 표출 Index */
     checkboxIndex: Number,
-    // rowSelection 모드 (multiple: 여러개 선택)
+    /** rowSelection 모드 (multiple: 여러개 선택) */
     rowSelection: {
       type: String,
       default: 'multiple',
     },
-    // Pagination 활성화 여부
+    /** Pagination 활성화 여부 */
     pagination: {
       type: Boolean,
       default: false,
     },
-    // 한 페이지당 row 표출 개수
+    /** 한 페이지당 row 표출 개수 */
     paginationPageSize: {
       type: Number,
       default: 20,
@@ -118,6 +118,7 @@ export default {
       });
   },
   methods: {
+    /** grid ready 이벤트 */
     onGridReady(params) {
       this.gridApi = params.api;
       this.gridApi.sizeColumnsToFit();
@@ -130,34 +131,34 @@ export default {
 
       this.$emit('onGridReady', newGridApi);
     },
-    // row를 클릭했을 때
+    /** row를 클릭했을 때 */
     cellClicked(params) {
       this.$emit('cellClicked', params);
     },
-    // row를 더블클릭했을 때
+    /** row를 더블클릭했을 때 */
     cellDoubleClicked(params) {
       this.$emit('cellDoubleClicked', params);
     },
-    // 선택된 rows 제거
+    /** 선택된 rows 제거 */
     removeSelectedRows() {
       const rows = this.gridApi.getSelectedRows();
       return this.gridApi.updateRowData({ remove: rows });
     },
-    // row datas 가져오기
+    /** row datas 가져오기 */
     getRowDatas() {
       return this.rowData;
     },
-    // row nodes 가져오기
+    /** row nodes 가져오기 */
     getRowNodes() {
       let rowData = [];
       this.gridApi.forEachNode(node => rowData.push(node.data));
       return rowData;
     },
-    // rowData 속성이 변경되었을 때
+    /** rowData 속성이 변경되었을 때 */
     rowDataUpdated() {
       this.setColumnDefs();
     },
-    // columnDefs 세팅
+    /** columnDefs 세팅 */
     setColumnDefs() {
       this.columnDefs.map((c,i) => {
         if (null !== this.rowNumIndex && i === this.rowNumIndex) {

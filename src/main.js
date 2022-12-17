@@ -1,20 +1,19 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './routes/router';
-import store from './store/store';
+import router from '@/routes/router';
+import store from '@/store/store';
 import axios from 'axios';
-import { initDefineRule } from './validation';
+import { initDefineRule } from '@/utils/validation/validation';
 import { commonComputed } from '@/store/helper';
 import moment from 'moment';
 import messageUtil from '@/utils/ui/messageUtil';
-import AppContentWrapper from '@/components/layout/AppContentWrapper.vue';
-import UiModal from '@/components/shared/modal/UiModal.vue';
-import UiButton from '@/components/shared/button/UiButton.vue';
+import { uiModule } from '@/plugins/module/ui/ui';
+import { formModule } from '@/plugins/module/form/form';
 import { $vfm } from 'vue-final-modal';
 import { vfmPlugin } from 'vue-final-modal';
 
 import '@/assets/scss/style.scss';
-import { isNotBlank } from './utils/util';
+import { isNotBlank } from '@/utils/util';
 
 initDefineRule();
 
@@ -86,7 +85,6 @@ app.config.warnHandler = (msg, vm, trace) => {
 app.use(store)
    .use(router)
    .use(vfmPlugin)
-   .component('app-content-wrapper', AppContentWrapper)
-   .component('ui-modal', UiModal)
-   .component('ui-button', UiButton)
+   .use(uiModule)
+   .use(formModule)
    .mount('#app');

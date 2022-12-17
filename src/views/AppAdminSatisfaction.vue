@@ -40,18 +40,10 @@
 </template>
 
 <script>
-import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
-import UiGrid from '@/components/shared/grid/UiGrid.vue';
-import UiDatepicker from '@/components/shared/form/UiDatepicker.vue';
 import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-admin-satisfaction',
-  components: {
-    UiSkeletor,
-    UiGrid,
-    UiDatepicker,
-  },
   data() {
     return {
       pageTitle: '만족도조사 관리',
@@ -84,7 +76,7 @@ export default {
     cellDoubleClicked(params) {
       this.$router.push(params.data['pagePath']);
     },
-    // 만족도조사 목록 조회
+    /** 만족도조사 목록 조회 */
     listSatisfaction(searchSatisfactiontDto) {
       return this.$http.get('/satisfaction', { params: searchSatisfactiontDto })
         .then(res => {
@@ -100,11 +92,11 @@ export default {
           });
         });
     },
-    // Datepicker clear 버튼을 눌렀을 때
+    /** Datepicker clear 버튼을 눌렀을 때 */
     onClear() {
       this.listByAllDate();
     },
-    // 날짜별 조회
+    /** 날짜별 조회 */
     async listByRegDate() {
       await this.listSatisfaction({
         isToday: 'N',
@@ -112,21 +104,21 @@ export default {
       });
       this.gridApi.setRowData(this.rowData);
     },
-    // 오늘 날짜 조회
+    /** 오늘 날짜 조회 */
     async listByNowDate() {
       await this.listSatisfaction({
         isToday: 'Y',
       });
       this.gridApi.setRowData(this.rowData);
     },
-    // 전체 날짜 조회
+    /** 전체 날짜 조회 */
     async listByAllDate() {
       await this.listSatisfaction({
         isToday: 'N',
       });
       this.gridApi.setRowData(this.rowData);
     },
-    // 데이타 로딩
+    /** 데이타 로딩 */
     dataLoading() {
       if (0 < this.rowData.length) {
         this.dataLoaded = true;

@@ -15,7 +15,7 @@
 export default {
   name: 'app-content-wrapper',
   props: {
-    // 페이지 타이틀
+    /** 페이지 타이틀 */
     pageTitle: String,
   },
 }

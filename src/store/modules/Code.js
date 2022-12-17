@@ -1,6 +1,4 @@
-/**
- * 공통코드 Store
- */
+/** 공통코드 Store */
 export const Code = {
   namespaced: true,
   state: () => ({

@@ -23,16 +23,11 @@
 </template>
 
 <script>
-import UiForm from '@/components/shared/form/UiForm.vue';
-
 export default {
   name: 'ui-split-form',
   props: {
     name: String,         // form name
     autocomplete: String  // form autocomplete
-  },
-  components: {
-    UiForm,
   },
   methods: {
     onClose() {

@@ -44,18 +44,10 @@
 </template>
 
 <script>
-import UiForm from '@/components/shared/form/UiForm.vue';
-import UiTextField from '@/components/shared/form/UiTextField.vue';
-import UiRadio from '@/components/shared/form/UiRadio.vue';
 import messageUtil from '@/utils/ui/messageUtil';
 
 export default {
   name: 'app-user-satisfaction',
-  components: {
-    UiForm,
-    UiTextField,
-    UiRadio,
-  },
   data() {
     return {
       satisArr: [],
@@ -77,6 +69,7 @@ export default {
     this.defaultScore = this.satisArr[2].value;
   },
   methods: {
+    /** 만족도조사 제출 */
     async onSubmit(values) {
       values.pagePath = decodeURIComponent(this.$route.path);
       

@@ -18,19 +18,19 @@ export default createStore({
     Splitter,       // Splitter
   },
   getters: {
-    // 로컬 환경일 경우
+    /** 로컬 환경일 경우 */
     isDevelopment() {
       return 'localhost' === location.hostname || '127.0.0.1' === location.hostname;
     },
-    // 로컬 환경이 아닐 경우
+    /** 로컬 환경이 아닐 경우 */
     isProduction() {
       return 'localhost' !== location.hostname && '127.0.0.1' !== location.hostname;
     },
-    // 로그인 여부
+    /** 로그인 여부 */
     isLogin(state) {
       return state.Auth.token !== null;
     },
-    // Splitter 활성화 여부
+    /** Splitter 활성화 여부 */
     isSplitterActive(state) {
       return state.Splitter.isActive;
     }

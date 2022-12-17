@@ -25,9 +25,9 @@ export default {
   inheritAttrs: false,
   name: 'ui-modal',
   props: {
-    // Modal title
+    /** Modal title */
     title: String,
-    // Modal name
+    /** Modal name */
     name: String,
   },
   components: {

@@ -25,16 +25,23 @@ export default {
     ErrorMessage,
   },
   props: {
-    id: String,                     // radio id
-    name: String,                   // radio name
-    title: String,                  // radio title
-    label: String,                  // radio label
-    rules: String,                  // radio validation rules
-    value: {                        // radio value
+    /** radio id */
+    id: String,
+    /** radio name */
+    name: String,
+    /** radio title */
+    title: String,
+    /** radio label */
+    label: String,
+    /** radio validation rules */
+    rules: String,
+    /** radio value */
+    value: {
       type: [String, Number],
       default: undefined,
-    },        
-    modelValue: {                   // radio modelValue
+    },
+    /** radio modelValue */
+    modelValue: {
       default: '',
     }
   },

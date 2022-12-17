@@ -16,23 +16,29 @@
 export default {
   name: 'ui-skeletor',
   props: {
+    /** margin-top */
     marginTop: String,
+    /** width */
     width: {
       default: '',
       type: String,
     },
+    /** min-width */
     minWidth: {
       default: 80,
       type: Number,
     },
+    /** max-width */
     maxWidth: {
       default: 100,
       type: Number,
     },
+    /** height */
     height: {
       default: '',
       type: String,
     },
+    /** css class */
     cssClass: {
       default: '',
       type: String,

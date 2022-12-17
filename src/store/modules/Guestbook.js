@@ -1,12 +1,10 @@
-/**
- * 방명록 Store
- */
+/** 방명록 Store */
 export const Guestbook = {
   namespaced: true,
   state: () => ({
-    // 수정된 방명록
+    /** 수정된 방명록 */
     updatedGuestbook: {},
-    // 삭제된 방명록
+    /** 삭제된 방명록 */
     removedGuestbook: {},
   }),
   mutations: {

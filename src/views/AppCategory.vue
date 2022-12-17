@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import { isNotEmpty } from '@/utils/util';
 import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 
@@ -43,9 +42,6 @@ export default {
   props: {
     type: String,
     id: String,
-  },
-  components: {
-    UiSkeletor,
   },
   data() {
     return {
@@ -76,7 +72,7 @@ export default {
       await this.listPostByCategory();
       this.dataLoading();
     },
-    // 카테고리별 포스트 목록 조회
+    /** 카테고리별 포스트 목록 조회 */
     listPostByCategory() {
       let paginationDto = {
         page: this.page,
@@ -105,11 +101,12 @@ export default {
           breadcrumbService.setPageTitle(this.pageTitle);
         });
     },
+    /** 더보기 */
     more() {
       this.page++;
       this.listPostByCategory();
     },
-    // 데이타 로딩
+    /** 데이타 로딩 */
     dataLoading() {
       if (0 < this.postList.length) {
         this.dataLoaded = true;

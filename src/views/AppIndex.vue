@@ -26,8 +26,6 @@
 </template>
 
 <script>
-import UiLoading from '@/components/shared/loading/UiLoading.vue';
-import UiPagination from '@/components/shared/pagination/UiPagination.vue';
 import AppPostList from '@/components/views/post/AppPostList.vue';
 import AppWidgetConfig from '@/components/widget/AppWidgetConfig.vue';
 import { isNotEmpty } from '@/utils/util';
@@ -36,8 +34,6 @@ import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 export default {
   name: 'app-index',
   components: {
-    UiLoading,
-    UiPagination,
     AppPostList,
     AppWidgetConfig,
   },
@@ -74,7 +70,7 @@ export default {
     },
   },
   methods: {
-    // Pagination 동작
+    /** Pagination 동작 */
     onPage(values) {
       this.page = values.page;
       this.pagingPostList = [...values.pageData];
@@ -82,6 +78,7 @@ export default {
       this.$store.dispatch('Post/FETCH_CHECKLIST', []);
       this.$store.dispatch('Post/FETCH_CHECKALL', false);
     },
+    /** 초기 세팅 */
     async init() {
       if (!this.hasStorePostList) {
         await this.listPost();
@@ -93,7 +90,7 @@ export default {
       this.postList = [...this.storePostList];
       this.listCnt = this.storePostListCnt;
     },
-    // 포스트 목록 조회
+    /** 포스트 목록 조회 */
     async listPost() {
       const post = await this.$http.get('/post');
 
@@ -110,17 +107,17 @@ export default {
 
       return post;
     },
-    // 포스트 리스트 갱신
+    /** 포스트 목록 갱신 */
     async refreshPostList() {
       const post = await this.listPost();
       this.listPostByCategory(post.data);
     },
-    // 카테고리 필터링
+    /** 카테고리 필터링 */
     listPostByCategory(values) {
       this.postList = [...values[0]];
       this.listCnt = values[1];
     },
-    // 카테고리 목록 및 개수 조회
+    /** 카테고리 목록 및 개수 조회 */
     listCategoryAndCount() {
       this.categoryList.push({
         value: '0',
@@ -137,7 +134,7 @@ export default {
           });
         });
     },
-    // 데이타 로딩
+    /** 데이타 로딩 */
     dataLoading() {
       if (0 < this.postList.length) {
         this.dataLoaded = true;

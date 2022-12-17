@@ -31,14 +31,10 @@
 </template>
 
 <script>
-import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-error',
-  components: {
-    UiSkeletor,
-  },
   data() {
     return {
       pageTitle: '페이지를 찾을 수 없습니다.',
@@ -54,7 +50,7 @@ export default {
     this.dataLoading();
   },
   methods: {
-    // 개수별 포스트 조회
+    /** 개수별 포스트 조회 */
     listPostByLimit(limit) {
       return this.$http.get(`/post/limit/${limit}`)
         .then(res => {
@@ -64,7 +60,7 @@ export default {
           this.dataLoading();
         });
     },
-    // 데이타 로딩
+    /** 데이타 로딩 */
     dataLoading() {
       if (0 < this.postList.length) {
         this.dataLoaded = true;

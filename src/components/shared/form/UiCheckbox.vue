@@ -32,21 +32,31 @@ export default {
     ErrorMessage,
   },
   props: {
-    id: String,                     // checkbox id
-    name: String,                   // checkbox name
-    title: String,                  // checkbox title
-    checked: Boolean,               // checkbox checked
-    label: String,                  // checkbox label
-    labelHidden: Boolean,           // checkbox label hidden
-    rules: String,                  // checkbox validation rules
-    modelValue: {                   // checkbox modelValue
+    /** checkbox id */
+    id: String,
+    /** checkbox name */
+    name: String,
+    /** checkbox title */
+    title: String,
+    /** checkbox checked */
+    checked: Boolean,
+    /** checkbox label */
+    label: String,
+    /** checkbox label hidden */
+    labelHidden: Boolean,
+    /** checkbox validation rules */
+    rules: String,
+    /** checkbox modelValue */
+    modelValue: {
       default: '',
     },
-    value: {                        // checkbox true value
+    /** checkbox true value */
+    value: {
       type: [String, Number],
       default: undefined,
     },
-    values: String,                 // checkbox true value & false value
+    /** checkbox true value & false value */
+    values: String,
   },
   computed: {
     mv: {
@@ -57,9 +67,11 @@ export default {
     }
   },
   methods: {
+    /** change 이벤트 */
     onChange(e) {
       this.$emit('update:modelValue', e.target.value);
     },
+    /** 체크 여부에 따라 value 가져오기 */
     getValue(e) {
       if (e.target.checked) {
         if (isBlank(this.values)) return '';
@@ -67,6 +79,7 @@ export default {
       }
       return this.values.split(',')[1];
     },
+    /** index로 value 가져오기 */
     getValueByIdx(i) {
       if (isBlank(this.values)) return '';
       return this.values.split(',')[i];

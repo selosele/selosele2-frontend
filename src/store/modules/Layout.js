@@ -1,12 +1,10 @@
-/**
- * 레이아웃 Store
- */
+/** 레이아웃 Store */
 export const Layout = {
   namespaced: true,
   state: () => ({
-    // 페이지 타이틀
+    /** 페이지 타이틀 */
     pageTitle: '',
-    // 사이드바
+    /** 사이드바 */
     sidebar: {},
   }),
   mutations: {

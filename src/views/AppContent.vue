@@ -36,17 +36,11 @@
 </template>
 
 <script>
-import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
-import UiGrid from '@/components/shared/grid/UiGrid.vue';
 import messageUtil from '@/utils/ui/messageUtil';
 import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-content',
-  components: {
-    UiSkeletor,
-    UiGrid,
-  },
   data() {
     return {
       pageTitle: '콘텐츠 관리',
@@ -76,7 +70,7 @@ export default {
     cellDoubleClicked(params) {
       this.$router.push('/content' + params.data['link']);
     },
-    // 콘텐츠 목록 조회
+    /** 콘텐츠 목록 조회 */
     listContent() {
       return this.$http.get('/content')
         .then(res => {
@@ -90,7 +84,7 @@ export default {
           });
         });
     },
-    // 콘텐츠 삭제
+    /** 콘텐츠 삭제 */
     async removeContent() {
       const rows = this.gridApi.getSelectedRows();
       if (0 === rows.length) {
@@ -115,7 +109,7 @@ export default {
           messageUtil.toastSuccess('삭제되었습니다.');
         });
     },
-    // 데이타 로딩
+    /** 데이타 로딩 */
     dataLoading() {
       if (0 < this.rowData.length) {
         this.dataLoaded = true;

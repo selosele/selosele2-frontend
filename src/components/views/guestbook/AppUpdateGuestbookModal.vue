@@ -44,23 +44,16 @@
 </template>
 
 <script>
-import UiForm from '@/components/shared/form/UiForm.vue';
-import UiTextField from '@/components/shared/form/UiTextField.vue';
-import UiTextarea from '@/components/shared/form/UiTextarea.vue';
 import messageUtil from '@/utils/ui/messageUtil';
 
 export default {
   name: 'app-update-guestbook-modal',
   props: {
-    // 방명록
+    /** 방명록 */
     guestbook: Object,
   },
-  components: {
-    UiForm,
-    UiTextField,
-    UiTextarea,
-  },
   methods: {
+    /** 방명록 수정 */
     async onSubmit(values) {
       const confirm = await messageUtil.confirmSuccess('방명록을 수정하시겠습니까?');
       if (!confirm) return;

@@ -42,22 +42,11 @@
 </template>
 
 <script>
-import UiForm from '@/components/shared/form/UiForm.vue';
-import UiTextField from '@/components/shared/form/UiTextField.vue';
-import UiTextarea from '@/components/shared/form/UiTextarea.vue';
-import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
-
 export default {
   name: 'app-guestbook-reply',
   props: {
-    // 방명록 index
+    /** 방명록 index */
     idx: Number,
-  },
-  components: {
-    UiForm,
-    UiTextField,
-    UiTextarea,
-    UiSkeletor,
   },
 }
 </script>

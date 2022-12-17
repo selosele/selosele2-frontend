@@ -17,21 +17,24 @@ import { Form } from 'vee-validate';
 export default {
   name: 'ui-form',
   props: {
-    name: String,         // form name
-    autocomplete: String  // form autocomplete
+    /** form name */
+    name: String,
+    /** form autocomplete */
+    autocomplete: String
   },
   components: {
     Form,
   },
   methods: {
+    /** submit 이벤트 */
     onSubmit(values) {
       this.$emit('onSubmit', values);
     },
-    // 모든 Field에 대한 유효성 검증
+    /** 모든 Field에 대한 유효성 검증 */
     validateAll() {
       return this.$refs[this.name].validate();
     },
-    // 1개 Field에 대한 유효성 검증
+    /** 1개 Field에 대한 유효성 검증 */
     validateField(field) {
       return this.$refs[this.name].validateField(field);
     },

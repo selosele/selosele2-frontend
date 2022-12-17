@@ -94,11 +94,6 @@
 </template>
 
 <script>
-import UiLoading from '@/components/shared/loading/UiLoading.vue';
-import UiForm from '@/components/shared/form/UiForm.vue';
-import UiTextField from '@/components/shared/form/UiTextField.vue';
-import UiSelect from '@/components/shared/form/UiSelect.vue';
-import UiCheckbox from '@/components/shared/form/UiCheckbox.vue';
 import AppPostListDetail from '@/components/views/post/AppPostListDetail.vue';
 import messageUtil from '@/utils/ui/messageUtil';
 import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
@@ -107,11 +102,6 @@ import { isBlank, isNotEmpty } from '@/utils/util';
 export default {
   name: 'app-search',
   components: {
-    UiLoading,
-    UiForm,
-    UiTextField,
-    UiSelect,
-    UiCheckbox,
     AppPostListDetail,
   },
   data() {
@@ -174,6 +164,18 @@ export default {
     document.removeEventListener('scroll', this.scroll);
   },
   methods: {
+    /** 초기 세팅 */
+    init() {
+      if (isNotEmpty(localStorage.getItem('searchPage'))) localStorage.removeItem('searchPage');
+      if (isNotEmpty(localStorage.getItem('searchPostList'))) localStorage.removeItem('searchPostList');
+
+      this.page = 1;
+      this.dataLoaded = false;
+
+      this.postList = [];
+      this.isLastPage = false;
+    },
+    /** 포스트 검색 submit */
     async onSubmit(values) {
       if (isBlank(this.t)) {
         messageUtil.toastWarning('검색옵션을 선택하세요.');
@@ -193,17 +195,7 @@ export default {
       await this.listPostSearch(values);
       this.dataLoading();
     },
-    init() {
-      if (isNotEmpty(localStorage.getItem('searchPage'))) localStorage.removeItem('searchPage');
-      if (isNotEmpty(localStorage.getItem('searchPostList'))) localStorage.removeItem('searchPostList');
-
-      this.page = 1;
-      this.dataLoaded = false;
-
-      this.postList = [];
-      this.isLastPage = false;
-    },
-    // 포스트 검색
+    /** 포스트 검색 */
     listPostSearch(params) {
       const storageList = localStorage.getItem('searchPostList');
 
@@ -233,12 +225,12 @@ export default {
           });
         });
     },
-    // 뒤로가기 시 더보기 데이타 유지를 위해 페이지 값과 포스트 목록을 저장
+    /** 뒤로가기 시 더보기 데이타 유지를 위해 페이지 값과 포스트 목록을 저장 */
     saveToStorage() {
       localStorage.setItem('searchPage', (localStorage.getItem('searchPage') ? this.nowPage : this.page+1));
       localStorage.setItem('searchPostList', JSON.stringify(this.postList));
     },
-    // 더보기
+    /** 더보기 */
     more() {
       const storageList = localStorage.getItem('searchPostList');
       // if (storageList) this.postList = [];
@@ -254,7 +246,7 @@ export default {
         pageSize: this.pageSize,
       });
     },
-    // 스크롤 시 검색 input으로 향하는 버튼 toggle
+    /** 스크롤 시 검색 input으로 향하는 버튼 toggle */
     scroll() {
       if (null === this.postList || 0 === this.postList.length) return;
 
@@ -264,13 +256,13 @@ export default {
         this.toInputActive = false;
       }
     },
-    // 검색 필드로 focus
+    /** 검색 필드로 focus */
     toInput() {
       const st = this.$refs['searchField'].offsetTop - 100;
       window.scrollTo(0, st);
       this.$refs['q'].focus();
     },
-    // 데이타 로딩
+    /** 데이타 로딩 */
     dataLoading() {
       if (0 < this.postList.length) {
         this.dataLoaded = true;

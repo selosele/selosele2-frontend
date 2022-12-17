@@ -1,14 +1,12 @@
-/**
- * 포스트 Store
- */
+/** 포스트 Store */
 export const Post = {
   namespaced: true,
   state: () => ({
-    // 메인 포스트 목록
+    /** 메인 포스트 목록 */
     mainPostObj: {},
-    // 체크된 포스트 ID 목록
+    /** 체크된 포스트 ID 목록 */
     checkList: [],
-    // 전체선택 체크박스 체크 여부
+    /** 전체선택 체크박스 체크 여부 */
     checkAll: false,
   }),
   mutations: {

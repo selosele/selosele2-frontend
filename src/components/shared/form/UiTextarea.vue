@@ -35,19 +35,29 @@ export default {
     ErrorMessage,
   },
   props: {
-    id: String,                 // textarea id
-    name: String,               // textarea name
-    title: String,              // textarea title
-    placeholder: String,        // textarea placeholder
-    cols: String,               // textarea cols
-    rows: String,               // textarea rows
-    readonly: Boolean,          // textarea readonly
-    rules: String,              // textarea validation rules
-    value: {                    // textarea value
+    /** textarea id */
+    id: String,
+    /** textarea name */
+    name: String,
+    /** textarea title */
+    title: String,
+    /** textarea placeholder */
+    placeholder: String,
+    /** textarea cols */
+    cols: String,
+    /** textarea rows */
+    rows: String,
+    /** textarea readonly */
+    readonly: Boolean,
+    /** textarea validation rules */
+    rules: String,
+    /** textarea value */
+    value: {
       type: [String, Number],
       default: undefined,
-    },        
-    modelValue: {               // textarea modelValue
+    },
+    /** textarea modelValue */
+    modelValue: {
       default: '',
     },
   },

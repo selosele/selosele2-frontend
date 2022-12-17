@@ -46,10 +46,6 @@
 </template>
 
 <script>
-import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
-import UiGrid from '@/components/shared/grid/UiGrid.vue';
-import UiSplitPane from '@/components/shared/splitter/UiSplitPane.vue';
-import UiPane from '@/components/shared/splitter/UiPane.vue';
 import AppSaveCode from '@/components/views/code/AppSaveCode.vue';
 import messageUtil from '@/utils/ui/messageUtil';
 import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
@@ -57,10 +53,6 @@ import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 export default {
   name: 'app-code',
   components: {
-    UiSkeletor,
-    UiGrid,
-    UiSplitPane,
-    UiPane,
     AppSaveCode,
   },
   data() {
@@ -100,7 +92,7 @@ export default {
           this.$store.commit('Splitter/TOGGLE', true);
         });
     },
-    // 공통코드 목록 조회
+    /** 공통코드 목록 조회 */
     listCode() {
       return this.$http.get('/code')
         .then(res => {
@@ -113,13 +105,13 @@ export default {
           this.dataLoading();
         });
     },
-    // 공통코드 추가
+    /** 공통코드 추가 */
     addCode() {
       this.code = {};
       this.code.id = null;
       this.$store.commit('Splitter/TOGGLE', true);
     },
-    // 공통코드 삭제
+    /** 공통코드 삭제 */
     async removeCode() {
       const rows = this.gridApi.getSelectedRows();
 
@@ -148,19 +140,19 @@ export default {
           this.$store.dispatch('Code/FETCH_CODE', this.gridApi.getRowNodes());
         });
     },
-    // 그리드 갱신
+    /** 그리드 갱신 */
     async onSaveCode() {
       await this.listCode();
       this.$store.dispatch('Code/FETCH_CODE', this.rowData);
     },
-    // 코드 사용여부 가공
+    /** 코드 사용여부 가공 */
     getUseYn(useYn) {
       switch (useYn) {
         case 'Y': return '사용';
         case 'N': return '미사용';
       }
     },
-    // 데이타 로딩
+    /** 데이타 로딩 */
     dataLoading() {
       if (0 < this.rowData.length) {
         this.dataLoaded = true;

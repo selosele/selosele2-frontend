@@ -25,23 +25,16 @@
 </template>
 
 <script>
-import UiForm from '@/components/shared/form/UiForm.vue';
-import UiTextField from '@/components/shared/form/UiTextField.vue';
-import UiHiddenField from '@/components/shared/form/UiHiddenField.vue';
 import messageUtil from '@/utils/ui/messageUtil';
 
 export default {
   name: 'app-remove-guestbook-modal',
   props: {
-    // 방명록 ID
+    /** 방명록 ID */
     id: String,
   },
-  components: {
-    UiForm,
-    UiTextField,
-    UiHiddenField,
-  },
   methods: {
+    /** 방명록 삭제 */
     async onSubmit(values) {
       const confirm = await messageUtil.confirmSuccess('방명록을 삭제하시겠습니까?');
       if (!confirm) return;

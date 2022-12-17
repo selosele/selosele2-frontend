@@ -14,7 +14,7 @@ export default {
     Splitpanes,
   },
   props: {
-    // height
+    /** height */
     height: {
       type: String,
       default: '500px',

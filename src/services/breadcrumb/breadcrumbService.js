@@ -1,15 +1,13 @@
 import store from '@/store/store';
 import { isNotEmpty } from '@/utils/util';
 
-/**
- * Breadcrumb Service
- */
+/** Breadcrumb Service */
 class BreadcrumbService {
 
   constructor() {
   }
 
-  // 페이지 타이틀 변경
+  /** 페이지 타이틀 변경 */
   setPageTitle(pageTitle) {
     if (isNotEmpty(pageTitle)) {
       document.title = `${pageTitle} - ${store.state.BlogConfig.data.title}`;

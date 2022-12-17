@@ -58,7 +58,7 @@ export default {
     }
   },
   methods: {
-    // 메뉴 목록 조회
+    /** 메뉴 목록 조회 */
     listMenu() {
       let listMenuDto = {
         useYn: 'Y',
@@ -71,7 +71,7 @@ export default {
           });
         });
     },
-    // 메뉴 Toggle
+    /** 메뉴 Toggle */
     toggleMenu(i) {
       if (i === this.activeIndex) {
         this.activeIndex = -1;
@@ -79,7 +79,7 @@ export default {
       }
       this.activeIndex = i;
     },
-    // 메뉴 닫기
+    /** 메뉴 닫기 */
     closeMenu(e) {
       if (isNotEmpty(this.$refs['menuLink']) && !this.$refs['menuLink'].includes(e.target)) {
         this.activeIndex = -1;

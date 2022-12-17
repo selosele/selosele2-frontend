@@ -1,6 +1,4 @@
-/**
- * Splitter Store
- */
+/** Splitter Store */
  export const Splitter = {
   namespaced: true,
   state: () => ({

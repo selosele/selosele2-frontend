@@ -27,7 +27,7 @@ class MessageUtil {
     });
   }
 
-  // Alert
+  /** Alert 성공 타입 */
   alertSuccess(title, msg = '') {
     return new Promise((resolve, reject) => {
 			this._alert.fire({
@@ -38,6 +38,7 @@ class MessageUtil {
 		});
   }
 
+  /** Alert 오류 타입 */
   alertError(title, msg = '') {
     return new Promise((resolve, reject) => {
 			this._alert.fire({
@@ -48,6 +49,7 @@ class MessageUtil {
 		});
   }
 
+  /** Alert 경고 타입 */
   alertWarning(title, msg = '') {
     return new Promise((resolve, reject) => {
 			this._alert.fire({
@@ -58,6 +60,7 @@ class MessageUtil {
 		});
   }
 
+  /** Alert 정보 타입 */
   alertInfo(title, msg = '') {
     return new Promise((resolve, reject) => {
 			this._alert.fire({
@@ -68,7 +71,8 @@ class MessageUtil {
 		});
   }
 
-  question(title, msg = '') {
+  /** Alert 질문 타입 */
+  alertQuestion(title, msg = '') {
     return new Promise((resolve, reject) => {
 			this._alert.fire({
 				title: title,
@@ -78,7 +82,7 @@ class MessageUtil {
 		});
   }
 
-  // Confirm
+  /** Confirm 성공 타입 */
   confirmSuccess(title, msg = '') {
     return new Promise((resolve, reject) => {
 			this._confirm.fire({
@@ -89,6 +93,7 @@ class MessageUtil {
 		});
   }
 
+  /** Confirm 오류 타입 */
   confirmError(title, msg = '') {
     return new Promise((resolve, reject) => {
 			this._confirm.fire({
@@ -99,6 +104,7 @@ class MessageUtil {
 		});
   }
 
+  /** Confirm 경고 타입 */
   confirmWarning(title, msg = '') {
     return new Promise((resolve, reject) => {
 			this._confirm.fire({
@@ -109,6 +115,7 @@ class MessageUtil {
 		});
   }
 
+  /** Confirm 정보 타입 */
   confirmInfo(title, msg = '') {
     return new Promise((resolve, reject) => {
 			this._confirm.fire({
@@ -119,6 +126,7 @@ class MessageUtil {
 		});
   }
 
+  /** Confirm 질문 타입 */
   confirmQuestion(title, msg = '') {
     return new Promise((resolve, reject) => {
 			this._confirm.fire({
@@ -129,7 +137,7 @@ class MessageUtil {
 		});
   }
 
-  // Toast
+  /** Toast 성공 타입 */
   toastSuccess(msg) {
     this._toast.fire({
       icon: 'success',
@@ -137,6 +145,7 @@ class MessageUtil {
     });
   }
 
+  /** Toast 오류 타입 */
   toastError(msg) {
     this._toast.fire({
       icon: 'error',
@@ -144,6 +153,7 @@ class MessageUtil {
     });
   }
 
+  /** Toast 경고 타입 */
   toastWarning(msg) {
     this._toast.fire({
       icon: 'warning',
@@ -151,6 +161,7 @@ class MessageUtil {
     });
   }
 
+  /** Toast 정보 타입 */
   toastInfo(msg) {
     this._toast.fire({
       icon: 'info',
@@ -158,6 +169,7 @@ class MessageUtil {
     });
   }
 
+  /** Toast 질문 타입 */
   toastQuestion(msg) {
     this._toast.fire({
       icon: 'question',

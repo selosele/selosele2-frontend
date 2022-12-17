@@ -122,10 +122,6 @@
 </template>
 
 <script>
-import UiForm from '@/components/shared/form/UiForm.vue';
-import UiTextField from '@/components/shared/form/UiTextField.vue';
-import UiTextarea from '@/components/shared/form/UiTextarea.vue';
-import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import messageUtil from '@/utils/ui/messageUtil';
 import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
 import { isNotEmpty } from '@/utils/util';
@@ -136,10 +132,6 @@ import AppRemoveGuestbookModal from '@/components/views/guestbook/AppRemoveGuest
 export default {
   name: 'app-guestbook',
   components: {
-    UiForm,
-    UiTextField,
-    UiTextarea,
-    UiSkeletor,
     AppGuestbookReply,
   },
   data() {
@@ -171,7 +163,7 @@ export default {
     document.removeEventListener('click', this.closeMenu);
   },
   watch: {
-    // 방명록이 수정되고 Modal이 close됐을 때 실행됨
+    /** 방명록이 수정되고 Modal이 close됐을 때 실행됨 */
     '$store.state.Guestbook.updatedGuestbook': function(updatedGuestbook) {
       if (0 < Object.values(updatedGuestbook).length) {
         const { id, author, cont, modDate } = updatedGuestbook;
@@ -183,7 +175,7 @@ export default {
         this.$store.dispatch('Guestbook/FETCH_UPDATED_GUESTBOOK', {});
       }
     },
-    // 방명록이 삭제되고 Modal이 close됐을 때 실행됨
+    /** 방명록이 삭제되고 Modal이 close됐을 때 실행됨 */
     '$store.state.Guestbook.removedGuestbook': function(removedGuestbook) {
       if (0 < Object.values(removedGuestbook).length) {
         const { id } = removedGuestbook;
@@ -195,7 +187,7 @@ export default {
     },
   },
   methods: {
-    // 방명록 목록 조회
+    /** 방명록 목록 조회 */
     listGuestbook() {
       let paginationDto = {
         page: this.page,
@@ -229,7 +221,7 @@ export default {
           this.isScrolled = false;
         });
     },
-    // 방명록 메뉴 Toggle
+    /** 방명록 메뉴 Toggle */
     toggleMenu(i) {
       event.stopPropagation();
 
@@ -239,13 +231,13 @@ export default {
       }
       this.activeIndex = i;
     },
-    // 방명록 메뉴 닫기
+    /** 방명록 메뉴 닫기 */
     closeMenu(e) {
       if (isNotEmpty(this.$refs['guestbookMenuBtn']) && !this.$refs['guestbookMenuBtn'].includes(e.target)) {
         this.activeIndex = -1;
       }
     },
-    // 방명록 무한 스크롤
+    /** 방명록 무한 스크롤 */
     scroll() {
       const { scrollY } = window;
       const { clientHeight, scrollHeight } = document.documentElement;
@@ -261,7 +253,7 @@ export default {
         }, 100);
       }
     },
-    // 방명록 수정/삭제 Modal
+    /** 방명록 수정/삭제 Modal */
     openModal(type, guestbook) {
       if ('update' === type) {
         this.$modal.show({
@@ -276,6 +268,7 @@ export default {
         });
       }
     },
+    /** 방명록 추가 */
     async onSubmit(values) {
       const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;
@@ -292,7 +285,7 @@ export default {
           messageUtil.toastSuccess('저장되었습니다.');
         });
     },
-    // 데이타 로딩
+    /** 데이타 로딩 */
     dataLoading() {
       if (0 < this.guestbookList.length) {
         this.dataLoaded = true;

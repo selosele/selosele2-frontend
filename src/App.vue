@@ -72,14 +72,14 @@ export default {
     document.removeEventListener('scroll', this.scroll);
   },
   methods: {
-    // JWT 세팅
+    /** JWT 세팅 */
     initJwt() {
       const token = localStorage.getItem('token');
       if (token) {
         this.$http.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       }
     },
-    // 공통코드 목록 조회
+    /** 공통코드 목록 조회 */
     listCode() {
       this.$http.get('/code')
         .then(res => {
@@ -87,7 +87,7 @@ export default {
           this.$store.dispatch('Code/FETCH_CODE', codeList);
         });
     },
-    // 블로그 환경설정 정보 조회
+    /** 블로그 환경설정 정보 조회 */
     getBlogConfig() {
       this.$http.get('/blogconfig')
         .then(res => {
@@ -96,6 +96,7 @@ export default {
           document.title = res.data.title;
         });
     },
+    /** 메뉴 스크롤 */
     scroll() {
       if (1420 > window.outerWidth || 0 > window.pageYOffset) {
         return;

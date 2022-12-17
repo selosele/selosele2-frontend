@@ -61,9 +61,6 @@
 </template>
 
 <script>
-import UiForm from '@/components/shared/form/UiForm.vue';
-import UiSelect from '@/components/shared/form/UiSelect.vue';
-import UiCheckbox from '@/components/shared/form/UiCheckbox.vue';
 import AppPostListDetail from '@/components/views/post/AppPostListDetail.vue';
 import { isNotEmpty } from '@/utils/util';
 import messageUtil from '@/utils/ui/messageUtil';
@@ -71,19 +68,16 @@ import messageUtil from '@/utils/ui/messageUtil';
 export default {
   name: 'app-post-list',
   components: {
-    UiForm,
-    UiSelect,
-    UiCheckbox,
     AppPostListDetail,
   },
   props: {
-    // main: 메인, search: 검색
+    /** main: 메인, search: 검색 */
     type: String,
-    // 현재 페이지 번호
+    /** 현재 페이지 번호 */
     page: Number,
-    // 포스트 목록
+    /** 포스트 목록 */
     postList: Array,
-    // 포스트 카테고리 목록
+    /** 포스트 카테고리 목록 */
     categoryList: Array,
   },
   data() {
@@ -125,7 +119,7 @@ export default {
     },
   },
   methods: {
-    // 포스트 삭제
+    /** 포스트 삭제 */
     async removePost(values) {
       if (0 === values.checkPost.length) {
         messageUtil.toastWarning('삭제할 포스트를 선택하세요.');
@@ -147,13 +141,14 @@ export default {
           this.$emit('removePost');
         });
     },
-    // 카테고리 필터링
+    /** 카테고리 필터링 */
     listPostByCategory(values) {
       this.$http.get('/post', { params: values })
         .then(res => {
           this.$emit('listPost', res.data);
         });
     },
+    /** 포스트 전체 선택 */
     onClick(e) {
       this.$store.dispatch('Post/FETCH_CHECKALL', e.target.checked);
     },
