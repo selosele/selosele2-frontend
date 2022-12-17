@@ -63,7 +63,7 @@
 <script>
 import AppPostListDetail from '@/components/views/post/AppPostListDetail.vue';
 import { isNotEmpty } from '@/utils/util';
-import messageUtil from '@/utils/ui/messageUtil';
+import { messageUtil } from '@/utils/ui/messageUtil';
 
 export default {
   name: 'app-post-list',

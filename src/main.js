@@ -6,7 +6,7 @@ import axios from 'axios';
 import { initDefineRule } from '@/utils/validation/validation';
 import { commonComputed } from '@/store/helper';
 import moment from 'moment';
-import messageUtil from '@/utils/ui/messageUtil';
+import { messageUtil } from '@/utils/ui/messageUtil';
 import { uiModule } from '@/plugins/module/ui/ui';
 import { formModule } from '@/plugins/module/form/form';
 import { $vfm } from 'vue-final-modal';

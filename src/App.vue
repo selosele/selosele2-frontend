@@ -2,9 +2,13 @@
   <app-skip-links></app-skip-links>
 
   <div id="body" :class="{ 'scroll-down': !scrollDown }">
-    <app-header :resStatus="resStatus"></app-header>
+    <app-header :resStatus="resStatus"
+                @toggleMobileMenu="toggleMobileMenu($event)">
+    </app-header>
 
-    <app-menu></app-menu>
+    <app-menu ref="menu"
+              @click.self="closeMobileMenuByWindow($event)">
+    </app-menu>
 
     <app-main ref="mainWrapper">
       <div class="page__body">
@@ -71,6 +75,12 @@ export default {
   unmounted() {
     document.removeEventListener('scroll', this.scroll);
   },
+  watch: {
+    '$route'() {
+      if (1420 < window.outerWidth) return;
+      this.closeMobileMenu();
+    },
+  },
   methods: {
     /** JWT 세팅 */
     initJwt() {
@@ -96,14 +106,46 @@ export default {
           document.title = res.data.title;
         });
     },
+    /** 모바일 메뉴 toggle */
+    toggleMobileMenu(e) {
+      const menu = this.$refs['menu'].$el;
+
+      // if (menu.classList.contains('gnb--visible')) {
+      //   return this.closeMobileMenu();
+      // }
+
+      document.body.classList.add('layer-opened');
+
+      menu.classList.add('gnb--visible')
+      menu.setAttribute('tabindex', 0);
+      menu.focus();
+
+      setTimeout(() => {
+        menu.classList.add('gnb--animate');
+      }, 150);
+    },
+    /** 메뉴 닫기 */
+    closeMobileMenu() {
+      const menu = this.$refs['menu'].$el;
+
+      menu.classList.remove('gnb--animate');
+
+      setTimeout(() => {
+        menu.classList.remove('gnb--visible');
+        document.body.classList.remove('layer-opened');
+      }, 150);
+    },
+    /** 바깥 영역 클릭해서 메뉴 닫기 */
+    closeMobileMenuByWindow(e) {
+      if (e.target === e.currentTarget) {
+        this.closeMobileMenu();
+      }
+    },
     /** 메뉴 스크롤 */
     scroll() {
-      if (1420 > window.outerWidth || 0 > window.pageYOffset) {
-        return;
-      }
-      if (Math.abs(window.pageYOffset - this.lastScrollTop) < this.$refs['mainWrapper'].getOffsetTop()) {
-        return;
-      }
+      if (1420 > window.outerWidth || 0 > window.pageYOffset) return;
+      if (Math.abs(window.pageYOffset - this.lastScrollTop) < this.$refs['mainWrapper'].getOffsetTop()) return;
+
       this.scrollDown = window.pageYOffset < this.lastScrollTop;
       this.lastScrollTop = window.pageYOffset;
     },

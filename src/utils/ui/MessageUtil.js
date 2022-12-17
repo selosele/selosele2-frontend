@@ -179,6 +179,4 @@ class MessageUtil {
 	
 }
 
-const messageUtil = new MessageUtil();
-
-export default messageUtil;
+export const messageUtil = new MessageUtil();

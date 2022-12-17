@@ -8,7 +8,7 @@ import archive from './archive/archive';
 import guestbook from './guestbook/guestbook';
 import admin from './admin/admin';
 import store from '@/store/store';
-import messageUtil from '@/utils/ui/messageUtil';
+import { messageUtil } from '@/utils/ui/messageUtil';
 import { isEmpty } from '@/utils/util';
 
 const routes = [

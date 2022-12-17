@@ -1,8 +1,9 @@
 <template>
   <div class="masthead__wrapper">
     <div id="masthead" class="masthead">
-      <ui-button :type="'button'"
-                 :class="'masthead__menu-open'">
+      <ui-button ref="btnMenu"
+                 :class="'masthead__menu-open'"
+                 @click="toggleMobileMenu">
         <i class="xi-bars" aria-hidden="true"></i>
         <span class="sr-only">메뉴</span>
       </ui-button>
@@ -25,8 +26,7 @@
           </template>
 
           <template v-if="isLogin">
-            <ui-button :type="'button'"
-                       :class="'masthead__util'"
+            <ui-button :class="'masthead__util'"
                        @click="logout">
               <i class="xi-power-off" aria-hidden="true"></i>
               <span class="sr-only">로그아웃</span>
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import messageUtil from '@/utils/ui/messageUtil';
+import { messageUtil } from '@/utils/ui/messageUtil';
 
 export default {
   name: 'app-header',
@@ -75,7 +75,7 @@ export default {
     }
   },
   watch: {
-    resStatus() {
+    'resStatus'() {
       // 데이타를 받아오는 동안에도 실행되므로, props값의 변경을 감지해줘야 한다.
       this.dataLoading(this.resStatus);
     },
@@ -108,6 +108,10 @@ export default {
       if ('ok' === res) {
         this.$router.push('/a/goto');
       }
+    },
+    /** 메뉴 toggle */
+    toggleMobileMenu() {
+      this.$emit('toggleMobileMenu');
     },
     /** background position 가져오기 */
     backgroundPosition(xy) {

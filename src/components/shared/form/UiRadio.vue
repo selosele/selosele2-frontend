@@ -57,5 +57,52 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+input[type='radio']:not(.ag-input-field-input) {
+  @include sr-only;
+  cursor: pointer;
+  vertical-align: middle;
+}
 
+input[type='radio']:not(.ag-input-field-input) {
+  &:focus {
+    + label {
+      &:before {
+        outline: 2px solid $black04;
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  &:checked {
+    + label {
+      &:before {
+        border-width: 0.25rem;
+        border-color: $main-color;
+      }
+    }
+  }
+
+  + label {
+    display: inline-block;
+    position: relative;
+    margin-right: 0.5rem;
+    padding-left: 1.15rem;
+    font-size: 0.85rem;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 0.9rem;
+      height: 0.9rem;
+      margin: auto 0;
+      border-radius: 50%;
+      border: 2px solid $black02;
+      background-color: $grey12;
+      box-sizing: border-box;
+    }
+  }
+}
 </style>

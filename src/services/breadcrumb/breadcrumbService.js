@@ -18,6 +18,4 @@ class BreadcrumbService {
   
 }
 
-const breadcrumbService = new BreadcrumbService();
-
-export default breadcrumbService;
+export const breadcrumbService = new BreadcrumbService();

@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import messageUtil from '@/utils/ui/messageUtil';
+import { messageUtil } from '@/utils/ui/messageUtil';
 
 export default {
   name: 'app-remove-guestbook-modal',

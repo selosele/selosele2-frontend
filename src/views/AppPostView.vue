@@ -24,10 +24,9 @@
           <!-- END : 콘텐츠 내용 영역 -->
     
           <div class="post__contents__like-wrapper">
-            <ui-button :type="'button'"
-                      :class="'post__contents__like-btn'"
-                      :title="isPostLiked ? '포스트 추천 해제하기' : '포스트 추천하기'"
-                      @click="savePostLike(post.id)">
+            <ui-button :class="'post__contents__like-btn'"
+                       :title="isPostLiked ? '포스트 추천 해제하기' : '포스트 추천하기'"
+                       @click="savePostLike(post.id)">
               <i class="xi-heart" aria-hidden="true" v-if="isPostLiked"></i>
               <i class="xi-heart-o" aria-hidden="true" v-if="!isPostLiked"></i>
               <span class="sr-only">추천수</span>
@@ -72,16 +71,14 @@
           </div>
     
           <div class="post__contents__btns">
-            <ui-button :type="'button'"
-                      :class="'post__contents__btn post__contents__btn--list'"
-                      @click="goToList">
+            <ui-button :class="'post__contents__btn post__contents__btn--list'"
+                       @click="goToList">
               <i class="xi-backspace" aria-hidden="true"></i>
               <span class="sr-only">목록으로</span>
             </ui-button>
     
-            <ui-button :type="'button'"
-                      :class="'post__contents__btn post__contents__btn--copy'"
-                      @click="copyPostUrl">
+            <ui-button :class="'post__contents__btn post__contents__btn--copy'"
+                       @click="copyPostUrl">
               <i class="xi-link" aria-hidden="true"></i>
               <span class="sr-only">URL 복사</span>
             </ui-button>
@@ -175,9 +172,9 @@
 <script>
 import Markdown from 'vue3-markdown-it';
 import MarkdownItFootnote from 'markdown-it-footnote';
-import messageUtil from '@/utils/ui/messageUtil';
+import { messageUtil } from '@/utils/ui/messageUtil';
 import { isNotBlank, isNotEmpty } from '@/utils/util';
-import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
+import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 /**
  * hightlight 테마
@@ -212,7 +209,7 @@ export default {
     this.init(this.$route.params.id);
   },
   watch: {
-    '$route.params.id': function(id) {
+    '$route.params.id'(id) {
       this.init(id);
     }
   },

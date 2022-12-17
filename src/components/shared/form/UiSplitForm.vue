@@ -14,8 +14,7 @@
                  :color="'primary'">저장
       </ui-button>
 
-      <ui-button :type="'button'"
-                 :color="'secondary'"
+      <ui-button :color="'secondary'"
                  @click="onClose">닫기
       </ui-button>
     </div>

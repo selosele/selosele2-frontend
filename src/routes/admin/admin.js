@@ -39,4 +39,14 @@ export default [
       showSatis: false,
     },
   },
+  {
+    // 카테고리/태그 관리 페이지
+    path: '/admin/category',
+    component: () => import('@/views/AppAdminCategory.vue'),
+    meta: {
+      requiresAuth: true,
+      showSidebar: false,
+      showSatis: false,
+    },
+  },
 ];

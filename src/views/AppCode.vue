@@ -8,13 +8,11 @@
 
     <template v-else>
       <div class="d-flex flex--right gap--10 mb--15">
-        <ui-button :type="'button'"
-                   :color="'primary'"
+        <ui-button :color="'primary'"
                    @click="addCode">추가
         </ui-button>
 
-        <ui-button :type="'button'"
-                   :color="'dark'"
+        <ui-button :color="'dark'"
                    @click="removeCode">삭제
         </ui-button>
       </div>
@@ -47,8 +45,8 @@
 
 <script>
 import AppSaveCode from '@/components/views/code/AppSaveCode.vue';
-import messageUtil from '@/utils/ui/messageUtil';
-import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
+import { messageUtil } from '@/utils/ui/messageUtil';
+import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-code',

@@ -49,8 +49,8 @@
 </template>
 
 <script>
-import messageUtil from '@/utils/ui/messageUtil';
-import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
+import { messageUtil } from '@/utils/ui/messageUtil';
+import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-year',

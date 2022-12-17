@@ -35,7 +35,7 @@
 
 <script>
 import { isNotEmpty } from '@/utils/util';
-import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
+import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-category',
@@ -58,7 +58,7 @@ export default {
     this.init();
   },
   watch: {
-    '$route.params.id': function(id) {
+    '$route.params.id'(id) {
       this.init();
     }
   },

@@ -15,13 +15,11 @@
         >
         </ui-datepicker>
 
-        <ui-button :type="'button'"
-                   :color="'secondary'"
+        <ui-button :color="'secondary'"
                    @click="listByAllDate">전체
         </ui-button>
 
-        <ui-button :type="'button'"
-                   :color="'dark'"
+        <ui-button :color="'dark'"
                    @click="listByNowDate">Today
         </ui-button>
       </div>
@@ -40,7 +38,7 @@
 </template>
 
 <script>
-import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
+import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-admin-satisfaction',

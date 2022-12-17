@@ -73,14 +73,12 @@
            @click="more"
            v-if="listCnt > pageSize && !isLastPage">
 
-          <ui-button :type="'button'"
-                     :class="'search__more'">
+          <ui-button :class="'search__more'">
             <i class="xi-plus-circle" aria-hidden="true"></i> 더보기
           </ui-button>
         </p>
 
-        <ui-button :type="'button'"
-                   :class="[
+        <ui-button :class="[
                     'search__to-input',
                     { 'search__to-input--active': this.toInputActive }
                    ]"
@@ -95,8 +93,8 @@
 
 <script>
 import AppPostListDetail from '@/components/views/post/AppPostListDetail.vue';
-import messageUtil from '@/utils/ui/messageUtil';
-import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
+import { messageUtil } from '@/utils/ui/messageUtil';
+import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import { isBlank, isNotEmpty } from '@/utils/util';
 
 export default {

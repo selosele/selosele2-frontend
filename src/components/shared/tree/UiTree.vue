@@ -1,0 +1,94 @@
+<template>
+  <ui-text-field :placeholder="placeholder"
+                 v-model="searchText"
+                 v-if="filter">
+  </ui-text-field>
+
+  <Tree :nodes="nodes"
+        :search-text="searchText"
+        :placeholder="placeholder"
+        :use-checkbox="useCheckbox"
+        :use-icon="useIcon"
+        :use-row-delete="useRowDelete"
+        :show-child-count="showChildCount"
+        @nodeExpanded="onNodeExpanded"
+        @update:nodes="onUpdate"
+        @nodeClick="onNodeClick">
+  </Tree>
+</template>
+
+<script>
+import Tree from 'vue3-tree';
+import 'vue3-tree/dist/style.css';
+
+export default {
+  name: 'ui-tree',
+  components: {
+    Tree,
+  },
+  props: {
+    /** nodes 데이타 */
+    nodes: {
+      type: Array,
+      default: () => [],
+    },
+    /** filter input placeholder */
+    placeholder: {
+      type: String,
+      default: '검색어를 입력하세요.',
+    },
+    /** 체크박스 사용 여부 */
+    useCheckbox: {
+      type: Boolean,
+      default: true,
+    },
+    /** 아이콘 사용 여부 */
+    useIcon: {
+      type: Boolean,
+      default: true,
+    },
+    /** node 삭제 사용 여부 */
+    useRowDelete: {
+      type: Boolean,
+      default: false,
+    },
+    /** 자식 node 개수 표출 여부 */
+    showChildCount: {
+      type: Boolean,
+      default: true,
+    },
+    /** 트리 검색 사용 여부 */
+    filter: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {
+      searchText: '',
+    }
+  },
+  methods: {
+    /** 트리 확장 시 */
+    onNodeExpanded(node, state) {
+      console.log('state: ', state);
+      console.log('node: ', node);
+      this.$emit('onNodeExpanded', { node, state });
+    },
+    /** node 업데이트 시 */
+    onUpdate(nodes) {
+      console.log('onUpdate', nodes);
+      this.$emit('onUpdate', nodes);
+    },
+    /** node 클릭 시 */
+    onNodeClick(node) {
+      console.log('onNodeClick', node);
+      this.$emit('onNodeClick', node);
+    }
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+
+</style>

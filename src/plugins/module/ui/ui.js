@@ -7,6 +7,7 @@ import UiGrid from '@/components/shared/grid/UiGrid.vue';
 import UiPane from '@/components/shared/splitter/UiPane.vue';
 import UiSplitPane from '@/components/shared/splitter/UiSplitPane.vue';
 import UiPagination from '@/components/shared/pagination/UiPagination.vue';
+import UiTree from '@/components/shared/tree/UiTree.vue';
 
 export const uiModule = {
   install: (app, options) => {
@@ -19,5 +20,6 @@ export const uiModule = {
     app.component('ui-pane', UiPane);
     app.component('ui-split-pane', UiSplitPane);
     app.component('ui-pagination', UiPagination);
+    app.component('ui-tree', UiTree);
   }
 };

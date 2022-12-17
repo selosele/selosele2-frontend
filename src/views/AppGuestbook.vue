@@ -122,8 +122,8 @@
 </template>
 
 <script>
-import messageUtil from '@/utils/ui/messageUtil';
-import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
+import { messageUtil } from '@/utils/ui/messageUtil';
+import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import { isNotEmpty } from '@/utils/util';
 import AppGuestbookReply from '@/components/views/guestbook/AppGuestbookReply.vue';
 import AppUpdateGuestbookModal from '@/components/views/guestbook/AppUpdateGuestbookModal.vue';
@@ -164,7 +164,7 @@ export default {
   },
   watch: {
     /** 방명록이 수정되고 Modal이 close됐을 때 실행됨 */
-    '$store.state.Guestbook.updatedGuestbook': function(updatedGuestbook) {
+    '$store.state.Guestbook.updatedGuestbook'(updatedGuestbook) {
       if (0 < Object.values(updatedGuestbook).length) {
         const { id, author, cont, modDate } = updatedGuestbook;
         const foundIdx = this.guestbookList.findIndex(d => d.id == id);
@@ -176,7 +176,7 @@ export default {
       }
     },
     /** 방명록이 삭제되고 Modal이 close됐을 때 실행됨 */
-    '$store.state.Guestbook.removedGuestbook': function(removedGuestbook) {
+    '$store.state.Guestbook.removedGuestbook'(removedGuestbook) {
       if (0 < Object.values(removedGuestbook).length) {
         const { id } = removedGuestbook;
         const foundIdx = this.guestbookList.findIndex(d => d.id == id);
@@ -221,7 +221,7 @@ export default {
           this.isScrolled = false;
         });
     },
-    /** 방명록 메뉴 Toggle */
+    /** 방명록 메뉴 toggle */
     toggleMenu(i) {
       event.stopPropagation();
 

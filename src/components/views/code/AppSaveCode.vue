@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import messageUtil from '@/utils/ui/messageUtil';
+import { messageUtil } from '@/utils/ui/messageUtil';
 import { isBlank, isEmpty } from '@/utils/util';
 
 export default {
@@ -99,14 +99,14 @@ export default {
     this.useYn = this.code.useYn;
   },
   watch: {
-    prefix: function(val, oldVal) {
+    prefix(val, oldVal) {
       if (isBlank(val) || isBlank(this.val)) {
         this.id = '';
         return;
       }
       this.id = val + this.val;
     },
-    val: function(val, oldVal) {
+    val(val, oldVal) {
       if (isBlank(val) || isBlank(this.prefix)) {
         this.id = '';
         return;

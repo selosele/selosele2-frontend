@@ -52,7 +52,7 @@ export default {
     document.removeEventListener('click', this.closeMenu);
   },
   watch: {
-    '$store.state.Auth.token': function(token) {
+    '$store.state.Auth.token'(token) {
       this.menuList = [];
       this.listMenu();
     }
@@ -71,7 +71,7 @@ export default {
           });
         });
     },
-    /** 메뉴 Toggle */
+    /** 메뉴 toggle */
     toggleMenu(i) {
       if (i === this.activeIndex) {
         this.activeIndex = -1;

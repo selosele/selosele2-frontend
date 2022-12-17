@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
+import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-error',

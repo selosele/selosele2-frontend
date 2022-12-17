@@ -14,8 +14,7 @@
           <i class="xi-pen" aria-hidden="true"></i> 콘텐츠 생성
         </ui-button>
 
-        <ui-button :type="'button'"
-                   :color="'dark'"
+        <ui-button :color="'dark'"
                    :class="'content__delete'"
                    @click="removeContent">
           <i class="xi-trash" aria-hidden="true"></i> 콘텐츠 삭제
@@ -36,8 +35,8 @@
 </template>
 
 <script>
-import messageUtil from '@/utils/ui/messageUtil';
-import breadcrumbService from '@/services/breadcrumb/breadcrumbService';
+import { messageUtil } from '@/utils/ui/messageUtil';
+import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-content',
