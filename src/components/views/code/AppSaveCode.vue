@@ -120,19 +120,29 @@ export default {
       const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;
 
+      // 기존 ID 값이 없으면 추가 API를 타고
       if (isEmpty(values.originId)) {
-        this.$http.post('/code', values)
-          .then(res => {
-            messageUtil.toastSuccess('저장되었습니다.');
-            this.$emit('onSaveCode');
-          });
+        this.addCode(values);
       } else {
-        this.$http.put(`/code/${values.id}`, values)
-          .then(res => {
-            messageUtil.toastSuccess('저장되었습니다.');
-            this.$emit('onSaveCode');
-          });
+        // 있으면 수정 API를 탄다.
+        this.updateCode(values);
       }
+    },
+    /** 공통코드 추가 */
+    addCode(values) {
+      return this.$http.post('/code', values)
+        .then(res => {
+          messageUtil.toastSuccess('저장되었습니다.');
+          this.$emit('onSaveCode');
+        });
+    },
+    /** 공통코드 수정 */
+    updateCode(values) {
+      return this.$http.put('/code', values)
+        .then(res => {
+          messageUtil.toastSuccess('저장되었습니다.');
+          this.$emit('onSaveCode');
+        });
     },
   },
 }

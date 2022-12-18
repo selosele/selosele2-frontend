@@ -69,7 +69,8 @@ export default {
   methods: {
     /** change 이벤트 */
     onChange(e) {
-      this.$emit('update:modelValue', e.target.value);
+      // 2022.12.18. 체크박스 체크 해제가 안되서 임시 주석 처리
+      // this.$emit('update:modelValue', e.target.value);
     },
     /** 체크 여부에 따라 value 가져오기 */
     getValue(e) {

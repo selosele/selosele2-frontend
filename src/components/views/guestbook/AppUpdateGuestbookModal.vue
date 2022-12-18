@@ -18,25 +18,25 @@
       <div class="d-flex-w gap--15 mt--20">
         <label for="guestbookUpdateAuthor">닉네임
             <ui-text-field :type="'text'"
-                            :name="'author'"
-                            :id="'guestbookUpdateAuthor'"
-                            :class="'guestbook__input'"
-                            :rules="'required|maxLength:20'"
-                            :value="guestbook.author">
+                           :name="'author'"
+                           :id="'guestbookUpdateAuthor'"
+                           :class="'guestbook__input'"
+                           :rules="'required|maxLength:20'"
+                           :value="guestbook.author">
             </ui-text-field>
         </label>
 
         <label for="guestbookUpdatePw">비밀번호
           <ui-text-field :type="'password'"
-                          :name="'authorPw'"
-                          :id="'guestbookUpdatePw'"
-                          :class="'guestbook__input'"
-                          :rules="'required|minLength:8|maxLength:15'">
+                         :name="'authorPw'"
+                         :id="'guestbookUpdatePw'"
+                         :class="'guestbook__input'"
+                         :rules="'required|minLength:8|maxLength:15'">
           </ui-text-field>
         </label>
 
         <ui-button :type="'submit'"
-                  :color="'primary'">수정
+                   :color="'primary'">수정
         </ui-button>
       </div>
     </ui-form>
@@ -58,9 +58,10 @@ export default {
       const confirm = await messageUtil.confirmSuccess('방명록을 수정하시겠습니까?');
       if (!confirm) return;
       
-      this.$http.put(`/guestbook/${values.id}`, values)
+      this.$http.put('/guestbook', values)
         .then(res => {
           messageUtil.toastSuccess('방명록이 수정되었습니다.');
+
           this.$modal.hide(this.$options.name);
           this.$store.dispatch('Guestbook/FETCH_UPDATED_GUESTBOOK', res.data);
         });

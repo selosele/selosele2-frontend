@@ -4,7 +4,6 @@
            :autocomplete="autocomplete"
            v-slot="{ validateAll, validateField }"
   >
-
     <slot :validateAll="validateAll"
           :validateField="validateField">
     </slot>
@@ -48,8 +47,12 @@ export default {
     },
     /** 삭제 */
     onRemove() {
-      this.$emit('onRemove');
+      this.$emit('onRemove', this.getFormValues(this.$refs[this.name].$el));
     },
+    /** form values 가져오기 */
+    getFormValues(form) {
+      return Object.fromEntries(new FormData(form));
+    }
   },
 }
 </script>

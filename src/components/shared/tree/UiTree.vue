@@ -1,9 +1,13 @@
 <template>
-  <ui-text-field :class="'tree-filter-field'"
-                 :placeholder="placeholder"
-                 v-model="searchText"
-                 v-if="filter">
-  </ui-text-field>
+  <div class="mb--15">
+    <ui-text-field :class="'tree-filter-field'"
+                   :placeholder="placeholder"
+                   v-model="searchText"
+                   v-if="filter">
+    </ui-text-field>
+  
+    <slot name="btn"></slot>
+  </div>
 
   <Tree :nodes="nodes"
         :search-text="searchText"
@@ -109,6 +113,8 @@ export default {
 }
 
 .tree-filter-field {
-  margin-bottom: 0.5rem;
+  + * {
+    margin-left: 0.5rem;
+  }
 }
 </style>

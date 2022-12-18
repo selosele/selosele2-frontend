@@ -7,12 +7,6 @@
     </template>
 
     <template v-else>
-      <div class="d-flex flex--right gap--10 mb--15">
-        <ui-button :color="'primary'"
-                   @click="addCategory">추가
-        </ui-button>
-      </div>
-
       <ui-tabs @onTabChanged="onTabChanged">
         <ui-tab :name="'카테고리'">
           <ui-split-pane>
@@ -22,12 +16,20 @@
                        :filter="true"
                        :placeholder="'카테고리/포스트 제목 입력'"
                        @onNodeClick="onNodeClick">
+
+                <template v-slot:btn>
+                  <ui-button :color="'primary'"
+                             @click="addCategory">추가
+                  </ui-button>
+                </template>
               </ui-tree>
             </ui-pane>
 
             <ui-pane v-if="isSplitterActive">
               <app-save-category :category="category"
-                                 :key="type + category.id">
+                                 :type="'category'"
+                                 :key="type + category.id"
+                                 @refreshCategory="refreshTree">
               </app-save-category>
             </ui-pane>
           </ui-split-pane>
@@ -41,12 +43,20 @@
                        :filter="true"
                        :placeholder="'태그/포스트 제목 입력'"
                        @onNodeClick="onNodeClick">
+
+                <template v-slot:btn>
+                  <ui-button :color="'primary'"
+                             @click="addCategory">추가
+                  </ui-button>
+                </template>
               </ui-tree>
             </ui-pane>
 
             <ui-pane v-if="isSplitterActive">
               <app-save-category :category="category"
-                                 :key="type + category.id">
+                                 :type="'tag'"
+                                 :key="type + category.id"
+                                 @refreshCategory="refreshTree">
               </app-save-category>
             </ui-pane>
           </ui-split-pane>
@@ -140,6 +150,17 @@ export default {
         this.pushNode(rootNode, type);
       });
     },
+    /** 트리 갱신 */
+    async refreshTree() {
+      this.resetCategory();
+      this.categoryTree = [];
+      this.tagTree = [];
+
+      await Promise.all([
+        this.listTreeCategoryAndPost(),
+        this.listTreeTagAndPost(),
+      ]);
+    },
     /** 트리 label 가공 */
     getTreeLabel(label, type) {
       return 'category' === type ? label : `#${label}`;
@@ -155,7 +176,7 @@ export default {
     /** node 클릭 시 */
     onNodeClick(node) {
       this.$store.commit('Splitter/TOGGLE', true);
-      
+
       if (isNotEmpty(node.nodes)) {
         this.getCategory(node);
       }
@@ -177,6 +198,10 @@ export default {
     },
     /** 카테고리 추가 */
     addCategory() {
+      this.resetCategory();
+    },
+    /** 카테고리 초기화 */
+    resetCategory() {
       this.category = {};
       this.category.id = null;
     },
