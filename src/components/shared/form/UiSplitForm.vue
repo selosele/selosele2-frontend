@@ -14,6 +14,11 @@
                  :color="'primary'">저장
       </ui-button>
 
+      <ui-button :color="'dark'"
+                 @click="onRemove"
+                 v-if="btnRemove">삭제
+      </ui-button>
+
       <ui-button :color="'secondary'"
                  @click="onClose">닫기
       </ui-button>
@@ -25,13 +30,25 @@
 export default {
   name: 'ui-split-form',
   props: {
-    name: String,         // form name
-    autocomplete: String  // form autocomplete
+    /** form name */
+    name: String,
+    /** form autocomplete */
+    autocomplete: String,
+    /** 삭제 버튼 사용 여부 */
+    btnRemove: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
+    /** 닫기 */
     onClose() {
       this.$store.commit('Splitter/TOGGLE', false);
       this.$emit('onClose');
+    },
+    /** 삭제 */
+    onRemove() {
+      this.$emit('onRemove');
     },
   },
 }

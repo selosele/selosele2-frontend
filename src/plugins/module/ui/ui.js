@@ -1,4 +1,3 @@
-import AppContentWrapper from '@/components/layout/AppContentWrapper.vue';
 import UiLoading from '@/components/shared/loading/UiLoading.vue';
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import UiButton from '@/components/shared/button/UiButton.vue';
@@ -8,10 +7,11 @@ import UiPane from '@/components/shared/splitter/UiPane.vue';
 import UiSplitPane from '@/components/shared/splitter/UiSplitPane.vue';
 import UiPagination from '@/components/shared/pagination/UiPagination.vue';
 import UiTree from '@/components/shared/tree/UiTree.vue';
+import UiTabs from '@/components/shared/tab/UiTabs.vue';
+import UiTab from '@/components/shared/tab/UiTab.vue';
 
 export const uiModule = {
   install: (app, options) => {
-    app.component('app-content-wrapper', AppContentWrapper);
     app.component('ui-loading', UiLoading);
     app.component('ui-skeletor', UiSkeletor);
     app.component('ui-button', UiButton);
@@ -21,5 +21,7 @@ export const uiModule = {
     app.component('ui-split-pane', UiSplitPane);
     app.component('ui-pagination', UiPagination);
     app.component('ui-tree', UiTree);
+    app.component('ui-tabs', UiTabs);
+    app.component('ui-tab', UiTab);
   }
 };

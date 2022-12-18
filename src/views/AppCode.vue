@@ -83,6 +83,7 @@ export default {
     onGridReady(params) {
       this.gridApi = params;
     },
+    /** 공통코드 조회 */
     rowClicked(params) {
       this.$http.get(`/code/${params.data.id}`)
         .then(res => {

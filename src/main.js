@@ -7,6 +7,7 @@ import { initDefineRule } from '@/utils/validation/validation';
 import { commonComputed } from '@/store/helper';
 import moment from 'moment';
 import { messageUtil } from '@/utils/ui/messageUtil';
+import { layoutModule } from '@/plugins/module/layout/layout';
 import { uiModule } from '@/plugins/module/ui/ui';
 import { formModule } from '@/plugins/module/form/form';
 import { $vfm } from 'vue-final-modal';
@@ -85,6 +86,7 @@ app.config.warnHandler = (msg, vm, trace) => {
 app.use(store)
    .use(router)
    .use(vfmPlugin)
+   .use(layoutModule)
    .use(uiModule)
    .use(formModule)
    .mount('#app');

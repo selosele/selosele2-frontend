@@ -1,5 +1,5 @@
 <template>
-  <pane>
+  <pane :class="{ 'is--transparent': isTransparent }">
     <div class="pane__content-wrapper">
       <slot></slot>
     </div>
@@ -15,10 +15,21 @@ export default {
   components: {
     Pane,
   },
+  props: {
+    /** Pane 배경 투명색 사용 여부 */
+    isTransparent: {
+      type: Boolean,
+      default: false,
+    }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
+.splitpanes.default-theme .splitpanes__pane.is--transparent {
+  background-color: transparent;
+}
+
 .splitpanes--vertical .splitpanes__pane {
   overflow-x: hidden;
   overflow-y: auto;

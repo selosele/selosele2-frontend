@@ -1,26 +1,80 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
-    <ui-tree :nodes="categoryTree"
-             :filter="true"
-             :placeholder="'카테고리/포스트 제목 입력'">
-    </ui-tree>
+    <template v-if="!dataLoaded">
+      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
+      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
+      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
+    </template>
 
-    <ui-tree :nodes="tagTree"
-             :filter="true"
-             :placeholder="'태그/포스트 제목 입력'">
-    </ui-tree>
+    <template v-else>
+      <div class="d-flex flex--right gap--10 mb--15">
+        <ui-button :color="'primary'"
+                   @click="addCategory">추가
+        </ui-button>
+      </div>
+
+      <ui-tabs @onTabChanged="onTabChanged">
+        <ui-tab :name="'카테고리'">
+          <ui-split-pane>
+            <ui-pane :isTransparent="true">
+              <ui-tree :nodes="categoryTree"
+                       :useCheckbox="false"
+                       :filter="true"
+                       :placeholder="'카테고리/포스트 제목 입력'"
+                       @onNodeClick="onNodeClick">
+              </ui-tree>
+            </ui-pane>
+
+            <ui-pane v-if="isSplitterActive">
+              <app-save-category :category="category"
+                                 :key="type + category.id">
+              </app-save-category>
+            </ui-pane>
+          </ui-split-pane>
+        </ui-tab>
+
+        <ui-tab :name="'태그'">
+          <ui-split-pane>
+            <ui-pane :isTransparent="true">
+              <ui-tree :nodes="tagTree"
+                       :useCheckbox="false"
+                       :filter="true"
+                       :placeholder="'태그/포스트 제목 입력'"
+                       @onNodeClick="onNodeClick">
+              </ui-tree>
+            </ui-pane>
+
+            <ui-pane v-if="isSplitterActive">
+              <app-save-category :category="category"
+                                 :key="type + category.id">
+              </app-save-category>
+            </ui-pane>
+          </ui-split-pane>
+        </ui-tab>
+      </ui-tabs>
+    </template>
   </app-content-wrapper>
 </template>
 
 <script>
+import AppSaveCategory from '@/components/views/category/AppSaveCategory.vue';
+import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
+import { isNotEmpty } from '@/utils/util';
+
 export default {
   name: 'app-admin-category',
+  components: {
+    AppSaveCategory
+  },
   data() {
     return {
       pageTitle: '카테고리/태그 관리',
       dataLoaded: false,
       categoryTree: [],
       tagTree: [],
+      category: {},
+      type: '',
+      activeIndex: -1,
     }
   },
   created() {
@@ -29,21 +83,27 @@ export default {
   methods: {
     /** 초기 세팅 */
     async init() {
+      // 페이지 타이틀 세팅
+      breadcrumbService.setPageTitle(this.pageTitle);
+
       await Promise.all([
         this.listTreeCategoryAndPost(),
         this.listTreeTagAndPost(),
       ]);
+
+      this.$store.commit('Splitter/TOGGLE', true);
+      this.dataLoaded = true;
     },
     /** 카테고리-포스트 계층형 구조 조회 */
     listTreeCategoryAndPost() {
-      return this.$http.get('/category/tree')
+      return this.$http.get('/category/list/tree')
         .then(res => {
           this.createTree(res.data, 'category');
         });
     },
     /** 태그-포스트 계층형 구조 조회 */
     listTreeTagAndPost() {
-      return this.$http.get('/tag/tree')
+      return this.$http.get('/tag/list/tree')
         .then(res => {
           this.createTree(res.data, 'tag');
         });
@@ -91,6 +151,34 @@ export default {
       } else {
         this.tagTree.push(node);
       }
+    },
+    /** node 클릭 시 */
+    onNodeClick(node) {
+      this.$store.commit('Splitter/TOGGLE', true);
+      
+      if (isNotEmpty(node.nodes)) {
+        this.getCategory(node);
+      }
+    },
+    /** 탭 변경 시 */
+    onTabChanged(selectedTab) {
+      this.activeIndex = selectedTab.tab.index;
+    },
+    /** 카테고리 조회 */
+    getCategory(node) {
+      if (0 === this.activeIndex) this.type = 'category';
+      if (1 === this.activeIndex) this.type = 'tag';
+
+      return this.$http.get(`/${this.type}/${node.id}`)
+        .then(res => {
+          this.category = { ...res.data };
+          this.category.regDate = this.$moment(this.category.regDate).format('YYYY-MM-DD HH:mm:ss')
+        });
+    },
+    /** 카테고리 추가 */
+    addCategory() {
+      this.category = {};
+      this.category.id = null;
     },
   },
 }

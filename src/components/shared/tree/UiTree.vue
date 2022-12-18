@@ -1,5 +1,6 @@
 <template>
-  <ui-text-field :placeholder="placeholder"
+  <ui-text-field :class="'tree-filter-field'"
+                 :placeholder="placeholder"
                  v-model="searchText"
                  v-if="filter">
   </ui-text-field>
@@ -71,24 +72,43 @@ export default {
   methods: {
     /** 트리 확장 시 */
     onNodeExpanded(node, state) {
-      console.log('state: ', state);
-      console.log('node: ', node);
       this.$emit('onNodeExpanded', { node, state });
     },
     /** node 업데이트 시 */
     onUpdate(nodes) {
-      console.log('onUpdate', nodes);
       this.$emit('onUpdate', nodes);
     },
     /** node 클릭 시 */
     onNodeClick(node) {
-      console.log('onNodeClick', node);
       this.$emit('onNodeClick', node);
     }
   },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.tree-row-item {
+  gap: 0.15rem;
 
+  .feather-chevron-right {
+    width: 15px;
+    height: 15px;
+  }
+
+  input[type="checkbox"] {
+    margin-right: 0.3rem;
+  }
+
+  .child-count {
+    font-size: 0.85rem;
+  }
+}
+
+.tree-row-txt {
+  font-size: 0.9rem;
+}
+
+.tree-filter-field {
+  margin-bottom: 0.5rem;
+}
 </style>
