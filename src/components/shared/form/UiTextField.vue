@@ -1,25 +1,33 @@
 <template>
-  <Field :type="type"
-         :name="name"
-         :value="value"
-         :rules="rules"
-         v-slot="{ field }">
+  <div class="input-wrapper">
+    <label :for="id"
+           :class="'input-label'"
+           v-if="label">{{ label }}
+    </label>
 
-    <input :type="type"
-           :id="id"
-           :ref="(el) => { inputEl = el }"
+    <Field :type="type"
            :name="name"
-           :title="title"
-           :placeholder="placeholder"
-           :readonly="readonly"
            :value="value"
-           v-bind="{ ...field, ...$attrs }"
-           @input="onInput($event)"
-    >
-  </Field>
+           :rules="rules"
+           v-slot="{ field }">
 
-  <ErrorMessage class="form-field-error" :name="name">
-  </ErrorMessage>
+      <input :type="type"
+             :id="id"
+             :class="'input-field'"
+             :ref="(el) => { inputEl = el }"
+             :name="name"
+             :title="title"
+             :placeholder="placeholder"
+             :readonly="readonly"
+             :value="value"
+             v-bind="{ ...field, ...$attrs }"
+             @input="onInput($event)"
+      >
+    </Field>
+
+    <ErrorMessage class="form-field-error" :name="name">
+    </ErrorMessage>
+  </div>
 </template>
 
 <script>
@@ -45,6 +53,8 @@ export default {
     placeholder: String,
     /** input readonly */
     readonly: Boolean,
+    /** input label */
+    label: String,
     /** input validation rules */
     rules: String,
     /** input value */
@@ -93,5 +103,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+@import '@/assets/scss/basics/input.scss';
 </style>

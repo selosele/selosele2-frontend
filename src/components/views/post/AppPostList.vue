@@ -1,25 +1,17 @@
 <template>
   <div class="post-list__wrapper">
     <ui-form :name="'postListForm'" @onSubmit="removePost">
-      <ui-form :name="'postCategoryForm'" @onSubmit="listPostByCategory">
+      <ui-form :name="'postCategoryForm'" :ref="'postCategoryForm'" @onSubmit="listPostByCategory">
         <div class="post__category-filter d-flex-w gap--10 mb--15">
-          <div>
-            <ui-select :name="'categoryId'"
-                       :id="'categoryId'"
-                       :class="'post__category-filter-select'"
-                       :title="'카테고리 선택'"
-                       :defaultValue="'카테고리 선택'"
-                       :data="categoryList"
-                       :rules="'required'">
-            </ui-select>
-          </div>
-
-          <ui-button :type="'submit'"
-                     :color="'dark'"
-                     :title="'선택한 카테고리로 포스트 조회'"
-                     :class="'post__category-filter-btn'">
-            <i class="xi-check" aria-hidden="true"></i>
-          </ui-button>
+          <ui-select :name="'categoryId'"
+                     :id="'categoryId'"
+                     :class="'post__category-filter-select'"
+                     :title="'카테고리 선택'"
+                     :defaultValue="'카테고리 선택'"
+                     :data="categoryList"
+                     :rules="'required'"
+                     @onChange="listPostByCategory">
+          </ui-select>
         </div>
       </ui-form>
 
@@ -42,7 +34,7 @@
                        :label="'포스트 전체 선택'"
                        :values="'Y,N'"
                        v-model="checkAll"
-                       @click="onClick($event)">
+                       @click.self="onClick($event)">
           </ui-checkbox>
         </span>
       </div>
@@ -142,8 +134,11 @@ export default {
         });
     },
     /** 카테고리 필터링 */
-    listPostByCategory(values) {
-      this.$http.get('/post', { params: values })
+    async listPostByCategory(categoryId) {
+      const runValidate = await this.$refs['postCategoryForm'].validateAll();
+      if (!runValidate.valid) return;
+
+      this.$http.get('/post', { params: { categoryId } })
         .then(res => {
           this.$emit('listPost', res.data);
         });

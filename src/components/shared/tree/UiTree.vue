@@ -113,6 +113,8 @@ export default {
 }
 
 .tree-filter-field {
+  display: inline-block;
+  
   + * {
     margin-left: 0.5rem;
   }

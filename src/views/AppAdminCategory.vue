@@ -193,7 +193,7 @@ export default {
       return this.$http.get(`/${this.type}/${node.id}`)
         .then(res => {
           this.category = { ...res.data };
-          this.category.regDate = this.$moment(this.category.regDate).format('YYYY-MM-DD HH:mm:ss')
+          this.category.regDate = this.$moment(this.category.regDate).format('YYYY-MM-DD HH:mm:ss');
         });
     },
     /** 카테고리 추가 */

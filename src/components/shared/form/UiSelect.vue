@@ -1,28 +1,36 @@
 <template>
-  <Field as="select"
-         :id="id"
-         :ref="id"
-         :name="name"
-         :title="title"
-         :rules="rules"
-         v-bind="$attrs"
-         v-model="mv">
-
-    <option value=""
-      :disabled="(defaultValueDisabled ? 'disabled' : false)"
-      selected v-if="defaultValue">{{ defaultValue }}
-    </option>
+  <div class="input-wrapper">
+    <label :for="id"
+           :class="'input-label'"
+           v-if="label">{{ label }}
+    </label>
     
-    <template v-if="data && data.length > 0">
-      <option v-for="d,i in data"
-              :key="i"
-              :value="d.value"
-              :selected="d.value === selectedValue">{{ d.text }}</option>
-    </template>
-  </Field>
+    <Field as="select"
+           :id="id"
+           :ref="id"
+           :name="name"
+           :title="title"
+           :rules="rules"
+           v-bind="$attrs"
+           v-model="mv"
+           @change="onChange">
 
-  <ErrorMessage class="form-field-error" :name="name">
-  </ErrorMessage>
+      <option value=""
+        :disabled="(defaultValueDisabled ? 'disabled' : false)"
+        selected v-if="defaultValue">{{ defaultValue }}
+      </option>
+      
+      <template v-if="data && data.length > 0">
+        <option v-for="d,i in data"
+                :key="i"
+                :value="d.value"
+                :selected="d.value === selectedValue">{{ d.text }}</option>
+      </template>
+    </Field>
+
+    <ErrorMessage class="form-field-error" :name="name">
+    </ErrorMessage>
+  </div>
 </template>
 
 <script>
@@ -41,6 +49,8 @@ export default {
     name: String,
     /** select title */
     title: String,
+    /** select label */
+    label: String,
     /** select validation rules */
     rules: String,
     /** select default value */
@@ -62,9 +72,14 @@ export default {
       set(v) {}
     }
   },
+  methods: {
+    onChange($event) {
+      this.$emit('onChange', $event.target.value);
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-
+@import '@/assets/scss/basics/input.scss';
 </style>

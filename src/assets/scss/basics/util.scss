@@ -105,6 +105,50 @@
   }
 }
 
+.pt {
+  &--0 {
+    padding-top: 0 !important;
+  }
+
+  &--5 {
+    padding-top: 0.25rem !important;
+  }
+
+  &--10 {
+    padding-top: 0.5rem !important;
+  }
+
+  &--15 {
+    padding-top: 0.75rem !important;
+  }
+
+  &--20 {
+    padding-top: 1rem !important;
+  }
+}
+
+.pb {
+  &--0 {
+    padding-bottom: 0 !important;
+  }
+
+  &--5 {
+    padding-bottom: 0.25rem !important;
+  }
+
+  &--10 {
+    padding-bottom: 0.5rem !important;
+  }
+
+  &--15 {
+    padding-bottom: 0.75rem !important;
+  }
+
+  &--20 {
+    padding-bottom: 1rem !important;
+  }
+}
+
 .gap {
   &--0 {
     gap: 0 !important;

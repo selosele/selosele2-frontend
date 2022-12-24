@@ -24,6 +24,7 @@ const app = createApp({
   extends: App,
   async created() {
     const token = localStorage.getItem('token');
+    
     if (token) {
       this.$store.commit('Auth/SET_TOKEN', token);
     }
@@ -31,7 +32,7 @@ const app = createApp({
     this.$http.interceptors.response.use(
       response => response,
       async error => {
-        if (isNotBlank(error.response.data.type) && 'BIZ' === error.response.data.type) {
+        if (isNotBlank(error.response.data.type) && 'biz' === error.response.data.type) {
           // 비즈니스 로직 예외 처리
           messageUtil.toastError(error.response.data.message);
         } else {

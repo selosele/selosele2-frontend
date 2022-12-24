@@ -5,16 +5,14 @@
       </ui-hidden-field>
 
       <div class="d-flex-w gap--10">
-        <div>
-          <ui-text-field :type="'password'"
-                         :name="'authorPw'"
-                         :id="'guestbookRemovePw'"
-                         :title="'비밀번호 입력'"
-                         :placeholder="'비밀번호 입력'"
-                         :readonly="isLogin"
-                         :rules="!isLogin ? 'required|min:8|max:15' : ''">
-          </ui-text-field>
-        </div>
+        <ui-text-field :type="'password'"
+                       :name="'authorPw'"
+                       :id="'guestbookRemovePw'"
+                       :title="'비밀번호 입력'"
+                       :placeholder="'비밀번호 입력'"
+                       :readonly="isLogin"
+                       :rules="!isLogin ? 'required|min:8|max:15' : ''">
+        </ui-text-field>
 
         <ui-button :type="'submit'"
                    :color="'primary'">삭제

@@ -10,25 +10,21 @@
     <ui-hidden-field :name="'type'" :value="type">
     </ui-hidden-field>
 
-    <label for="codeId">카테고리 명</label>
-    <div>
-      <ui-text-field :type="'text'"
-                     :name="'nm'"
-                     :id="'categoryNm'"
-                     :rules="'required'"
-                     :value="category.nm">
-      </ui-text-field>
-    </div>
+    <ui-text-field :type="'text'"
+                   :name="'nm'"
+                   :id="'categoryNm'"
+                   :label="'카테고리 명'"
+                   :rules="'required'"
+                   :value="category.nm">
+    </ui-text-field>
 
-    <label for="codeId">카테고리 등록일시</label>
-    <div>
-      <ui-text-field :type="'text'"
-                     :name="'regDate'"
-                     :id="'categoryRegDate'"
-                     :readonly="true"
-                     :value="category.regDate">
-      </ui-text-field>
-    </div>
+    <ui-text-field :type="'text'"
+                   :name="'regDate'"
+                   :id="'categoryRegDate'"
+                   :label="'카테고리 등록일시'"
+                   :readonly="true"
+                   :value="category.regDate">
+    </ui-text-field>
   </ui-split-form>
 </template>
 

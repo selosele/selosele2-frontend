@@ -1,27 +1,34 @@
 <template>
-  <Field :name="name"
-         :value="value"
-         :rules="rules"
-         v-slot="{ field }"
-  >
+  <div class="input-wrapper">
+    <label :for="id"
+           :class="'input-label'"
+           v-if="label">{{ label }}
+    </label>
 
-    <textarea :id="id"
-              :ref="(el) => { inputEl = el }"
-              :name="name"
-              :title="title"
-              :cols="cols"
-              :rows="rows"
-              :placeholder="placeholder"
-              :readonly="readonly"
-              :value="value"
-              v-bind="{ ...field, ...$attrs }"
-              @input="onInput($event)"
+    <Field :name="name"
+           :value="value"
+           :rules="rules"
+           v-slot="{ field }"
     >
-    </textarea>
-  </Field>
 
-  <ErrorMessage class="form-field-error" :name="name">
-  </ErrorMessage>
+      <textarea :id="id"
+                :ref="(el) => { inputEl = el }"
+                :name="name"
+                :title="title"
+                :cols="cols"
+                :rows="rows"
+                :placeholder="placeholder"
+                :readonly="readonly"
+                :value="value"
+                v-bind="{ ...field, ...$attrs }"
+                @input="onInput($event)"
+      >
+      </textarea>
+    </Field>
+
+    <ErrorMessage class="form-field-error" :name="name">
+    </ErrorMessage>
+  </div>
 </template>
 
 <script>
@@ -49,6 +56,8 @@ export default {
     rows: String,
     /** textarea readonly */
     readonly: Boolean,
+    /** textarea label */
+    label: String,
     /** textarea validation rules */
     rules: String,
     /** textarea value */
@@ -97,5 +106,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+@import '@/assets/scss/basics/input.scss';
 </style>

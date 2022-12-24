@@ -16,24 +16,22 @@
       </ui-textarea>
 
       <div class="d-flex-w gap--15 mt--20">
-        <label for="guestbookUpdateAuthor">닉네임
-            <ui-text-field :type="'text'"
-                           :name="'author'"
-                           :id="'guestbookUpdateAuthor'"
-                           :class="'guestbook__input'"
-                           :rules="'required|maxLength:20'"
-                           :value="guestbook.author">
-            </ui-text-field>
-        </label>
+        <label for="guestbookUpdateAuthor" class="pt--5">닉네임</label>
+        <ui-text-field :type="'text'"
+                       :name="'author'"
+                       :id="'guestbookUpdateAuthor'"
+                       :class="'guestbook__input'"
+                       :rules="'required|max:20'"
+                       :value="guestbook.author">
+        </ui-text-field>
 
-        <label for="guestbookUpdatePw">비밀번호
-          <ui-text-field :type="'password'"
-                         :name="'authorPw'"
-                         :id="'guestbookUpdatePw'"
-                         :class="'guestbook__input'"
-                         :rules="'required|minLength:8|maxLength:15'">
-          </ui-text-field>
-        </label>
+        <label for="guestbookUpdatePw" class="pt--5">비밀번호</label>
+        <ui-text-field :type="'password'"
+                       :name="'authorPw'"
+                       :id="'guestbookUpdatePw'"
+                       :class="'guestbook__input'"
+                       :rules="'required|min:8|max:15'">
+        </ui-text-field>
 
         <ui-button :type="'submit'"
                    :color="'primary'">수정

@@ -15,27 +15,23 @@
 
           <div class="guestbook__write__inputs">
             <div class="guestbook__write__input-box">
-              <label for="guestbookWriteAuthor">닉네임</label>
-              <div>
-                <ui-text-field :type="'text'"
-                               :name="'author'"
-                               :id="'guestbookWriteAuthor'"
-                               :class="'guestbook__input'"
-                               :rules="'required|maxLength:20'">
-                </ui-text-field>
-              </div>
+              <label for="guestbookWriteAuthor" class="pt--5">닉네임</label>
+              <ui-text-field :type="'text'"
+                             :name="'author'"
+                             :id="'guestbookWriteAuthor'"
+                             :class="'guestbook__input'"
+                             :rules="'required|max:20'">
+              </ui-text-field>
             </div>
 
             <div class="guestbook__write__input-box">
-              <label for="guestbookWritePw">비밀번호</label>
-              <div>
-                <ui-text-field :type="'password'"
-                               :name="'authorPw'"
-                               :id="'guestbookWritePw'"
-                               :class="'guestbook__input'"
-                               :rules="'required|minLength:8|maxLength:15'">
-                </ui-text-field>
-              </div>
+              <label for="guestbookWritePw" class="pt--5">비밀번호</label>
+              <ui-text-field :type="'password'"
+                             :name="'authorPw'"
+                             :id="'guestbookWritePw'"
+                             :class="'guestbook__input'"
+                             :rules="'required|min:8|max:15'">
+              </ui-text-field>
             </div>
 
             <div class="guestbook__write__btns d-flex-w gap--10">
@@ -167,11 +163,11 @@ export default {
     '$store.state.Guestbook.updatedGuestbook'(updatedGuestbook) {
       if (0 < Object.values(updatedGuestbook).length) {
         const { id, author, cont, modDate } = updatedGuestbook;
-        const foundIdx = this.guestbookList.findIndex(d => d.id == id);
+        const foundGuestbook = this.guestbookList.find(d => d.id == id);
 
-        this.guestbookList[foundIdx].author = author;
-        this.guestbookList[foundIdx].cont = cont;
-        this.guestbookList[foundIdx].modDate = modDate;
+        foundGuestbook.author = author;
+        foundGuestbook.cont = cont;
+        foundGuestbook.modDate = modDate;
         this.$store.dispatch('Guestbook/FETCH_UPDATED_GUESTBOOK', {});
       }
     },
