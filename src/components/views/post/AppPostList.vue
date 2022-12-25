@@ -10,6 +10,7 @@
                      :defaultValue="'카테고리 선택'"
                      :data="categoryList"
                      :rules="'required'"
+                     v-model="selectedCategoryId"
                      @onChange="listPostByCategory">
           </ui-select>
         </div>
@@ -54,7 +55,7 @@
 
 <script>
 import AppPostListDetail from '@/components/views/post/AppPostListDetail.vue';
-import { isNotEmpty } from '@/utils/util';
+import { isNotBlank, isNotEmpty } from '@/utils/util';
 import { messageUtil } from '@/utils/ui/messageUtil';
 
 export default {
@@ -74,7 +75,14 @@ export default {
   },
   data() {
     return {
-      initList: [],
+      /** 선택된 카테고리 ID */
+      selectedCategoryId: this.$store.state.Post.selectedCategoryId,
+    }
+  },
+  mounted() {
+    if (isNotBlank(this.$store.state.Post.selectedCategoryId)) {
+      // 페이지 전환 시 선택된 카테고리 ID 초기화
+      this.$store.dispatch('Post/FETCH_SELECTED_CATEGORY_ID', '');
     }
   },
   computed: {
@@ -140,6 +148,7 @@ export default {
 
       this.$http.get('/post', { params: { categoryId } })
         .then(res => {
+          this.$store.dispatch('Post/FETCH_SELECTED_CATEGORY_ID', categoryId);
           this.$emit('listPost', res.data);
         });
     },

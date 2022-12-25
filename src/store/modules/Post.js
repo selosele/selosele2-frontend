@@ -8,6 +8,8 @@ export const Post = {
     checkList: [],
     /** 전체선택 체크박스 체크 여부 */
     checkAll: false,
+    /** 선택된 카테고리 ID */
+    selectedCategoryId: '',
   }),
   mutations: {
     SET_MAIN_POSTLIST(state, mainPostObj) {
@@ -19,6 +21,9 @@ export const Post = {
     SET_CHECKALL(state, checkAll) {
       state.checkAll = checkAll;
     },
+    SET_SELECTED_CATEGORY_ID(state, selectedCategoryId) {
+      state.selectedCategoryId = selectedCategoryId;
+    },
   },
   actions: {
     FETCH_MAIN_POSTLIST({ commit }, values) {
@@ -29,6 +34,9 @@ export const Post = {
     },
     FETCH_CHECKALL({ commit }, values) {
       commit('SET_CHECKALL', values);
+    },
+    FETCH_SELECTED_CATEGORY_ID({ commit }, values) {
+      commit('SET_SELECTED_CATEGORY_ID', values);
     },
   },
 };

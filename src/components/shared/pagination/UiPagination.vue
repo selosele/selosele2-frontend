@@ -54,19 +54,21 @@
 </template>
 
 <script>
+import { isNotBlank } from '@/utils/util';
+
 export default {
   name: 'ui-pagination',
   props: {
     /** Pagination 데이타 */
     value: Array,
-    /** 한 페이지당 표출할 row 개수 */
+    /** Pagination 데이타 총 개수 */
     total: Number,
     /** 시작 페이지 번호 */
     first: {
       type: Number,
       default: 1,
     },
-    /** Pagination 데이타 총 개수 */
+    /** 한 페이지당 표출할 row 개수 */
     rows: {
       type: Number,
       default: 10,
@@ -76,14 +78,32 @@ export default {
       type: Number,
       default: 5,
     },
+    /** 고정글 컬럼명 */
+    pinColumn: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
       /** Pagination 현재 번호 */
       pageNum: this.first,
+      /** 고정글 목록 */
+      pinPostList: [],
+      /** 비고정글 목록 */
+      noPinPostList: [],
+      /** 한 페이지당 고정글 개수 제외 표출할 row 개수  */
+      computedRows: this.rows,
     }
   },
   created() {
+    this.pinPostList = this.findPinPostList(this.value);
+    this.noPinPostList = this.findNoPinPostList(this.value);
+
+    if (isNotBlank(this.pinColumn)) {
+      this.computedRows = this.rows - this.pinPostList.length;
+    }
+
     this.onPage(this.page);
   },
   computed: {
@@ -106,11 +126,11 @@ export default {
     },
     /** Pagination 건너뛸 목록 수 */
     paginationSkip() {
-      return (this.page - 1) * this.rows;
+      return (this.page - 1) * this.computedRows;
     },
     /** 한 페이지당 표출할 row 개수 */
     paginationRows() {
-      return Math.ceil(this.paginationSkip / this.rows) * this.rows + this.rows;
+      return Math.ceil(this.paginationSkip / this.computedRows) * this.computedRows + this.computedRows;
     },
     /** Pagination 시작 번호 */
     paginationStart() {
@@ -124,7 +144,7 @@ export default {
     },
     /** Pagination 전체 개수 */
     paginationTotal() {
-      return Math.ceil(this.total / this.rows);
+      return Math.ceil(this.total / this.computedRows);
     },
   },
   methods: {
@@ -142,18 +162,36 @@ export default {
       this.page = i;
 
       // Paging 처리된 데이타
-      let pageData = this.value.slice(this.paginationSkip, this.paginationRows);
+      let pageData = this.noPinPostList.slice(this.paginationSkip, this.paginationRows);
+      
+      // 고정글 목록도 같이 넣어준다.
+      let collectedPageData = this.collectPageData(pageData);
       
       // 페이지 번호와 매칭되는 데이타가 없으면 1페이지로 이동 (예: 6페이지로 갔는데 데이타가 없을 때)
-      if (0 === pageData.length) {
+      if (0 === collectedPageData.length) {
         this.onPage(1);
         return;
       }
 
       this.$emit('onPage', {
         page: this.page,
-        pageData: pageData,
+        pageData: collectedPageData,
       });
+    },
+    /** 고정글 목록 가져오기 */
+    findPinPostList(data) {
+      return isNotBlank(this.pinColumn) ? data.filter(d => d[this.pinColumn] === 'Y') : data;
+    },
+    /** 비고정글 목록 가져오기 */
+    findNoPinPostList(data) {
+      return isNotBlank(this.pinColumn) ? data.filter(d => d[this.pinColumn] === 'N') : data;
+    },
+    /** 고정글 목록과 비고정글 목록을 합친다. */
+    collectPageData(data) {
+      if (isNotBlank(this.pinColumn)) {
+        return 0 < data.length ? [...this.pinPostList, ...data] : data;
+      }
+      return data;
     },
   },
 };

@@ -17,6 +17,7 @@
                      :first="page"
                      :rows="5"
                      :size="10"
+                     :pinColumn="'pinYn'"
                      @onPage="onPage">
       </ui-pagination>
     </app-post-list>
@@ -113,9 +114,16 @@ export default {
       this.listPostByCategory(post.data);
     },
     /** 카테고리 필터링 */
-    listPostByCategory(values) {
-      this.postList = [...values[0]];
-      this.listCnt = values[1];
+    async listPostByCategory(values) {
+      await (() => {
+        this.dataLoaded = false;
+        this.postList = [...values[0]];
+        this.listCnt = values[1];
+        
+        return Promise.resolve();
+      })();
+      
+      this.dataLoading();
     },
     /** 카테고리 목록 및 개수 조회 */
     listCategoryAndCount() {
