@@ -144,7 +144,7 @@ export default {
     },
     /** Pagination 전체 개수 */
     paginationTotal() {
-      return Math.ceil(this.total / this.computedRows);
+      return Math.round(this.total / this.computedRows);
     },
   },
   methods: {
@@ -160,6 +160,14 @@ export default {
       }
 
       this.page = i;
+
+      // if (0 === this.page) {
+      //   if (isNotBlank(this.pinColumn)) {
+      //     this.computedRows = this.rows - this.pinPostList.length;
+      //   }
+      // } else {
+      //   this.computedRows = this.rows;
+      // }
 
       // Paging 처리된 데이타
       let pageData = this.noPinPostList.slice(this.paginationSkip, this.paginationRows);
