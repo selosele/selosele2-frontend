@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { messageUtil } from '@/utils/ui/messageUtil';
+import { messageUtil } from '@/utils/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {

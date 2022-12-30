@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { isNotBlank } from '@/utils/util';
+import { isNotBlank } from '@/utils/utils';
 
 export default {
   name: 'ui-pagination',

@@ -55,8 +55,7 @@
 
 <script>
 import AppPostListDetail from '@/components/views/post/AppPostListDetail.vue';
-import { isNotBlank, isNotEmpty } from '@/utils/util';
-import { messageUtil } from '@/utils/ui/messageUtil';
+import { isNotBlank, isNotEmpty, messageUtil } from '@/utils/utils';
 
 export default {
   name: 'app-post-list',

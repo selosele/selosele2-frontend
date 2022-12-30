@@ -1,5 +1,5 @@
 import store from '@/store/store';
-import { isNotEmpty } from '@/utils/util';
+import { isNotEmpty } from '@/utils/utils';
 
 /** Breadcrumb Service */
 class BreadcrumbService {

@@ -69,7 +69,7 @@
 <script>
 import AppSaveCategory from '@/components/views/category/AppSaveCategory.vue';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
-import { isNotEmpty } from '@/utils/util';
+import { isNotEmpty } from '@/utils/utils';
 
 export default {
   name: 'app-admin-category',

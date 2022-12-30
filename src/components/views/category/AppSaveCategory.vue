@@ -29,8 +29,7 @@
 </template>
 
 <script>
-import { messageUtil } from '@/utils/ui/messageUtil';
-import { isEmpty } from '@/utils/util';
+import { messageUtil, isEmpty } from '@/utils/utils';
 
 export default {
   name: 'app-save-category',

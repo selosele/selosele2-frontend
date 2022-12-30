@@ -118,9 +118,8 @@
 </template>
 
 <script>
-import { messageUtil } from '@/utils/ui/messageUtil';
+import { messageUtil, isNotEmpty } from '@/utils/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
-import { isNotEmpty } from '@/utils/util';
 import AppGuestbookReply from '@/components/views/guestbook/AppGuestbookReply.vue';
 import AppUpdateGuestbookModal from '@/components/views/guestbook/AppUpdateGuestbookModal.vue';
 import AppRemoveGuestbookModal from '@/components/views/guestbook/AppRemoveGuestbookModal.vue';

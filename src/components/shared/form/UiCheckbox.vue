@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { isBlank } from '@/utils/util';
+import { isBlank } from '@/utils/utils';
 import { Field, ErrorMessage } from 'vee-validate';
 
 export default {

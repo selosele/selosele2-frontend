@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { isNotEmpty } from '@/utils/util';
+import { isNotEmpty } from '@/utils/utils';
 
 export default {
   name: 'ui-button',

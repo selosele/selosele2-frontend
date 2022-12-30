@@ -1,4 +1,4 @@
-import { isNotBlank } from "@/utils/util";
+import { isNotBlank } from "@/utils/common/commonUtil";
 
 /** 인증·인가 Store */
 export const Auth = {

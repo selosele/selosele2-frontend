@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { messageUtil } from '@/utils/ui/messageUtil';
+import { messageUtil } from '@/utils/utils';
 
 export default {
   name: 'app-user-satisfaction',

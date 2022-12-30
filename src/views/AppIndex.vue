@@ -29,7 +29,7 @@
 <script>
 import AppPostList from '@/components/views/post/AppPostList.vue';
 import AppWidgetConfig from '@/components/widget/AppWidgetConfig.vue';
-import { isNotEmpty } from '@/utils/util';
+import { isNotEmpty } from '@/utils/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {

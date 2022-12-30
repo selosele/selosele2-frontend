@@ -172,8 +172,7 @@
 <script>
 import Markdown from 'vue3-markdown-it';
 import MarkdownItFootnote from 'markdown-it-footnote';
-import { messageUtil } from '@/utils/ui/messageUtil';
-import { isNotBlank, isNotEmpty } from '@/utils/util';
+import { messageUtil, isNotBlank, isNotEmpty } from '@/utils/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 /**

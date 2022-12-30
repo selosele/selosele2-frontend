@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { isNotEmpty } from '@/utils/util';
+import { isNotEmpty } from '@/utils/utils';
 
 export default {
   name: 'app-menu',

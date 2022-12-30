@@ -3,18 +3,14 @@ import App from './App.vue';
 import router from '@/routes/router';
 import store from '@/store/store';
 import axios from 'axios';
-import { initDefineRule } from '@/utils/validation/validation';
 import { commonComputed } from '@/store/helper';
 import moment from 'moment';
-import { messageUtil } from '@/utils/ui/messageUtil';
-import { layoutModule } from '@/plugins/module/layout/layout';
-import { uiModule } from '@/plugins/module/ui/ui';
-import { formModule } from '@/plugins/module/form/form';
+import { initDefineRule, isNotBlank, messageUtil } from '@/utils/utils';
+import { formModule, layoutModule, uiModule } from './plugins/module/module';
 import { $vfm } from 'vue-final-modal';
 import { vfmPlugin } from 'vue-final-modal';
 
 import '@/assets/scss/style.scss';
-import { isNotBlank } from '@/utils/util';
 
 initDefineRule();
 

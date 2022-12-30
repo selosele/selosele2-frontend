@@ -45,7 +45,7 @@
 
 <script>
 import AppSaveCode from '@/components/views/code/AppSaveCode.vue';
-import { messageUtil } from '@/utils/ui/messageUtil';
+import { messageUtil } from '@/utils/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {

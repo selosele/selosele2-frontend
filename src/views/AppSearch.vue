@@ -93,9 +93,8 @@
 
 <script>
 import AppPostListDetail from '@/components/views/post/AppPostListDetail.vue';
-import { messageUtil } from '@/utils/ui/messageUtil';
+import { messageUtil, isBlank, isNotEmpty } from '@/utils/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
-import { isBlank, isNotEmpty } from '@/utils/util';
 
 export default {
   name: 'app-search',
