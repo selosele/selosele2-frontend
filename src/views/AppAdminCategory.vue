@@ -26,7 +26,10 @@
             </ui-pane>
 
             <ui-pane v-if="isSplitterActive">
-              <app-save-category :category="category"
+              <ui-loading :activeModel="!dataLoaded2"></ui-loading>
+              
+              <app-save-category v-if="dataLoaded2"
+                                 :category="category"
                                  :type="'category'"
                                  :key="type + category.id"
                                  @refreshCategory="refreshTree">
@@ -53,7 +56,10 @@
             </ui-pane>
 
             <ui-pane v-if="isSplitterActive">
-              <app-save-category :category="category"
+              <ui-loading :activeModel="!dataLoaded2"></ui-loading>
+
+              <app-save-category v-if="dataLoaded2"
+                                 :category="category"
                                  :type="'tag'"
                                  :key="type + category.id"
                                  @refreshCategory="refreshTree">
@@ -79,12 +85,13 @@ export default {
   data() {
     return {
       pageTitle: '카테고리/태그 관리',
-      dataLoaded: false,
       categoryTree: [],
       tagTree: [],
       category: {},
       type: '',
       activeIndex: -1,
+      dataLoaded: false,
+      dataLoaded2: false,
     }
   },
   created() {
@@ -103,6 +110,7 @@ export default {
 
       this.$store.commit('Splitter/TOGGLE', true);
       this.dataLoaded = true;
+      this.dataLoaded2 = true;
     },
     /** 카테고리-포스트 계층형 구조 조회 */
     listTreeCategoryAndPost() {
@@ -174,11 +182,15 @@ export default {
       }
     },
     /** node 클릭 시 */
-    onNodeClick(node) {
+    async onNodeClick(node) {
       this.$store.commit('Splitter/TOGGLE', true);
 
-      if (isNotEmpty(node.nodes)) {
-        this.getCategory(node);
+      // 똑같은 node를 여러번 클릭해서 API가 호출되는 것을 막기 위해, node.id와 category.id가 다를 때만 API를 호출한다.
+      if (isNotEmpty(node.nodes) && node.id !== this.category?.id) {
+        this.dataLoaded2 = false;
+
+        await this.getCategory(node);
+        this.dataLoading2();
       }
     },
     /** 탭 변경 시 */
@@ -204,6 +216,12 @@ export default {
     resetCategory() {
       this.category = {};
       this.category.id = null;
+    },
+    /** 데이타 로딩 */
+    dataLoading2() {
+      if (isNotEmpty(this.category) && 0 < Object.values(this.category).length) {
+        this.dataLoaded2 = true;
+      }
     },
   },
 }
