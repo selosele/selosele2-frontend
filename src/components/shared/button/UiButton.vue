@@ -2,7 +2,6 @@
   <button :type="type"
           :class="`btn ${btnColor}${btnBlock}`"
           :title="title"
-          @click="$emit('click')"
           v-bind="$attrs"
           v-if="!routerLink && 'link' !== type">
     <slot></slot>

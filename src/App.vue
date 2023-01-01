@@ -70,10 +70,10 @@ export default {
   },
   mounted() {
     this.lastScrollTop = window.pageYOffset;
-    document.addEventListener('scroll', this.scroll);
+    document.addEventListener('scroll', this.onScroll);
   },
   unmounted() {
-    document.removeEventListener('scroll', this.scroll);
+    document.removeEventListener('scroll', this.onScroll);
   },
   watch: {
     '$route'() {
@@ -142,7 +142,7 @@ export default {
       }
     },
     /** 메뉴 스크롤 */
-    scroll() {
+    onScroll() {
       if (1420 > window.outerWidth || 0 > window.pageYOffset) return;
       if (Math.abs(window.pageYOffset - this.lastScrollTop) < this.$refs['mainWrapper'].getOffsetTop()) return;
 

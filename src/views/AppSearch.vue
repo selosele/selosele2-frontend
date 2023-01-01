@@ -155,10 +155,10 @@ export default {
     next();
   },
   mounted() {
-    document.addEventListener('scroll', this.scroll);
+    document.addEventListener('scroll', this.onScroll);
   },
   unmounted() {
-    document.removeEventListener('scroll', this.scroll);
+    document.removeEventListener('scroll', this.onScroll);
   },
   methods: {
     /** 초기 세팅 */
@@ -244,7 +244,7 @@ export default {
       });
     },
     /** 스크롤 시 검색 input으로 향하는 버튼 toggle */
-    scroll() {
+    onScroll() {
       if (null === this.postList || 0 === this.postList.length) return;
 
       if (this.$refs['resultsWrapper'] && (window.pageYOffset >= this.$refs['resultsWrapper'].offsetTop)) {

@@ -150,11 +150,11 @@ export default {
     this.dataLoading();
   },
   mounted() {
-    window.addEventListener('scroll', this.scroll);
+    window.addEventListener('scroll', this.onScroll);
     document.addEventListener('click', this.closeMenu);
   },
   unmounted() {
-    window.removeEventListener('scroll', this.scroll);
+    window.removeEventListener('scroll', this.onScroll);
     document.removeEventListener('click', this.closeMenu);
   },
   watch: {
@@ -233,7 +233,7 @@ export default {
       }
     },
     /** 방명록 무한 스크롤 */
-    scroll() {
+    onScroll() {
       const { scrollY } = window;
       const { clientHeight, scrollHeight } = document.documentElement;
       const bottomOfPage = (clientHeight + scrollY + 100) >= scrollHeight;
@@ -255,8 +255,7 @@ export default {
           component: AppUpdateGuestbookModal,
           bind: { guestbook },
         });
-      }
-      if ('remove' === type) {
+      } else if ('remove' === type) {
         this.$modal.show({
           component: AppRemoveGuestbookModal,
           bind: { id: guestbook.id },

@@ -37,7 +37,7 @@
 
           <button type="button"
                   class="btn--more"
-                  @click="more(item.year, i)"
+                  @click="onMore(item.year, i)"
                   v-if="i === activeIndex && listCnt > pageSize && !isLastPage">
             <i class="xi-ellipsis-h" aria-hidden="true"></i>
             <span class="sr-only">더보기</span>
@@ -140,7 +140,7 @@ export default {
         });
     },
     /** 더보기 */
-    more(year, idx) {
+    onMore(year, idx) {
       this.page++;
       this.listPostByYear(year, idx);
     },

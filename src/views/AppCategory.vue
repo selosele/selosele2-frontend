@@ -23,7 +23,7 @@
 
         <button type="button"
                 class="btn--more"
-                @click="more"
+                @click="onMore"
                 v-if="listCnt > pageSize && !isLastPage">
           <i class="xi-ellipsis-h" aria-hidden="true"></i>
           <span class="sr-only">더보기</span>
@@ -102,7 +102,7 @@ export default {
         });
     },
     /** 더보기 */
-    more() {
+    onMore() {
       this.page++;
       this.listPostByCategory();
     },
