@@ -10,21 +10,23 @@
            :ref="id"
            :name="name"
            :title="title"
+           :class="'input-field'"
            :rules="rules"
            v-bind="$attrs"
            v-model="mv"
            @change="onChange">
 
       <option value=""
-        :disabled="(defaultValueDisabled ? 'disabled' : false)"
+        :disabled="defaultValueDisabled"
         selected v-if="defaultValue">{{ defaultValue }}
       </option>
       
-      <template v-if="data && data.length > 0">
+      <template v-if="data && 0 < data.length">
         <option v-for="d,i in data"
                 :key="i"
                 :value="d.value"
-                :selected="d.value === selectedValue">{{ d.text }}</option>
+                :selected="d.value == selectedValue"
+                :disabled="disabled">{{ d.text }}</option>
       </template>
     </Field>
 
@@ -49,6 +51,8 @@ export default {
     name: String,
     /** select title */
     title: String,
+    /** select disabled */
+    disabled: Boolean,
     /** select label */
     label: String,
     /** select validation rules */

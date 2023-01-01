@@ -104,8 +104,8 @@ export default {
       breadcrumbService.setPageTitle(this.pageTitle);
 
       await Promise.all([
-        this.listTreeCategoryAndPost(),
-        this.listTreeTagAndPost(),
+        this.listCategoryTreeAndPost(),
+        this.listTagTreeAndPost(),
       ]);
 
       this.$store.commit('Splitter/TOGGLE', true);
@@ -113,14 +113,14 @@ export default {
       this.dataLoaded2 = true;
     },
     /** 카테고리-포스트 계층형 구조 조회 */
-    listTreeCategoryAndPost() {
+    listCategoryTreeAndPost() {
       return this.$http.get('/category/list/tree')
         .then(res => {
           this.createTree(res.data, 'category');
         });
     },
     /** 태그-포스트 계층형 구조 조회 */
-    listTreeTagAndPost() {
+    listTagTreeAndPost() {
       return this.$http.get('/tag/list/tree')
         .then(res => {
           this.createTree(res.data, 'tag');
@@ -144,13 +144,11 @@ export default {
           nodes: childNodes.map((child, idx, self) => {
             if (0 === self.length) return {};
 
-            // 자식(포스트) node
-            let postNode = {
+            // 자식(포스트) node를 리턴
+            return {
               id: child.postId,
               label: child.post.title,
             };
-
-            return postNode;
           }),
         };
 
@@ -165,8 +163,8 @@ export default {
       this.tagTree = [];
 
       await Promise.all([
-        this.listTreeCategoryAndPost(),
-        this.listTreeTagAndPost(),
+        this.listCategoryTreeAndPost(),
+        this.listTagTreeAndPost(),
       ]);
     },
     /** 트리 label 가공 */

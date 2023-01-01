@@ -14,7 +14,12 @@
   }
   
   &-field {
+    width: 11.5rem;
     font-size: 0.9rem;
+
+    &--numeric {
+      text-align: right;
+    }
   }
 }
 

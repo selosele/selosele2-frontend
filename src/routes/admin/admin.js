@@ -49,4 +49,14 @@ export default [
       showSatis: false,
     },
   },
+  {
+    // 메뉴 관리 페이지
+    path: '/admin/menu',
+    component: () => import('@/views/AppAdminMenu.vue'),
+    meta: {
+      requiresAuth: true,
+      showSidebar: false,
+      showSatis: false,
+    },
+  },
 ];

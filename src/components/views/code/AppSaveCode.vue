@@ -45,20 +45,22 @@
                  :value="code.desc">
     </ui-textarea>
 
-    <ui-radio :id="'codeUseYn1'"
-              :name="'useYn'"
-              :label="'사용'"
-              :value="'Y'"
-              :rules="'required'"
-              v-model="useYn">
-    </ui-radio>
-    <ui-radio :id="'codeUseYn2'"
-              :name="'useYn'"
-              :label="'미사용'"
-              :value="'N'"
-              :rules="'required'"
-              v-model="useYn">
-    </ui-radio>
+    <ui-radio-group :label="'코드 사용 여부'">
+      <ui-radio :id="'codeUseYn1'"
+                :name="'useYn'"
+                :label="'사용'"
+                :value="'Y'"
+                :rules="'required'"
+                v-model="useYn">
+      </ui-radio>
+      <ui-radio :id="'codeUseYn2'"
+                :name="'useYn'"
+                :label="'미사용'"
+                :value="'N'"
+                :rules="'required'"
+                v-model="useYn">
+      </ui-radio>
+    </ui-radio-group>
   </ui-split-form>
 </template>
 

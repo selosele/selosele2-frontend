@@ -22,15 +22,17 @@ export const Auth = {
         commit('Auth/SET_TOKEN', values, { root: true });
         commit('Post/SET_MAIN_POSTLIST', {}, { root: true });
         commit('Layout/SET_SIDEBAR', {}, { root: true });
+        commit('Menu/SET_MENU', [], { root: true });
         resolve(isNotBlank(values) ? 'ok' : 'no');
       });
     },
-    LOGOUT({ commit }, http) {
+    LOGOUT({ commit }, client) {
       return new Promise((resolve, reject) => {
-        http.defaults.headers.common['Authorization'] = '';
+        client.defaults.headers.common['Authorization'] = '';
         commit('Auth/CLEAR_TOKEN', null, { root: true });
         commit('Post/SET_MAIN_POSTLIST', {}, { root: true });
         commit('Layout/SET_SIDEBAR', {}, { root: true });
+        commit('Menu/SET_MENU', [], { root: true });
         resolve('ok');
       });
     },

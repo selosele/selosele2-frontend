@@ -5,6 +5,7 @@ import { BlogConfig } from '@/store/modules/BlogConfig';
 import { Layout } from '@/store/modules/Layout';
 import { Post } from '@/store/modules/Post';
 import { Guestbook } from '@/store/modules/Guestbook';
+import { Menu } from '@/store/modules/Menu';
 import { Splitter } from '@/store/modules/Splitter';
 
 export default createStore({
@@ -15,6 +16,7 @@ export default createStore({
     Layout,         // 레이아웃
     Post,           // 포스트
     Guestbook,      // 방명록
+    Menu,           // 메뉴
     Splitter,       // Splitter
   },
   getters: {

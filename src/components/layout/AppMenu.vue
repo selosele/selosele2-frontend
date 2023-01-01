@@ -1,8 +1,8 @@
 <template>
   <nav id="gnb" class="gnb">
-    <ul class="gnb__list" v-if="0 < menuList.length">
-      <template v-for="(menu,i) in menuList" :key="i">
-        <li class="gnb__list__item" v-if="'N' === menu.hasChildren">
+    <ul class="gnb__list" v-if="0 < $store.state.Menu.data.length">
+      <template v-for="(menu,i) in $store.state.Menu.data" :key="i">
+        <li class="gnb__list__item" v-if="0 === menu.children.length">
           <router-link :to="menu.link">{{ menu.name }}</router-link>
         </li>
         <li v-else :class="[
@@ -38,7 +38,6 @@ export default {
   name: 'app-menu',
   data() {
     return {
-      menuList: [],
       activeIndex: -1,
     }
   },
@@ -53,23 +52,18 @@ export default {
   },
   watch: {
     '$store.state.Auth.token'(token) {
-      this.menuList = [];
       this.listMenu();
     }
   },
   methods: {
     /** 메뉴 목록 조회 */
     listMenu() {
-      let listMenuDto = {
-        useYn: 'Y',
-      };
-
-      return this.$http.get('/menu', { params: listMenuDto })
-        .then(res => {
-          res.data.map(d => {
-            this.menuList.push(d);
-          });
-        });
+      this.$store.dispatch('Menu/LIST_MENU', {
+        client: this.$http,
+        params: {
+          useYn: 'Y',
+        },
+      });
     },
     /** 메뉴 toggle */
     toggleMenu(i) {
