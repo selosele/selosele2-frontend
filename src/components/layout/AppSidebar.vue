@@ -9,8 +9,8 @@
       <template v-for="(widget,i) in widgetList" :key="i">
         <div :class="[
           'sidebar__item-list',
-          { 'sidebar__item-list--category': widget.id === 1 },
-          { 'sidebar__item-list--tag': widget.id === 2 },
+          { 'sidebar__item-list--category': 1 === widget.id },
+          { 'sidebar__item-list--tag': 2 === widget.id },
           ]">
           <div class="widget widget__box">
             <h2 class="sidebar__item-title widget__title">
@@ -20,8 +20,7 @@
   
             <ul v-if="widget.id === 1">
               <li v-for="(category,j) in categoryList" :key="j">
-                <router-link :to="`/category/${category.id}`">
-                  {{ category.nm }}
+                <router-link :to="`/category/${category.id}`">{{ category.nm }}
                   <span class="sidebar__item-count">{{ category.count }}</span>
                 </router-link>
               </li>
@@ -32,8 +31,7 @@
                 <router-link
                   :to="`/tag/${tag.id}`"
                   :style="{ fontSize: `${getFontSize(tag.count)}%` }"
-                  >
-                  {{ tag.nm }}
+                  >{{ tag.nm }}
                   <span class="sidebar__item-count">{{ tag.count }}</span>
                 </router-link>
               </li>
@@ -97,6 +95,7 @@ export default {
           res.data.map(d => {
             this.widgetList.push(d);
           });
+
           this.sidebar.widget = this.widgetList;
         });
     },
@@ -107,6 +106,7 @@ export default {
           res.data.map(d => {
             this.categoryList.push(d);
           });
+
           this.sidebar.category = this.categoryList;
         });
     },
@@ -117,6 +117,7 @@ export default {
           res.data.map(d => {
             this.tagList.push(d);
           });
+          
           this.sidebar.tag = this.tagList;
         });
     },
