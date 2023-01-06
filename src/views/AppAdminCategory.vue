@@ -7,7 +7,7 @@
     </template>
 
     <template v-else>
-      <ui-tabs @onTabChanged="onTabChanged">
+      <ui-tabs @tabChanged="onTabChanged">
         <ui-tab :name="'카테고리'">
           <ui-split-pane>
             <ui-pane :isTransparent="true">
@@ -15,7 +15,7 @@
                        :useCheckbox="false"
                        :filter="true"
                        :placeholder="'카테고리/포스트 제목 입력'"
-                       @onNodeClick="onNodeClick">
+                       @nodeClick="onNodeClick">
 
                 <template v-slot:btn>
                   <ui-button :color="'primary'"
@@ -45,7 +45,7 @@
                        :useCheckbox="false"
                        :filter="true"
                        :placeholder="'태그/포스트 제목 입력'"
-                       @onNodeClick="onNodeClick">
+                       @nodeClick="onNodeClick">
 
                 <template v-slot:btn>
                   <ui-button :color="'primary'"
@@ -75,7 +75,7 @@
 <script>
 import AppSaveCategory from '@/components/views/category/AppSaveCategory.vue';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
-import { isNotEmpty } from '@/utils/utils';
+import { isNotEmpty } from '@/utils';
 
 export default {
   name: 'app-admin-category',

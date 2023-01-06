@@ -1,8 +1,8 @@
 <template>
   <ui-split-form :name="'saveMenuForm'"
                  :btnRemove="true"
-                 @onSubmit="onSubmit"
-                 @onRemove="onRemove"
+                 @submit="onSubmit"
+                 @remove="onRemove"
   >
     <ui-hidden-field :name="'id'"
                      :ref="'menuId'"
@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import { messageUtil, isEmpty, isNotEmpty } from '@/utils/utils';
+import { messageUtil, isEmpty, isNotEmpty } from '@/utils';
 
 export default {
   name: 'app-save-menu',

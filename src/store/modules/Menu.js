@@ -1,4 +1,4 @@
-import { isEmpty } from "@/utils/utils";
+import { isEmpty } from "@/utils";
 
 /** 메뉴 Store */
 export const Menu = {

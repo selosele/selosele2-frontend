@@ -26,8 +26,8 @@
         :rowData="rowData"
         :checkboxIndex="0"
         :pagination="true"
-        @onGridReady="onGridReady"
-        @cellDoubleClicked="cellDoubleClicked"
+        @gridready="onGridReady"
+        @celldoubleclicked="onCellDoubleClicked"
       >
       </ui-grid>
     </template>
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { messageUtil } from '@/utils/utils';
+import { messageUtil } from '@/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
@@ -66,7 +66,7 @@ export default {
     onGridReady(params) {
       this.gridApi = params;
     },
-    cellDoubleClicked(params) {
+    onCellDoubleClicked(params) {
       this.$router.push('/content' + params.data['link']);
     },
     /** 콘텐츠 목록 조회 */

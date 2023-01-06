@@ -3,7 +3,7 @@
         :ref="name"
         :autocomplete="autocomplete"
         @submit="onSubmit"
-        @reset="$emit('onReset')"
+        @reset="$emit('reset')"
   >
     <slot :validateAll="validateAll"
           :validateField="validateField">
@@ -28,7 +28,7 @@ export default {
   methods: {
     /** submit 이벤트 */
     onSubmit(values) {
-      this.$emit('onSubmit', values);
+      this.$emit('submit', values);
     },
     /** 모든 Field에 대한 유효성 검증 */
     validateAll() {

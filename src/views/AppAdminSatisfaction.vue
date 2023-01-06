@@ -10,7 +10,7 @@
       <div class="d-flex flex--right gap--10 mb--15">
         <ui-datepicker
           v-model="regDate"
-          @onClear="onClear"
+          @clear="onClear"
           @update:modelValue="listByRegDate"
         >
         </ui-datepicker>
@@ -29,8 +29,8 @@
         :rowData="rowData"
         :rowNumIndex="0"
         :pagination="true"
-        @onGridReady="onGridReady"
-        @cellDoubleClicked="cellDoubleClicked"
+        @gridready="onGridReady"
+        @celldoubleclicked="onCellDoubleClicked"
       >
       </ui-grid>
     </template>
@@ -71,7 +71,7 @@ export default {
     onGridReady(params) {
       this.gridApi = params;
     },
-    cellDoubleClicked(params) {
+    onCellDoubleClicked(params) {
       this.$router.push(params.data['pagePath']);
     },
     /** 만족도조사 목록 조회 */

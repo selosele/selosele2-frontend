@@ -1,6 +1,6 @@
 <template>
   <ui-modal :title="'방명록 삭제'" :name="this.$options.name">
-    <ui-form :name="'removeGuestbookForm'" @onSubmit="onSubmit">
+    <ui-form :name="'removeGuestbookForm'" @submit="onSubmit">
       <ui-hidden-field :name="'id'" :value="id">
       </ui-hidden-field>
 
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { messageUtil } from '@/utils/utils';
+import { messageUtil } from '@/utils';
 
 export default {
   name: 'app-remove-guestbook-modal',

@@ -1,5 +1,5 @@
 <template>
-  <ui-split-form :name="'saveCodeForm'" @onSubmit="onSubmit">
+  <ui-split-form :name="'saveCodeForm'" @submit="onSubmit">
     <ui-hidden-field :name="'originId'" :value="code.id">
     </ui-hidden-field>
 
@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { isBlank, isEmpty, messageUtil } from '@/utils/utils';
+import { isBlank, isEmpty, messageUtil } from '@/utils';
 
 export default {
   name: 'app-save-code',
@@ -122,7 +122,7 @@ export default {
       return this.$http.post('/code', values)
         .then(res => {
           messageUtil.toastSuccess('저장되었습니다.');
-          this.$emit('onSaveCode');
+          this.$emit('saveCode');
         });
     },
     /** 공통코드 수정 */
@@ -130,7 +130,7 @@ export default {
       return this.$http.put('/code', values)
         .then(res => {
           messageUtil.toastSuccess('저장되었습니다.');
-          this.$emit('onSaveCode');
+          this.$emit('saveCode');
         });
     },
   },

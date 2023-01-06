@@ -43,11 +43,11 @@ export default {
     /** 닫기 */
     onClose() {
       this.$store.commit('Splitter/TOGGLE', false);
-      this.$emit('onClose');
+      this.$emit('close');
     },
     /** 삭제 */
     onRemove() {
-      this.$emit('onRemove', this.getFormValues(this.$refs[this.name].$el));
+      this.$emit('remove', this.getFormValues(this.$refs[this.name].$el));
     },
     /** form values 가져오기 */
     getFormValues(form) {

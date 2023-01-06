@@ -1,7 +1,7 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
     <div class="search__wrapper">
-      <ui-form :class="'search__frm'" :name="'searchForm'" @onSubmit="onSubmit">
+      <ui-form :class="'search__frm'" :name="'searchForm'" @submit="onSubmit">
         <div class="search__field" ref="searchField">
           <ui-select :name="'t'"
                      :id="'t'"
@@ -93,7 +93,7 @@
 
 <script>
 import AppPostListDetail from '@/components/views/post/AppPostListDetail.vue';
-import { messageUtil, isBlank, isNotEmpty } from '@/utils/utils';
+import { messageUtil, isBlank, isNotEmpty } from '@/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {

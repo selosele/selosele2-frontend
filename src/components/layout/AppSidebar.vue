@@ -6,39 +6,37 @@
     </template>
 
     <template v-else>
-      <template v-for="(widget,i) in widgetList" :key="i">
-        <div :class="[
-          'sidebar__item-list',
-          { 'sidebar__item-list--category': 1 === widget.id },
-          { 'sidebar__item-list--tag': 2 === widget.id },
-          ]">
-          <div class="widget widget__box">
-            <h2 class="sidebar__item-title widget__title">
-              <i :class="widget.icon" aria-hidden="true"></i>
-              <em>{{ widget.title }}</em>
-            </h2>
-  
-            <ul v-if="widget.id === 1">
-              <li v-for="(category,j) in categoryList" :key="j">
-                <router-link :to="`/category/${category.id}`">{{ category.nm }}
-                  <span class="sidebar__item-count">{{ category.count }}</span>
-                </router-link>
-              </li>
-            </ul>
-  
-            <ul v-if="widget.id === 2">
-              <li v-for="(tag,j) in tagList" :key="j">
-                <router-link
-                  :to="`/tag/${tag.id}`"
-                  :style="{ fontSize: `${getFontSize(tag.count)}%` }"
-                  >{{ tag.nm }}
-                  <span class="sidebar__item-count">{{ tag.count }}</span>
-                </router-link>
-              </li>
-            </ul>
-          </div>
+      <div v-for="(widget,i) in widgetList" :key="i"
+           :class="[
+            'sidebar__item-list',
+            { 'sidebar__item-list--category': 1 === widget.id },
+            { 'sidebar__item-list--tag': 2 === widget.id },
+      ]">
+        <div class="widget widget__box">
+          <h2 class="sidebar__item-title widget__title">
+            <i :class="widget.icon" aria-hidden="true"></i>
+            <em>{{ widget.title }}</em>
+          </h2>
+
+          <ul v-if="widget.id === 1">
+            <li v-for="(category,j) in categoryList" :key="j">
+              <router-link :to="`/category/${category.id}`">{{ category.nm }}
+                <span class="sidebar__item-count">{{ category.count }}</span>
+              </router-link>
+            </li>
+          </ul>
+
+          <ul v-if="widget.id === 2">
+            <li v-for="(tag,j) in tagList" :key="j">
+              <router-link
+                :to="`/tag/${tag.id}`"
+                :style="{ fontSize: `${getFontSize(tag.count)}%` }">{{ tag.nm }}
+                <span class="sidebar__item-count">{{ tag.count }}</span>
+              </router-link>
+            </li>
+          </ul>
         </div>
-      </template>
+      </div>
     </template>
   </aside>
 </template>

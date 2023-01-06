@@ -24,8 +24,8 @@
             :rowData="rowData"
             :checkboxIndex="0"
             :pagination="true"
-            @onGridReady="onGridReady"
-            @rowClicked="rowClicked"
+            @gridready="onGridReady"
+            @cellclicked="onCellClicked"
           >
           </ui-grid>
         </ui-pane>
@@ -34,7 +34,7 @@
           <app-save-code
             :code="code"
             :key="code.id"
-            @onSaveCode="onSaveCode"
+            @saveCode="onSaveCode"
           >
           </app-save-code>
         </ui-pane>
@@ -45,7 +45,7 @@
 
 <script>
 import AppSaveCode from '@/components/views/code/AppSaveCode.vue';
-import { messageUtil } from '@/utils/utils';
+import { messageUtil } from '@/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
@@ -84,7 +84,7 @@ export default {
       this.gridApi = params;
     },
     /** 공통코드 조회 */
-    rowClicked(params) {
+    onCellClicked(params) {
       this.$http.get(`/code/${params.data.id}`)
         .then(res => {
           this.code = { ...res.data };

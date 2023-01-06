@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { isNotEmpty } from '@/utils/utils';
+import { isNotEmpty } from '@/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {

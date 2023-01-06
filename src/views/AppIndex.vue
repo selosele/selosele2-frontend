@@ -18,7 +18,7 @@
                      :rows="5"
                      :size="10"
                      :pinColumn="'pinYn'"
-                     @onPage="onPage">
+                     @page="onPage">
       </ui-pagination>
     </app-post-list>
 
@@ -29,7 +29,7 @@
 <script>
 import AppPostList from '@/components/views/post/AppPostList.vue';
 import AppWidgetConfig from '@/components/widget/AppWidgetConfig.vue';
-import { isNotEmpty } from '@/utils/utils';
+import { isNotEmpty } from '@/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {

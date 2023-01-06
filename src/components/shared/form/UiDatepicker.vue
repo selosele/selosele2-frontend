@@ -3,7 +3,7 @@
     :format="format"
     :locale="locale"
     :modelValue="dateValue"
-    @cleared="$emit('onClear')"
+    @cleared="$emit('clear')"
     @update:modelValue="$emit('update:modelValue', dateValue)"
   >
   </Datepicker>

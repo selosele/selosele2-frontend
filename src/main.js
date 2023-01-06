@@ -1,12 +1,12 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from '@/routes/router';
-import store from '@/store/store';
+import router from '@/routes';
+import store from '@/store';
 import axios from 'axios';
 import { commonComputed } from '@/store/helper';
 import moment from 'moment';
-import { initDefineRule, isNotBlank, messageUtil } from '@/utils/utils';
-import { formModule, layoutModule, uiModule } from './plugins/module/module';
+import { initDefineRule, isNotBlank, messageUtil } from '@/utils';
+import { formModule, layoutModule, uiModule } from './plugins/module';
 import { $vfm } from 'vue-final-modal';
 import { vfmPlugin } from 'vue-final-modal';
 

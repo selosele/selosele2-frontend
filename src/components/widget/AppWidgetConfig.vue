@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { messageUtil } from '@/utils/utils';
+import { messageUtil } from '@/utils';
 
 export default {
   name: 'app-widget-config',

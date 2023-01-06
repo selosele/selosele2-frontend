@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { isNotBlank } from '@/utils/utils';
+import { isNotBlank } from '@/utils';
 
 export default {
   name: 'ui-pagination',
@@ -151,7 +151,7 @@ export default {
     /** Pagination 동작 */
     onPage(i) {
       if (0 === this.value.length) {
-        this.$emit('onPage', {
+        this.$emit('page', {
           page: 1,
           pageData: [],
         });
@@ -181,7 +181,7 @@ export default {
         return;
       }
 
-      this.$emit('onPage', {
+      this.$emit('page', {
         page: this.page,
         pageData: collectedPageData,
       });

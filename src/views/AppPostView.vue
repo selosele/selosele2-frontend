@@ -8,7 +8,7 @@
       </template>
   
       <template v-if="dataLoaded && null !== post">
-        <ui-form :name="'postForm'" @onSubmit="onSubmit">
+        <ui-form :name="'postForm'" @submit="onSubmit">
           <ui-hidden-field :name="'id'" :value="post.id">
           </ui-hidden-field>
     
@@ -172,7 +172,7 @@
 <script>
 import Markdown from 'vue3-markdown-it';
 import MarkdownItFootnote from 'markdown-it-footnote';
-import { messageUtil, isNotBlank, isNotEmpty } from '@/utils/utils';
+import { messageUtil, isNotBlank, isNotEmpty } from '@/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 /**

@@ -1,8 +1,8 @@
 <template>
   <ui-split-form :name="'saveCategoryForm'"
                  :btnRemove="true"
-                 @onSubmit="onSubmit"
-                 @onRemove="onRemove"
+                 @submit="onSubmit"
+                 @remove="onRemove"
   >
     <ui-hidden-field :name="'id'" :value="category.id">
     </ui-hidden-field>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { messageUtil, isEmpty } from '@/utils/utils';
+import { messageUtil, isEmpty } from '@/utils';
 
 export default {
   name: 'app-save-category',

@@ -7,8 +7,8 @@ import search from './search/search';
 import archive from './archive/archive';
 import guestbook from './guestbook/guestbook';
 import admin from './admin/admin';
-import store from '@/store/store';
-import { messageUtil, isEmpty } from '@/utils/utils';
+import store from '@/store';
+import { messageUtil, isEmpty } from '@/utils';
 
 const routes = [
   ...index,               // 메인

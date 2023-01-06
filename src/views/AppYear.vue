@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { messageUtil } from '@/utils/utils';
+import { messageUtil } from '@/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {

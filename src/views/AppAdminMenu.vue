@@ -41,7 +41,7 @@
 <script>
 import AppSaveMenu from '@/components/views/menu/AppSaveMenu.vue';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
-import { isNotEmpty } from '@/utils/utils';
+import { isNotEmpty } from '@/utils';
 
 export default {
   name: 'app-admin-menu',

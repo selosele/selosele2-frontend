@@ -10,10 +10,10 @@
     :rowSelection="rowSelection"
     :pagination="pagination"
     :paginationPageSize="paginationPageSize"
-    @grid-ready="onGridReady"
-    @cell-clicked="cellClicked"
-    @cell-doubleclicked="cellDoubleClicked"
-    @rowData-updated="rowDataUpdated"
+    @gridReady="onGridReady"
+    @cellClicked="onCellClicked"
+    @cellDoubleClicked="onCellDoubleClicked"
+    @rowDataUpdated="onRowDataUpdated"
   >
   </ag-grid-vue>
 </template>
@@ -129,15 +129,15 @@ export default {
         removeSelectedRows: () => this.removeSelectedRows(),
       });
 
-      this.$emit('onGridReady', newGridApi);
+      this.$emit('gridready', newGridApi);
     },
     /** row를 클릭했을 때 */
-    cellClicked(params) {
-      this.$emit('cellClicked', params);
+    onCellClicked(params) {
+      this.$emit('cellclicked', params);
     },
     /** row를 더블클릭했을 때 */
-    cellDoubleClicked(params) {
-      this.$emit('cellDoubleClicked', params);
+    onCellDoubleClicked(params) {
+      this.$emit('celldoubleclicked', params);
     },
     /** 선택된 rows 제거 */
     removeSelectedRows() {
@@ -155,7 +155,7 @@ export default {
       return rowData;
     },
     /** rowData 속성이 변경되었을 때 */
-    rowDataUpdated() {
+    onRowDataUpdated() {
       this.setColumnDefs();
     },
     /** columnDefs 세팅 */

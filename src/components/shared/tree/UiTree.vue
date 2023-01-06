@@ -76,15 +76,15 @@ export default {
   methods: {
     /** 트리 확장 시 */
     onNodeExpanded(node, state) {
-      this.$emit('onNodeExpanded', { node, state });
+      this.$emit('nodeExpanded', { node, state });
     },
     /** node 업데이트 시 */
     onUpdate(nodes) {
-      this.$emit('onUpdate', nodes);
+      this.$emit('update', nodes);
     },
     /** node 클릭 시 */
     onNodeClick(node) {
-      this.$emit('onNodeClick', node);
+      this.$emit('nodeClick', node);
     }
   },
 }

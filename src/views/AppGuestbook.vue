@@ -1,7 +1,7 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
     <div class="guestbook__wrapper">
-      <ui-form :class="'guestbook__write-frm'" :name="'guestbookForm'" @onSubmit="onSubmit">
+      <ui-form :class="'guestbook__write-frm'" :name="'guestbookForm'" @submit="onSubmit">
         <div class="guestbook__write">
           <ui-textarea :name="'cont'"
                        :id="'guestbookWriteCont'"
@@ -118,7 +118,7 @@
 </template>
 
 <script>
-import { messageUtil, isNotEmpty } from '@/utils/utils';
+import { messageUtil, isNotEmpty } from '@/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import AppGuestbookReply from '@/components/views/guestbook/AppGuestbookReply.vue';
 import AppUpdateGuestbookModal from '@/components/views/guestbook/AppUpdateGuestbookModal.vue';

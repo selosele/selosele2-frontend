@@ -6,7 +6,7 @@
       <i class="xi-message" aria-hidden="true"></i> 이 페이지에서 제공하는 정보가 유익하셨나요?
     </p>
 
-    <ui-form :class="'satisfaction__frm'" :name="'satisForm'" @onSubmit="onSubmit">
+    <ui-form :class="'satisfaction__frm'" :name="'satisForm'" @submit="onSubmit">
       <ui-hidden-field :name="'pagePath'" :value="''">
       </ui-hidden-field>
 
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { messageUtil } from '@/utils/utils';
+import { messageUtil } from '@/utils';
 
 export default {
   name: 'app-user-satisfaction',

@@ -36,11 +36,11 @@ export default {
   methods: {
     /** 탭 클릭 시 */
     onTabClicked(selectedTab) {
-      this.$emit('onTabClicked', selectedTab);
+      this.$emit('tabClicked', selectedTab);
     },
     /** 탭 변경 시 */
     onTabChanged(selectedTab) {
-      this.$emit('onTabChanged', selectedTab);
+      this.$emit('tabChanged', selectedTab);
     },
   }
 }

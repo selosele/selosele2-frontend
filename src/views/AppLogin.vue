@@ -6,7 +6,7 @@
                  :class="'login__frm'"
                  :name="'loginForm'"
                  :ref="'loginForm'"
-                 @onSubmit="onSubmit"
+                 @submit="onSubmit"
         >
           <ui-text-field :type="'text'"
                          :name="'userId'"
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { messageUtil } from '@/utils/utils';
+import { messageUtil } from '@/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
