@@ -1,7 +1,7 @@
 <template>
   <div class="post-list__wrapper">
-    <ui-form :name="'postListForm'" @submit="removePost">
-      <ui-form :name="'postCategoryForm'" :ref="'postCategoryForm'" @submit="listPostByCategory">
+    <ui-form :name="'postListForm'" @onsubmit="removePost">
+      <ui-form :name="'postCategoryForm'" :ref="'postCategoryForm'" @onsubmit="listPostByCategory">
         <div class="post__category-filter d-flex-w gap--10 mb--15">
           <ui-select :name="'categoryId'"
                      :id="'categoryId'"

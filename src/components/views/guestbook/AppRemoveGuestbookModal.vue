@@ -1,6 +1,6 @@
 <template>
   <ui-modal :title="'방명록 삭제'" :name="this.$options.name">
-    <ui-form :name="'removeGuestbookForm'" @submit="onSubmit">
+    <ui-form :name="'removeGuestbookForm'" @onsubmit="onSubmit">
       <ui-hidden-field :name="'id'" :value="id">
       </ui-hidden-field>
 

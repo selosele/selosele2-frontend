@@ -6,7 +6,7 @@
                  :class="'login__frm'"
                  :name="'loginForm'"
                  :ref="'loginForm'"
-                 @submit="onSubmit"
+                 @onsubmit="onSubmit"
         >
           <ui-text-field :type="'text'"
                          :name="'userId'"

@@ -1,7 +1,7 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
     <div class="guestbook__wrapper">
-      <ui-form :class="'guestbook__write-frm'" :name="'guestbookForm'" @submit="onSubmit">
+      <ui-form :class="'guestbook__write-frm'" :name="'guestbookForm'" @onsubmit="onSubmit">
         <div class="guestbook__write">
           <ui-textarea :name="'cont'"
                        :id="'guestbookWriteCont'"

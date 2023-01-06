@@ -1,7 +1,7 @@
 <template>
   <ui-split-form :name="'saveCategoryForm'"
                  :btnRemove="true"
-                 @submit="onSubmit"
+                 @onsubmit="onSubmit"
                  @remove="onRemove"
   >
     <ui-hidden-field :name="'id'" :value="category.id">

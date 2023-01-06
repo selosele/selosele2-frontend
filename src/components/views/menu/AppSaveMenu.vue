@@ -1,7 +1,7 @@
 <template>
   <ui-split-form :name="'saveMenuForm'"
                  :btnRemove="true"
-                 @submit="onSubmit"
+                 @onsubmit="onSubmit"
                  @remove="onRemove"
   >
     <ui-hidden-field :name="'id'"

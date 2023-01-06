@@ -8,7 +8,7 @@
       </template>
   
       <template v-if="dataLoaded && null !== post">
-        <ui-form :name="'postForm'" @submit="onSubmit">
+        <ui-form :name="'postForm'" @onsubmit="onSubmit">
           <ui-hidden-field :name="'id'" :value="post.id">
           </ui-hidden-field>
     

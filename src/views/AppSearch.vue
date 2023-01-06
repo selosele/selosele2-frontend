@@ -1,7 +1,7 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
     <div class="search__wrapper">
-      <ui-form :class="'search__frm'" :name="'searchForm'" @submit="onSubmit">
+      <ui-form :class="'search__frm'" :name="'searchForm'" @onsubmit="onSubmit">
         <div class="search__field" ref="searchField">
           <ui-select :name="'t'"
                      :id="'t'"
