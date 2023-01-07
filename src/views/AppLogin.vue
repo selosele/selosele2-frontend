@@ -86,8 +86,8 @@ export default {
         roleId: '',
       };
 
-      const runValidate = await this.$refs['loginForm'].validateAll();
-      if (!runValidate.valid) return;
+      const isValid = await this.validationCheck();
+      if (!isValid) return;
 
       const confirm = await messageUtil.confirmSuccess('사용자를 생성하시겠습니까?');
       if (!confirm) return;
@@ -96,6 +96,11 @@ export default {
         .then(res => {
           messageUtil.toastSuccess('사용자가 생성되었습니다.');
         });
+    },
+    /** 유효성 검사 */
+    async validationCheck() {
+      const runValidate = await this.$refs['loginForm'].validateAll();
+      return runValidate.valid;
     },
   },
 };
