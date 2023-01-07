@@ -30,7 +30,7 @@ export default createStore({
     },
     /** 로그인 여부 */
     isLogin(state) {
-      return state.Auth.token !== null;
+      return state.Auth.accessToken !== null;
     },
     /** Splitter 활성화 여부 */
     isSplitterActive(state) {

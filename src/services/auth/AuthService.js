@@ -6,13 +6,13 @@ class AuthService {
 
   /** JWT에서 사용자 정보 추출 */
   getUser() {
-    const token = localStorage.getItem('token');
+    const accessToken = localStorage.getItem('accessToken');
 
-    if (!token) {
+    if (!accessToken) {
       return null;
     }
 
-    return JSON.parse(atob(token.split('.')[1]));
+    return JSON.parse(atob(accessToken.split('.')[1]));
   }
 
   /** 1개의 권한 확인 */

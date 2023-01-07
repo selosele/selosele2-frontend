@@ -6,6 +6,8 @@ export const Layout = {
     pageTitle: '',
     /** 사이드바 */
     sidebar: {},
+    /** 위젯관리 활성화 여부 */
+    isActive: false,
   }),
   mutations: {
     SET_PAGE_TITLE(state, pageTitle) {
@@ -14,6 +16,12 @@ export const Layout = {
     SET_SIDEBAR(state, sidebar) {
       state.sidebar = sidebar;
     },
+    SET_WIDGET(state, widget) {
+      state.sidebar.widget = widget;
+    },
+    SET_IS_ACTIVE(state, isActive) {
+      state.isActive = isActive;
+    },
   },
   actions: {
     FETCH_PAGE_TITLE({ commit }, values) {
@@ -21,6 +29,18 @@ export const Layout = {
     },
     FETCH_SIDEBAR({ commit }, values) {
       commit('SET_SIDEBAR', values);
+    },
+    LIST_WIDGET({ commit }, values) {
+      return new Promise((resolve, reject) => {
+        values.client.get('/widget', { params: values?.params })
+        .then(res => {
+          commit('SET_WIDGET', res.data);
+          resolve(res.data);
+        });
+      });
+    },
+    SET_IS_ACTIVE({ commit }, values) {
+      commit('SET_IS_ACTIVE', values);
     },
   },
 };

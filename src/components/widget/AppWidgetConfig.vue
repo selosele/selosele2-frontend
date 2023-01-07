@@ -5,24 +5,26 @@
                  @click="toggleList">위젯관리
       </ui-button>
 
-      <ui-button :type="'submit'"
+      <ui-button :type="'button'"
                  :class="'widget__btn widget__btn--save'"
-                 v-if="!listHidden">저장
+                 @click="updateWidget"
+                 v-if="listActive">저장
       </ui-button>
   
-      <div class="widget__list" v-if="!listHidden && 0 < noUseWidgetList.length">
+      <div class="widget__list" v-if="listActive && 0 < noUseWidgetList.length">
         <h2>미사용 위젯</h2>
 
-        <ui-form :name="'widgetConfigForm'" @onsubmit="updateWidgetUseYn">
+        <ui-form :name="'updateWidgetUseYnForm'" @onsubmit="updateWidgetUseYn">
           <ui-checkbox v-for="(widget,i) in noUseWidgetList" :key="i"
-                       :name="'useWidgetId'"
-                       :id="`useWidgetId${i}`"
+                       :name="'id'"
+                       :id="`id${i}`"
                        :label="widget.title"
                        :value="widget.id">
           </ui-checkbox>
 
           <ui-button :type="'submit'"
-                     :color="'primary'">사용여부 저장
+                     :color="'primary'"
+                     :block="true">사용여부 저장
           </ui-button>
         </ui-form>
       </div>
@@ -31,7 +33,7 @@
 </template>
 
 <script>
-import { messageUtil } from '@/utils';
+import { messageUtil, isNotEmpty, isArray, isBlank } from '@/utils';
 
 export default {
   name: 'app-widget-config',
@@ -40,15 +42,15 @@ export default {
       /** 미사용 위젯 목록 */
       noUseWidgetList: [],
       /** 저장 버튼, 미사용 위젯 toggle용 변수 */
-      listHidden: true,
+      listActive: false,
     }
   },
   created() {
-    this.listWidget();
+    this.listWidgetUseN();
   },
   computed: {
-    /** 변경 사이드바 값 */
-    sidebarValue: {
+    /** 변경 위젯 값 */
+    widgetValue: {
       get() {
         return this.$store.state.Layout.sidebar.widget;
       },
@@ -56,8 +58,14 @@ export default {
     }
   },
   methods: {
+    /** 위젯 저장 후 초기화 */
+    initAfterSave() {
+      this.listWidget();
+      this.listWidgetUseN();
+      this.toggleList();
+    },
     /** 미사용 위젯 목록 조회 */
-    listWidget() {
+    listWidgetUseN() {
       const listWidgetDto = {
         useYn: 'N',
       };
@@ -67,21 +75,34 @@ export default {
           this.noUseWidgetList = [...res.data];
         });
     },
+    /** 위젯 목록 조회 및 store 업데이트 */
+    listWidget() {
+      return this.$store.dispatch('Layout/LIST_WIDGET', {
+        client: this.$http,
+        params: {
+          useYn: 'Y',
+        },
+      });
+    },
     /** 저장 버튼 클릭 시 */
-    async onSubmit(values) {
-      // const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
-      // if (!confirm) return;
+    async updateWidget() {
+      const isValid = this.validationCheck();
+      if (!isValid) return;
 
-      console.log(this.sidebarValue);
+      const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
+      if (!confirm) return;
 
-      // this.$http.put('/widget', this.sidebarValue)
-      //   .then(res => {
-      //     messageUtil.toastSuccess('저장되었습니다.');
-      //   });
+      this.$http.put('/widget', this.widgetValue)
+        .then(res => {
+          messageUtil.toastSuccess('저장되었습니다.');
+          this.initAfterSave();
+        });
     },
     /** 사용여부 저장 버튼 클릭 시 */
     async updateWidgetUseYn(values) {
-      if (0 === values.useWidgetId.length) {
+      const body = this.useWidgetIds(values);
+
+      if (0 === body.length || 0 === body?.id.length) {
         messageUtil.toastWarning('사용할 위젯을 선택하세요.');
         return;
       }
@@ -89,14 +110,46 @@ export default {
       const confirm = await messageUtil.confirmSuccess('사용여부를 저장하시겠습니까?');
       if (!confirm) return;
 
-      this.$http.put('/widget/use', values)
+      this.$http.put('/widget/use', body)
         .then(res => {
           messageUtil.toastSuccess('저장되었습니다.');
+          this.initAfterSave();
         });
+    },
+    /** 위젯 저장 유효성 검사 */
+    validationCheck() {
+      for (let widget of this.widgetValue) {
+        if (isBlank(widget.title)) {
+          messageUtil.toastWarning('위젯 명을 입력하세요.');
+          return false;
+        }
+
+        if (isBlank(widget.icon)) {
+          messageUtil.toastWarning('위젯 아이콘 클래스명을 입력하세요.');
+          return false;
+        }
+      }
+
+      return true;
+    },
+    /** 사용 선택한 위젯의 아이디 배열 반환 */
+    useWidgetIds(values) {
+      let body = [];
+
+      if (!isArray(values.id)) {
+        if (isNotEmpty(values.id) && 'number' === typeof(Object.values(values)[0])) {
+          body = { id: [values.id] };
+        }
+      } else {
+        body = values;
+      }
+
+      return body;
     },
     /** 위젯관리 버튼 클릭 시 */
     toggleList() {
-      this.listHidden = !this.listHidden;
+      this.listActive = !this.listActive;
+      this.$store.dispatch('Layout/SET_IS_ACTIVE', this.listActive);
     },
   },
 };

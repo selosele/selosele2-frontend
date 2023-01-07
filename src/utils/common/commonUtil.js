@@ -22,3 +22,8 @@ export const isNotBlank = (value) => {
 export const isIn = (target, ...values) => {
   return values.some(v => v === target);
 };
+
+/** 값이 배열인지 확인 */
+export const isArray = (value) => {
+  return Array.isArray(value);
+};

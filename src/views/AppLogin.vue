@@ -67,11 +67,11 @@ export default {
     /** 로그인 */
     async onSubmit(values) {
       const res = await this.$http.post('/auth/signin', values);
-      const token = res.data?.accessToken;
+      const accessToken = res.data?.accessToken;
       
-      if (token) {
-        this.$http.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        const loginRes = await this.$store.dispatch('Auth/LOGIN', token);
+      if (accessToken) {
+        this.$http.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+        const loginRes = await this.$store.dispatch('Auth/LOGIN', accessToken);
         
         if ('ok' === loginRes) {
           this.$router.push('/');

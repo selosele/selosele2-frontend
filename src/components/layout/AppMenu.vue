@@ -51,7 +51,7 @@ export default {
     document.removeEventListener('click', this.closeMenu);
   },
   watch: {
-    '$store.state.Auth.token'(token) {
+    '$store.state.Auth.accessToken'(accessToken) {
       this.listMenu();
     }
   },

@@ -19,10 +19,10 @@ moment.locale('kr');
 const app = createApp({
   extends: App,
   async created() {
-    const token = localStorage.getItem('token');
+    const accessToken = localStorage.getItem('accessToken');
     
-    if (token) {
-      this.$store.commit('Auth/SET_TOKEN', token);
+    if (accessToken) {
+      this.$store.commit('Auth/SET_ACCESS_TOKEN', accessToken);
     }
 
     this.$http.interceptors.response.use(

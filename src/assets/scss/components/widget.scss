@@ -75,27 +75,6 @@
       }
     }
   
-    &__use {
-      display: flex;
-      position: absolute;
-      top: -0.6rem;
-      right: 0;
-      min-width: 0;
-      width: 1.3rem;
-      height: 1.3rem;
-      padding: 0;
-      border-radius: 50%;
-      background-color: $green03;
-      font-size: 1.1rem;
-      color: $grey12;
-      align-items: center;
-      justify-content: center;
-  
-      &--disabled {
-        background-color: $grey09;
-      }
-    }
-  
     &__box {
       position: relative;
     }

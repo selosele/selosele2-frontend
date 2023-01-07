@@ -4,22 +4,22 @@ import { isNotBlank } from "@/utils/common/commonUtil";
 export const Auth = {
   namespaced: true,
   state: () => ({
-    token: null,
+    accessToken: null,
   }),
   mutations: {
-    SET_TOKEN(state, token) {
-      state.token = token;
-      localStorage.setItem('token', token);
+    SET_ACCESS_TOKEN(state, accessToken) {
+      state.accessToken = accessToken;
+      localStorage.setItem('accessToken', accessToken);
     },
-    CLEAR_TOKEN(state) {
-      state.token = null;
-      localStorage.removeItem('token');
+    CLEAR_ACCESS_TOKEN(state) {
+      state.accessToken = null;
+      localStorage.removeItem('accessToken');
     },
   },
   actions: {
     LOGIN({ commit }, values) {
       return new Promise((resolve, reject) => {
-        commit('Auth/SET_TOKEN', values, { root: true });
+        commit('Auth/SET_ACCESS_TOKEN', values, { root: true });
         commit('Post/SET_MAIN_POSTLIST', {}, { root: true });
         commit('Layout/SET_SIDEBAR', {}, { root: true });
         commit('Menu/SET_MENU', [], { root: true });
@@ -29,7 +29,7 @@ export const Auth = {
     LOGOUT({ commit }, client) {
       return new Promise((resolve, reject) => {
         client.defaults.headers.common['Authorization'] = '';
-        commit('Auth/CLEAR_TOKEN', null, { root: true });
+        commit('Auth/CLEAR_ACCESS_TOKEN', null, { root: true });
         commit('Post/SET_MAIN_POSTLIST', {}, { root: true });
         commit('Layout/SET_SIDEBAR', {}, { root: true });
         commit('Menu/SET_MENU', [], { root: true });

@@ -84,9 +84,10 @@ export default {
   methods: {
     /** JWT 세팅 */
     initJwt() {
-      const token = localStorage.getItem('token');
-      if (token) {
-        this.$http.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      const accessToken = localStorage.getItem('accessToken');
+      
+      if (accessToken) {
+        this.$http.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       }
     },
     /** 공통코드 목록 조회 */

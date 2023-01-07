@@ -19,6 +19,7 @@
              :title="title"
              :placeholder="placeholder"
              :readonly="readonly"
+             :autocomplete="autocomplete"
              :value="value"
              v-bind="{ ...field, ...$attrs }"
              @input="onInput($event)"
@@ -55,6 +56,8 @@ export default {
     readonly: Boolean,
     /** input label */
     label: String,
+    /** input autocomplete */
+    autocomplete: String,
     /** input validation rules */
     rules: String,
     /** input value */

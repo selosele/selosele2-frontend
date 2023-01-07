@@ -9,6 +9,8 @@ import UiPagination from '@/components/shared/pagination/UiPagination.vue';
 import UiTree from '@/components/shared/tree/UiTree.vue';
 import UiTabs from '@/components/shared/tab/UiTabs.vue';
 import UiTab from '@/components/shared/tab/UiTab.vue';
+import UiSortList from '@/components/shared/sortable/UiSortList.vue';
+import UiSortItem from '@/components/shared/sortable/UiSortItem.vue';
 
 export const uiModule = {
   install: (app, options) => {
@@ -23,5 +25,7 @@ export const uiModule = {
     app.component('ui-tree', UiTree);
     app.component('ui-tabs', UiTabs);
     app.component('ui-tab', UiTab);
+    app.component('ui-sort-list', UiSortList);
+    app.component('ui-sort-item', UiSortItem);
   }
 };

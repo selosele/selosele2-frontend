@@ -6,37 +6,70 @@
     </template>
 
     <template v-else>
-      <div v-for="(widget,i) in widgetList" :key="i"
-           :class="[
+      <ui-sort-list v-model:list="storeSidebar.widget"
+                    :shouldCancelStart="onShouldCancelStart"
+                    @updateList="onUpdateList">
+        <ui-sort-item v-for="(widget,i) in storeSidebar.widget"
+          :key="widget.id"
+          :index="i"
+          :disabled="!widgetActive"
+        >
+          <div :class="[
             'sidebar__item-list',
             { 'sidebar__item-list--category': 1 === widget.id },
             { 'sidebar__item-list--tag': 2 === widget.id },
-      ]">
-        <div class="widget widget__box">
-          <h2 class="sidebar__item-title widget__title">
-            <i :class="widget.icon" aria-hidden="true"></i>
-            <em>{{ widget.title }}</em>
-          </h2>
+            { 'sidebar__item-list--active': widgetActive },
+          ]">
+            <div class="widget widget__box">
+              <h2 class="sidebar__item-title widget__title">
+                <i :class="widget.icon + ' sidebar__item-title-icon'"
+                   :aria-hidden="!widgetActive">
+                  <span v-if="widgetActive">
+                    <ui-text-field :type="'text'"
+                                   :name="'icon'"
+                                   :title="'아이콘 클래스명'"
+                                   :placeholder="'아이콘 클래스명'"
+                                   :autocomplete="'off'"
+                                   :value="widget.icon"
+                                   v-model="widget.icon">
+                    </ui-text-field>
+                  </span>
+                </i>
 
-          <ul v-if="widget.id === 1">
-            <li v-for="(category,j) in categoryList" :key="j">
-              <router-link :to="`/category/${category.id}`">{{ category.nm }}
-                <span class="sidebar__item-count">{{ category.count }}</span>
-              </router-link>
-            </li>
-          </ul>
+                <em :contenteditable="widgetActive"
+                    class="sidebar__item-title-text"
+                    @input="onChangeTitle($event, widget.id)">{{ widget.title }}
+                </em>
+              </h2>
 
-          <ul v-if="widget.id === 2">
-            <li v-for="(tag,j) in tagList" :key="j">
-              <router-link
-                :to="`/tag/${tag.id}`"
-                :style="{ fontSize: `${getFontSize(tag.count)}%` }">{{ tag.nm }}
-                <span class="sidebar__item-count">{{ tag.count }}</span>
-              </router-link>
-            </li>
-          </ul>
-        </div>
-      </div>
+              <ul v-if="1 === widget.id">
+                <li v-for="(category,j) in categoryList" :key="j">
+                  <router-link :to="`/category/${category.id}`">{{ category.nm }}
+                    <span class="sidebar__item-count">{{ category.count }}</span>
+                  </router-link>
+                </li>
+              </ul>
+
+              <ul v-if="2 === widget.id">
+                <li v-for="(tag,j) in tagList" :key="j">
+                  <router-link :to="`/tag/${tag.id}`"
+                               :style="{ fontSize: `${getFontSize(tag.count)}%` }">{{ tag.nm }}
+                    <span class="sidebar__item-count">{{ tag.count }}</span>
+                  </router-link>
+                </li>
+              </ul>
+
+              <button type="button"
+                      class="widget__use"
+                      title="사용"
+                      @click="onChangeUseYn($event, widget.id)"
+                      v-if="widgetActive">
+                <span class="sr-only">사용여부 선택</span>
+              </button>
+            </div>
+          </div>
+        </ui-sort-item>
+      </ui-sort-list>
     </template>
   </aside>
 </template>
@@ -80,22 +113,78 @@ export default {
     storeSidebar() {
       return this.$store.state.Layout.sidebar;
     },
+    widgetActive() {
+      return this.$store.state.Layout.isActive;
+    },
+  },
+  watch: {
+    '$route'() {
+      // 페이지 전환 시, 위젯관리 기능 비활성화
+      this.$store.dispatch('Layout/SET_IS_ACTIVE', false);
+    },
   },
   methods: {
+    /** 정렬에 제외할 HTML 태그명 */
+    onShouldCancelStart(e) {
+      const tag = [
+        'input', 'textarea', 'select',
+        'option', 'button', 'a'
+      ];
+
+      const className = [
+        'sidebar__item-title-icon', 'sidebar__item-title-text'
+      ];
+
+      return -1 !== tag.indexOf(e.target.tagName.toLowerCase())
+          || -1 !== className.indexOf(e.target.className);
+    },
+    /** 위젯 명 변경 시 */
+    onChangeTitle(e, id) {
+      this.storeSidebar.widget.map(d => {
+        if (id === d.id) {
+          d.title = e.target.textContent;
+        }
+        return d;
+      });
+    },
+    /** 위젯 사용여부 변경 시 */
+    onChangeUseYn(e, id) {
+      this.storeSidebar.widget.map(d => {
+        if (id === d.id) {
+          d.useYn = 'Y' === d.useYn ? 'N' : 'Y';
+        }
+        return d;
+      });
+
+      let className = 'widget__use--disabled';
+
+      if (e.target.classList.contains(className)) {
+        e.target.classList.remove(className);
+      } else {
+        e.target.classList.add(className);
+      }
+    },
+    /** 위젯 정렬 종료 시 */
+    onUpdateList(values) {
+      // 정렬순서 값 변경
+      values.forEach((item, idx) => {
+        item.sort = idx + 1;
+      });
+    },
     /** 위젯 목록 조회 */
     listWidget() {
-      let listWidgetDto = {
-        useYn: 'Y',
-      };
-
-      return this.$http.get('/widget', { params: listWidgetDto })
-        .then(res => {
-          res.data.map(d => {
-            this.widgetList.push(d);
-          });
-
-          this.sidebar.widget = this.widgetList;
+      return this.$store.dispatch('Layout/LIST_WIDGET', {
+        client: this.$http,
+        params: {
+          useYn: 'Y',
+        },
+      }).then(data => {
+        data.map(d => {
+          this.widgetList.push(d);
         });
+
+        this.sidebar.widget = data;
+      });
     },
     /** 카테고리 목록 및 개수 조회 */
     listCategoryAndCount() {
@@ -130,7 +219,7 @@ export default {
     },
     /** 데이타 로딩 */
     dataLoading() {
-      if (0 < this.widgetList.length 
+      if (0 < this.storeSidebar.widget.length 
         && 0 < this.categoryList.length 
         && 0 < this.tagList.length) {
         this.dataLoaded = true;
