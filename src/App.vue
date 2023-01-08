@@ -111,10 +111,6 @@ export default {
     toggleMobileMenu(e) {
       const menu = this.$refs['menu'].$el;
 
-      // if (menu.classList.contains('gnb--visible')) {
-      //   return this.closeMobileMenu();
-      // }
-
       document.body.classList.add('layer-opened');
 
       menu.classList.add('gnb--visible')

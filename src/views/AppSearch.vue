@@ -69,14 +69,14 @@
                               v-if="dataLoaded">
         </app-post-list-detail>
 
-        <p class="search__more__wrapper"
-           @click="more"
-           v-if="listCnt > pageSize && !isLastPage">
+        <div class="search__more__wrapper"
+             @click="more"
+             v-if="listCnt > pageSize && !isLastPage">
 
           <ui-button :class="'search__more'">
             <i class="xi-plus-circle" aria-hidden="true"></i> 더보기
           </ui-button>
-        </p>
+        </div>
 
         <ui-button :class="[
                     'search__to-input',
@@ -93,7 +93,7 @@
 
 <script>
 import AppPostListDetail from '@/components/views/post/AppPostListDetail.vue';
-import { messageUtil, isBlank, isNotEmpty } from '@/utils';
+import { messageUtil, isBlank } from '@/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
@@ -109,7 +109,6 @@ export default {
       tData: [],
       pageTitle: '포스트 검색',
       page: 1,
-      nowPage: 1,
       pageSize: 10,
       listCnt: null,
       postList: [],
@@ -163,9 +162,6 @@ export default {
   methods: {
     /** 초기 세팅 */
     init() {
-      if (isNotEmpty(localStorage.getItem('searchPage'))) localStorage.removeItem('searchPage');
-      if (isNotEmpty(localStorage.getItem('searchPostList'))) localStorage.removeItem('searchPostList');
-
       this.page = 1;
       this.dataLoaded = false;
 
@@ -174,15 +170,8 @@ export default {
     },
     /** 포스트 검색 submit */
     async onSubmit(values) {
-      if (isBlank(this.t)) {
-        messageUtil.toastWarning('검색옵션을 선택하세요.');
-        return;
-      }
-      
-      if (isBlank(this.q)) {
-        messageUtil.toastWarning('검색어를 입력하세요.');
-        return;
-      }
+      const isValid = this.validationCheck();
+      if (!isValid) return;
       
       this.init();
       
@@ -192,14 +181,24 @@ export default {
       await this.listPostSearch(values);
       this.dataLoading();
     },
-    /** 포스트 검색 */
-    listPostSearch(params) {
-      const storageList = localStorage.getItem('searchPostList');
+    /** 유효성 검사 */
+    validationCheck() {
+      if (isBlank(this.t)) {
+        messageUtil.toastWarning('검색옵션을 선택하세요.');
+        return false;
+      }
+      
+      if (isBlank(this.q)) {
+        messageUtil.toastWarning('검색어를 입력하세요.');
+        return false;
+      }
 
+      return true;
+    },
+    /** 포스트 검색 */
+    listPostSearch(params, isMore = false) {
       return this.$http.get('/post/search', { params: params })
         .then(async res => {
-          const resList = storageList ? JSON.parse(storageList) : res.data[0];
-
           res.data[0].map(d => {
             this.postList.push(d);
           });
@@ -212,27 +211,21 @@ export default {
 
           this.googleSearchUrl = encodeURI(`https://www.google.com/search?q=${this.q}`);
 
-          await this.$router.push({
-            path: '/search', 
-            query: {
-              q: params.q, 
-              t: params.t, 
-              c: params.c,
-            },
-          });
+          // 더보기 버튼 누르면 스크롤 위치 최상단으로 세팅되는 현상때문에, 검색 페이지에서는 페이지 전환 안되게 수정
+          if (!isMore) {
+            await this.$router.push({
+              path: '/search', 
+              query: {
+                q: params.q, 
+                t: params.t, 
+                c: params.c,
+              },
+            });
+          }
         });
-    },
-    /** 뒤로가기 시 더보기 데이타 유지를 위해 페이지 값과 포스트 목록을 저장 */
-    saveToStorage() {
-      localStorage.setItem('searchPage', (localStorage.getItem('searchPage') ? this.nowPage : this.page+1));
-      localStorage.setItem('searchPostList', JSON.stringify(this.postList));
     },
     /** 더보기 */
     more() {
-      const storageList = localStorage.getItem('searchPostList');
-      // if (storageList) this.postList = [];
-
-      this.nowPage = parseInt(localStorage.getItem('searchPage')) || this.page;
       this.page++;
 
       this.listPostSearch({
@@ -241,7 +234,7 @@ export default {
         c: this.c,
         page: this.page,
         pageSize: this.pageSize,
-      });
+      }, true);
     },
     /** 스크롤 시 검색 input으로 향하는 버튼 toggle */
     onScroll() {
@@ -256,6 +249,7 @@ export default {
     /** 검색 필드로 focus */
     toInput() {
       const st = this.$refs['searchField'].offsetTop - 100;
+
       window.scrollTo(0, st);
       this.$refs['q'].focus();
     },

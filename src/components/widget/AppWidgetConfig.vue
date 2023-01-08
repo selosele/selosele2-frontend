@@ -58,8 +58,8 @@ export default {
     }
   },
   methods: {
-    /** 위젯 저장 후 초기화 */
-    initAfterSave() {
+    /** 초기 세팅 */
+    init() {
       this.listWidget();
       this.listWidgetUseN();
       this.toggleList();
@@ -95,7 +95,7 @@ export default {
       this.$http.put('/widget', this.widgetValue)
         .then(res => {
           messageUtil.toastSuccess('저장되었습니다.');
-          this.initAfterSave();
+          this.init();
         });
     },
     /** 사용여부 저장 버튼 클릭 시 */
@@ -113,7 +113,7 @@ export default {
       this.$http.put('/widget/use', body)
         .then(res => {
           messageUtil.toastSuccess('저장되었습니다.');
-          this.initAfterSave();
+          this.init();
         });
     },
     /** 위젯 저장 유효성 검사 */
