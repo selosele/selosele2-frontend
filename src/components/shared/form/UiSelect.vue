@@ -10,7 +10,7 @@
            :ref="id"
            :name="name"
            :title="title"
-           :class="'input-field'"
+           :class="`input-field${selectBlock}`"
            :rules="rules"
            v-bind="$attrs"
            v-model="mv"
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { isNotEmpty } from '@/utils';
 import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
@@ -57,6 +58,8 @@ export default {
     label: String,
     /** select validation rules */
     rules: String,
+    /** block select */
+    block: Boolean,
     /** select default value */
     defaultValue: [String, Number],
     /** select selected value */
@@ -74,7 +77,14 @@ export default {
         return this.modelValue;
       },
       set(v) {}
-    }
+    },
+    /** select block 스타일 */
+    selectBlock() {
+      if (isNotEmpty(this.block) && true === this.block) {
+        return ` btn--block`;
+      }
+      return '';
+    },
   },
   methods: {
     onChange($event) {

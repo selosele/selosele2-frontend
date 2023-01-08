@@ -16,8 +16,37 @@
   &-field {
     width: 11.5rem;
     font-size: 0.9rem;
+    
+    &-text {
+      display: block;
+      margin-top: 0.5rem;
+      margin-left: 0.5rem;
+      font-size: 0.85rem;
+
+      + * {
+        margin-top: 0.5rem;
+      }
+
+      @media (min-width: $min-big-width) {
+        display: inline-block;
+        margin-top: 0;
+        vertical-align: middle;
+
+        + * {
+          margin-top: 0;
+          margin-left: 0.5rem;
+        }
+      }
+    }
+
+    &--block {
+      display: block;
+      width: 100%;
+    }
 
     &--numeric {
+      width: 4.5rem;
+      padding: 0.3rem 0.5rem;
       text-align: right;
     }
   }

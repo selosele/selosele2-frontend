@@ -7,6 +7,8 @@
                  :name="'loginForm'"
                  :ref="'loginForm'"
                  @onsubmit="onSubmit"
+                 @copy.prevent
+                 @paste.prevent
         >
           <ui-text-field :type="'text'"
                          :name="'userId'"

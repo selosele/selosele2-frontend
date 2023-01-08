@@ -10,6 +10,7 @@ import UiRadioGroup from '@/components/shared/form/UiRadioGroup.vue';
 import UiCheckbox from '@/components/shared/form/UiCheckbox.vue';
 import UiCheckboxGroup from '@/components/shared/form/UiCheckboxGroup.vue';
 import UiDatepicker from '@/components/shared/form/UiDatepicker.vue';
+import UiFileField from '@/components/shared/form/UiFileField.vue';
 
 export const formModule = {
   install: (app, options) => {
@@ -25,5 +26,6 @@ export const formModule = {
     app.component('ui-checkbox', UiCheckbox);
     app.component('ui-checkbox-group', UiCheckboxGroup);
     app.component('ui-datepicker', UiDatepicker);
+    app.component('ui-file-field', UiFileField);
   }
 };

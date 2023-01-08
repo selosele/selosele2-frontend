@@ -19,32 +19,6 @@
       }
    }
 
-   &__txt {
-      display: block;
-      margin-top: 0.5rem;
-      font-size: 0.85rem;
-
-      + * {
-         margin-top: 0.5rem;
-      }
-
-      @media (min-width: $min-big-width) {
-         display: inline-block;
-         margin-top: 0;
-         vertical-align: middle;
-
-         + * {
-            margin-top: 0;
-            margin-left: 0.5rem;
-         }
-      }
-   }
-
-   &__title,
-   &__author {
-      width: 100%;
-   }
-
    &__cloudinary {
       &-list {
          position: absolute;
@@ -166,16 +140,6 @@
          &--animate {
             animation: ogImageWrapperShow 6s;
          }
-      }
-   }
-
-   &__btn {
-      display: block;
-      width: 100%;
-
-      @media (min-width: $min-mini-width) {
-         display: inline-block;
-         width: auto;
       }
    }
 

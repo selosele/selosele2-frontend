@@ -6,11 +6,11 @@
 
       <ui-textarea :name="'cont'"
                    :id="'guestbookUpdateCont'"
-                   :class="'resize--vertical'"
                    :title="'방명록 내용 입력'"
                    :placeholder="'하고싶은 말을 남겨주세요.'"
                    :cols="'30'"
                    :rows="'4'"
+                   :resize="'vertical'"
                    :rules="'required'"
                    :value="guestbook.cont">
       </ui-textarea>

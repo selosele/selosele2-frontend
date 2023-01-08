@@ -13,6 +13,7 @@
 
       <textarea :id="id"
                 :ref="(el) => { inputEl = el }"
+                :class="`${blockTextarea}${resizeClass}`"
                 :name="name"
                 :title="title"
                 :cols="cols"
@@ -32,8 +33,9 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { Field, ErrorMessage, useField } from 'vee-validate';
+import { isNotEmpty } from '@/utils';
 
 export default {
   name: 'ui-textarea',
@@ -60,6 +62,10 @@ export default {
     label: String,
     /** textarea validation rules */
     rules: String,
+    /** block textarea */
+    block: Boolean,
+    /** textarea resize */
+    resize: String,
     /** textarea value */
     value: {
       type: [String, Number],
@@ -82,17 +88,44 @@ export default {
       valueProp: props.modelValue,
     });
 
+    /** block textarea */
+    const blockTextarea = computed({
+      get() {
+        if (isNotEmpty(props.block) && true === props.block) {
+          return ' input-field--block';
+        }
+        return '';
+      },
+      set(v) {}
+    });
+
+    const resizeClass = computed({
+      get() {
+        if (isNotEmpty(props.resize)) {
+          if ('vertical' === props.resize) return ' resize--vertical';
+          if ('horizontal' === props.resize) return ' resize--horizontal';
+        }
+        return '';
+      },
+      set(v) {}
+    });
+
+    /** textarea 요소 */
     const inputEl = ref(null);
 
+    /** textarea value 변경 시 */
     const onInput = (e) => {
       emit('update:modelValue', e.target.value);
     };
 
+    /** textarea 요소에 focus */
     const focus = () => {
       inputEl.value.focus();
     };
 
     return {
+      blockTextarea,
+      resizeClass,
       inputEl,
       onInput,
       focus,

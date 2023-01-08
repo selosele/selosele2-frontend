@@ -149,11 +149,6 @@ input {
     }
   }
 
-  &[type='number'] {
-    width: 4.5rem;
-    padding: 0.3rem 0.5rem;
-  }
-
   &[readonly] {
     background-color: $grey02;
   }

@@ -39,7 +39,7 @@
     <ui-textarea :type="'text'"
                  :name="'desc'"
                  :id="'codeDesc'"
-                 :class="'resize--vertical'"
+                 :resize="'vertical'"
                  :label="'코드 설명'"
                  :rules="'required'"
                  :value="code.desc">
