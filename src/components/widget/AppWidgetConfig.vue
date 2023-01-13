@@ -24,7 +24,8 @@
 
           <ui-button :type="'submit'"
                      :color="'primary'"
-                     :block="true">사용여부 저장
+                     :block="true"
+                     :class="'mt--5'">사용여부 저장
           </ui-button>
         </ui-form>
       </div>
