@@ -1,18 +1,14 @@
 <template>
   <div :class="`input-wrapper${gapClass}`">
-    <Field :name="name"
+    <Field type="file"
+           :name="name"
+           :id="id"
+           :ref="id"
+           :accept="accept"
            :rules="rules"
-           :value="value"
-           v-slot="{ field, handleChange, handleBlur }">
-      <input type="file"
-             :name="name"
-             :id="id"
-             :ref="id"
-             :accept="accept"
-             :value="value"
-             v-bind="{ ...field, ...$attrs }"
-             @change="handleChange"
-             @blur="handleBlur">
+           v-bind="$attrs"
+           @change="onChange"
+           @blur="onBlur">
     </Field>
 
     <label :for="id"
@@ -54,15 +50,6 @@ export default {
     },
     /** input 유효성검사 rules */
     rules: String,
-    /** input value */
-    value: {
-      type: Object,
-      default: undefined,
-    },
-    /** input modelValue */
-    modelValue: {
-      default: '',
-    },
   },
   computed: {
     gapClass: {
@@ -77,13 +64,12 @@ export default {
   },
   methods: {
     /** input value 변경 시 */
-    onChange(e) {
-      console.log(e.target.value);
-      this.$emit('update:modelValue', e.target.value);
+    onChange({ target: { files } }) {
+      this.$emit('onchange', files[0]);
     },
     /** input blur 시 */
-    onBlur(e) {
-      this.$emit('blur', e.target.value);
+    onBlur() {
+      this.$emit('onblur');
     },
   },
 }

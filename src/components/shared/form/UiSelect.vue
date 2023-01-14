@@ -88,7 +88,7 @@ export default {
   },
   methods: {
     onChange($event) {
-      this.$emit('onChange', $event.target.value);
+      this.$emit('onchange', $event.target.value);
     },
   },
 }

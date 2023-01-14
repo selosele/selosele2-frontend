@@ -271,59 +271,6 @@ th {
   }
 }
 
-.write-tbl {
-  colgroup {
-    display: none;
-
-    @media (min-width: $min-big-width) {
-      display: table-column-group;
-    }
-  }
-
-  col {
-    &:first-child {
-      @media (min-width: $min-big-width) {
-        width: 17%;
-      }
-    }
-
-    &:nth-child(2) {
-      @media (min-width: $min-big-width) {
-        width: 83%;
-      }
-    }
-  }
-
-  tbody {
-    th {
-      display: block;
-      float: left;
-      width: 100%;
-      text-align: left;
-
-      @media (min-width: $min-big-width) {
-        display: table-cell;
-        float: none;
-        width: auto;
-        text-align: center;
-      }
-    }
-  }
-
-  td {
-    display: block;
-    position: relative;
-    float: left;
-    width: 100%;
-
-    @media (min-width: $min-big-width) {
-      display: table-cell;
-      float: none;
-      width: auto;
-    }
-  }
-}
-
 strong {
   font-weight: 700;
 }

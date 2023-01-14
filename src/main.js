@@ -38,6 +38,7 @@ const app = createApp({
         // 권한 오류, JWT 만료/변조 시 강제 로그아웃
         if (401 === error.response.status) {
           const res = await this.$store.dispatch('Auth/LOGOUT', this.$http);
+          
           if ('ok' === res) {
             this.$router.push({
               path: '/',

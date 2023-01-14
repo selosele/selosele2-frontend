@@ -27,3 +27,17 @@ export const isIn = (target, ...values) => {
 export const isArray = (value) => {
   return Array.isArray(value);
 };
+
+/** 파일 용량 구하기 */
+export const getFileSize = (bytes, decimals = 2) => {
+  if (0 === bytes) {
+    return '0 Byte';
+  }
+
+  const k = 1000;
+  const dm = decimals;
+  const sizes = ['Bytes', 'KB', 'MB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
+};

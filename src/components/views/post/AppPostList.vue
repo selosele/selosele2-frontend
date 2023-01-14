@@ -11,7 +11,7 @@
                      :data="categoryList"
                      :rules="'required'"
                      v-model="selectedCategoryId"
-                     @onChange="listPostByCategory">
+                     @onchange="listPostByCategory">
           </ui-select>
         </div>
       </ui-form>

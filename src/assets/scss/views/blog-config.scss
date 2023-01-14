@@ -124,23 +124,6 @@
             gap: 0.5rem;
          }
       }
-
-      &-wrapper {
-         display: none;
-         
-         @keyframes ogImageWrapperShow {
-            0% {background-color: $sub-color07;}
-            100% {background-color: transparent;}
-         }
-
-         &--active {
-            display: table-row;
-         }
-
-         &--animate {
-            animation: ogImageWrapperShow 6s;
-         }
-      }
    }
 
    &__satisfaction {

@@ -44,14 +44,15 @@ export default {
     /** form reset 시 */
     onReset() {
       /**
-       * 2023.01.08.
-       * vee-validate form reset 시, 초기 값이 있어도 빈 값으로 reset하는 문제 대응 로직 작업 중
+       * 2023.01.14.
+       * vee-validate form reset 시, 초기 값이 있어도 빈 값으로 reset하는 문제 대응 로직 작업
        *   - 빈 값 대신 form의 초기 값으로 치환하는 로직임.
        */
-      // Object.keys(this.formOldValues).forEach(key => {
-      //   console.log(key, this.formOldValues[key]);
-      //   this.$refs[this.name].setFieldValue(key, this.formOldValues[key]);
-      // });
+      for (let i = 0; i < Object.keys(this.formOldValues).length; i++) {
+        const key = Object.keys(this.formOldValues)[i];
+
+        this.$refs[this.name].setFieldValue(key, this.formOldValues[key]);
+      }
 
       this.$emit('onreset');
     },

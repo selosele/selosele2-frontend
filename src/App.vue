@@ -98,7 +98,7 @@ export default {
           this.$store.dispatch('Code/FETCH_CODE', codeList);
         });
     },
-    /** 블로그 환경설정 정보 조회 */
+    /** 블로그 환경설정 조회 */
     getBlogConfig() {
       this.$http.get('/blogconfig')
         .then(res => {

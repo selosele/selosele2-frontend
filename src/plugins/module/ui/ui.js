@@ -11,6 +11,7 @@ import UiTabs from '@/components/shared/tab/UiTabs.vue';
 import UiTab from '@/components/shared/tab/UiTab.vue';
 import UiSortList from '@/components/shared/sortable/UiSortList.vue';
 import UiSortItem from '@/components/shared/sortable/UiSortItem.vue';
+import UiWriteTable from '@/components/shared/table/UiWriteTable';
 
 export const uiModule = {
   install: (app, options) => {
@@ -27,5 +28,6 @@ export const uiModule = {
     app.component('ui-tab', UiTab);
     app.component('ui-sort-list', UiSortList);
     app.component('ui-sort-item', UiSortItem);
+    app.component('ui-write-table', UiWriteTable);
   }
 };

@@ -1,0 +1,69 @@
+<template>
+  <table class="write-tbl">
+    <caption class="sr-only">{{ name }}</caption>
+    <colgroup>
+      <template v-for="(width,i) in colWidth" :key="i">
+        <col :style="{ width }">
+      </template>
+    </colgroup>
+    <tbody>
+      <slot></slot>
+    </tbody>
+  </table>
+</template>
+
+<script>
+export default {
+  name: 'ui-write-table',
+  props: {
+    /** 테이블 이름 */
+    name: String,
+    /** col 태그 width */
+    colWidth: {
+      type: Array,
+      default: () => ['17%', '83%']
+    },
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+.write-tbl:deep {
+  colgroup {
+    display: none;
+
+    @media (min-width: $min-big-width) {
+      display: table-column-group;
+    }
+  }
+
+  tbody {
+    th {
+      display: block;
+      float: left;
+      width: 100%;
+      text-align: left;
+
+      @media (min-width: $min-big-width) {
+        display: table-cell;
+        float: none;
+        width: auto;
+        text-align: center;
+      }
+    }
+  }
+
+  td {
+    display: block;
+    position: relative;
+    float: left;
+    width: 100%;
+
+    @media (min-width: $min-big-width) {
+      display: table-cell;
+      float: none;
+      width: auto;
+    }
+  }
+}
+</style>
