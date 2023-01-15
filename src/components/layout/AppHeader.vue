@@ -8,16 +8,8 @@
                       @click="toggleMobileMenu">
       </ui-icon-button>
 
-      <div :class="[
-            'masthead__top',
-            { 'masthead--image': $store.state.BlogConfig.data.ogImgUrl }]"
-           :style="[
-            { backgroundImage: $store.state.BlogConfig.data.ogImgUrl && backgroundImage },
-            { backgroundPositionX: $store.state.BlogConfig.data.ogImgUrl && backgroundPosition('x') },
-            { backgroundPositionY: $store.state.BlogConfig.data.ogImgUrl && backgroundPosition('y') }
-           ]"
-           :data-blur="($store.state.BlogConfig.data.ogImgBlur / 20) + 'rem'"
-        >
+      <div :class="clazz"
+           :style="styles">
         <div class="masthead__util-wrapper">
           <template v-if="!isLogin && isDevelopment">
             <ui-icon-button :routerLink="'/a/goto'"
@@ -64,7 +56,7 @@
 </template>
 
 <script>
-import { messageUtil } from '@/utils';
+import { isBlank, messageUtil } from '@/utils';
 
 export default {
   name: 'app-header',
@@ -83,6 +75,29 @@ export default {
     },
   },
   computed: {
+    clazz: {
+      get() {
+        return [
+          'masthead__top',
+          { 'masthead--image': this.$store.state.BlogConfig.data.ogImgUrl }
+        ];
+      },
+      set(v) {}
+    },
+    styles: {
+      get() {
+        return [
+          { backgroundImage: this.backgroundImage },
+          { backgroundPositionX: this.backgroundPositionX },
+          { backgroundPositionY: this.backgroundPositionY },
+          { '--data-blur': this.backgroundBlur },
+        ];
+      },
+      set(v) {}
+    },
+    backgroundBlur() {
+      return (this.$store.state.BlogConfig.data.ogImgBlur / 20) + 'rem';
+    },
     backgroundContrast() {
       return this.$store.state.BlogConfig.data.ogImgContrast;
     },
@@ -90,6 +105,10 @@ export default {
       return this.$store.state.BlogConfig.data.ogImgUrl;
     },
     backgroundImage() {
+      if (isBlank(this.$store.state.BlogConfig.data.ogImgUrl)) {
+        return '';
+      }
+
       return `
       linear-gradient(
         to bottom,
@@ -98,6 +117,18 @@ export default {
         url(${this.backgroundImageUrl}
       )
       `;
+    },
+    backgroundPositionX() {
+      if (isBlank(this.$store.state.BlogConfig.data.ogImgUrl)) {
+        return 0;
+      }
+      return `${this.$store.state.BlogConfig.data.ogImgPosX}%`;
+    },
+    backgroundPositionY() {
+      if (isBlank(this.$store.state.BlogConfig.data.ogImgUrl)) {
+        return 0;
+      }
+      return `${this.$store.state.BlogConfig.data.ogImgPosY}%`;
     },
   },
   methods: {
@@ -115,15 +146,6 @@ export default {
     /** 메뉴 toggle */
     toggleMobileMenu() {
       this.$emit('toggleMobileMenu');
-    },
-    /** background position 가져오기 */
-    backgroundPosition(xy) {
-      if ('x' === xy) {
-        return `${this.$store.state.BlogConfig.data.ogImgPosX}%`;
-      }
-      if ('y' === xy) {
-        return `${this.$store.state.BlogConfig.data.ogImgPosY}%`;
-      }
     },
     /** 데이타 로딩 */
     dataLoading(resStatus) {

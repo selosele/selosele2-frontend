@@ -1,4 +1,6 @@
 <template>
+  <ui-loading :activeModel="!dataLoaded" :fullPage="true"></ui-loading>
+
   <app-content-wrapper :pageTitle="pageTitle">
     <ui-form :name="'blogConfigForm'"
              :ref="'blogConfigForm'"
@@ -62,7 +64,7 @@
         </tr>
         <tr>
           <th scope="row">
-            <label for="avatarImgFile">블로그 아바타 이미지</label>
+            <label for="blogConfigAvatarImgFile">블로그 아바타 이미지</label>
           </th>
           <td>
             <ui-hidden-field :name="'avatarImg'" :id="'blogConfigAvatarImg'" :value="blogConfig.avatarImg"></ui-hidden-field>
@@ -76,11 +78,17 @@
                            @onchange="onChangeAvatarImg">
               
               <ui-button :type="'button'"
-                         :color="'secondary'">Cloudinary
+                         :color="'secondary'"
+                         @click="listFile('avatar')">Cloudinary
               </ui-button>
+
+              <ui-file-list :value="avatarFileList"
+                            @clickFile="onClickFile"
+                            v-if="dataLoaded && 0 < avatarFileList.length">
+              </ui-file-list>
             </ui-file-field>
 
-            <div class="blog-config__avatar-image-use-wrapper" v-if="avatarImg">
+            <div class="blog-config__avatar-image-use-wrapper" v-if="blogConfig.avatarImg">
               <span class="blog-config__avatar-image-use">
                 {{ avatarImg }} (용량 : {{ getFileSize(avatarImgSize) }})
               </span>
@@ -95,7 +103,7 @@
         </tr>
         <tr>
           <th scope="row">
-            <label for="ogImgFile">블로그 대표 이미지</label>
+            <label for="blogConfigOgImgFile">블로그 대표 이미지</label>
           </th>
           <td>
             <ui-hidden-field :name="'ogImg'" :id="'blogConfigOgImg'" :value="blogConfig.ogImg"></ui-hidden-field>
@@ -109,11 +117,17 @@
                            @onchange="onChangeOgImg">
               
               <ui-button :type="'button'"
-                         :color="'secondary'">Cloudinary
+                         :color="'secondary'"
+                         @click="listFile('og')">Cloudinary
               </ui-button>
+
+              <ui-file-list :value="ogFileList"
+                            @clickFile="onClickFile"
+                            v-if="dataLoaded && 0 < ogFileList.length">
+              </ui-file-list>
             </ui-file-field>
 
-            <div class="blog-config__og-image-use-wrapper" v-if="ogImg">
+            <div class="blog-config__og-image-use-wrapper" v-if="blogConfig.ogImg">
               <span class="blog-config__og-image-use">
                 {{ ogImg }} (용량 : {{ getFileSize(ogImgSize) }})
               </span>
@@ -240,6 +254,9 @@ export default {
       ogImg: '',
       ogImgSize: '',
       showSatisYn: '',
+      avatarFileList: [],
+      ogFileList: [],
+      dataLoaded: false,
       getFileSize,
     }
   },
@@ -252,6 +269,8 @@ export default {
     this.ogImg = this.blogConfig.ogImg;
     this.ogImgSize = this.blogConfig.ogImgSize;
     this.showSatisYn = this.blogConfig.showSatisYn;
+
+    this.dataLoaded = true;
   },
   computed: {
     /** 블로그 환경설정 */
@@ -265,8 +284,6 @@ export default {
   methods: {
     /** 블로그 환경설정 저장 */
     async onSubmit(values) {
-      console.log(values);
-
       const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;
 
@@ -292,6 +309,58 @@ export default {
       if (isNotEmpty(values)) {
         this.ogImg = values.name;
         this.ogImgSize = values.size;
+      }
+    },
+    /** cloudinary 파일 클릭 시 */
+    onClickFile(file) {
+      if (0 < this.avatarFileList.length) {
+        this.$refs['blogConfigForm'].setFieldValue('avatarImg', file.public_id);
+        this.$refs['blogConfigForm'].setFieldValue('avatarImgUrl', file.url);
+        this.$refs['blogConfigForm'].setFieldValue('avatarImgSize', file.bytes);
+      } else if (0 < this.ogFileList.length) {
+        this.$refs['blogConfigForm'].setFieldValue('ogImg', file.public_id);
+        this.$refs['blogConfigForm'].setFieldValue('ogImgUrl', file.url);
+        this.$refs['blogConfigForm'].setFieldValue('ogImgSize', file.bytes);
+      }
+    },
+    /** cloudinary 파일 목록 조회 */
+    async listFile(type) {
+      if ('avatar' === type && 0 < this.avatarFileList.length) {
+        this.avatarFileList = [];
+        return;
+      }
+
+      if ('og' === type && 0 < this.ogFileList.length) {
+        this.ogFileList = [];
+        return;
+      }
+
+      this.dataLoaded = false;
+
+      await (() => {
+        return this.$http.get('/file')
+          .then(res => {
+            if (0 === res.data.length) {
+              messageUtil.toastWarning('파일이 존재하지 않습니다.');
+              return;
+            }
+
+            if ('avatar' === type) {
+              this.avatarFileList = [...res.data];
+              this.ogFileList = [];
+            } else if ('og' === type) {
+              this.ogFileList = [...res.data];
+              this.avatarFileList = [];
+            }
+          });
+      })();
+      
+      this.dataLoading();
+    },
+    /** 데이타 로딩 */
+    dataLoading() {
+      if (0 < this.avatarFileList.length || 0 < this.ogFileList.length) {
+        this.dataLoaded = true;
       }
     },
   },

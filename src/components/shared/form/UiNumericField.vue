@@ -7,7 +7,7 @@
 
     <Field :type="'number'"
            :name="name"
-           :value="value"
+           :value="`${value}`"
            :rules="rules"
            v-slot="{ field }">
 
@@ -22,7 +22,7 @@
              :step="step"
              :min="min"
              :max="max"
-             :value="value"
+             :value="`${value}`"
              v-bind="{ ...field, ...$attrs }"
              @input="onInput($event)"
       >
