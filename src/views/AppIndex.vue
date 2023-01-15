@@ -15,7 +15,7 @@
                      :key="postList"
                      :total="listCnt"
                      :first="page"
-                     :rows="5"
+                     :rows="storePageSize"
                      :size="10"
                      :pinColumn="'pinYn'"
                      @page="onPage">
@@ -60,6 +60,9 @@ export default {
     this.init();
   },
   computed: {
+    storePageSize() {
+      return this.$store.state.BlogConfig.data?.pageSize;
+    },
     storePostList() {
       return this.$store.state.Post.mainPostObj.postList;
     },

@@ -22,7 +22,7 @@
         </div>
       </div>
 
-      <app-user-satisfaction v-if="($route.meta.showSatis && 'Y' === this.$store.state.BlogConfig.data.showSatisYn)">
+      <app-user-satisfaction v-if="($route.meta.showSatis && 'Y' === this.$store.state.BlogConfig.data?.showSatisYn)">
       </app-user-satisfaction>
     </app-main>
 
@@ -100,12 +100,12 @@ export default {
     },
     /** 블로그 환경설정 조회 */
     getBlogConfig() {
-      this.$http.get('/blogconfig')
-        .then(res => {
-          this.$store.dispatch('BlogConfig/FETCH_BLOG_CONFIG', res.data);
-          this.resStatus = 'ok';
-          document.title = res.data.title;
-        });
+      this.$store.dispatch('BlogConfig/GET_BLOG_CONFIG', {
+        client: this.$http
+      }).then(data => {
+        this.resStatus = 'ok';
+        document.title = data.title;
+      });
     },
     /** 모바일 메뉴 toggle */
     toggleMobileMenu(e) {

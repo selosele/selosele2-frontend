@@ -66,10 +66,10 @@ export default {
       return this.$refs[this.name].validateField(field);
     },
     /** Field 값 변경 */
-    setFieldValue(key, value) {
-      if (isEmpty(key)) return null;
+    setFieldValue(field, value) {
+      if (isEmpty(field)) return null;
       
-      return this.$refs[this.name].setFieldValue(key, value);
+      return this.$refs[this.name].setFieldValue(field, value);
     },
   },
 }

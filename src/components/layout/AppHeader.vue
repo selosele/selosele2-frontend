@@ -36,17 +36,17 @@
 
         <div class="masthead__inner">
           <div class="masthead__info">
-            <router-link to="/" class="site-title">{{ $store.state.BlogConfig.data.title }}</router-link>
+            <router-link to="/" class="site-title">{{ $store.state.BlogConfig.data?.title }}</router-link>
 
             <div class="masthead__author">
-              <p class="masthead__author-avatar" v-if="$store.state.BlogConfig.data.avatarImgUrl">
+              <p class="masthead__author-avatar" v-if="$store.state.BlogConfig.data?.avatarImgUrl">
                 <ui-skeletor v-if="!dataLoaded" />
                 <img v-else
-                    :src=$store.state.BlogConfig.data.avatarImgUrl 
-                    :alt=$store.state.BlogConfig.data.author />
+                    :src=$store.state.BlogConfig.data?.avatarImgUrl 
+                    :alt=$store.state.BlogConfig.data?.author />
               </p>
 
-              <p class="masthead__author-name">{{ $store.state.BlogConfig.data.author }}</p>
+              <p class="masthead__author-name">{{ $store.state.BlogConfig.data?.author }}</p>
             </div>
           </div>
         </div>
@@ -79,7 +79,7 @@ export default {
       get() {
         return [
           'masthead__top',
-          { 'masthead--image': this.$store.state.BlogConfig.data.ogImgUrl }
+          { 'masthead--image': this.$store.state.BlogConfig.data?.ogImgUrl }
         ];
       },
       set(v) {}
@@ -96,16 +96,16 @@ export default {
       set(v) {}
     },
     backgroundBlur() {
-      return (this.$store.state.BlogConfig.data.ogImgBlur / 20) + 'rem';
+      return (this.$store.state.BlogConfig.data?.ogImgBlur / 20) + 'rem';
     },
     backgroundContrast() {
-      return this.$store.state.BlogConfig.data.ogImgContrast;
+      return this.$store.state.BlogConfig.data?.ogImgContrast;
     },
     backgroundImageUrl() {
-      return this.$store.state.BlogConfig.data.ogImgUrl;
+      return this.$store.state.BlogConfig.data?.ogImgUrl;
     },
     backgroundImage() {
-      if (isBlank(this.$store.state.BlogConfig.data.ogImgUrl)) {
+      if (isBlank(this.$store.state.BlogConfig.data?.ogImgUrl)) {
         return '';
       }
 
@@ -119,16 +119,16 @@ export default {
       `;
     },
     backgroundPositionX() {
-      if (isBlank(this.$store.state.BlogConfig.data.ogImgUrl)) {
+      if (isBlank(this.$store.state.BlogConfig.data?.ogImgUrl)) {
         return 0;
       }
-      return `${this.$store.state.BlogConfig.data.ogImgPosX}%`;
+      return `${this.$store.state.BlogConfig.data?.ogImgPosX}%`;
     },
     backgroundPositionY() {
-      if (isBlank(this.$store.state.BlogConfig.data.ogImgUrl)) {
+      if (isBlank(this.$store.state.BlogConfig.data?.ogImgUrl)) {
         return 0;
       }
-      return `${this.$store.state.BlogConfig.data.ogImgPosY}%`;
+      return `${this.$store.state.BlogConfig.data?.ogImgPosY}%`;
     },
   },
   methods: {

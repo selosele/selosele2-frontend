@@ -9,7 +9,9 @@
       >
       <ui-hidden-field :name="'id'" :id="'blogConfigId'" :value="blogConfig.id"></ui-hidden-field>
 
-      <ui-write-table :name="'블로그 환경설정 작성 폼'">
+      <ui-write-table :name="'블로그 환경설정 작성 폼'"
+                      :colWidth="['20%', '80%']"
+      >
         <tr>
           <th scope="row">
             <label for="blogConfigTitle">블로그 제목<br>(100자 이내)
@@ -25,7 +27,8 @@
                            :class="'blog-config__title'"
                            :block="true"
                            :rules="'required|max:100'"
-                           :value="blogConfig.title">
+                           :value="blogConfig.title"
+                           v-model="previewBlogConfig.title">
             </ui-text-field>
           </td>
         </tr>
@@ -44,7 +47,8 @@
                            :class="'blog-config__author'"
                            :block="true"
                            :rules="'required|max:30'"
-                           :value="blogConfig.author">
+                           :value="blogConfig.author"
+                           v-model="previewBlogConfig.author">
             </ui-text-field>
           </td>
         </tr>
@@ -68,7 +72,9 @@
           </th>
           <td>
             <ui-hidden-field :name="'avatarImg'" :id="'blogConfigAvatarImg'" :value="blogConfig.avatarImg"></ui-hidden-field>
-            <ui-hidden-field :name="'avatarImgUrl'" :id="'blogConfigAvatarImgUrl'" :value="blogConfig.avatarImgUrl"></ui-hidden-field>
+            <ui-hidden-field :name="'avatarImgUrl'" :id="'blogConfigAvatarImgUrl'" :value="blogConfig.avatarImgUrl"
+                             v-model="previewBlogConfig.avatarImgUrl">
+            </ui-hidden-field>
             <ui-hidden-field :name="'avatarImgSize'" :id="'blogConfigAvatarImgSize'" :value="blogConfig.avatarImgSize"></ui-hidden-field>
 
             <ui-file-field :name="'avatarImgFile'"
@@ -107,7 +113,9 @@
           </th>
           <td>
             <ui-hidden-field :name="'ogImg'" :id="'blogConfigOgImg'" :value="blogConfig.ogImg"></ui-hidden-field>
-            <ui-hidden-field :name="'ogImgUrl'" :id="'blogConfigOgImgUrl'" :value="blogConfig.ogImgUrl"></ui-hidden-field>
+            <ui-hidden-field :name="'ogImgUrl'" :id="'blogConfigOgImgUrl'" :value="blogConfig.ogImgUrl"
+                             v-model="previewBlogConfig.ogImgUrl">
+            </ui-hidden-field>
             <ui-hidden-field :name="'ogImgSize'" :id="'blogConfigOgImgSize'" :value="blogConfig.ogImgSize"></ui-hidden-field>
 
             <ui-file-field :name="'ogImgFile'"
@@ -142,7 +150,7 @@
         </tr>
         <tr>
           <th scope="row">
-            <label for="ogImgContrast">블로그 대표 이미지 밝기</label>
+            <label for="blogConfigOgImgContrast">블로그 대표 이미지 밝기</label>
           </th>
           <td>
             <ui-numeric-field :name="'ogImgContrast'"
@@ -152,7 +160,8 @@
                               :max="'1.1'"
                               :rules="'between:0,1.1'"
                               :text="'0.1 ~ 1 미만 (초기화 0)'"
-                              :value="blogConfig.ogImgContrast">
+                              :value="blogConfig.ogImgContrast"
+                              v-model="previewBlogConfig.ogImgContrast">
             </ui-numeric-field>
           </td>
         </tr>
@@ -168,14 +177,13 @@
                               :max="'9.9'"
                               :rules="'between:0,9.9'"
                               :text="'0.1 ~ 10 미만 (초기화 0)'"
-                              :value="blogConfig.ogImgBlur">
+                              :value="blogConfig.ogImgBlur"
+                              v-model="previewBlogConfig.ogImgBlur">
             </ui-numeric-field>
           </td>
         </tr>
         <tr class="blog-config__og-image-wrapper blog-config__og-image-wrapper--active">
-          <th scope="row">
-            <label for="blogConfigOgImgPosX">블로그 대표 이미지 위치값</label>
-          </th>
+          <th scope="row">블로그 대표 이미지 위치값</th>
           <td>
             <ui-numeric-field :name="'ogImgPosX'"
                               :id="'blogConfigOgImgPosX'"
@@ -183,7 +191,9 @@
                               :max="'100'"
                               :rules="'between:0,100'"
                               :text="'가로 0 ~ 100 (기본 50)'"
-                              :value="blogConfig.ogImgPosX">
+                              :title="'블로그 대표 이미지 가로 위치값'"
+                              :value="blogConfig.ogImgPosX"
+                              v-model="previewBlogConfig.ogImgPosX">
             </ui-numeric-field>
 
             <ui-numeric-field :name="'ogImgPosY'"
@@ -192,13 +202,15 @@
                               :max="'100'"
                               :rules="'between:0,100'"
                               :text="'세로 0 ~ 100 (기본 50)'"
-                              :value="blogConfig.ogImgPosY">
+                              :title="'블로그 대표 이미지 세로 위치값'"
+                              :value="blogConfig.ogImgPosY"
+                              v-model="previewBlogConfig.ogImgPosY">
             </ui-numeric-field>
           </td>
         </tr>
         <tr>
           <th scope="row">
-            <label for="blogConfigPageSize">메인 포스트 목록 출력 개수</label>
+            <label for="blogConfigPageSize">메인 포스트 목록 <br>출력 개수</label>
           </th>
           <td>
             <ui-numeric-field :name="'pageSize'"
@@ -250,15 +262,29 @@ export default {
     return {
       pageTitle: '블로그 환경설정',
       avatarImg: '',
+      avatarImgUrl: '',
       avatarImgSize: '',
       ogImg: '',
+      ogImgUrl: '',
       ogImgSize: '',
       showSatisYn: '',
       avatarFileList: [],
       ogFileList: [],
+      previewBlogConfig: {},
       dataLoaded: false,
       getFileSize,
     }
+  },
+  /** 해당 컴포넌트를 벗어나 새로운 페이지로 이동할 때 호출됨 */
+  async beforeRouteLeave(to, from, next) {
+    if (isNotEmpty(this.$store.state.BlogConfig?.previewData)) {
+      //블로그 환경설정 미리보기 데이타 초기화
+      this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', null);
+      await this.$store.dispatch('BlogConfig/GET_BLOG_CONFIG', {
+        client: this.$http
+      });
+    }
+    next();
   },
   created() {
     // 페이지 타이틀 세팅
@@ -270,6 +296,9 @@ export default {
     this.ogImgSize = this.blogConfig.ogImgSize;
     this.showSatisYn = this.blogConfig.showSatisYn;
 
+    this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', null);
+    this.previewBlogConfig = Object.assign({}, this.$store.state.BlogConfig.data);
+
     this.dataLoaded = true;
   },
   computed: {
@@ -279,7 +308,17 @@ export default {
         return this.$store.state.BlogConfig.data;
       },
       set(v) {}
-    }
+    },
+  },
+  watch: {
+    /** 블로그 환경설정 미리보기 데이타 */
+    previewBlogConfig: {
+      handler: function(val, oldVal) {
+        this.$store.dispatch('BlogConfig/FETCH_BLOG_CONFIG', val);
+        this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', val);
+      },
+      deep: true,
+    },
   },
   methods: {
     /** 블로그 환경설정 저장 */
@@ -293,8 +332,10 @@ export default {
         .then(res => {
           messageUtil.toastSuccess('저장되었습니다.');
 
-          document.title = res.data.title;
           this.$store.dispatch('BlogConfig/FETCH_BLOG_CONFIG', res.data);
+          this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', null);
+
+          breadcrumbService.setPageTitle(this.pageTitle);
         });
     },
     /** 블로그 아바타 이미지 file input 값 변경 시 */
