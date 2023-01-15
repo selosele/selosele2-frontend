@@ -33,7 +33,7 @@ export default {
     }
   },
   mounted() {
-    const form = document.getElementById(this.name);
+    const form = this.$refs[this.name].$el;
     this.formOldValues = Object.fromEntries(new FormData(form));
   },
   methods: {

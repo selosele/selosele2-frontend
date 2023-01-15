@@ -83,7 +83,7 @@ export default {
           res.data.map(d => {
             d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
             d.score = this.$store.state.Code.data
-              .filter(v => 'Y' === v.useYn && 'B01' === v.prefix && (v.val === d.score))
+              .filter(v => v.useYn === 'Y' && v.prefix === 'B01' && (v.val === d.score))
               .map(v => v.nm);
 
             this.rowData.push(d);

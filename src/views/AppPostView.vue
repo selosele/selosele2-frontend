@@ -24,14 +24,13 @@
           <!-- END : 콘텐츠 내용 영역 -->
     
           <div class="post__contents__like-wrapper">
-            <ui-button :class="'post__contents__like-btn'"
-                       :title="isPostLiked ? '포스트 추천 해제하기' : '포스트 추천하기'"
-                       @click="savePostLike(post.id)">
-              <i class="xi-heart" aria-hidden="true" v-if="isPostLiked"></i>
-              <i class="xi-heart-o" aria-hidden="true" v-if="!isPostLiked"></i>
-              <span class="sr-only">추천수</span>
+            <ui-icon-button :icon="isPostLiked ? 'xi-heart' : 'xi-heart-o'"
+                            :text="'추천수'"
+                            :class="'post__contents__like-btn'"
+                            :title="isPostLiked ? '포스트 추천 해제하기' : '포스트 추천하기'"
+                            @click="savePostLike(post.id)">
               <span id="like_cnt" class="post__contents__like-cnt">{{ postLikeCnt }}</span>
-            </ui-button>
+            </ui-icon-button>
           </div>
     
           <div class="post__contents__date-wrapper">
@@ -71,34 +70,34 @@
           </div>
     
           <div class="post__contents__btns">
-            <ui-button :class="'post__contents__btn post__contents__btn--list'"
-                       @click="goToList">
-              <i class="xi-backspace" aria-hidden="true"></i>
-              <span class="sr-only">목록으로</span>
-            </ui-button>
+            <ui-icon-button :icon="'xi-backspace'"
+                            :text="'목록으로'"
+                            :class="'post__contents__btn post__contents__btn--list'"
+                            @click="goToList">
+            </ui-icon-button>
     
-            <ui-button :class="'post__contents__btn post__contents__btn--copy'"
-                       @click="copyPostUrl">
-              <i class="xi-link" aria-hidden="true"></i>
-              <span class="sr-only">URL 복사</span>
-            </ui-button>
+            <ui-icon-button :icon="'xi-link'"
+                            :text="'URL 복사'"
+                            :class="'post__contents__btn post__contents__btn--copy'"
+                            @click="copyPostUrl">
+            </ui-icon-button>
             
             <a :href="`https://twitter.com/intent/tweet?text=${encodeURI(post.title)}%20${encodeURI($nowUrl)}`"
-              target="_blank"
-              title="새창"
-              rel="noopener noreferrer nofollow"
-              class="btn post__contents__sns post__contents__sns--twitter">
-                <i class="xi-twitter" aria-hidden="true"></i>
-                <span class="sr-only">트위터 공유</span>
+               target="_blank"
+               title="새창"
+               rel="noopener noreferrer nofollow"
+               class="btn post__contents__sns post__contents__sns--twitter">
+              <i class="xi-twitter" aria-hidden="true"></i>
+              <span class="sr-only">트위터 공유</span>
             </a>
     
             <a :href="`https://www.facebook.com/sharer/sharer.php?u=${encodeURI($nowUrl)}`"
-              target="_blank"
-              title="새창"
-              rel="noopener noreferrer nofollow"
-              class="btn post__contents__sns post__contents__sns--facebook">
-                <i class="xi-facebook-official" aria-hidden="true"></i>
-                <span class="sr-only">페이스북 공유</span>
+               target="_blank"
+               title="새창"
+               rel="noopener noreferrer nofollow"
+               class="btn post__contents__sns post__contents__sns--facebook">
+              <i class="xi-facebook-official" aria-hidden="true"></i>
+              <span class="sr-only">페이스북 공유</span>
             </a>
     
             <template v-if="isLogin">
@@ -232,7 +231,7 @@ export default {
       this.postUrl = this.$nowUrl;
       this.postLikeCnt = this.post.postLike.length;
       this.snsCodeList = this.$store.state.Code.data
-        .filter(d => 'C01' === d.prefix);
+        .filter(d => d.prefix === 'C01');
     },
     /** 포스트 조회 */
     getPost(id) {

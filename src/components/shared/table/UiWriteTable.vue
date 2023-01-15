@@ -1,6 +1,6 @@
 <template>
   <table class="write-tbl">
-    <caption class="sr-only">{{ name }}</caption>
+    <caption class="sr-only" v-if="name">{{ name }}</caption>
     <colgroup>
       <template v-for="(width,i) in colWidth" :key="i">
         <col :style="{ width }">

@@ -48,15 +48,15 @@
         </tr>
         <tr>
           <th scope="row">
-            <label for="blogConfigDescription">블로그 소개</label>
+            <label for="blogConfigDesc">블로그 소개</label>
           </th>
           <td>
-            <ui-textarea :name="'description'"
-                         :id="'blogConfigDescription'"
+            <ui-textarea :name="'desc'"
+                         :id="'blogConfigDesc'"
                          :cols="'30'"
                          :rows="'10'"
                          :resize="'vertical'"
-                         :value="blogConfig.description">
+                         :value="blogConfig.desc">
             </ui-textarea>
           </td>
         </tr>
@@ -65,12 +65,12 @@
             <label for="avatarImgFile">블로그 아바타 이미지</label>
           </th>
           <td>
-            <ui-hidden-field :name="'hAvatarImg'" :id="'hAvatarImg'" :value="blogConfig.avatarImg"></ui-hidden-field>
-            <ui-hidden-field :name="'hAvatarImgUrl'" :id="'hAvatarImgUrl'" :value="blogConfig.avatarImgUrl"></ui-hidden-field>
-            <ui-hidden-field :name="'hAvatarImgSize'" :id="'hAvatarImgSize'" :value="blogConfig.avatarImgSize"></ui-hidden-field>
+            <ui-hidden-field :name="'avatarImg'" :id="'blogConfigAvatarImg'" :value="blogConfig.avatarImg"></ui-hidden-field>
+            <ui-hidden-field :name="'avatarImgUrl'" :id="'blogConfigAvatarImgUrl'" :value="blogConfig.avatarImgUrl"></ui-hidden-field>
+            <ui-hidden-field :name="'avatarImgSize'" :id="'blogConfigAvatarImgSize'" :value="blogConfig.avatarImgSize"></ui-hidden-field>
 
             <ui-file-field :name="'avatarImgFile'"
-                           :id="'avatarImgFile'"
+                           :id="'blogConfigAvatarImgFile'"
                            :accept="'image/*'"
                            :gap="10"
                            @onchange="onChangeAvatarImg">
@@ -80,7 +80,7 @@
               </ui-button>
             </ui-file-field>
 
-            <div class="blog-config__avatar-image-use-wrapper">
+            <div class="blog-config__avatar-image-use-wrapper" v-if="avatarImg">
               <span class="blog-config__avatar-image-use">
                 {{ avatarImg }} (용량 : {{ getFileSize(avatarImgSize) }})
               </span>
@@ -98,12 +98,12 @@
             <label for="ogImgFile">블로그 대표 이미지</label>
           </th>
           <td>
-            <ui-hidden-field :name="'hOgImg'" :id="'hOgImg'" :value="blogConfig.ogImg"></ui-hidden-field>
-            <ui-hidden-field :name="'hOgImgUrl'" :id="'hOgImgUrl'" :value="blogConfig.ogImgUrl"></ui-hidden-field>
-            <ui-hidden-field :name="'hOgImgSize'" :id="'hOgImgSize'" :value="blogConfig.ogImgSize"></ui-hidden-field>
+            <ui-hidden-field :name="'ogImg'" :id="'blogConfigOgImg'" :value="blogConfig.ogImg"></ui-hidden-field>
+            <ui-hidden-field :name="'ogImgUrl'" :id="'blogConfigOgImgUrl'" :value="blogConfig.ogImgUrl"></ui-hidden-field>
+            <ui-hidden-field :name="'ogImgSize'" :id="'blogConfigOgImgSize'" :value="blogConfig.ogImgSize"></ui-hidden-field>
 
             <ui-file-field :name="'ogImgFile'"
-                           :id="'ogImgFile'"
+                           :id="'blogConfigOgImgFile'"
                            :accept="'image/*'"
                            :gap="10"
                            @onchange="onChangeOgImg">
@@ -113,7 +113,7 @@
               </ui-button>
             </ui-file-field>
 
-            <div class="blog-config__og-image-use-wrapper">
+            <div class="blog-config__og-image-use-wrapper" v-if="ogImg">
               <span class="blog-config__og-image-use">
                 {{ ogImg }} (용량 : {{ getFileSize(ogImgSize) }})
               </span>
@@ -274,18 +274,25 @@ export default {
 
       this.$http.put('/blogconfig', values, { headers })
         .then(res => {
-          
+          messageUtil.toastSuccess('저장되었습니다.');
+
+          document.title = res.data.title;
+          this.$store.dispatch('BlogConfig/FETCH_BLOG_CONFIG', res.data);
         });
     },
     /** 블로그 아바타 이미지 file input 값 변경 시 */
     onChangeAvatarImg(values) {
-      this.avatarImg = values.name;
-      this.avatarImgSize = values.size;
+      if (isNotEmpty(values)) {
+        this.avatarImg = values.name;
+        this.avatarImgSize = values.size;
+      }
     },
     /** 블로그 대표 이미지 file input 값 변경 시 */
     onChangeOgImg(values) {
-      this.ogImg = values.name;
-      this.ogImgSize = values.size;
+      if (isNotEmpty(values)) {
+        this.ogImg = values.name;
+        this.ogImgSize = values.size;
+      }
     },
   },
 }

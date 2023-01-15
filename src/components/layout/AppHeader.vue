@@ -1,42 +1,44 @@
 <template>
   <div class="masthead__wrapper">
     <div id="masthead" class="masthead">
-      <ui-button ref="btnMenu"
-                 :class="'masthead__menu-open'"
-                 @click="toggleMobileMenu">
-        <i class="xi-bars" aria-hidden="true"></i>
-        <span class="sr-only">메뉴</span>
-      </ui-button>
+      <ui-icon-button ref="btnMenu"
+                      :icon="'xi-bars'"
+                      :text="'메뉴'"
+                      :class="'masthead__menu-open'"
+                      @click="toggleMobileMenu">
+      </ui-icon-button>
 
       <div :class="[
-        'masthead__top',
-        { 'masthead--image': $store.state.BlogConfig.data.ogImgUrl }]"
-          :style="[
+            'masthead__top',
+            { 'masthead--image': $store.state.BlogConfig.data.ogImgUrl }]"
+           :style="[
             { backgroundImage: $store.state.BlogConfig.data.ogImgUrl && backgroundImage },
             { backgroundPositionX: $store.state.BlogConfig.data.ogImgUrl && backgroundPosition('x') },
             { backgroundPositionY: $store.state.BlogConfig.data.ogImgUrl && backgroundPosition('y') }
-          ]">
+           ]"
+           :data-blur="($store.state.BlogConfig.data.ogImgBlur / 20) + 'rem'"
+        >
         <div class="masthead__util-wrapper">
           <template v-if="!isLogin && isDevelopment">
-            <ui-button :routerLink="'/a/goto'"
-                       :class="'masthead__util'">
-              <i class="xi-log-in" aria-hidden="true"></i>
-              <span class="sr-only">로그인</span>
-            </ui-button>
+            <ui-icon-button :routerLink="'/a/goto'"
+                            :icon="'xi-log-in'"
+                            :text="'로그인'"
+                            :class="'masthead__util'">
+            </ui-icon-button>
           </template>
 
           <template v-if="isLogin">
-            <ui-button :class="'masthead__util'"
-                       @click="logout">
-              <i class="xi-power-off" aria-hidden="true"></i>
-              <span class="sr-only">로그아웃</span>
-            </ui-button>
+            <ui-icon-button :class="'masthead__util'"
+                            :icon="'xi-power-off'"
+                            :text="'로그아웃'"
+                            @click="logout">
+            </ui-icon-button>
 
-            <ui-button :routerLink="'/admin/blog-config'"
-                       :class="'masthead__util'">
-              <i class="xi-cog" aria-hidden="true"></i>
-              <span class="sr-only">환경설정</span>
-            </ui-button>
+            <ui-icon-button :routerLink="'/admin/blog-config'"
+                            :icon="'xi-cog'"
+                            :text="'환경설정'"
+                            :class="'masthead__util'">
+            </ui-icon-button>
           </template>
         </div>
 
@@ -105,6 +107,7 @@ export default {
       if (!confirm) return;
 
       const res = await this.$store.dispatch('Auth/LOGOUT', this.$http);
+
       if ('ok' === res) {
         this.$router.push('/a/goto');
       }

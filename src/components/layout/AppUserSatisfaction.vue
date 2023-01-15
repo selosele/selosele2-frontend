@@ -32,11 +32,11 @@
                          v-model="comment">
           </ui-text-field>
 
-          <ui-button :type="'submit'"
-                     :class="'satisfaction__btn'">
-            <i class="xi-check-min" aria-hidden="true"></i>
-            <span class="sr-only">제출</span>
-          </ui-button>
+          <ui-icon-button :icon="'xi-check-min'"
+                          :text="'제출'"
+                          :type="'submit'"
+                          :class="'satisfaction__btn'">
+          </ui-icon-button>
         </div>
       </div>
     </ui-form>

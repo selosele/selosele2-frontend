@@ -94,7 +94,7 @@ export default {
     listCode() {
       this.$http.get('/code')
         .then(res => {
-          const codeList = res.data.filter(d => 'Y' === d.useYn);
+          const codeList = res.data.filter(d => d.useYn === 'Y');
           this.$store.dispatch('Code/FETCH_CODE', codeList);
         });
     },

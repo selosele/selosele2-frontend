@@ -78,14 +78,15 @@
           </ui-button>
         </div>
 
-        <ui-button :class="[
-                    'search__to-input',
-                    { 'search__to-input--active': this.toInputActive }
-                   ]"
-                   @click="toInput">
-          <i class="xi-search" aria-hidden="true"></i>
-          <span class="sr-only">검색 필드 바로가기</span>
-        </ui-button>
+        <ui-icon-button :icon="'xi-search'"
+                        :text="'검색 필드 바로가기'"
+                        :class="[
+                          'search__to-input',
+                          { 'search__to-input--active': this.toInputActive }
+                        ]"
+                        @click="toInput"
+        >
+        </ui-icon-button>
       </div>
     </div>
   </app-content-wrapper>

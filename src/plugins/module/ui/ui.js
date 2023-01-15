@@ -1,6 +1,7 @@
 import UiLoading from '@/components/shared/loading/UiLoading.vue';
 import UiSkeletor from '@/components/shared/skeletor/UiSkeletor.vue';
 import UiButton from '@/components/shared/button/UiButton.vue';
+import UiIconButton from '@/components/shared/button/UiIconButton.vue';
 import UiModal from '@/components/shared/modal/UiModal.vue';
 import UiGrid from '@/components/shared/grid/UiGrid.vue';
 import UiPane from '@/components/shared/splitter/UiPane.vue';
@@ -18,6 +19,7 @@ export const uiModule = {
     app.component('ui-loading', UiLoading);
     app.component('ui-skeletor', UiSkeletor);
     app.component('ui-button', UiButton);
+    app.component('ui-icon-button', UiIconButton);
     app.component('ui-modal', UiModal);
     app.component('ui-grid', UiGrid);
     app.component('ui-pane', UiPane);
