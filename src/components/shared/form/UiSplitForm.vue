@@ -26,8 +26,11 @@
 </template>
 
 <script>
+import UiForm from './UiForm.vue';
+
 export default {
   name: 'ui-split-form',
+  extends: UiForm,
   props: {
     /** form name */
     name: String,

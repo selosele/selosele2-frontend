@@ -66,7 +66,7 @@ export default {
       }
     });
 
-    this.defaultScore = this.satisArr[2].value;
+    this.defaultScore = this.satisArr.find(d => d.value === '003');
   },
   methods: {
     /** 만족도조사 제출 */

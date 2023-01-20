@@ -13,7 +13,7 @@
                    :useCheckbox="false"
                    :filter="true"
                    :placeholder="'메뉴명 입력'"
-                   @onNodeClick="onNodeClick">
+                   @nodeClick="onNodeClick">
 
             <template v-slot:btn>
               <ui-button :color="'primary'"
@@ -113,7 +113,7 @@ export default {
         this.dataLoaded2 = false;
 
         await this.getMenu(node);
-        this.dataLoading2();
+        this.dataLoading();
       }
     },
     /** 트리 갱신 */
@@ -167,10 +167,11 @@ export default {
       this.menu = {};
       this.menu.id = null;
       this.menu.parentId = 0;
+      this.menu.depth = 1;
       this.parentMenuList = this.listParentMenu(this.$store.state.Menu.data, []);
     },
     /** 데이타 로딩 */
-    dataLoading2() {
+    dataLoading() {
       if (isNotEmpty(this.menu) && 0 < Object.values(this.menu).length) {
         this.dataLoaded2 = true;
       }

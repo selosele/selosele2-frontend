@@ -54,7 +54,7 @@
         </tr>
         <tr>
           <th scope="row">
-            <label for="blogConfigDesc">블로그 소개</label>
+            <label for="blogConfigDesc">블로그 소개(100자 이내)</label>
           </th>
           <td>
             <ui-textarea :name="'desc'"
@@ -62,6 +62,7 @@
                          :cols="'30'"
                          :rows="'10'"
                          :resize="'vertical'"
+                         :rules="'required|max:100'"
                          :value="blogConfig.desc">
             </ui-textarea>
           </td>

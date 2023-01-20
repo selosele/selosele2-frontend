@@ -1,5 +1,5 @@
 <template>
-  <ui-split-form :name="'saveMenuForm'"
+  <ui-split-form :name="'saveMenuForm'" ref="saveMenuForm"
                  :btnRemove="true"
                  @onsubmit="onSubmit"
                  @remove="onRemove"
@@ -9,13 +9,19 @@
                      :value="menu.id">
     </ui-hidden-field>
 
+    <ui-hidden-field :name="'depth'"
+                     :ref="'menuDepth'"
+                     :value="menu.depth || 1">
+    </ui-hidden-field>
+
     <ui-select :name="'parentId'"
                :id="'menuParentId'"
                :title="'부모 메뉴'"
                :label="'부모 메뉴'"
                :defaultValue="'부모 메뉴 선택'"
                :data="parentMenuList"
-               v-model="parentId">
+               v-model="parentId"
+               @onchange="updateDepth">
     </ui-select>
 
     <ui-text-field :type="'text'"
@@ -192,6 +198,15 @@ export default {
       }
 
       return '';
+    },
+    /** 메뉴 계층 갱신 */
+    updateDepth(value) {
+      if (isEmpty(value)) {
+        this.$refs['saveMenuForm'].setFieldValue('depth', 1);
+        return;
+      }
+
+      this.$refs['saveMenuForm'].setFieldValue('depth', 2);
     },
   }
 }
