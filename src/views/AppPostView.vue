@@ -7,19 +7,19 @@
         <ui-skeletor :height="'1.3rem'"></ui-skeletor>
       </template>
   
-      <template v-if="dataLoaded && null !== post">
+      <template v-if="dataLoaded">
         <ui-form :name="'postForm'" @onsubmit="onSubmit">
-          <ui-hidden-field :name="'id'" :value="post.id">
+          <ui-hidden-field :name="'id'" :value="post?.id">
           </ui-hidden-field>
     
-          <meta property="og:title" :content="post.title">
+          <meta property="og:title" :content="post?.title">
           <meta property="og:url" :content="$nowUrl">
-          <meta property="og:description" :content="post.title">
-          <meta property="og:image" :content="post.ogImgUrl">
+          <meta property="og:description" :content="post?.title">
+          <meta property="og:image" :content="post?.ogImgUrl">
     
           <!-- START : 콘텐츠 내용 영역 -->
           <div class="post__contents__body line-numbers">
-            <Markdown :source="post.cont" :plugins="plugins"></Markdown>
+            <Markdown :source="post?.cont" :plugins="plugins"></Markdown>
           </div>
           <!-- END : 콘텐츠 내용 영역 -->
     
@@ -28,7 +28,7 @@
                             :text="'추천수'"
                             :class="'post__contents__like-btn'"
                             :title="isPostLiked ? '포스트 추천 해제하기' : '포스트 추천하기'"
-                            @click="savePostLike(post.id)">
+                            @click="savePostLike(post?.id)">
               <span id="like_cnt" class="post__contents__like-cnt">{{ postLikeCnt }}</span>
             </ui-icon-button>
           </div>
@@ -38,20 +38,20 @@
               <strong>
                 <i class="xi-time-o" aria-hidden="true"></i> 등록일
               </strong>
-              <time :datetime="post.regDate">{{ post.regDate }}</time>
+              <time :datetime="post?.regDate">{{ post?.regDate }}</time>
             </span>
     
-            <span class="post__contents__date post__contents__date--modified-at" v-if="post.modDate">
+            <span class="post__contents__date post__contents__date--modified-at" v-if="post?.modDate">
               <strong>
                 <i class="xi-time" aria-hidden="true"></i> 수정일
               </strong>
-              <time :datetime="post.modDate">{{ post.modDate }}</time>
+              <time :datetime="post?.modDate">{{ post?.modDate }}</time>
             </span>
           </div>
     
           <div class="post__contents__info-wrapper">
-            <template v-if="0 < post.postCategory.length">
-              <router-link v-for="(category,i) in post.postCategory" :key="i"
+            <template v-if="0 < post?.postCategory.length">
+              <router-link v-for="(category,i) in post?.postCategory" :key="i"
                           :to="`/category/${category.category.id}`" 
                           class="btn post__contents__info post__contents__info--category">
                 <span class="sr-only">카테고리</span>
@@ -59,8 +59,8 @@
               </router-link>
             </template>
             
-            <template v-if="0 < post.postTag.length">
-              <router-link v-for="(tag,i) in post.postTag" :key="i"
+            <template v-if="0 < post?.postTag.length">
+              <router-link v-for="(tag,i) in post?.postTag" :key="i"
                           :to="`/tag/${tag.tag.id}`" 
                           class="btn post__contents__info post__contents__info--tag">
                 <span class="sr-only">태그</span>
@@ -82,7 +82,7 @@
                             @click="copyPostUrl">
             </ui-icon-button>
             
-            <a :href="`https://twitter.com/intent/tweet?text=${encodeURI(post.title)}%20${encodeURI($nowUrl)}`"
+            <a :href="`https://twitter.com/intent/tweet?text=${encodeURI(post?.title)}%20${encodeURI($nowUrl)}`"
                target="_blank"
                title="새창"
                rel="noopener noreferrer nofollow"
@@ -102,17 +102,17 @@
     
             <template v-if="isLogin">
               <ui-button :routerLink="'/add-post'"
-                        :class="'post__contents__btn post__contents__btn--write'">
+                         :class="'post__contents__btn post__contents__btn--write'">
                 <i class="xi-pen" aria-hidden="true"></i> 포스트 작성
               </ui-button>
     
               <ui-button :routerLink="'/edit-post/14'"
-                        :class="'post__contents__btn post__contents__btn--edit'">
+                         :class="'post__contents__btn post__contents__btn--edit'">
                 <i class="xi-pen" aria-hidden="true"></i> 포스트 수정
               </ui-button>
     
               <ui-button :type="'submit'"
-                        :class="'post__contents__btn post__contents__btn--delete'">
+                         :class="'post__contents__btn post__contents__btn--delete'">
                 <i class="xi-trash" aria-hidden="true"></i> 포스트 삭제
               </ui-button>
             </template>

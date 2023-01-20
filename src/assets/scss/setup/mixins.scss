@@ -1,5 +1,13 @@
 /* 레이아웃 */
-@mixin common-layout($width: $layout-responsive-width, $max-width: $layout-general-width, $margin: null, $margin-t: null, $margin-b: null, $margin-l: auto, $margin-r: auto) {
+@mixin common-layout(
+  $width: $layout-responsive-width, 
+  $max-width: $layout-general-width, 
+  $margin: null, 
+  $margin-t: null, 
+  $margin-b: null, 
+  $margin-l: auto, 
+  $margin-r: auto
+  ) {
   @if $margin-t != null {
     margin-top: $margin-t;
   }
@@ -102,7 +110,15 @@
 }
 
 // 버튼
-@mixin btn($width: null, $min-width: 5rem, $height: $input-height, $line-height: $input-height, $padding: 0 0.5rem, $box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 0.25rem, $text-shadow: rgba(0, 0, 0, 0.8) 1px 1px 0.1em) {
+@mixin btn(
+  $width: null, 
+  $min-width: 5rem, 
+  $height: $input-height, 
+  $line-height: $input-height, 
+  $padding: 0 0.5rem, 
+  $box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 0.25rem, 
+  $text-shadow: rgba(0, 0, 0, 0.8) 1px 1px 0.1em
+  ) {
   display: inline-block;
   width: $width;
   min-width: $min-width;

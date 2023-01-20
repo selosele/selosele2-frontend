@@ -22,6 +22,7 @@
                        :id="'guestbookUpdateAuthor'"
                        :class="'guestbook__input'"
                        :rules="'required|max:20'"
+                       :readonly="'Y' === guestbook.adminYn"
                        :value="guestbook.author">
         </ui-text-field>
 

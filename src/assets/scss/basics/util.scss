@@ -171,6 +171,13 @@
   }
 }
 
+// text
+.font {
+  &--bold {
+    font-weight: 700;
+  }
+}
+
 // textarea
 .resize {
   &--vertical {

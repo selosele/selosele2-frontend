@@ -20,7 +20,9 @@
                              :name="'author'"
                              :id="'guestbookWriteAuthor'"
                              :class="'guestbook__input'"
-                             :rules="'required|max:20'">
+                             :rules="'required|max:20'"
+                             :readonly="isLogin"
+                             :value="isLogin ? '관리자' : ''">
               </ui-text-field>
             </div>
 
@@ -64,7 +66,7 @@
               <strong>
                 <i class="xi-user-o" aria-hidden="true"></i> 글쓴이 :
               </strong>
-              {{ guestbook.author }}
+              <span :class="{ 'font--bold': 'Y' === guestbook.adminYn }">{{ guestbook.author }}</span>
             </span>
 
             <span class="guestbook__reg-date">
@@ -76,12 +78,12 @@
           </div>
 
           <template v-if="0 < guestbook.guestbookReply.length">
-            <button type="button"
-                    class="guestbook__btn guestbook__btn--reply-open"
-                    :title="`댓글 ${guestbook.guestbookReply.length}개 펼쳐보기`">
-              <i class="xi-message" aria-hidden="true"></i> 
-              <span class="reply_cnt">{{ guestbook.guestbookReply.length > 99 ? '99+' : guestbook.guestbookReply.length }}</span>
-            </button>
+            <ui-icon-button :type="'button'"
+                            :icon="'xi-message'"
+                            :class="'guestbook__btn guestbook__btn--reply-open'"
+                            :title="`댓글 ${guestbook.guestbookReply.length}개 펼쳐보기`">
+              <span class="reply_cnt">{{ 99 < guestbook.guestbookReply.length ? '99+' : guestbook.guestbookReply.length }}</span>
+            </ui-icon-button>
   
             <div class="guestbook__depth2">
               <ul></ul>
