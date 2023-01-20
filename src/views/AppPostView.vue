@@ -260,7 +260,7 @@ export default {
     },
     /** 포스트 추천 정보 조회 */
     getPostLike(id) {
-      return this.$http.get(`/post/like/${id}`)
+      return this.$http.get(`/postlike/${id}`)
         .then(res => {
           if (isNotEmpty(res.data)) {
             this.isPostLiked = true;
@@ -271,7 +271,7 @@ export default {
     },
     /** 포스트 추천/추천 해제 */
     savePostLike(id) {
-      return this.$http.post(`/post/like/${id}`)
+      return this.$http.post(`/postlike/${id}`)
         .then(res => {
           if (0 === this.postLikeCnt && -1 === res.data) return;
           this.getPostLike(id);
