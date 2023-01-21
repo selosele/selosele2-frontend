@@ -1,20 +1,4 @@
 .guestbook__wrapper:deep {
-  .btn {
-    min-width: 4.3rem;
-    height: 1.7rem;
-    line-height: 1.7rem;
-    font-size: 0.85rem;
-  }
-
-  input {
-    height: 1.7rem;
-    line-height: 1.7rem;
-  }
-
-  textarea {
-    font-size: 0.85rem;
-  }
-
   input {
     &[type="password"] {
       font-size: 0.9rem;
@@ -121,6 +105,7 @@
       &--reply {
         &-open {
           display: block;
+          position: relative;
           min-width: 0;
           width: 100%;
           height: 1.7rem;
@@ -151,7 +136,7 @@
             }
           }
   
-          > .reply_cnt {
+          > .reply-cnt {
             line-height: 1;
   
             @media (min-width: $min-large-width) {
@@ -223,7 +208,6 @@
         margin-top: 0.7rem;
         padding-top: 0.7rem;
         border-top: 1px dashed $grey05;
-        font-size: 0.9rem;
         gap: 0.3rem;
   
         @media (min-width: $min-medium-width) {
@@ -234,7 +218,7 @@
           display: block;
           width: 100%;
           position: relative;
-          font-size: 0.85rem;
+          font-size: 0.8rem;
   
           @media (min-width: $min-medium-width) {
             display: inline-block;
@@ -343,49 +327,19 @@
         }
       }
     }
-  
-    &__depth2 {
-      display: none;
-      margin-top: 1.5rem;
-      margin-bottom: 2rem;
-  
-      > ul {
-        padding-left: 0;
-        border: 1px solid $grey05;
-        list-style: none;
-      }
-  
-      &__list {
-        position: relative;
-        padding: 1rem;
-        background-color: $grey02;
-  
-        & + & {
-          border-top: 1px solid $grey05;
-        }
-  
-        .guestbook__cont__info {
-          margin-bottom: 0.7rem;
-  
-          @media (min-width: $min-medium-width) {
-            margin-bottom: 0;
-          }
-        }
-      }
-    }
 
     &__btn {
       &--toggle {
         @include btn(
           $width: 1.5rem,
-          $min-width: null,
+          $min-width: 0,
           $height: 1.5rem,
           $line-height: 1.5rem,
           $padding: 0,
-          $box-shadow: null,
-          $text-shadow: null,
+          $box-shadow: none,
+          $text-shadow: none,
         );
-     }
+      }
     }
 
     &__toggle {
@@ -466,22 +420,6 @@
         label {
           display: block;
           font-size: 0.85rem;
-        }
-      }
-  
-      &-more {
-        display: flex;
-        width: 100%;
-        height: 2rem;
-        margin-top: 0.7rem;
-        background-color: transparent;
-        font-size: 1.8rem;
-        align-items: center;
-        justify-content: center;
-  
-        &--disabled {
-          opacity: 0.4;
-          pointer-events: none;
         }
       }
     }

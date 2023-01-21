@@ -1,6 +1,9 @@
 <template>
   <div class="guestbook__reply__wrapper">
-    <ui-form :name="`guestbookReplyForm${idx}`">
+    <ui-form :name="`guestbookReplyForm${idx}`" @onsubmit="onSubmit">
+      <ui-hidden-field :name="'parentId'" :value="parentId">
+      </ui-hidden-field>
+
       <ui-textarea :name="'cont'"
                    :id="`guestbookReplyCont${idx}`"
                    :class="'guestbook__reply__cont guestbook__textarea'"
@@ -18,7 +21,9 @@
                          :name="'author'"
                          :id="`guestbookReplyAuthor${idx}`"
                          :class="'guestbook__input'"
-                         :rules="'required|max:20'">
+                         :rules="'required|max:20'"
+                         :readonly="isLogin"
+                         :value="isLogin ? '관리자' : ''">
           </ui-text-field>
 
           <label :for="`guestbookReplyPw${idx}`" class="pt--5">비밀번호</label>
@@ -40,11 +45,28 @@
 </template>
 
 <script>
+import { messageUtil } from '@/utils';
+
 export default {
   name: 'app-guestbook-reply',
   props: {
     /** 방명록 index */
     idx: Number,
+    /** 상위 방명록 ID */
+    parentId: Number,
+  },
+  methods: {
+    /** 방명록 댓글 추가 */
+    async onSubmit(values) {
+      const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
+      if (!confirm) return;
+
+      this.$http.post('/guestbookreply', values)
+        .then(res => {
+          messageUtil.toastSuccess('저장되었습니다.');
+          this.$emit('addReply', res.data);
+        });
+    },
   },
 }
 </script>

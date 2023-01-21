@@ -225,7 +225,7 @@ export default {
           }
         });
     },
-    /** 더보기 */
+    /** 검색결과 더보기 */
     more() {
       this.page++;
 

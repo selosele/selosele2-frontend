@@ -1,35 +1,35 @@
 <template>
-  <ui-modal :title="'방명록 수정'" :name="this.$options.name">
-    <ui-form :name="'removeGuestbookForm'" @onsubmit="onSubmit">
-      <ui-hidden-field :name="'id'" :value="guestbook.id">
+  <ui-modal :title="'방명록 댓글 수정'" :name="this.$options.name">
+    <ui-form :name="'removeGuestbookReplyForm'" @onsubmit="onSubmit">
+      <ui-hidden-field :name="'id'" :value="guestbookReply.id">
       </ui-hidden-field>
 
       <ui-textarea :name="'cont'"
-                   :id="'guestbookUpdateCont'"
+                   :id="'guestbookReplyUpdateCont'"
                    :title="'방명록 내용 입력'"
                    :placeholder="'하고싶은 말을 남겨주세요.'"
                    :cols="'30'"
                    :rows="'4'"
                    :resize="'vertical'"
                    :rules="'required'"
-                   :value="guestbook.cont">
+                   :value="guestbookReply.cont">
       </ui-textarea>
 
       <div class="d-flex-w gap--15 mt--20">
-        <label for="guestbookUpdateAuthor" class="pt--5">닉네임</label>
+        <label for="guestbookReplyUpdateAuthor" class="pt--5">닉네임</label>
         <ui-text-field :type="'text'"
                        :name="'author'"
-                       :id="'guestbookUpdateAuthor'"
+                       :id="'guestbookReplyUpdateAuthor'"
                        :class="'guestbook__input'"
                        :rules="'required|max:20'"
-                       :readonly="'Y' === guestbook.adminYn"
-                       :value="guestbook.author">
+                       :readonly="'Y' === guestbookReply.adminYn"
+                       :value="guestbookReply.author">
         </ui-text-field>
 
-        <label for="guestbookUpdatePw" class="pt--5">비밀번호</label>
+        <label for="guestbookReplyUpdatePw" class="pt--5">비밀번호</label>
         <ui-text-field :type="'password'"
                        :name="'authorPw'"
-                       :id="'guestbookUpdatePw'"
+                       :id="'guestbookReplyUpdatePw'"
                        :class="'guestbook__input'"
                        :rules="'required|min:8|max:15'">
         </ui-text-field>
@@ -46,23 +46,23 @@
 import { messageUtil } from '@/utils';
 
 export default {
-  name: 'app-update-guestbook-modal',
+  name: 'app-update-guestbook-reply-modal',
   props: {
-    /** 방명록 */
-    guestbook: Object,
+    /** 방명록 댓글 */
+    guestbookReply: Object,
   },
   methods: {
-    /** 방명록 수정 */
+    /** 방명록 댓글 수정 */
     async onSubmit(values) {
       const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;
       
-      this.$http.put('/guestbook', values)
+      this.$http.put('/guestbookreply', values)
         .then(res => {
           messageUtil.toastSuccess('저장되었습니다.');
 
           this.$modal.hide(this.$options.name);
-          this.$store.dispatch('Guestbook/FETCH_UPDATED_GUESTBOOK', res.data);
+          this.$store.dispatch('Guestbook/FETCH_UPDATED_GUESTBOOK_REPLY', res.data);
         });
     },
   },

@@ -75,38 +75,59 @@
               </strong>
               {{ guestbook.regDate }}
             </span>
+
+            <span class="guestbook__mod-date" v-if="guestbook.modDate">
+              <strong>
+                <i class="xi-time-o" aria-hidden="true"></i> 수정일 :
+              </strong>
+              {{ guestbook.modDate }}
+            </span>
           </div>
 
           <template v-if="0 < guestbook.guestbookReply.length">
             <ui-icon-button :type="'button'"
                             :icon="'xi-message'"
                             :class="'guestbook__btn guestbook__btn--reply-open'"
-                            :title="`댓글 ${guestbook.guestbookReply.length}개 펼쳐보기`">
-              <span class="reply_cnt">{{ 99 < guestbook.guestbookReply.length ? '99+' : guestbook.guestbookReply.length }}</span>
+                            :title="`댓글 ${guestbook.guestbookReply.length}개 펼쳐보기`"
+                            @click="toggleReplyList(i)">
+              <span class="reply-cnt">{{ 99 < guestbook.guestbookReply.length ? '99+' : guestbook.guestbookReply.length }}</span>
             </ui-icon-button>
   
-            <div class="guestbook__depth2">
-              <ul></ul>
-            </div>
+            <app-guestbook-reply-list v-if="i === replyActiveIndex"
+                                      :key="guestbook.guestbookReply"
+                                      :list="guestbook.guestbookReply"
+                                      :parentId="guestbook.id">
+            </app-guestbook-reply-list>
           </template>
 
-          <app-guestbook-reply :idx="i"></app-guestbook-reply>
+          <app-guestbook-reply :idx="i"
+                               :parentId="guestbook.id"
+                               @addReply="onAddReply">
+          </app-guestbook-reply>
 
           <div class="guestbook__toggle">
-            <button type="button" class="guestbook__btn--toggle" @click="toggleMenu(i)">
-              <i class="xi-cog" aria-hidden="true"></i>
-              <span class="sr-only">방명록 수정/삭제</span>
-            </button>
+            <ui-icon-button :type="'button'"
+                            :icon="'xi-cog'"
+                            :text="'방명록 수정/삭제'"
+                            :class="'guestbook__btn--toggle'"
+                            @click.stop="toggleMenu(i)">
+            </ui-icon-button>
 
             <div class="guestbook__toggle-list" v-show="i === activeIndex">
               <ul>
                 <li>
-                  <button type="button" class="guestbook__btn--edit1" ref="guestbookMenuBtn" @click="openModal('update', guestbook)">
+                  <button type="button" 
+                          class="guestbook__btn--edit1" 
+                          ref="guestbookMenuBtn" 
+                          @click="openModal('update', guestbook)">
                     <i class="xi-pen-o" aria-hidden="true"></i> 방명록 수정
                   </button>
                 </li>
                 <li>
-                  <button type="button" class="guestbook__btn--delete1" ref="guestbookMenuBtn" @click="openModal('remove', guestbook)">
+                  <button type="button" 
+                          class="guestbook__btn--delete1"
+                          ref="guestbookMenuBtn" 
+                          @click="openModal('remove', guestbook)">
                     <i class="xi-trash-o" aria-hidden="true"></i> 방명록 삭제
                   </button>
                 </li>
@@ -123,6 +144,7 @@
 import { messageUtil, isNotEmpty } from '@/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import AppGuestbookReply from '@/components/views/guestbook/AppGuestbookReply.vue';
+import AppGuestbookReplyList from '@/components/views/guestbook/AppGuestbookReplyList.vue';
 import AppUpdateGuestbookModal from '@/components/views/guestbook/AppUpdateGuestbookModal.vue';
 import AppRemoveGuestbookModal from '@/components/views/guestbook/AppRemoveGuestbookModal.vue';
 
@@ -130,6 +152,7 @@ export default {
   name: 'app-guestbook',
   components: {
     AppGuestbookReply,
+    AppGuestbookReplyList,
   },
   data() {
     return {
@@ -139,6 +162,7 @@ export default {
       listCnt: 0,
       guestbookList: [],
       activeIndex: -1,
+      replyActiveIndex: -1,
       isScrolled: false,
       isLastPage: false,
       dataLoaded: false,
@@ -168,7 +192,8 @@ export default {
 
         foundGuestbook.author = author;
         foundGuestbook.cont = cont;
-        foundGuestbook.modDate = modDate;
+        foundGuestbook.modDate = this.$moment(modDate).format('YYYY-MM-DD HH:mm:ss');
+        
         this.$store.dispatch('Guestbook/FETCH_UPDATED_GUESTBOOK', {});
       }
     },
@@ -198,15 +223,13 @@ export default {
             return;
           }
 
-          res.data[0].map(d => {
-            d.cont = d.cont.replace('\n', '<br>');
-            d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
+          res.data[0].map(a => {
+            const guestbookData = this.setData(a);
+            this.guestbookList.push(guestbookData);
 
-            if (isNotEmpty(d.modDate)) {
-              d.modDate = this.$moment(d.modDate).format('YYYY-MM-DD HH:mm:ss');
-            }
-            
-            this.guestbookList.push(d);
+            a.guestbookReply.map(b => {
+              this.setData(b);
+            });
           });
 
           this.listCnt = res.data[1];
@@ -220,8 +243,6 @@ export default {
     },
     /** 방명록 메뉴 toggle */
     toggleMenu(i) {
-      event.stopPropagation();
-
       if (i === this.activeIndex) {
         this.activeIndex = -1;
         return;
@@ -264,6 +285,15 @@ export default {
         });
       }
     },
+    /** 방명록 댓글 펼치기 */
+    toggleReplyList(idx) {
+      if (idx === this.replyActiveIndex) {
+        this.replyActiveIndex = -1;
+        return;
+      }
+
+      this.replyActiveIndex = idx;
+    },
     /** 방명록 추가 */
     async onSubmit(values) {
       const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
@@ -280,6 +310,28 @@ export default {
 
           messageUtil.toastSuccess('저장되었습니다.');
         });
+    },
+    /** 방명록 댓글 추가 시 */
+    async onAddReply(values) {
+      this.guestbookList = this.guestbookList.map(a => {
+        if (a.id === values.parentId) {
+          const data = this.setData(values);
+          a.guestbookReply.push(data);
+        }
+
+        return a;
+      });
+    },
+    /** 방명록, 방명록 댓글 데이타 가공 */
+    setData(data) {
+      data.cont = data.cont.replace('\n', '<br>');
+      data.regDate = this.$moment(data.regDate).format('YYYY-MM-DD HH:mm:ss');
+
+      if (isNotEmpty(data.modDate)) {
+        data.modDate = this.$moment(data.modDate).format('YYYY-MM-DD HH:mm:ss');
+      }
+
+      return data;
     },
     /** 데이타 로딩 */
     dataLoading() {
