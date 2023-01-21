@@ -59,4 +59,14 @@ export default [
       showSatis: false,
     },
   },
+  {
+    // 이미지 업로드 페이지
+    path: '/admin/file-upload',
+    component: () => import('@/views/AppFileUpload.vue'),
+    meta: {
+      requiresAuth: true,
+      showSidebar: false,
+      showSatis: false,
+    },
+  },
 ];

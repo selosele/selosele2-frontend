@@ -24,6 +24,7 @@
     "sweetalert2": "^11.4.33",
     "vee-validate": "^4.6.9",
     "vue": "^3.2.13",
+    "vue-cookies": "^1.8.2",
     "vue-final-modal": "^3.4.11",
     "vue-loading-overlay": "6.0",
     "vue-router": "^4.1.5",

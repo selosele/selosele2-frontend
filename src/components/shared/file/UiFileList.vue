@@ -1,6 +1,10 @@
 <template>
-  <div class="file-list">
-    <ul>
+  <div :class="{
+    'file-list': true,
+    'file-list--scroll': scroll,
+    'file-list--float': float,
+  }">
+    <ul :style="{ height }">
       <li v-for="(file,i) in value" :key="i">
         <a :href="file.url" @click.prevent="onClick(file)">
           <img :src="file.url" alt="">
@@ -15,7 +19,23 @@
 export default {
   name: 'ui-file-list',
   props: {
+    /** 파일 목록 */
     value: Array,
+    /** 절대 위치값 사용 여부 */
+    float: {
+      type: Boolean,
+      default: true,
+    },
+    /** 스크롤 가능 여부 */
+    scroll: {
+      type: Boolean,
+      default: true,
+    },
+    /** 높이값 */
+    height: {
+      type: String,
+      default: '17.6rem',
+    },
   },
   methods: {
     /** 파일 클릭 시 */
@@ -28,14 +48,26 @@ export default {
 
 <style lang="scss" scoped>
 .file-list {
-  position: absolute;
-  top: 3.1rem;
-  left: 0.7rem;
+  position: relative;
   z-index: 1;
-  width: calc(100% - 1rem);
+  width: 100%;
+  border-radius: 0.5rem;
   background-color: $grey12;
   line-height: 1.8;
   box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 0.25rem;
+
+  &--float {
+    position: absolute;
+    top: 3.1rem;
+    left: 0.7rem;
+    width: calc(100% - 1rem);
+  }
+
+  &--scroll {
+    > ul {
+      overflow: auto;
+    }
+  }
 
   > p {
     &:only-child {
@@ -47,8 +79,6 @@ export default {
 
   > ul {
     display: flex;
-    overflow: auto;
-    max-height: 16.5rem;
     margin: 0;
     padding: 1rem 2rem;
     list-style-type: none;
@@ -57,10 +87,6 @@ export default {
     align-items: center;
     gap: 1rem;
     box-sizing: border-box;
-
-    @media (min-width: $min-mini-width) {
-      height: 17.6rem;
-    }
 
     > li {
       width: 100%;

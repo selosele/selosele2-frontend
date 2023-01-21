@@ -1,5 +1,5 @@
 <template>
-  <div class="input-wrapper">
+  <div class="input-wrapper" v-show="!hidden">
     <label :for="id"
            :class="'input-label'"
            v-if="label">{{ label }}
@@ -70,6 +70,11 @@ export default {
     block: Boolean,
     /** input text */
     text: String,
+    /** input 숨김 여부 */
+    hidden: {
+      type: Boolean,
+      default: false,
+    },
     /** input value */
     value: {
       type: [String, Number],

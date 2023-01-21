@@ -1,5 +1,5 @@
 <template>
-  <div class="checkbox-wrapper">
+  <div class="checkbox-wrapper" v-show="!hidden">
     <Field type="checkbox"
            :name="name"
            :id="id"
@@ -50,6 +50,11 @@ export default {
     labelHidden: Boolean,
     /** checkbox validation rules */
     rules: String,
+    /** checkbox 숨김 여부 */
+    hidden: {
+      type: Boolean,
+      default: false,
+    },
     /** checkbox modelValue */
     modelValue: {
       default: '',

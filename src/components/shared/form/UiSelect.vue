@@ -1,5 +1,5 @@
 <template>
-  <div class="input-wrapper">
+  <div class="input-wrapper" v-show="!hidden">
     <label :for="id"
            :class="'input-label'"
            v-if="label">{{ label }}
@@ -68,6 +68,11 @@ export default {
     data: Array,
     /** select default value 비활성화 여부 (비활성화 false - 기본값, 활성화 true) */
     defaultValueDisabled: Boolean,
+    /** select 숨김 여부 */
+    hidden: {
+      type: Boolean,
+      default: false,
+    },
     /** select modelValue */
     modelValue: String,
   },

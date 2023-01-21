@@ -1,4 +1,4 @@
-/** 권한 Service */
+/** 인증·인가 Service */
 class AuthService {
 
   constructor() {
@@ -6,13 +6,18 @@ class AuthService {
 
   /** JWT에서 사용자 정보 추출 */
   getUser() {
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = this.getAccessToken();
 
     if (!accessToken) {
       return null;
     }
 
     return JSON.parse(atob(accessToken.split('.')[1]));
+  }
+
+  /** JWT 가져오기 */
+  getAccessToken() {
+    return localStorage.getItem('accessToken');
   }
 
   /** 1개의 권한 확인 */

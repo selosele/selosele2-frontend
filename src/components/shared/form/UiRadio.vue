@@ -1,5 +1,5 @@
 <template>
-  <div class="radio-wrapper">
+  <div class="radio-wrapper" v-show="!hidden">
     <Field type="radio"
            :name="name"
            :id="id"
@@ -40,6 +40,11 @@ export default {
     label: String,
     /** radio validation rules */
     rules: String,
+    /** radio 숨김 여부 */
+    hidden: {
+      type: Boolean,
+      default: false,
+    },
     /** radio value */
     value: {
       type: [String, Number],

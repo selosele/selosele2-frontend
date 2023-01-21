@@ -9,6 +9,8 @@ import { initDefineRule, isNotBlank, messageUtil } from '@/utils';
 import { formModule, layoutModule, uiModule } from './plugins/module';
 import { $vfm } from 'vue-final-modal';
 import { vfmPlugin } from 'vue-final-modal';
+import VueCookies from 'vue-cookies';
+import { authService } from '@/services/auth/authService';
 
 import '@/assets/scss/style.scss';
 
@@ -19,7 +21,7 @@ moment.locale('kr');
 const app = createApp({
   extends: App,
   async created() {
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = authService.getAccessToken();
     
     if (accessToken) {
       this.$store.commit('Auth/SET_ACCESS_TOKEN', accessToken);
@@ -83,6 +85,7 @@ app.config.warnHandler = (msg, vm, trace) => {
 
 app.use(store)
    .use(router)
+   .use(VueCookies)
    .use(vfmPlugin)
    .use(layoutModule)
    .use(uiModule)

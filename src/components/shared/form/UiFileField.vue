@@ -1,5 +1,5 @@
 <template>
-  <div :class="`input-wrapper${gapClass}`">
+  <div :class="`input-wrapper${gapClass}`" v-show="!hidden">
     <Field type="file"
            :name="name"
            :id="id"
@@ -50,6 +50,11 @@ export default {
     },
     /** input 유효성검사 rules */
     rules: String,
+    /** input 숨김 여부 */
+    hidden: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     gapClass: {

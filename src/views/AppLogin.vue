@@ -26,13 +26,17 @@
                          v-model="userPw">
           </ui-text-field>
           
-          <button type="submit" class="login__btn login__btn--submit">로그인</button>
+          <ui-button :type="'submit'"
+                     :color="'primary'"
+                     :class="'login__btn login__btn--submit'">로그인
+          </ui-button>
 
-          <button type="button"
-                  class="login__btn login__btn--add"
-                  @click="addUser"
-                  v-if="isDevelopment">사용자 생성
-          </button>
+          <ui-button :type="'button'"
+                     :color="'secondary'"
+                     :class="'login__btn login__btn--add'"
+                     @click="addUser"
+                     v-if="isDevelopment">사용자 생성
+          </ui-button>
         </ui-form>
       </div>
     </div>
