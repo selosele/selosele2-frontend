@@ -33,17 +33,14 @@
       &--attach {
          display: block;
          width: 100%;
-         margin: 0;
          padding: 1rem;
-         background-color: transparent;
-         text-align: left;
          box-sizing: border-box;
       }
    
       &__list {
          margin-bottom: 1.5rem;
          border-radius: 0.5rem;
-         border: 1px dashed transparent;
+         border: 1px solid transparent;
          background-color: $grey12;
          box-shadow: rgba(0,0,0,0.3) 1px 1px 0.25rem;
          transition: border-color 0.2s;
@@ -56,9 +53,29 @@
             &:hover {
                border-color: $main-color;
             }
-   
-            ul {
-               border-top: 1px dashed $grey05;
+         }
+
+         &__file {
+            &-name {
+               position: relative;
+            }
+
+            &-info {
+               display: block;
+               position: absolute;
+               top: calc(100% + 0.5rem);
+               left: 0;
+               z-index: 1;
+               width: auto;
+               height: auto;
+               background-color: $grey12;
+               box-shadow: rgba(0,0,0,0.3) 1px 1px 0.25rem;
+
+               > img {
+                  display: block;
+                  max-width: 5rem;
+                  height: auto;
+               }
             }
          }
    
@@ -70,10 +87,9 @@
          }
    
          ul {
-            overflow: auto;
-            max-height: 7.9rem;
             margin: 0;
-            padding-right: 1rem;
+            padding-left: 2.5rem;
+            padding-right: 0;
             box-sizing: border-box;
          }
    
@@ -86,7 +102,7 @@
    
       &__btns {
          display: flex;
-         margin-bottom: 1rem;
+         padding-bottom: 1rem;
          flex-wrap: wrap;
          justify-content: center;
          gap: 0.5rem;
@@ -106,15 +122,15 @@
       }
    
       &--remove {
-         position: absolute;
-         top: 0.2rem;
-         right: 0.2rem;
+         display: inline-flex;
+         justify-content: center;
+         align-items: center;
          min-width: 0;
-         width: 0.8rem;
-         height: 0.8rem;
+         width: 1rem;
+         height: 1rem;
+         margin-left: 0.7rem;
          padding: 0;
          font-size: 0.65rem;
-         line-height: 0.8rem;
          text-shadow: none;
       }
    }

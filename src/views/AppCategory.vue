@@ -63,6 +63,7 @@ export default {
     }
   },
   methods: {
+    /** 초기 세팅 */
     async init() {
       this.page = 1;
       this.isLastPage = false;
