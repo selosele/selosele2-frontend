@@ -72,10 +72,7 @@
             <td>
               <ui-hidden-field :name="'ogImg'" :id="'savePostOgImg'" :value="post?.avatarImg"></ui-hidden-field>
               <ui-hidden-field :name="'ogImgUrl'" :id="'savePostOgImgUrl'" :value="post?.avatarImgUrl"></ui-hidden-field>
-              <ui-hidden-field :name="'ogImgSize'"
-                               :id="'savePostOgImgSize'"
-                               :value="post?.avatarImgSize">
-              </ui-hidden-field>
+              <ui-hidden-field :name="'ogImgSize'" :id="'savePostOgImgSize'" :value="post?.avatarImgSize"></ui-hidden-field>
 
               <ui-file-field :name="'ogImgFile'"
                              :id="'savePostOgImgFile'"
@@ -83,15 +80,10 @@
                              :gap="10"
                              @onchange="onChangeOgImg">
                 
-                <ui-button :type="'button'"
-                           :color="'secondary'"
-                           @click="listFile">Cloudinary
-                </ui-button>
-
-                <ui-file-list :value="ogImgFileList"
-                              @clickFile="onClickFile"
-                              v-if="0 < ogImgFileList.length">
-                </ui-file-list>
+                <ui-file-button :type="'button'"
+                                :color="'secondary'"
+                                @clickFile="onClickFile">Cloudinary
+                </ui-file-button>
               </ui-file-field>
 
               <div class="blog-config__avatar-image-use-wrapper" v-if="post?.ogImg">
@@ -171,7 +163,7 @@
           <tr>
             <th scope="row">상단고정</th>
             <td>
-              <ui-radio :id="'savePostSecretN'"
+              <ui-radio :id="'savePostPinN'"
                         :name="'pinYn'"
                         :label="'비고정'"
                         :rules="'required'"
@@ -179,7 +171,7 @@
                         v-model="secretYn">
               </ui-radio>
 
-              <ui-radio :id="'savePostSecretY'"
+              <ui-radio :id="'savePostPinY'"
                         :name="'pinYn'"
                         :label="'고정'"
                         :rules="'required'"
@@ -214,7 +206,7 @@
 </template>
 
 <script>
-import { messageUtil } from '@/utils';
+import { isNotEmpty, messageUtil } from '@/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
@@ -266,7 +258,7 @@ export default {
       const confirm = await messageUtil.confirmSuccess('본문 요약을 제목과 맞추시겠습니까?');
       if (!confirm) return;
 
-      const title = this.$refs['savePostForm'].getValueByField('title');
+      const title = this.$refs['savePostForm'].getFieldValue('title');
       this.$refs['savePostForm'].setFieldValue('ogDesc', title);
     },
     /** cloudinary 파일 클릭 시 */
@@ -274,8 +266,11 @@ export default {
 
     },
     /** 포스트 대표 이미지 file input 값 변경 시 */
-    onChangeOgImg() {
-
+    onChangeOgImg(values) {
+      if (isNotEmpty(values)) {
+        this.ogImg = values.name;
+        this.ogImgSize = values.size;
+      }
     },
     /** 카테고리 목록 조회 */
     listCategory() {

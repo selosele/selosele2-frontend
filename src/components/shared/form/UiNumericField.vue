@@ -39,104 +39,26 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue';
-import { Field, ErrorMessage, useField } from 'vee-validate';
-import { isNotEmpty } from '@/utils';
+import { Field, ErrorMessage } from 'vee-validate';
+import { defineComponent } from 'vue';
+import UiTextField from './UiTextField.vue';
 
-export default {
+export default defineComponent({
   name: 'ui-numeric-field',
+  extends: defineComponent(UiTextField),
   components: {
     Field,
     ErrorMessage,
   },
   props: {
-    /** input id */
-    id: String,
-    /** input name */
-    name: String,
-    /** input title */
-    title: String,
-    /** input placeholder */
-    placeholder: String,
-    /** input readonly */
-    readonly: Boolean,
-    /** input label */
-    label: String,
-    /** input validation rules */
-    rules: String,
-    /** block input */
-    block: Boolean,
     /** 증감 수치 */
     step: [String, Number],
     /** 최소 값 */
     min: [String, Number],
     /** 최대 값 */
     max: [String, Number],
-    /** input text */
-    text: String,
-    /** input 숨김 여부 */
-    hidden: {
-      type: Boolean,
-      default: false,
-    },
-    /** input value */
-    value: {
-      type: [String, Number],
-      default: undefined,
-    },
-    /** input modelValue */
-    modelValue: {
-      default: '',
-    },
   },
-  setup(props, { emit }) {
-    const {
-      value: inputValue,
-      errorMessage,
-      handleBlur,
-      handleChange,
-      meta,
-    } = useField(props.name, props.rules, {
-      initialValue: props.modelValue,
-      valueProp: props.modelValue,
-    });
-
-    /** block input */
-    const blockInput = computed({
-      get() {
-        if (isNotEmpty(props.block) && true === props.block) {
-          return ` input-field--block`;
-        }
-        return '';
-      },
-      set(v) {}
-    });
-
-    /** input 요소 */
-    const inputEl = ref(null);
-
-    /** input value 변경 시 */
-    const onInput = (e) => {
-      emit('update:modelValue', e.target.value);
-    };
-
-    /** input 요소에 focus */
-    const focus = () => {
-      inputEl.value.focus();
-    };
-
-    return {
-      blockInput,
-      inputEl,
-      onInput,
-      focus,
-      handleChange,
-      errorMessage,
-      inputValue,
-      meta,
-    };
-  },
-}
+});
 </script>
 
 <style lang="scss" scoped>

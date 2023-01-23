@@ -1,6 +1,4 @@
 <template>
-  <ui-loading :activeModel="!dataLoaded" :fullPage="true"></ui-loading>
-
   <app-content-wrapper :pageTitle="pageTitle">
     <ui-form :name="'blogConfigForm'"
              :ref="'blogConfigForm'"
@@ -86,16 +84,13 @@
                            :accept="'image/*'"
                            :gap="10"
                            @onchange="onChangeAvatarImg">
-              
-              <ui-button :type="'button'"
-                         :color="'secondary'"
-                         @click="listFile('avatar')">Cloudinary
-              </ui-button>
 
-              <ui-file-list :value="avatarFileList"
-                            @clickFile="onClickFile"
-                            v-if="dataLoaded && 0 < avatarFileList.length">
-              </ui-file-list>
+              <ui-file-button :type="'button'"
+                              :color="'secondary'"
+                              :listKey="'avatar'"
+                              @listFile="onListFile"
+                              @clickFile="onClickFile">Cloudinary
+              </ui-file-button>
             </ui-file-field>
 
             <div class="blog-config__avatar-image-use-wrapper" v-if="blogConfig.avatarImg">
@@ -127,16 +122,13 @@
                            :accept="'image/*'"
                            :gap="10"
                            @onchange="onChangeOgImg">
-              
-              <ui-button :type="'button'"
-                         :color="'secondary'"
-                         @click="listFile('og')">Cloudinary
-              </ui-button>
 
-              <ui-file-list :value="ogFileList"
-                            @clickFile="onClickFile"
-                            v-if="dataLoaded && 0 < ogFileList.length">
-              </ui-file-list>
+              <ui-file-button :type="'button'"
+                              :color="'secondary'"
+                              :listKey="'og'"
+                              @listFile="onListFile"
+                              @clickFile="onClickFile">Cloudinary
+              </ui-file-button>
             </ui-file-field>
 
             <div class="blog-config__og-image-use-wrapper" v-if="blogConfig.ogImg">
@@ -275,7 +267,6 @@ export default {
       avatarFileList: [],
       ogFileList: [],
       previewBlogConfig: {},
-      dataLoaded: false,
       getFileSize,
     }
   },
@@ -303,8 +294,6 @@ export default {
 
     this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', null);
     this.previewBlogConfig = Object.assign({}, this.$store.state.BlogConfig.data);
-
-    this.dataLoaded = true;
   },
   computed: {
     /** 블로그 환경설정 */
@@ -357,56 +346,26 @@ export default {
         this.ogImgSize = values.size;
       }
     },
-    /** cloudinary 파일 클릭 시 */
-    onClickFile(file) {
-      if (0 < this.avatarFileList.length) {
+    /** Cloudinary 파일 클릭 시 */
+    onClickFile(file, key) {
+      if ('avatar' === key) {
         this.$refs['blogConfigForm'].setFieldValue('avatarImg', file.public_id);
         this.$refs['blogConfigForm'].setFieldValue('avatarImgUrl', file.url);
         this.$refs['blogConfigForm'].setFieldValue('avatarImgSize', file.bytes);
-      } else if (0 < this.ogFileList.length) {
+      } else if ('og' === key) {
         this.$refs['blogConfigForm'].setFieldValue('ogImg', file.public_id);
         this.$refs['blogConfigForm'].setFieldValue('ogImgUrl', file.url);
         this.$refs['blogConfigForm'].setFieldValue('ogImgSize', file.bytes);
       }
     },
-    /** cloudinary 파일 목록 조회 */
-    async listFile(type) {
-      if ('avatar' === type && 0 < this.avatarFileList.length) {
-        this.avatarFileList = [];
-        return;
-      }
-
-      if ('og' === type && 0 < this.ogFileList.length) {
+    /** Cloudinary 파일 목록 조회 시 */
+    onListFile(files, key) {
+      if ('avatar' === key) {
         this.ogFileList = [];
-        return;
-      }
-
-      this.dataLoaded = false;
-
-      await (() => {
-        return this.$http.get('/file')
-        .then(res => {
-          if (0 === res.data.length) {
-            messageUtil.toastWarning('파일이 존재하지 않습니다.');
-            return;
-          }
-
-          if ('avatar' === type) {
-            this.avatarFileList = [...res.data];
-            this.ogFileList = [];
-          } else if ('og' === type) {
-            this.ogFileList = [...res.data];
-            this.avatarFileList = [];
-          }
-        });
-      })();
-      
-      this.dataLoading();
-    },
-    /** 데이타 로딩 */
-    dataLoading() {
-      if (0 < this.avatarFileList.length || 0 < this.ogFileList.length) {
-        this.dataLoaded = true;
+        this.avatarFileList = files;
+      } else if ('og' === key) {
+        this.avatarFileList = [];
+        this.ogFileList = files;
       }
     },
   },

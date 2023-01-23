@@ -1,9 +1,10 @@
 <template>
   <div :class="{
-    'file-list': true,
-    'file-list--scroll': scroll,
-    'file-list--float': float,
-  }">
+        'file-list': true,
+        'file-list--scroll': scroll,
+        'file-list--float': float,
+      }"
+  >
     <ul :style="{ height }">
       <li v-for="(file,i) in value" :key="i">
         <a :href="file.url" @click.prevent="onClick(file)">

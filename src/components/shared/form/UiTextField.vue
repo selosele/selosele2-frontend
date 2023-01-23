@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { Field, ErrorMessage, useField } from 'vee-validate';
 import { isNotEmpty } from '@/utils';
 
@@ -85,6 +85,17 @@ export default {
       default: '',
     },
   },
+  computed: {
+    blockInput: {
+      get() {
+        if (isNotEmpty(this.block) && true === this.block) {
+          return `input-field is--block`;
+        }
+        return '';
+      },
+      set(v) {}
+    }
+  },
   setup(props, { emit }) {
     const {
       value: inputValue,
@@ -95,17 +106,6 @@ export default {
     } = useField(props.name, props.rules, {
       initialValue: props.modelValue,
       valueProp: props.modelValue,
-    });
-
-    /** block input */
-    const blockInput = computed({
-      get() {
-        if (isNotEmpty(props.block) && true === props.block) {
-          return ` input-field--block`;
-        }
-        return '';
-      },
-      set(v) {}
     });
 
     /** input 요소 */
@@ -122,7 +122,6 @@ export default {
     };
 
     return {
-      blockInput,
       inputEl,
       onInput,
       focus,

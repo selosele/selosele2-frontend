@@ -49,9 +49,7 @@ export default {
        * vee-validate form reset 시, 초기 값이 있어도 빈 값으로 reset하는 문제에 대한 대응 로직
        *   - 빈 값 대신 form의 초기 값으로 치환하는 로직임.
        */
-      for (let i = 0; i < Object.keys(this.formOldValues).length; i++) {
-        const key = Object.keys(this.formOldValues)[i];
-
+      for (const key of Object.keys(this.formOldValues)) {
         this.$refs[this.name].setFieldValue(key, this.formOldValues[key]);
       }
 
@@ -72,7 +70,7 @@ export default {
       return this.$refs[this.name].setFieldValue(field, value);
     },
     /** Field 값 가져오기 */
-    getValueByField(field) {
+    getFieldValue(field) {
       if (isEmpty(field)) return null;
 
       return this.$refs[this.name].$el.querySelector('[name='+field+']').value;

@@ -147,7 +147,7 @@ export default {
       // if (!nodes) return [];
       // if (!arr) arr = [];
 
-      // for (let node of nodes) {
+      // for (const node of nodes) {
       //   arr.push({
       //     value: node.id,
       //     text: node.name,

@@ -9,13 +9,7 @@
   
       <template v-if="dataLoaded">
         <ui-form :name="'postForm'" @onsubmit="onSubmit">
-          <ui-hidden-field :name="'id'" :value="post?.id">
-          </ui-hidden-field>
-    
-          <meta property="og:title" :content="post?.title">
-          <meta property="og:url" :content="$nowUrl">
-          <meta property="og:description" :content="post?.title">
-          <meta property="og:image" :content="post?.ogImgUrl">
+          <ui-hidden-field :name="'id'" :value="post?.id"></ui-hidden-field>
     
           <!-- START : 콘텐츠 내용 영역 -->
           <div class="post__contents__body line-numbers">
@@ -29,7 +23,7 @@
                             :class="'post__contents__like-btn'"
                             :title="isPostLiked ? '포스트 추천 해제하기' : '포스트 추천하기'"
                             @click="savePostLike(post?.id)">
-              <span id="like_cnt" class="post__contents__like-cnt">{{ postLikeCnt }}</span>
+              <span class="post__contents__like-cnt">{{ postLikeCnt }}</span>
             </ui-icon-button>
           </div>
     
@@ -51,21 +45,21 @@
     
           <div class="post__contents__info-wrapper">
             <template v-if="0 < post?.postCategory.length">
-              <router-link v-for="(category,i) in post?.postCategory" :key="i"
-                          :to="`/category/${category.category.id}`" 
-                          class="btn post__contents__info post__contents__info--category">
-                <span class="sr-only">카테고리</span>
-                <i class="xi-folder-open" aria-hidden="true"></i> {{ category.category.nm }}
-              </router-link>
+              <ui-icon-button v-for="(category,i) in post?.postCategory" :key="i"
+                              :routerLink="`/category/${category.category.id}`"
+                              :icon="'xi-folder-open'"
+                              :text="'카테고리'"
+                              :class="'post__contents__info post__contents__info--category'">{{ category.category.nm }}
+              </ui-icon-button>
             </template>
             
             <template v-if="0 < post?.postTag.length">
-              <router-link v-for="(tag,i) in post?.postTag" :key="i"
-                          :to="`/tag/${tag.tag.id}`" 
-                          class="btn post__contents__info post__contents__info--tag">
-                <span class="sr-only">태그</span>
-                <i class="xi-tags" aria-hidden="true"></i> {{ tag.tag.nm }}
-              </router-link>
+              <ui-icon-button v-for="(tag,i) in post?.postTag" :key="i"
+                              :routerLink="`/tag/${tag.tag.id}`"
+                              :icon="'xi-tags'"
+                              :text="'태그'"
+                              :class="'post__contents__info post__contents__info--tag'">{{ tag.tag.nm }}
+              </ui-icon-button>
             </template>
           </div>
     
@@ -109,7 +103,7 @@
                               :class="'post__contents__btn post__contents__btn--write'">포스트 작성
               </ui-icon-button>
     
-              <ui-icon-button :routerLink="'/edit-post/14'"
+              <ui-icon-button :routerLink="`/edit-post/${post?.id}`"
                               :color="'success'"
                               :icon="'xi-pen'"
                               :class="'post__contents__btn post__contents__btn--edit'">포스트 수정
@@ -143,30 +137,7 @@
             </router-link>
           </nav>
     
-          <div class="post__reply__wrapper">
-            <h2>댓글 남기기</h2>
-    
-            <form :name="'replyForm'" class="post__reply__write-frm">
-              <textarea name="post_reply_write_cont" id="post_reply_write_cont" title="댓글 내용 입력" placeholder="하고싶은 말을 남겨주세요." cols="30" rows="4"></textarea>
-    
-              <div class="post__reply__write__inputs">
-                <label for="post_reply_write_author">닉네임
-                  <input type="text" name="post_reply_write_author" id="post_reply_write_author" class="post__reply__input" maxlength="20">
-                </label>
-            
-                <label for="post_reply_write_pw">비밀번호
-                  <input type="password" name="post_reply_write_pw" id="post_reply_write_pw" class="post__reply__input" minlength="8" maxlength="15">
-                </label>
-            
-                <div class="post__reply__write__btns">
-                  <button type="button" data-depth="1" class="btn post__reply__btn--reset">다시 작성</button>
-                  <button type="button" data-depth="1" class="btn post__reply__btn--write">등록</button>
-                </div>
-              </div>
-            </form>
-          
-            <p class="post__reply__no-data">댓글이 없습니다. 제일 먼저 댓글을 작성해보세요.</p>
-          </div>
+          <app-add-post-reply :id="post?.id"></app-add-post-reply>
         </ui-form>
       </template>
     </div>
@@ -178,6 +149,7 @@ import Markdown from 'vue3-markdown-it';
 import MarkdownItFootnote from 'markdown-it-footnote';
 import { messageUtil, isNotBlank, isNotEmpty } from '@/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
+import AppAddPostReply from '@/components/views/post/AppAddPostReply.vue';
 
 /**
  * hightlight 테마
@@ -190,6 +162,7 @@ export default {
   name: 'app-post-view',
   components: {
     Markdown,
+    AppAddPostReply,
   },
   data() {
     return {

@@ -99,7 +99,7 @@ export default {
     },
     /** 파일 추가 */
     async addFiles(files) {
-      for (let file of files) {
+      for (const file of files) {
         const isValid = this.addFileValidationCheck(file);
         if (!isValid) return;
 
@@ -150,7 +150,7 @@ export default {
       const confirm = await messageUtil.confirmSuccess('전송하시겠습니까?');
       if (!confirm) return;
 
-      for (let file of this.fileList) {
+      for (const file of this.fileList) {
         //이미지 파일의 src 속성 값이 너무 길고 불필요하므로 삭제한다.
         delete file.src;
       }

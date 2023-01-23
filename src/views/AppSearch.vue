@@ -198,7 +198,7 @@ export default {
     },
     /** 포스트 검색 */
     listPostSearch(params, isMore = false) {
-      return this.$http.get('/post/search', { params: params })
+      return this.$http.get('/post/search', { params })
         .then(async res => {
           res.data[0].map(d => {
             this.postList.push(d);
@@ -212,7 +212,7 @@ export default {
 
           this.googleSearchUrl = encodeURI(`https://www.google.com/search?q=${this.q}`);
 
-          // 더보기 버튼 누르면 스크롤 위치가 최상단으로 세팅되는 현상때문에, 검색 페이지에서는 페이지 전환이 안되도록 수정
+          // 더보기 버튼 클릭 시, 스크롤 위치가 최상단으로 세팅되는 현상때문에 검색 페이지에서는 페이지 전환이 안되도록 수정
           if (!isMore) {
             await this.$router.push({
               path: '/search', 

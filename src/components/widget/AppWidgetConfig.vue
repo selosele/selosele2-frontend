@@ -119,7 +119,7 @@ export default {
     },
     /** 위젯 저장 유효성 검사 */
     validationCheck() {
-      for (let widget of this.widgetValue) {
+      for (const widget of this.widgetValue) {
         if (isBlank(widget.title)) {
           messageUtil.toastWarning('위젯 명을 입력하세요.');
           return false;

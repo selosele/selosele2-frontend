@@ -6,7 +6,7 @@
       <i class="xi-message" aria-hidden="true"></i> 이 페이지에서 제공하는 정보가 유익하셨나요?
     </p>
 
-    <ui-form :class="'satisfaction__frm'" :name="'satisForm'" @submit="onSubmit">
+    <ui-form :class="'satisfaction__frm'" :name="'satisForm'" @onsubmit="onSubmit">
       <ui-hidden-field :name="'pagePath'" :value="''">
       </ui-hidden-field>
 
@@ -16,6 +16,7 @@
                   :id="`score${item.value}`"
                   :name="'score'"
                   :label="item.text"
+                  :rules="'required'"
                   :value="item.value"
                   v-model="defaultScore">
         </ui-radio>
@@ -32,9 +33,9 @@
                          v-model="comment">
           </ui-text-field>
 
-          <ui-icon-button :icon="'xi-check-min'"
+          <ui-icon-button :type="'submit'"
+                          :icon="'xi-check-min'"
                           :text="'제출'"
-                          :type="'submit'"
                           :class="'satisfaction__btn'">
           </ui-icon-button>
         </div>
@@ -66,7 +67,7 @@ export default {
       }
     });
 
-    this.defaultScore = this.satisArr.find(d => d.value === '003');
+    this.defaultScore = this.satisArr.find(d => d.value === '003').value;
   },
   methods: {
     /** 만족도조사 제출 */
