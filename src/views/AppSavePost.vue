@@ -1,9 +1,10 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
     <div class="write__wrapper">
-      <ui-form :name="'savePostForm'" :class="'write__frm'" @onsubmit="onSubmit">
+      <ui-form :name="'savePostForm'" :ref="'savePostForm'" :class="'write__frm'" @onsubmit="onSubmit">
         <div class="write__save-wrapper">
           <ui-button :type="'button'"
+                     :color="'primary'"
                      :class="'write__btn--load'">불러오기
           </ui-button>
     
@@ -50,7 +51,8 @@
               <ui-icon-button :type="'button'"
                               :icon="'xi-refresh'"
                               :text="'본문 요약 갱신'"
-                              :class="'write__og-desc-refresh'">
+                              :class="'write__og-desc-refresh'"
+                              @click="onChangeOgDesc">
               </ui-icon-button>
             </th>
             <td>
@@ -190,19 +192,19 @@
           <template v-slot:btn>
             <ui-button :type="'button'"
                        :color="'success'"
-                       :class="'write__btn write__btn--preview'">미리보기
+                       :class="'write__btn'">미리보기
             </ui-button>
             <ui-button :type="'button'"
                        :color="'warning'"
-                       :class="'write__btn write__btn--save'">임시저장
+                       :class="'write__btn'">임시저장
             </ui-button>
             <ui-button :type="'reset'"
                        :color="'secondary'"
-                       :class="'write__btn write__btn--reset'">다시작성
+                       :class="'write__btn'">다시작성
             </ui-button>
             <ui-button :type="'submit'"
                        :color="'primary'"
-                       :class="'write__btn write__btn--submit'">저장
+                       :class="'write__btn'">저장
             </ui-button>
           </template>
         </ui-write-table>
@@ -212,6 +214,7 @@
 </template>
 
 <script>
+import { messageUtil } from '@/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
@@ -251,9 +254,20 @@ export default {
         this.listCategory(),
       ]);
     },
-    // 포스트 저장
+    /** 포스트 저장 */
     onSubmit(values) {
       console.log(values);
+    },
+    /** 본문 요약 버튼 클릭 시 */
+    async onChangeOgDesc() {
+      const runValidate = await this.$refs['savePostForm'].validateField('title');
+      if (!runValidate.valid) return;
+
+      const confirm = await messageUtil.confirmSuccess('본문 요약을 제목과 맞추시겠습니까?');
+      if (!confirm) return;
+
+      const title = this.$refs['savePostForm'].getValueByField('title');
+      this.$refs['savePostForm'].setFieldValue('ogDesc', title);
     },
     /** cloudinary 파일 클릭 시 */
     onClickFile(file) {

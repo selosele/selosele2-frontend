@@ -71,6 +71,12 @@ export default {
       
       return this.$refs[this.name].setFieldValue(field, value);
     },
+    /** Field 값 가져오기 */
+    getValueByField(field) {
+      if (isEmpty(field)) return null;
+
+      return this.$refs[this.name].$el.querySelector('[name='+field+']').value;
+    }
   },
 }
 </script>

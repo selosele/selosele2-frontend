@@ -34,7 +34,7 @@
             </span>
           </p>
   
-          <p :id="`cont${post.id}`" class="post__cont">{{ post.rawText }}</p>
+          <p :id="`cont${post.id}`" class="post__cont" v-text="post.rawText"></p>
   
           <div class="post__box__item-wrapper">
             <span class="post__box__item post__box__item--regdate">
