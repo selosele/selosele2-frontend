@@ -1,10 +1,10 @@
 <template>
   <header :class="[
     'page__header',
-    $route.meta.pageType !== 'home' ? '' : 'sr-only'
+    $route.meta.type !== 'home' ? '' : 'sr-only'
     ]">
     <h1 class="page__title">
-      {{ $route.meta.pageType !== 'home' ? pageTitle : '최근 포스트' }}
+      {{ $route.meta.type !== 'home' ? pageTitle : '최근 포스트' }}
     </h1>
   </header>
 

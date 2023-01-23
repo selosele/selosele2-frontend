@@ -17,17 +17,17 @@
       </ui-form>
 
       <div class="post__btn-wrapper mt--15" v-if="isLogin && 'main' === type">
-        <ui-button :routerLink="'/add-post'"
-                   :color="'light'"
-                   :class="'post__btn'">
-          <i class="xi-pen" aria-hidden="true"></i> 포스트 작성
-        </ui-button>
+        <ui-icon-button :routerLink="'/add-post'"
+                        :color="'primary'"
+                        :icon="'xi-pen'"
+                        :class="'post__btn'">포스트 작성
+        </ui-icon-button>
 
-        <ui-button :type="'submit'"
-                   :color="'dark'"
-                   :class="'post__btn'">
-          <i class="xi-trash" aria-hidden="true"></i> 포스트 삭제
-        </ui-button>
+        <ui-icon-button :type="'submit'"
+                        :color="'dark'"
+                        :icon="'xi-trash'"
+                        :class="'post__btn'">포스트 삭제
+        </ui-icon-button>
 
         <span class="post__check-all">
           <ui-checkbox :name="'checkAll'"
@@ -35,7 +35,7 @@
                        :label="'포스트 전체 선택'"
                        :values="'Y,N'"
                        v-model="checkAll"
-                       @click.self="onClick($event)">
+                       @click.self="onClick">
           </ui-checkbox>
         </span>
       </div>
@@ -135,10 +135,10 @@ export default {
       if (!confirm) return;
 
       this.$http.delete('/post', { data: checkPostList })
-        .then(res => {
-          messageUtil.toastSuccess('삭제되었습니다.');
-          this.$emit('removePost');
-        });
+      .then(res => {
+        messageUtil.toastSuccess('삭제되었습니다.');
+        this.$emit('removePost');
+      });
     },
     /** 카테고리 필터링 */
     async listPostByCategory(categoryId) {
@@ -146,10 +146,10 @@ export default {
       if (!runValidate.valid) return;
 
       this.$http.get('/post', { params: { categoryId } })
-        .then(res => {
-          this.$store.dispatch('Post/FETCH_SELECTED_CATEGORY_ID', categoryId);
-          this.$emit('listPost', res.data);
-        });
+      .then(res => {
+        this.$store.dispatch('Post/FETCH_SELECTED_CATEGORY_ID', categoryId);
+        this.$emit('listPost', res.data);
+      });
     },
     /** 포스트 전체 선택 */
     onClick(e) {

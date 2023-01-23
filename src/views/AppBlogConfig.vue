@@ -76,7 +76,10 @@
             <ui-hidden-field :name="'avatarImgUrl'" :id="'blogConfigAvatarImgUrl'" :value="blogConfig.avatarImgUrl"
                              v-model="previewBlogConfig.avatarImgUrl">
             </ui-hidden-field>
-            <ui-hidden-field :name="'avatarImgSize'" :id="'blogConfigAvatarImgSize'" :value="blogConfig.avatarImgSize"></ui-hidden-field>
+            <ui-hidden-field :name="'avatarImgSize'"
+                             :id="'blogConfigAvatarImgSize'"
+                             :value="blogConfig.avatarImgSize">
+            </ui-hidden-field>
 
             <ui-file-field :name="'avatarImgFile'"
                            :id="'blogConfigAvatarImgFile'"
@@ -238,17 +241,17 @@
             </ui-checkbox>
           </td>
         </tr>
+
+        <template v-slot:btn>
+          <ui-button :type="'reset'"
+                     :color="'secondary'">다시작성
+          </ui-button>
+
+          <ui-button :type="'submit'"
+                     :color="'primary'">저장
+          </ui-button>
+        </template>
       </ui-write-table>
-
-      <div class="d-flex-w flex--center gap--10 mt--20 mb--20">
-        <ui-button :type="'reset'"
-                   :color="'secondary'">다시작성
-        </ui-button>
-
-        <ui-button :type="'submit'"
-                   :color="'primary'">저장
-        </ui-button>
-      </div>
     </ui-form>
   </app-content-wrapper>
 </template>
@@ -331,14 +334,14 @@ export default {
       const headers = { 'Content-Type': 'multipart/form-data' };
 
       this.$http.put('/blogconfig', values, { headers })
-        .then(res => {
-          messageUtil.toastSuccess('저장되었습니다.');
+      .then(res => {
+        messageUtil.toastSuccess('저장되었습니다.');
 
-          this.$store.dispatch('BlogConfig/FETCH_BLOG_CONFIG', res.data);
-          this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', null);
+        this.$store.dispatch('BlogConfig/FETCH_BLOG_CONFIG', res.data);
+        this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', null);
 
-          breadcrumbService.setPageTitle(this.pageTitle);
-        });
+        breadcrumbService.setPageTitle(this.pageTitle);
+      });
     },
     /** 블로그 아바타 이미지 file input 값 변경 시 */
     onChangeAvatarImg(values) {
@@ -382,20 +385,20 @@ export default {
 
       await (() => {
         return this.$http.get('/file')
-          .then(res => {
-            if (0 === res.data.length) {
-              messageUtil.toastWarning('파일이 존재하지 않습니다.');
-              return;
-            }
+        .then(res => {
+          if (0 === res.data.length) {
+            messageUtil.toastWarning('파일이 존재하지 않습니다.');
+            return;
+          }
 
-            if ('avatar' === type) {
-              this.avatarFileList = [...res.data];
-              this.ogFileList = [];
-            } else if ('og' === type) {
-              this.ogFileList = [...res.data];
-              this.avatarFileList = [];
-            }
-          });
+          if ('avatar' === type) {
+            this.avatarFileList = [...res.data];
+            this.ogFileList = [];
+          } else if ('og' === type) {
+            this.ogFileList = [...res.data];
+            this.avatarFileList = [];
+          }
+        });
       })();
       
       this.dataLoading();

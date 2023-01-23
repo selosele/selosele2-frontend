@@ -136,14 +136,14 @@ export default {
       });
       
       return this.$http.get('/category')
-        .then(res => {
-          res.data.map(d => {
-            this.categoryList.push({
-              value: d.id,
-              text: d.nm,
-            });
+      .then(res => {
+        res.data.map(d => {
+          this.categoryList.push({
+            value: d.id,
+            text: d.nm,
           });
         });
+      });
     },
     /** 데이타 로딩 */
     dataLoading() {

@@ -61,26 +61,26 @@ export default {
       if (!confirm) return;
 
       this.$http.delete(`/${values.type}/${values.id}`)
-        .then(res => {
-          messageUtil.toastSuccess('삭제되었습니다.');
-          this.$emit('refreshCategory');
-        });
+      .then(res => {
+        messageUtil.toastSuccess('삭제되었습니다.');
+        this.$emit('refreshCategory');
+      });
     },
     /** 카테고리 추가 */
     addCategory(values) {
       return this.$http.post(`/${values.type}`, values)
-        .then(res => {
-          messageUtil.toastSuccess('저장되었습니다.');
-          this.$emit('refreshCategory');
-        });
+      .then(res => {
+        messageUtil.toastSuccess('저장되었습니다.');
+        this.$emit('refreshCategory');
+      });
     },
     /** 카테고리 수정 */
     updateCategory(values) {
       return this.$http.put(`/${values.type}`, values)
-        .then(res => {
-          messageUtil.toastSuccess('저장되었습니다.');
-          this.$emit('refreshCategory');
-        });
+      .then(res => {
+        messageUtil.toastSuccess('저장되었습니다.');
+        this.$emit('refreshCategory');
+      });
     }
   }
 }

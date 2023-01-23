@@ -77,18 +77,18 @@ export default {
     /** 만족도조사 목록 조회 */
     listSatisfaction(searchSatisfactiontDto) {
       return this.$http.get('/satisfaction', { params: searchSatisfactiontDto })
-        .then(res => {
-          this.rowData = [];
+      .then(res => {
+        this.rowData = [];
 
-          res.data.map(d => {
-            d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
-            d.score = this.$store.state.Code.data
-              .filter(v => v.useYn === 'Y' && v.prefix === 'B01' && (v.val === d.score))
-              .map(v => v.nm);
+        res.data.map(d => {
+          d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
+          d.score = this.$store.state.Code.data
+            .filter(v => v.useYn === 'Y' && v.prefix === 'B01' && (v.val === d.score))
+            .map(v => v.nm);
 
-            this.rowData.push(d);
-          });
+          this.rowData.push(d);
         });
+      });
     },
     /** Datepicker clear 버튼을 눌렀을 때 */
     onClear() {

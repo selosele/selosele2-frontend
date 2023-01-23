@@ -278,38 +278,9 @@
          &__btn {
             &--list,
             &--copy {
+               min-width: 0;
                width: 1.9rem;
                padding: 0;
-            }
-   
-            &--list {
-               min-width: 0;
-               border-color: $black02;
-               font-size: 1rem;
-               text-shadow: none;
-            }
-   
-            &--copy {
-               min-width: 0;
-               background-color: $black02;
-               font-size: 1rem;
-               color: $grey12;
-            }
-   
-            &--write {
-               border-color: $main-color;
-               background-color: $grey12;
-               text-shadow: none;
-            }
-            
-            &--edit {
-               background-color: $green03;
-               color: $grey12;
-            }
-            
-            &--delete {
-               background-color: $black02;
-               color: $grey12;
             }
          }
    

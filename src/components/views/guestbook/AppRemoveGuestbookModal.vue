@@ -38,12 +38,12 @@ export default {
       if (!confirm) return;
       
       this.$http.delete(`/guestbook/${values.id}`, { data: values })
-        .then(res => {
-          messageUtil.toastSuccess('방명록이 삭제되었습니다.');
-          
-          this.$modal.hide(this.$options.name);
-          this.$store.dispatch('Guestbook/FETCH_REMOVED_GUESTBOOK', values);
-        });
+      .then(res => {
+        messageUtil.toastSuccess('방명록이 삭제되었습니다.');
+        
+        this.$modal.hide(this.$options.name);
+        this.$store.dispatch('Guestbook/FETCH_REMOVED_GUESTBOOK', values);
+      });
     },
   },
 }

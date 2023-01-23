@@ -1,5 +1,3 @@
-import { isEmpty } from "@/utils";
-
 /** 메뉴 Store */
 export const Menu = {
   namespaced: true,
@@ -17,9 +15,9 @@ export const Menu = {
     },
     LIST_MENU({ commit }, values) {
       values.client.get('/menu/list/tree', { params: values.params })
-        .then(res => {
-          commit('SET_MENU', res.data);
-        });
+      .then(res => {
+        commit('SET_MENU', res.data);
+      });
     },
   },
 };

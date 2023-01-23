@@ -120,18 +120,18 @@ export default {
     /** 공통코드 추가 */
     addCode(values) {
       return this.$http.post('/code', values)
-        .then(res => {
-          messageUtil.toastSuccess('저장되었습니다.');
-          this.$emit('saveCode');
-        });
+      .then(res => {
+        messageUtil.toastSuccess('저장되었습니다.');
+        this.$emit('saveCode');
+      });
     },
     /** 공통코드 수정 */
     updateCode(values) {
       return this.$http.put('/code', values)
-        .then(res => {
-          messageUtil.toastSuccess('저장되었습니다.');
-          this.$emit('saveCode');
-        });
+      .then(res => {
+        messageUtil.toastSuccess('저장되었습니다.');
+        this.$emit('saveCode');
+      });
     },
   },
 }

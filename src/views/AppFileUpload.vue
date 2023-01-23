@@ -47,9 +47,9 @@ export default {
     /** cloudinary 파일 목록 조회 */
     listFile() {
       return this.$http.get('/file')
-        .then(res => {
-          this.fileList = [...res.data];
-        });
+      .then(res => {
+        this.fileList = [...res.data];
+      });
     },
     /** cloudinary 파일 클릭 시 */
     onClickFile(file) {

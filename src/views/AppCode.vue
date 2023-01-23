@@ -86,23 +86,23 @@ export default {
     /** 공통코드 조회 */
     onCellClicked(params) {
       this.$http.get(`/code/${params.data.id}`)
-        .then(res => {
-          this.code = { ...res.data };
-          this.$store.commit('Splitter/TOGGLE', true);
-        });
+      .then(res => {
+        this.code = { ...res.data };
+        this.$store.commit('Splitter/TOGGLE', true);
+      });
     },
     /** 공통코드 목록 조회 */
     listCode() {
       return this.$http.get('/code')
-        .then(res => {
-          res.data.map(d => {
-            d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
-            d.useYn = this.getUseYn(d.useYn);
-          });
-
-          this.rowData = [...res.data];
-          this.dataLoading();
+      .then(res => {
+        res.data.map(d => {
+          d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
+          d.useYn = this.getUseYn(d.useYn);
         });
+
+        this.rowData = [...res.data];
+        this.dataLoading();
+      });
     },
     /** 공통코드 추가 */
     addCode() {
@@ -131,13 +131,13 @@ export default {
       });
 
       this.$http.delete('/code', { data: removeCodeDto })
-        .then(res => {
-          this.gridApi.removeSelectedRows();
-          messageUtil.toastSuccess('삭제되었습니다.');
+      .then(res => {
+        this.gridApi.removeSelectedRows();
+        messageUtil.toastSuccess('삭제되었습니다.');
 
-          this.$store.commit('Splitter/TOGGLE', false);
-          this.$store.dispatch('Code/FETCH_CODE', this.gridApi.getRowNodes());
-        });
+        this.$store.commit('Splitter/TOGGLE', false);
+        this.$store.dispatch('Code/FETCH_CODE', this.gridApi.getRowNodes());
+      });
     },
     /** 그리드 갱신 */
     async onSaveCode() {

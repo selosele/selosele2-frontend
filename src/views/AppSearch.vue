@@ -46,15 +46,15 @@
             <strong class="search__info__txt">{{ this.$route.query['q'] }}</strong>에 대한 검색 결과는
             <strong class="search__info__txt">{{ listCnt }}개</strong>입니다.
 
-            <ui-button :type="'link'"
-                       :color="'dark'"
-                       :class="'btn--dark search__google'"
-                       :href="googleSearchUrl"
-                       :target="'_blank'"
-                       :title="'새창'"
-                       :rel="'noopener noreferrer nofollow'">
-              <i class="xi-google" aria-hidden="true"></i> Google에서 검색
-            </ui-button>
+            <ui-icon-button :type="'link'"
+                            :color="'dark'"
+                            :icon="'xi-google'"
+                            :class="'btn--dark search__google'"
+                            :href="googleSearchUrl"
+                            :target="'_blank'"
+                            :title="'새창'"
+                            :rel="'noopener noreferrer nofollow'">Google에서 검색
+            </ui-icon-button>
           </template>
         </p>
 
@@ -73,9 +73,9 @@
              @click="more"
              v-if="listCnt > pageSize && !isLastPage">
 
-          <ui-button :class="'search__more'">
-            <i class="xi-plus-circle" aria-hidden="true"></i> 더보기
-          </ui-button>
+          <ui-icon-button :icon="'xi-plus-circle'"
+                          :class="'search__more'">더보기
+          </ui-icon-button>
         </div>
 
         <ui-icon-button :icon="'xi-search'"
@@ -212,7 +212,7 @@ export default {
 
           this.googleSearchUrl = encodeURI(`https://www.google.com/search?q=${this.q}`);
 
-          // 더보기 버튼 누르면 스크롤 위치 최상단으로 세팅되는 현상때문에, 검색 페이지에서는 페이지 전환 안되게 수정
+          // 더보기 버튼 누르면 스크롤 위치가 최상단으로 세팅되는 현상때문에, 검색 페이지에서는 페이지 전환이 안되도록 수정
           if (!isMore) {
             await this.$router.push({
               path: '/search', 

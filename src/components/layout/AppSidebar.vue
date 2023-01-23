@@ -189,24 +189,24 @@ export default {
     /** 카테고리 목록 및 개수 조회 */
     listCategoryAndCount() {
       return this.$http.get('/category')
-        .then(res => {
-          res.data.map(d => {
-            this.categoryList.push(d);
-          });
-
-          this.sidebar.category = this.categoryList;
+      .then(res => {
+        res.data.map(d => {
+          this.categoryList.push(d);
         });
+
+        this.sidebar.category = this.categoryList;
+      });
     },
     /** 태그 목록 및 개수 조회 */
     listTagAndCount() {
       return this.$http.get('/tag')
-        .then(res => {
-          res.data.map(d => {
-            this.tagList.push(d);
-          });
-          
-          this.sidebar.tag = this.tagList;
+      .then(res => {
+        res.data.map(d => {
+          this.tagList.push(d);
         });
+        
+        this.sidebar.tag = this.tagList;
+      });
     },
     /** font-size 구하기 */
     getFontSize(cnt) {

@@ -88,12 +88,12 @@ export default {
     /** 포스트의 연도 및 개수 조회 */
     listYearAndCount() {
       return this.$http.get('/post/year')
-        .then(res => {
-          res.data.map(d => {
-            this.yearList.push(d);
-          });
-          this.listLoaded = true;
+      .then(res => {
+        res.data.map(d => {
+          this.yearList.push(d);
         });
+        this.listLoaded = true;
+      });
     },
     /** 목록 toggle */
     toggleList(year, idx) {
@@ -120,24 +120,24 @@ export default {
       };
       
       return this.$http.get(`/post/year/${year}`, { params: paginationDto })
-        .then(res => {
-          if (0 === res.data[0].length) {
-            messageUtil.toastInfo('마지막 페이지입니다.');
-            return;
-          }
+      .then(res => {
+        if (0 === res.data[0].length) {
+          messageUtil.toastInfo('마지막 페이지입니다.');
+          return;
+        }
 
-          res.data[0].map(d => {
-            d.regDate = this.$moment(d.regDate).format('YYYY.MM.DD');
-            this.postList.push(d);
-          });
-
-          this.listCnt = res.data[1];
-          this.itemLoadedIndex = idx;
-
-          if (this.listCnt === this.postList.length) {
-            this.isLastPage = true;
-          }
+        res.data[0].map(d => {
+          d.regDate = this.$moment(d.regDate).format('YYYY.MM.DD');
+          this.postList.push(d);
         });
+
+        this.listCnt = res.data[1];
+        this.itemLoadedIndex = idx;
+
+        if (this.listCnt === this.postList.length) {
+          this.isLastPage = true;
+        }
+      });
     },
     /** 더보기 */
     onMore(year, idx) {

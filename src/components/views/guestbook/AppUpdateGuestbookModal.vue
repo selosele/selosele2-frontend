@@ -58,12 +58,12 @@ export default {
       if (!confirm) return;
       
       this.$http.put('/guestbook', values)
-        .then(res => {
-          messageUtil.toastSuccess('저장되었습니다.');
+      .then(res => {
+        messageUtil.toastSuccess('저장되었습니다.');
 
-          this.$modal.hide(this.$options.name);
-          this.$store.dispatch('Guestbook/FETCH_UPDATED_GUESTBOOK', res.data);
-        });
+        this.$modal.hide(this.$options.name);
+        this.$store.dispatch('Guestbook/FETCH_UPDATED_GUESTBOOK', res.data);
+      });
     },
   },
 }

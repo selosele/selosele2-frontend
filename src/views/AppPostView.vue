@@ -71,12 +71,14 @@
     
           <div class="post__contents__btns">
             <ui-icon-button :icon="'xi-backspace'"
+                            :color="'secondary'"
                             :text="'목록으로'"
                             :class="'post__contents__btn post__contents__btn--list'"
                             @click="goToList">
             </ui-icon-button>
     
             <ui-icon-button :icon="'xi-link'"
+                            :color="'dark'"
                             :text="'URL 복사'"
                             :class="'post__contents__btn post__contents__btn--copy'"
                             @click="copyPostUrl">
@@ -101,20 +103,23 @@
             </a>
     
             <template v-if="isLogin">
-              <ui-button :routerLink="'/add-post'"
-                         :class="'post__contents__btn post__contents__btn--write'">
-                <i class="xi-pen" aria-hidden="true"></i> 포스트 작성
-              </ui-button>
+              <ui-icon-button :routerLink="'/add-post'"
+                              :color="'primary'"
+                              :icon="'xi-pen'"
+                              :class="'post__contents__btn post__contents__btn--write'">포스트 작성
+              </ui-icon-button>
     
-              <ui-button :routerLink="'/edit-post/14'"
-                         :class="'post__contents__btn post__contents__btn--edit'">
-                <i class="xi-pen" aria-hidden="true"></i> 포스트 수정
-              </ui-button>
+              <ui-icon-button :routerLink="'/edit-post/14'"
+                              :color="'success'"
+                              :icon="'xi-pen'"
+                              :class="'post__contents__btn post__contents__btn--edit'">포스트 수정
+              </ui-icon-button>
     
-              <ui-button :type="'submit'"
-                         :class="'post__contents__btn post__contents__btn--delete'">
-                <i class="xi-trash" aria-hidden="true"></i> 포스트 삭제
-              </ui-button>
+              <ui-icon-button :type="'submit'"
+                              :color="'dark'"
+                              :icon="'xi-trash'"
+                              :class="'post__contents__btn post__contents__btn--delete'">포스트 삭제
+              </ui-icon-button>
             </template>
           </div>
     
@@ -236,47 +241,47 @@ export default {
     /** 포스트 조회 */
     getPost(id) {
       return this.$http.get(`/post/${id}`)
-        .then(res => {
-          this.post = { ...res.data };
-          this.post.regDate = this.$moment(this.post.regDate).format('YYYY-MM-DD HH:mm:ss');
+      .then(res => {
+        this.post = { ...res.data };
+        this.post.regDate = this.$moment(this.post.regDate).format('YYYY-MM-DD HH:mm:ss');
 
-          if (isNotBlank(this.post.modDate)) {
-            this.post.modDate = this.$moment(this.post.modDate).format('YYYY-MM-DD HH:mm:ss');
-          }
+        if (isNotBlank(this.post.modDate)) {
+          this.post.modDate = this.$moment(this.post.modDate).format('YYYY-MM-DD HH:mm:ss');
+        }
 
-          // 페이지 타이틀 세팅
-          this.pageTitle = this.post.title;
-          breadcrumbService.setPageTitle(this.pageTitle);
-        });
+        // 페이지 타이틀 세팅
+        this.pageTitle = this.post.title;
+        breadcrumbService.setPageTitle(this.pageTitle);
+      });
     },
     /** 이전/다음 포스트 조회 */
     listPrevAndNextPost(id) {
       return this.$http.get(`/post/prevnext/${id}`)
-        .then(res => {
-          const [prev, next] = res.data;
-          this.prevPost = prev || null;
-          this.nextPost = next || null;
-        });
+      .then(res => {
+        const [prev, next] = res.data;
+        this.prevPost = prev || null;
+        this.nextPost = next || null;
+      });
     },
     /** 포스트 추천 정보 조회 */
     getPostLike(id) {
       return this.$http.get(`/postlike/${id}`)
-        .then(res => {
-          if (isNotEmpty(res.data)) {
-            this.isPostLiked = true;
-          } else {
-            this.isPostLiked = false;
-          }
-        });
+      .then(res => {
+        if (isNotEmpty(res.data)) {
+          this.isPostLiked = true;
+        } else {
+          this.isPostLiked = false;
+        }
+      });
     },
     /** 포스트 추천/추천 해제 */
     savePostLike(id) {
       return this.$http.post(`/postlike/${id}`)
-        .then(res => {
-          if (0 === this.postLikeCnt && -1 === res.data) return;
-          this.getPostLike(id);
-          this.postLikeCnt += res.data;
-        });
+      .then(res => {
+        if (0 === this.postLikeCnt && -1 === res.data) return;
+        this.getPostLike(id);
+        this.postLikeCnt += res.data;
+      });
     },
     /** 포스트 삭제 */
     async onSubmit(values) {
@@ -284,10 +289,10 @@ export default {
       if (!confirm) return;
 
       this.$http.delete(`/post/${values.id}`)
-        .then(res => {
-          messageUtil.toastSuccess('삭제되었습니다.');
-          this.goToList();
-        });
+      .then(res => {
+        messageUtil.toastSuccess('삭제되었습니다.');
+        this.goToList();
+      });
     },
     /** 목록으로 돌아가기 */
     goToList() {

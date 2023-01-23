@@ -72,9 +72,9 @@ export default {
       };
 
       return this.$http.get('/widget', { params: listWidgetDto })
-        .then(res => {
-          this.noUseWidgetList = [...res.data];
-        });
+      .then(res => {
+        this.noUseWidgetList = [...res.data];
+      });
     },
     /** 위젯 목록 조회 및 store 업데이트 */
     listWidget() {
@@ -94,10 +94,10 @@ export default {
       if (!confirm) return;
 
       this.$http.put('/widget', this.widgetValue)
-        .then(res => {
-          messageUtil.toastSuccess('저장되었습니다.');
-          this.init();
-        });
+      .then(res => {
+        messageUtil.toastSuccess('저장되었습니다.');
+        this.init();
+      });
     },
     /** 사용여부 저장 버튼 클릭 시 */
     async updateWidgetUseYn(values) {
@@ -112,10 +112,10 @@ export default {
       if (!confirm) return;
 
       this.$http.put('/widget/use', body)
-        .then(res => {
-          messageUtil.toastSuccess('저장되었습니다.');
-          this.init();
-        });
+      .then(res => {
+        messageUtil.toastSuccess('저장되었습니다.');
+        this.init();
+      });
     },
     /** 위젯 저장 유효성 검사 */
     validationCheck() {

@@ -8,17 +8,17 @@
 
     <template v-else>
       <div class="d-flex flex--right gap--10 mb--15">
-        <ui-button :routerLink="'/add-content'"
-                   :color="'primary'"
-                   :class="'content__create'">
-          <i class="xi-pen" aria-hidden="true"></i> 콘텐츠 생성
-        </ui-button>
+        <ui-icon-button :routerLink="'/add-content'"
+                        :color="'primary'"
+                        :icon="'xi-pen'"
+                        :class="'content__create'">콘텐츠 생성
+        </ui-icon-button>
 
-        <ui-button :color="'dark'"
-                   :class="'content__delete'"
-                   @click="removeContent">
-          <i class="xi-trash" aria-hidden="true"></i> 콘텐츠 삭제
-        </ui-button>
+        <ui-icon-button :color="'dark'"
+                        :icon="'xi-trash'"
+                        :class="'content__delete'"
+                        @click="removeContent">콘텐츠 삭제
+        </ui-icon-button>
       </div>
 
       <ui-grid
@@ -72,16 +72,16 @@ export default {
     /** 콘텐츠 목록 조회 */
     listContent() {
       return this.$http.get('/content')
-        .then(res => {
-          this.rowData = [];
+      .then(res => {
+        this.rowData = [];
 
-          res.data.map(d => {
-            d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
-            d.modDate = this.$moment(d.modDate).format('YYYY-MM-DD HH:mm:ss');
+        res.data.map(d => {
+          d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
+          d.modDate = this.$moment(d.modDate).format('YYYY-MM-DD HH:mm:ss');
 
-            this.rowData.push(d);
-          });
+          this.rowData.push(d);
         });
+      });
     },
     /** 콘텐츠 삭제 */
     async removeContent() {
@@ -103,10 +103,10 @@ export default {
       });
 
       this.$http.delete('/content', { data: removeContentDto })
-        .then(res => {
-          this.gridApi.removeSelectedRows();
-          messageUtil.toastSuccess('삭제되었습니다.');
-        });
+      .then(res => {
+        this.gridApi.removeSelectedRows();
+        messageUtil.toastSuccess('삭제되었습니다.');
+      });
     },
     /** 데이타 로딩 */
     dataLoading() {

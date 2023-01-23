@@ -10,6 +10,10 @@
       <slot></slot>
     </tbody>
   </table>
+
+  <div class="d-flex-w flex--center gap--10 mt--20 mb--20">
+    <slot name="btn"></slot>
+  </div>
 </template>
 
 <script>

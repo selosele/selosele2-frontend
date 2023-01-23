@@ -94,10 +94,10 @@ export default {
     /** 공통코드 목록 조회 */
     listCode() {
       this.$http.get('/code')
-        .then(res => {
-          const codeList = res.data.filter(d => d.useYn === 'Y');
-          this.$store.dispatch('Code/FETCH_CODE', codeList);
-        });
+      .then(res => {
+        const codeList = res.data.filter(d => d.useYn === 'Y');
+        this.$store.dispatch('Code/FETCH_CODE', codeList);
+      });
     },
     /** 블로그 환경설정 조회 */
     getBlogConfig() {

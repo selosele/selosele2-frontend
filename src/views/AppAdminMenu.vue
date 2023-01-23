@@ -76,10 +76,10 @@ export default {
     /** 메뉴 계층형 구조 조회 */
     listMenuTree() {
       return this.$http.get('/menu/list/tree')
-        .then(res => {
-          this.createTree(res.data);
-          this.parentMenuList = this.listParentMenu(this.$store.state.Menu.data, []);
-        });
+      .then(res => {
+        this.createTree(res.data);
+        this.parentMenuList = this.listParentMenu(this.$store.state.Menu.data, []);
+      });
     },
     /** 트리 생성 */
     createTree(data) {
@@ -126,13 +126,13 @@ export default {
     /** 메뉴 조회 */
     getMenu(node) {
       return this.$http.get(`/menu/${node.id}`)
-        .then(res => {
-          this.menu = { ...res.data };
-          this.parentMenuList = this.listParentMenu(this.$store.state.Menu.data, [])
-            .filter(d => d.value !== this.menu.id);
+      .then(res => {
+        this.menu = { ...res.data };
+        this.parentMenuList = this.listParentMenu(this.$store.state.Menu.data, [])
+          .filter(d => d.value !== this.menu.id);
 
-          this.menu.regDate = this.$moment(this.menu.regDate).format('YYYY-MM-DD HH:mm:ss');
-        });
+        this.menu.regDate = this.$moment(this.menu.regDate).format('YYYY-MM-DD HH:mm:ss');
+      });
     },
     /** 조회된 메뉴를 제외한 메뉴 목록 조회 */
     listParentMenu(nodes, arr) {

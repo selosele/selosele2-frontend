@@ -99,9 +99,9 @@ export default {
       if (!confirm) return;
 
       this.$http.post('/auth/user', addUserDto)
-        .then(res => {
-          messageUtil.toastSuccess('사용자가 생성되었습니다.');
-        });
+      .then(res => {
+        messageUtil.toastSuccess('사용자가 생성되었습니다.');
+      });
     },
     /** 유효성 검사 */
     async validationCheck() {

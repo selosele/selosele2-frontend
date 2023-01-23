@@ -62,10 +62,10 @@ export default {
       if (!confirm) return;
 
       this.$http.post('/guestbookreply', values)
-        .then(res => {
-          messageUtil.toastSuccess('저장되었습니다.');
-          this.$emit('addReply', res.data);
-        });
+      .then(res => {
+        messageUtil.toastSuccess('저장되었습니다.');
+        this.$emit('addReply', res.data);
+      });
     },
   },
 }

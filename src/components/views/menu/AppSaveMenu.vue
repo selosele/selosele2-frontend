@@ -135,22 +135,22 @@ export default {
       if (!confirm) return;
 
       this.$http.delete(`/menu/${values.id}`)
-        .then(res => {
-          messageUtil.toastSuccess('삭제되었습니다.');
+      .then(res => {
+        messageUtil.toastSuccess('삭제되었습니다.');
 
-          this.listMenu();
-          this.$emit('refreshMenu');
-        });
+        this.listMenu();
+        this.$emit('refreshMenu');
+      });
     },
     /** 메뉴 추가 */
     addMenu(values) {
       return this.$http.post('/menu', values)
-        .then(res => {
-          messageUtil.toastSuccess('저장되었습니다.');
+      .then(res => {
+        messageUtil.toastSuccess('저장되었습니다.');
 
-          this.$refs['menuId'].$el.value = res.data.id;
-          this.$emit('refreshMenu');
-        });
+        this.$refs['menuId'].$el.value = res.data.id;
+        this.$emit('refreshMenu');
+      });
     },
     /** 메뉴 목록 조회 */
     listMenu() {
@@ -164,28 +164,28 @@ export default {
     /** 메뉴 수정 */
     updateMenu(values) {
       return this.$http.put('/menu', values)
-        .then(res => {
-          messageUtil.toastSuccess('저장되었습니다.');
+      .then(res => {
+        messageUtil.toastSuccess('저장되었습니다.');
 
-          this.$refs['menuId'].$el.value = res.data.id;
-          this.$emit('refreshMenu');
-        });
+        this.$refs['menuId'].$el.value = res.data.id;
+        this.$emit('refreshMenu');
+      });
     },
     /** 권한 목록 조회 */
     listRole() {
       return this.$http.get('/auth/role')
-        .then(res => {
-          this.roleList = [
-            ...res.data.map(d => {
-              return {
-                value: d.roleId,
-                text: d.roleNm,
-              };
-            })
-          ];
-          
-          this.roleList.push({ value: '0', text: '모든 권한 허용' });
-        });
+      .then(res => {
+        this.roleList = [
+          ...res.data.map(d => {
+            return {
+              value: d.roleId,
+              text: d.roleNm,
+            };
+          })
+        ];
+        
+        this.roleList.push({ value: '0', text: '모든 권한 허용' });
+      });
     },
     /** 메뉴 권한 model 얻기 */
     getMenuRoleModel() {

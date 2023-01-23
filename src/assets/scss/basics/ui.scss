@@ -25,6 +25,11 @@
     text-shadow: none;
   }
 
+  &--success {
+    background-color: $green03;
+    color: $grey12;
+  }
+
   &--light {
     border-color: $main-color;
     background-color: $grey12;
@@ -33,6 +38,11 @@
 
   &--dark {
     background-color: $black02;
+    color: $grey12;
+  }
+
+  &--warning {
+    background-color: $yellow04;
     color: $grey12;
   }
 

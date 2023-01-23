@@ -52,9 +52,9 @@
         </ui-button>
   
         <ui-button :type="'button'"
-                    :color="'primary'"
-                    :class="'file-upload__btn file-upload__btn--submit'"
-                    @click.stop="onSubmit">업로드
+                   :color="'primary'"
+                   :class="'file-upload__btn file-upload__btn--submit'"
+                   @click.stop="onSubmit">업로드
         </ui-button>
       </div>
     </div>
@@ -158,10 +158,12 @@ export default {
       const headers = { 'Content-Type': 'multipart/form-data' };
 
       this.$http.post('/file', this.fileList, { headers })
-        .then(res => {
-          messageUtil.toastSuccess('전송되었습니다.');
-          this.$emit('upload');
-        });
+      .then(res => {
+        messageUtil.toastSuccess('전송되었습니다.');
+
+        this.onReset();
+        this.$emit('upload');
+      });
     },
     /** 파일 추가 유효성 검사 */
     addFileValidationCheck(file) {

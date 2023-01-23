@@ -217,29 +217,29 @@ export default {
       };
 
       return this.$http.get('/guestbook', { params: paginationDto })
-        .then(res => {
-          if (0 === res.data[0].length) {
-            this.isScrolled = false;
-            return;
-          }
-
-          res.data[0].map(a => {
-            const guestbookData = this.setData(a);
-            this.guestbookList.push(guestbookData);
-
-            a.guestbookReply.map(b => {
-              this.setData(b);
-            });
-          });
-
-          this.listCnt = res.data[1];
-
-          if (this.listCnt === this.guestbookList.length) {
-            this.isLastPage = true;
-          }
-          
+      .then(res => {
+        if (0 === res.data[0].length) {
           this.isScrolled = false;
+          return;
+        }
+
+        res.data[0].map(a => {
+          const guestbookData = this.setData(a);
+          this.guestbookList.push(guestbookData);
+
+          a.guestbookReply.map(b => {
+            this.setData(b);
+          });
         });
+
+        this.listCnt = res.data[1];
+
+        if (this.listCnt === this.guestbookList.length) {
+          this.isLastPage = true;
+        }
+        
+        this.isScrolled = false;
+      });
     },
     /** 방명록 메뉴 toggle */
     toggleMenu(i) {
@@ -300,16 +300,16 @@ export default {
       if (!confirm) return;
 
       this.$http.post('/guestbook', values)
-        .then(res => {
-          const guestbook = { ...res.data };
-          
-          guestbook.regDate = this.$moment(guestbook.regDate).format('YYYY-MM-DD HH:mm:ss');
+      .then(res => {
+        const guestbook = { ...res.data };
+        
+        guestbook.regDate = this.$moment(guestbook.regDate).format('YYYY-MM-DD HH:mm:ss');
 
-          this.guestbookList.push(guestbook);
-          this.guestbookList = this.guestbookList.sort((a,b) => b.id - a.id);
+        this.guestbookList.push(guestbook);
+        this.guestbookList = this.guestbookList.sort((a,b) => b.id - a.id);
 
-          messageUtil.toastSuccess('저장되었습니다.');
-        });
+        messageUtil.toastSuccess('저장되었습니다.');
+      });
     },
     /** 방명록 댓글 추가 시 */
     async onAddReply(values) {
