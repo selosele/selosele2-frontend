@@ -15,6 +15,7 @@
                    :id="'categoryNm'"
                    :label="'카테고리 명'"
                    :rules="'required'"
+                   :block="true"
                    :value="category.nm">
     </ui-text-field>
 
@@ -23,6 +24,7 @@
                    :id="'categoryRegDate'"
                    :label="'카테고리 등록일시'"
                    :readonly="true"
+                   :block="true"
                    :value="category.regDate">
     </ui-text-field>
   </ui-split-form>

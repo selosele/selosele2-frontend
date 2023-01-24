@@ -86,7 +86,7 @@ export default {
     /** select block 스타일 */
     selectBlock() {
       if (isNotEmpty(this.block) && true === this.block) {
-        return ` btn--block`;
+        return ` is--block`;
       }
       return '';
     },

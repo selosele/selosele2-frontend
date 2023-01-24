@@ -97,7 +97,7 @@ export default {
     const blockTextarea = computed({
       get() {
         if (isNotEmpty(props.block) && true === props.block) {
-          return ' input-field--block';
+          return ' input-field is--block';
         }
         return '';
       },

@@ -8,7 +8,7 @@
   @include btn();
 
   // 버튼 크기
-  &--block {
+  &.is--block {
     display: block;
     width: 100%;
   }
@@ -43,6 +43,16 @@
 
   &--warning {
     background-color: $yellow04;
+    color: $grey12;
+  }
+
+  &--twitter {
+    background-color: $twitter-color;
+    color: $grey12;
+  }
+
+  &--facebook {
+    background-color: $facebook-color;
     color: $grey12;
   }
 

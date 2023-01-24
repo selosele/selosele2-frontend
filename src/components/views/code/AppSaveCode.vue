@@ -9,6 +9,7 @@
                    :label="'코드 ID'"
                    :rules="'required'"
                    :readonly="true"
+                   :block="true"
                    v-model="id">
     </ui-text-field>
 
@@ -17,6 +18,7 @@
                    :id="'codePrefix'"
                    :label="'코드 접두어'"
                    :rules="'required'"
+                   :block="true"
                    v-model="prefix">
     </ui-text-field>
 
@@ -25,6 +27,7 @@
                    :id="'codeVal'"
                    :label="'코드 값'"
                    :rules="'required'"
+                   :block="true"
                    v-model="val">
     </ui-text-field>
 
@@ -33,6 +36,7 @@
                    :id="'codeNm'"
                    :label="'코드 명'"
                    :rules="'required'"
+                   :block="true"
                    :value="code.nm">
     </ui-text-field>
 

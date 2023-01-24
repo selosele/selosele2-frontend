@@ -83,7 +83,7 @@ export default {
     /** 버튼 block 스타일 */
     btnBlock() {
       if (isNotEmpty(this.block) && true === this.block) {
-        return ` btn--block`;
+        return ` is--block`;
       }
       return '';
     }

@@ -20,6 +20,7 @@
                :label="'부모 메뉴'"
                :defaultValue="'부모 메뉴 선택'"
                :data="parentMenuList"
+               :block="true"
                v-model="parentId"
                @onchange="updateDepth">
     </ui-select>
@@ -29,6 +30,7 @@
                    :id="'menuName'"
                    :label="'메뉴 명'"
                    :rules="'required'"
+                   :block="true"
                    :value="menu.name">
     </ui-text-field>
 
@@ -37,6 +39,7 @@
                    :id="'menuLink'"
                    :label="'메뉴 링크'"
                    :rules="'required'"
+                   :block="true"
                    :value="menu.link">
     </ui-text-field>
 
@@ -45,6 +48,7 @@
                    :id="'menuRegDate'"
                    :label="'메뉴 등록일시'"
                    :readonly="true"
+                   :block="true"
                    :value="menu.regDate">
     </ui-text-field>
 
@@ -52,6 +56,7 @@
                       :id="'menuSort'"
                       :label="'메뉴 정렬 순서'"
                       :rules="'required'"
+                      :block="true"
                       :value="menu.sort">
     </ui-numeric-field>
 
@@ -61,6 +66,7 @@
                :label="'메뉴 권한'"
                :rules="'required'"
                :defaultValue="'메뉴 권한 선택'"
+               :block="true"
                :data="roleList"
                v-model="role">
     </ui-select>

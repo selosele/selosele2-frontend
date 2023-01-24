@@ -11,11 +11,9 @@
         <ui-form :name="'postForm'" @onsubmit="onSubmit">
           <ui-hidden-field :name="'id'" :value="post?.id"></ui-hidden-field>
     
-          <!-- START : 콘텐츠 내용 영역 -->
-          <div class="post__contents__body line-numbers">
-            <Markdown :source="post?.cont" :plugins="plugins"></Markdown>
-          </div>
-          <!-- END : 콘텐츠 내용 영역 -->
+          <!-- START : 내용 영역 -->
+          <div class="post__contents__body line-numbers" v-html="post?.cont"></div>
+          <!-- END : 내용 영역 -->
     
           <div class="post__contents__like-wrapper">
             <ui-icon-button :icon="isPostLiked ? 'xi-heart' : 'xi-heart-o'"
@@ -78,41 +76,45 @@
                             @click="copyPostUrl">
             </ui-icon-button>
             
-            <a :href="`https://twitter.com/intent/tweet?text=${encodeURI(post?.title)}%20${encodeURI($nowUrl)}`"
-               target="_blank"
-               title="새창"
-               rel="noopener noreferrer nofollow"
-               class="btn post__contents__sns post__contents__sns--twitter">
-              <i class="xi-twitter" aria-hidden="true"></i>
-              <span class="sr-only">트위터 공유</span>
-            </a>
+            <ui-icon-button :href="`https://twitter.com/intent/tweet?text=${encodeURI(post?.title)}%20${encodeURI($nowUrl)}`"
+                            :target="'_blank'"
+                            :title="'새창'"
+                            :rel="'noopener noreferrer nofollow'"
+                            :type="'link'"
+                            :color="'twitter'"
+                            :icon="'xi-twitter'"
+                            :text="'트위터 공유'"
+                            :class="'post__contents__sns'">
+            </ui-icon-button>
     
-            <a :href="`https://www.facebook.com/sharer/sharer.php?u=${encodeURI($nowUrl)}`"
-               target="_blank"
-               title="새창"
-               rel="noopener noreferrer nofollow"
-               class="btn post__contents__sns post__contents__sns--facebook">
-              <i class="xi-facebook-official" aria-hidden="true"></i>
-              <span class="sr-only">페이스북 공유</span>
-            </a>
+            <ui-icon-button :href="`https://www.facebook.com/sharer/sharer.php?u=${encodeURI($nowUrl)}`"
+                            :target="'_blank'"
+                            :title="'새창'"
+                            :rel="'noopener noreferrer nofollow'"
+                            :type="'link'"
+                            :color="'facebook'"
+                            :icon="'xi-facebook-official'"
+                            :text="'페이스북 공유'"
+                            :class="'post__contents__sns'">
+            </ui-icon-button>
     
             <template v-if="isLogin">
               <ui-icon-button :routerLink="'/add-post'"
                               :color="'primary'"
                               :icon="'xi-pen'"
-                              :class="'post__contents__btn post__contents__btn--write'">포스트 작성
+                              :class="'post__contents__btn'">포스트 작성
               </ui-icon-button>
     
               <ui-icon-button :routerLink="`/edit-post/${post?.id}`"
                               :color="'success'"
                               :icon="'xi-pen'"
-                              :class="'post__contents__btn post__contents__btn--edit'">포스트 수정
+                              :class="'post__contents__btn'">포스트 수정
               </ui-icon-button>
     
               <ui-icon-button :type="'submit'"
                               :color="'dark'"
                               :icon="'xi-trash'"
-                              :class="'post__contents__btn post__contents__btn--delete'">포스트 삭제
+                              :class="'post__contents__btn'">포스트 삭제
               </ui-icon-button>
             </template>
           </div>
@@ -145,8 +147,6 @@
 </template>
 
 <script>
-import Markdown from 'vue3-markdown-it';
-import MarkdownItFootnote from 'markdown-it-footnote';
 import { messageUtil, isNotBlank, isNotEmpty } from '@/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import AppAddPostReply from '@/components/views/post/AppAddPostReply.vue';
@@ -161,14 +161,10 @@ import 'highlight.js/styles/stackoverflow-dark.css';
 export default {
   name: 'app-post-view',
   components: {
-    Markdown,
     AppAddPostReply,
   },
   data() {
     return {
-      plugins: [
-        // { plugin: MarkdownItFootnote },
-      ],
       pageTitle: '',
       page: this.$route.query.page,
       post: null,

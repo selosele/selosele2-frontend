@@ -89,7 +89,7 @@ export default {
     blockInput: {
       get() {
         if (isNotEmpty(this.block) && true === this.block) {
-          return `input-field is--block`;
+          return ` input-field is--block`;
         }
         return '';
       },

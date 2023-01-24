@@ -186,14 +186,17 @@
                        :color="'success'"
                        :class="'write__btn'">미리보기
             </ui-button>
+
             <ui-button :type="'button'"
                        :color="'warning'"
                        :class="'write__btn'">임시저장
             </ui-button>
+
             <ui-button :type="'reset'"
                        :color="'secondary'"
                        :class="'write__btn'">다시작성
             </ui-button>
+            
             <ui-button :type="'submit'"
                        :color="'primary'"
                        :class="'write__btn'">저장

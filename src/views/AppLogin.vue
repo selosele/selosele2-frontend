@@ -28,12 +28,14 @@
           
           <ui-button :type="'submit'"
                      :color="'primary'"
-                     :class="'login__btn login__btn--submit'">로그인
+                     :class="'mt--15'"
+                     :block="true">로그인
           </ui-button>
 
           <ui-button :type="'button'"
                      :color="'secondary'"
-                     :class="'login__btn login__btn--add'"
+                     :class="'mt--15'"
+                     :block="true"
                      @click="addUser"
                      v-if="isDevelopment">사용자 생성
           </ui-button>
