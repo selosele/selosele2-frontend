@@ -5,6 +5,7 @@
         :autocomplete="autocomplete"
         @submit="onSubmit"
         @reset="onReset"
+        @keydown.enter="onEnter"
   >
     <slot :validateAll="validateAll"
           :validateField="validateField">
@@ -25,7 +26,12 @@ export default {
     /** form name */
     name: String,
     /** form autocomplete */
-    autocomplete: String
+    autocomplete: String,
+    /** form Enter키 submit 무효화 여부 */
+    preventEnter: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -54,6 +60,20 @@ export default {
       }
 
       this.$emit('onreset');
+    },
+    /** Enter키로 submit 시 */
+    onEnter(e) {
+      // Markdown 에디터를 예외처리하지 않으면 Enter키 입력 시 줄바꿈이 안됨
+      if (this.editorClassName === e.target.id) {
+        return true;
+      }
+
+      if (this.preventEnter) {
+        e.preventDefault();
+        return false;
+      }
+
+      return true;
     },
     /** 모든 Field에 대한 유효성 검증 */
     validateAll() {

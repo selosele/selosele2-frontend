@@ -23,6 +23,8 @@
              :value="value"
              v-bind="{ ...field, ...$attrs }"
              @input="onInput($event)"
+             @change="onChange($event)"
+             @keyup.enter="onEnter($event)"
       >
     </Field>
 
@@ -116,6 +118,16 @@ export default {
       emit('update:modelValue', e.target.value);
     };
 
+    /** input value 변경 시 */
+    const onChange = (e) => {
+      emit('onchange', e.target.value);
+    };
+
+    /** Enter키 입력 시 */
+    const onEnter = (e) => {
+      emit('onenter', e.target.value);
+    };
+
     /** input 요소에 focus */
     const focus = () => {
       inputEl.value.focus();
@@ -124,6 +136,8 @@ export default {
     return {
       inputEl,
       onInput,
+      onChange,
+      onEnter,
       focus,
       handleChange,
       errorMessage,

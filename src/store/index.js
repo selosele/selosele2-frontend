@@ -35,6 +35,10 @@ export default createStore({
     /** Splitter 활성화 여부 */
     isSplitterActive(state) {
       return state.Splitter.isActive;
-    }
+    },
+    /** Editor 클래스명 */
+    editorClassName() {
+      return 'md-editor-v3-textarea';
+    },
   },
 });

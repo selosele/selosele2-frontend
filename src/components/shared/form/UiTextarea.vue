@@ -23,6 +23,8 @@
                 :value="value"
                 v-bind="{ ...field, ...$attrs }"
                 @input="onInput($event)"
+                @change="onChange($event)"
+                @keyup.enter="onEnter($event)"
       >
       </textarea>
     </Field>
@@ -123,6 +125,16 @@ export default {
       emit('update:modelValue', e.target.value);
     };
 
+    /** textarea value 변경 시 */
+    const onChange = (e) => {
+      emit('onchange', e.target.value);
+    };
+
+    /** Enter키 입력 시 */
+    const onEnter = (e) => {
+      emit('onenter', e.target.value);
+    };
+
     /** textarea 요소에 focus */
     const focus = () => {
       inputEl.value.focus();
@@ -133,6 +145,8 @@ export default {
       resizeClass,
       inputEl,
       onInput,
+      onChange,
+      onEnter,
       focus,
       handleChange,
       errorMessage,

@@ -180,37 +180,6 @@
          }
       }
    
-      &__tag {
-         &__item {
-            display: flex;
-            width: 100%;
-            margin-bottom: 0.35rem;
-            border: 1px solid $grey05;
-            background-color: $grey12;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-   
-            @media (min-width: $min-small-width) {
-               display: inline-block;
-               width: auto;
-               margin-right: 0.35rem;
-            }
-      
-            > input {
-               &[type="text"] {
-                  width: calc(100% - 2.1rem);
-                  border: 0;
-                  font-size: 0.8rem;
-   
-                  @media (min-width: $min-small-width) {
-                     width: 10rem;
-                  }
-               }
-            }
-         }
-      }
-   
       &__add-category-btn {
          display: inline-flex;
          justify-content: center;
@@ -226,58 +195,6 @@
    
          > i {
             vertical-align: -0.1rem;
-         }
-      }
-   
-      &__add-tag-btn {
-         display: inline-flex;
-         justify-content: center;
-         align-items: center;
-         width: 1.1rem;
-         min-width: 0;
-         height: 1.1rem;
-         padding: 0;
-         border-radius: 50%;
-         background-color: $green03;
-         font-size: 0.85rem;
-         color: $grey12;
-      }
-   
-      &__remove-tag-btn {
-         display: inline-flex;
-         justify-content: center;
-         align-items: center;
-         position: relative;
-         width: 1.1rem;
-         min-width: 0;
-         height: 1.1rem;
-         margin-right: 1rem;
-         padding: 0;
-         border-radius: 50%;
-         border-color: $black02;
-         background-color: $grey12;
-         font-size: 0.85rem;
-         text-shadow: none;
-   
-         @media (min-width: $min-small-width) {
-            margin-right: 0.5rem;
-         }
-   
-         &:before {
-            content: "\e91a";
-            display: inline-block;
-            font-family: $icon-font;
-            font-size: inherit;
-            line-height: 1;
-            vertical-align: -0.05rem;
-            -webkit-font-smoothing: antialiased;
-         }
-   
-         &--active {
-            border-color: $main-color;
-            background-color: $main-color;
-            color: $grey12;
-            text-shadow: rgba(0,0,0,0.8) 1px 1px 0.1em;
          }
       }
    

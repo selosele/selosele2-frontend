@@ -7,6 +7,7 @@ export default [
       requiresAuth: true,
       showSidebar: false,
       showSatis: false,
+      type: 'post',
     },
   },
   {

@@ -1,0 +1,33 @@
+.write__tag__item__wrapper:deep {
+  display: inline-block;
+  vertical-align: middle;
+
+  .write__tag {
+    &__item {
+      display: flex;
+      width: 100%;
+      margin-bottom: 0.35rem;
+      border: 1px solid $grey05;
+      background-color: $grey12;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+
+      @media (min-width: $min-small-width) {
+        display: inline-flex;
+        width: auto;
+        margin-right: 0.35rem;
+      }
+
+      .input-field {
+        width: calc(100% - 2.1rem);
+        border: 0;
+        font-size: 0.8rem;
+
+        @media (min-width: $min-small-width) {
+          width: 10rem;
+        }
+      }
+    }
+  }
+}
