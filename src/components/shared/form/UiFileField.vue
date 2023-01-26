@@ -4,6 +4,7 @@
            :name="name"
            :id="id"
            :ref="id"
+           :title="title"
            :accept="accept"
            :rules="rules"
            v-bind="$attrs"
@@ -37,6 +38,8 @@ export default {
     id: String,
     /** input name */
     name: String,
+    /** input title */
+    title: String,
     /** input accept */
     accept: String,
     /** block input */

@@ -11,7 +11,7 @@
                      :placeholder="'태그명 입력(50자 이내)'"
                      :rules="'max:50'"
                      :value="tag.name"
-                     @onchange="onChange">
+                     @update:modelValue="onChange">
       </ui-text-field>
     </span>
   </span>

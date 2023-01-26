@@ -61,7 +61,6 @@
 
               <button type="button"
                       class="widget__use"
-                      title="사용"
                       @click="onChangeUseYn($event, widget.id)"
                       v-if="widgetActive">
                 <span class="sr-only">사용여부 선택</span>

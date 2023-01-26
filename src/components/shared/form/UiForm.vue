@@ -86,14 +86,17 @@ export default {
     /** Field 값 변경 */
     setFieldValue(field, value) {
       if (isEmpty(field)) return null;
-      
+
       return this.$refs[this.name].setFieldValue(field, value);
     },
     /** Field 값 가져오기 */
     getFieldValue(field) {
       if (isEmpty(field)) return null;
 
-      return this.$refs[this.name].$el.querySelector('[name='+field+']').value;
+      const form = this.$refs[this.name].$el;
+      const formValues = Object.fromEntries(new FormData(form));
+      
+      return formValues[field];
     }
   },
 }

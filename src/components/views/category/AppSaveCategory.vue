@@ -14,7 +14,7 @@
                    :name="'nm'"
                    :id="'categoryNm'"
                    :label="'카테고리 명'"
-                   :rules="'required'"
+                   :rules="'required|max:50'"
                    :block="true"
                    :value="category.nm">
     </ui-text-field>

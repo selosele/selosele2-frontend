@@ -24,13 +24,24 @@
               <label for="savePostTitle">제목</label>
             </th>
             <td>
-              <ui-text-field :type="'text'"
-                             :name="'title'"
-                             :id="'savePostTitle'"
-                             :class="'write__title'"
-                             :rules="'required'"
-                             :block="true">
-              </ui-text-field>
+              <div class="write__title">
+                <ui-select :name="'category'"
+                           :id="'savePostCategory'"
+                           :class="'write__select-category'"
+                           :title="'카테고리 선택'"
+                           :defaultValue="'카테고리 선택'"
+                           :rules="'required'"
+                           :data="categoryList"
+                           v-model="categoryId">
+                </ui-select>
+  
+                <ui-text-field :type="'text'"
+                               :name="'title'"
+                               :id="'savePostTitle'"
+                               :rules="'required'"
+                               :block="true">
+                </ui-text-field>
+              </div>
             </td>
           </tr>
           <tr>
@@ -109,53 +120,30 @@
           </tr>
           <tr v-if="'post' === $route.meta.type">
             <th scope="row">
-              <label for="savePostCategory">카테고리</label>
+              <label for="savePostAddTag">태그</label>
             </th>
             <td>
-              <ui-select :name="'category'"
-                         :id="'savePostCategory'"
-                         :class="'write__select-category'"
-                         :rules="'required'"
-                         :defaultValue="'카테고리 선택'"
-                         :data="categoryList"
-                         v-model="categoryId">
-              </ui-select>
+              <ui-hidden-field :name="'saveTagList'" :id="'saveTagList'"></ui-hidden-field>
             
-              <span class="write__category__item">
-                <ui-text-field :type="'text'"
-                               :name="'addCategory'"
-                               :id="'savePostAddCategory'"
-                               :title="'사용할 카테고리 입력 (50자 이내)'"
-                               :placeholder="'사용할 카테고리 입력 (50자 이내)'"
-                               :class="'write__category'"
-                               :rules="'max:50'"
-                               @onenter="addCategory">
-                </ui-text-field>
-            
-                <ui-icon-button :type="'button'"
-                                :icon="'xi-check'"
-                                :text="'카테고리 추가'"
-                                :class="'write__add-category-btn'"
-                                @click="addCategory">
-                </ui-icon-button>
-              </span>
-            </td>
-          </tr>
-          <tr v-if="'post' === $route.meta.type">
-            <th scope="row">태그</th>
-            <td>
-              <ui-hidden-field :name="'tagList'" :id="'tagList'"></ui-hidden-field>
-
               <div class="write__tag__wrapper">
                 <ui-text-field :type="'text'"
                                :name="'addTag'"
                                :id="'savePostAddTag'"
-                               :title="'태그 입력 (쉼표로 구분)'"
-                               :placeholder="'태그 입력 (쉼표로 구분)'"
+                               :class="'write__tag'"
+                               :title="'태그 입력 (쉼표로 구분, 5개까지 입력 가능)'"
+                               :placeholder="'태그 입력 (쉼표로 구분, 5개까지 입력 가능)'"
                                :block="true"
-                               v-model="tagStr"
-                               @onchange="addTag">
+                               v-model="tagStr">
                 </ui-text-field>
+
+                <ui-select :name="'tag'"
+                           :id="'savePostTag'"
+                           :class="'write__select-tag'"
+                           :title="'태그 선택'"
+                           :defaultValue="'나의 태그'"
+                           :data="tagList"
+                           @onchange="onChangeTag">
+                </ui-select>
               </div>
             </td>
           </tr>
@@ -254,6 +242,8 @@ export default {
       categoryList: [],
       /** 수정 포스트의 카테고리 ID */
       categoryId: '',
+      /** 포스트 태그 목록 */
+      tagList: [],
       /** 포스트 비공개 여부 */
       secretYn: 'N',
       /** 포스트 상단고정 여부 */
@@ -280,23 +270,32 @@ export default {
     async init() {
       await Promise.all([
         this.listCategory(),
+        this.listTag(),
       ]);
     },
     /** 포스트 저장 */
     onSubmit(values) {
       const headers = { 'Content-Type': 'multipart/form-data' };
 
+      this.setTagArr(values);
+
+      const isValid = this.validationCheck();
+      if (!isValid) return;
+
       console.log(values);
     },
     /** 본문 요약 버튼 클릭 시 */
     async changeOgDesc() {
-      const runValidate = await this.$refs['savePostForm'].validateField('title');
-      if (!runValidate.valid) return;
+      const title = this.$refs['savePostForm'].getFieldValue('title');
+
+      if (isBlank(title)) {
+        messageUtil.toastWarning('제목을 입력하세요.');
+        return;
+      }
 
       const confirm = await messageUtil.confirmSuccess('본문 요약을 제목과 맞추시겠습니까?');
       if (!confirm) return;
 
-      const title = this.$refs['savePostForm'].getFieldValue('title');
       this.$refs['savePostForm'].setFieldValue('ogDesc', title);
     },
     /** cloudinary 파일 클릭 시 */
@@ -324,37 +323,34 @@ export default {
         });
       });
     },
-    /** 카테고리 추가 */
-    async addCategory() {
-      const isValid = await this.addTagValidationCheck();
-      if (!isValid) return;
-
-      const category = this.$refs['savePostForm'].getFieldValue('addCategory');
-      const categoryValue = (+this.categoryList[this.categoryList.length-1].value) + 1;
-
-      this.categoryList.push({
-        value: categoryValue,
-        text: category,
+    /** 태그 목록 조회 */
+    listTag() {
+      return this.$http.get('/tag')
+      .then(res => {
+        res.data.map(d => {
+          this.tagList.push({
+            value: d.id,
+            text: d.nm,
+          });
+        });
       });
-
-      this.categoryId = categoryValue;
     },
-    /** 카테고리 추가 유효성 검사 */
-    async addTagValidationCheck() {
-      const runValidate = await this.$refs['savePostForm'].validateField('addCategory');
-      if (!runValidate.valid) {
-        return false;
+    /** 태그 선택 시 */
+    onChangeTag(value) {
+      const foundTag = this.tagList.find(d => d.value == value).text;
+
+      if (isBlank(this.tagStr)) {
+        this.tagStr = foundTag;
+      } else {
+        this.tagStr += `, ${foundTag}`;
+      }
+    },
+    /** 태그 배열에 추가 */
+    setTagArr(formValues) {
+      if (isBlank(this.tagStr)) {
+        return;
       }
 
-      const category = this.$refs['savePostForm'].getFieldValue('addCategory');
-      if (isBlank(category)) {
-        return false;
-      }
-
-      return true;
-    },
-    /** 태그 추가 */
-    addTag() {
       this.saveTagList = [];
 
       const tagArr = this.tagStr.split(',');
@@ -362,13 +358,22 @@ export default {
       for (let i = 0; i < tagArr.length; i++) {
         this.saveTagList.push({
           id: i+1, // 식별용 ID. HTTP 요청에 넘기지 않음
-          name: tagArr[i],
+          name: tagArr[i].trim(),
           addTagYn: 'Y',
         });
       }
 
-      this.$refs['savePostForm'].setFieldValue('tagList', this.saveTagList);
+      formValues['saveTagList'] = this.saveTagList;
     },
+    /** 유효성 검사 */
+    validationCheck() {
+      if (5 < this.tagStr.split(',').length) {
+        messageUtil.toastWarning('태그는 5개까지 입력할 수 있습니다.');
+        return false;
+      }
+
+      return true;
+    }
   },
 }
 </script>

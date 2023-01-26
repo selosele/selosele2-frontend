@@ -126,6 +126,33 @@
             }
          }
       }
+
+      &__select-category {
+         display: block;
+         width: 100%;
+   
+         @media (min-width: $min-small-width) {
+            display: inline-block;
+            width: 8rem;
+         }
+      }
+
+      &__title {
+         display: flex;
+         flex-wrap: wrap;
+         gap: 0.5rem;
+
+         .input-wrapper {
+            + .input-wrapper {
+               width: 100%;
+               margin-top: 0;
+
+               @media (min-width: $min-small-width) {
+                  width: calc(100% - 8.5rem);
+               }
+            }
+         }
+      }
    
       &__og-desc {
          &-refresh {
@@ -142,59 +169,36 @@
             text-shadow: none;
          }
       }
-   
-      &__select-category {
-         display: block;
-         width: 100%;
-         margin-bottom: 0.35rem;
-   
-         @media (min-width: $min-small-width) {
-            display: inline-block;
-            width: auto;
-            margin-bottom: 0;
-            margin-right: 0.25rem;
-         }
-      }
-   
-      &__category {
-         width: calc(100% - 1.1rem);
-         font-size: 0.8rem;
-   
-         @media (min-width: $min-small-width) {
-            width: 14.2rem;
-         }
-   
-         &__item {
+
+      &__tag {
+         &__wrapper {
             display: flex;
-            width: 100%;
-            justify-content: space-between;
-            align-items: center;
-            gap: 0.4rem;
-   
-            @media (min-width: $min-small-width) {
-               display: inline-flex;
-               width: auto;
-               vertical-align: middle;
-               justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+
+            .input-wrapper {
+               &.write__tag {
+                  width: 100%;
+                  
+                  @media (min-width: $min-small-width) {
+                     width: calc(100% - 8.5rem);
+                  }
+               }
+
+               + .input-wrapper {
+                  margin-top: 0;
+               }
             }
-         }
-      }
-   
-      &__add-category-btn {
-         display: inline-flex;
-         justify-content: center;
-         align-items: center;
-         width: 1.1rem;
-         min-width: 0;
-         height: 1.1rem; 
-         padding: 0; 
-         border-radius: 50%; 
-         background-color: $green03; 
-         font-size: 0.85rem;
-         color: $grey12;
-   
-         > i {
-            vertical-align: -0.1rem;
+
+            .write__select-tag {
+               display: block;
+               width: 100%;
+         
+               @media (min-width: $min-small-width) {
+                  display: inline-block;
+                  width: 8rem;
+               }
+            }
          }
       }
    
