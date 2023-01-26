@@ -256,6 +256,8 @@ export default {
   },
   /** 해당 컴포넌트를 벗어나 새로운 페이지로 이동할 때 호출됨 */
   async beforeRouteLeave(to, from) {
+    if ('/a/goto' === to.path) return true;
+
     const confirm = await messageUtil.confirmWarning('이 사이트에서 나가시겠습니까?', '변경한 내용이 저장되지 않을 수 있습니다.');
     if (!confirm) return false;
   },
