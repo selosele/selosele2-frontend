@@ -25,7 +25,7 @@
             </th>
             <td>
               <div class="write__title">
-                <ui-select :name="'category'"
+                <ui-select :name="'categoryId'"
                            :id="'savePostCategory'"
                            :class="'write__select-category'"
                            :title="'카테고리 선택'"
@@ -255,7 +255,7 @@ export default {
   },
   /** 해당 컴포넌트를 벗어나 새로운 페이지로 이동할 때 호출됨 */
   async beforeRouteLeave(to, from) {
-    if ('/a/goto' === to.path) return true;
+    if ('/a/goto' === to.path || '/' === to.path) return true;
 
     const confirm = await messageUtil.confirmWarning('이 사이트에서 나가시겠습니까?', '변경한 내용이 저장되지 않을 수 있습니다.');
     if (!confirm) return false;
@@ -275,15 +275,26 @@ export default {
       ]);
     },
     /** 포스트 저장 */
-    onSubmit(values) {
-      this.setTagArr(values);
+    async onSubmit(values) {
+      const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
+      if (!confirm) return;
       
       const isValid = this.validationCheck();
       if (!isValid) return;
-      
-      console.log(values);
 
+      this.setTagArr(values);
+      
       const headers = { 'Content-Type': 'multipart/form-data' };
+
+      this.$http.post('/post', values, { headers })
+      .then(res => {
+        messageUtil.toastSuccess('저장되었습니다.');
+
+        this.$store.dispatch('Post/FETCH_MAIN_POSTLIST', {});
+        this.$store.dispatch('Layout/FETCH_SIDEBAR', {});
+
+        this.$router.push('/');
+      });
     },
     /** 본문 요약 버튼 클릭 시 */
     async changeOgDesc() {
@@ -358,13 +369,12 @@ export default {
 
       for (let i = 0; i < tagArr.length; i++) {
         this.saveTagList.push({
-          idx: i, // 식별용 index. HTTP 요청에 넘기지 않음
-          name: tagArr[i].trim(),
+          nm: tagArr[i].trim(),
           addTagYn: 'Y',
         });
       }
 
-      formValues['saveTagList'] = this.saveTagList;
+      formValues['saveTagList'] = JSON.stringify(this.saveTagList);
     },
     /** 유효성 검사 */
     validationCheck() {
