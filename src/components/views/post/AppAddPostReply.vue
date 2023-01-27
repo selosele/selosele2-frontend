@@ -38,7 +38,7 @@
           </ui-button>
 
           <ui-button :type="'submit'"
-                     :class="'post__reply__btn--write'">등록
+                     :class="'post__reply__btn--write'">저장
           </ui-button>
         </div>
       </div>

@@ -358,7 +358,7 @@ export default {
 
       for (let i = 0; i < tagArr.length; i++) {
         this.saveTagList.push({
-          idx: i+1, // 식별용 index. HTTP 요청에 넘기지 않음
+          idx: i, // 식별용 index. HTTP 요청에 넘기지 않음
           name: tagArr[i].trim(),
           addTagYn: 'Y',
         });

@@ -97,14 +97,14 @@
                                       :key="guestbook.guestbookReply"
                                       :list="guestbook.guestbookReply"
                                       :parentId="guestbook.id"
-                                      @update="onUpdateReply">
+                                      @updateReply="onUpdateReply">
             </app-guestbook-reply-list>
           </template>
 
-          <app-guestbook-reply :idx="i"
-                               :parentId="guestbook.id"
-                               @addReply="onAddReply">
-          </app-guestbook-reply>
+          <app-add-guestbook-reply :idx="i"
+                                   :parentId="guestbook.id"
+                                   @addReply="onAddReply">
+          </app-add-guestbook-reply>
 
           <div class="guestbook__toggle">
             <ui-icon-button :type="'button'"
@@ -144,7 +144,7 @@
 <script>
 import { messageUtil, isNotEmpty } from '@/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
-import AppGuestbookReply from '@/components/views/guestbook/AppGuestbookReply.vue';
+import AppAddGuestbookReply from '@/components/views/guestbook/AppAddGuestbookReply.vue';
 import AppGuestbookReplyList from '@/components/views/guestbook/AppGuestbookReplyList.vue';
 import AppUpdateGuestbookModal from '@/components/views/guestbook/AppUpdateGuestbookModal.vue';
 import AppRemoveGuestbookModal from '@/components/views/guestbook/AppRemoveGuestbookModal.vue';
@@ -152,7 +152,7 @@ import AppRemoveGuestbookModal from '@/components/views/guestbook/AppRemoveGuest
 export default {
   name: 'app-guestbook',
   components: {
-    AppGuestbookReply,
+    AppAddGuestbookReply,
     AppGuestbookReplyList,
   },
   data() {

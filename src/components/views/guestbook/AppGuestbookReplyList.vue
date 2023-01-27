@@ -97,7 +97,7 @@ export default {
         foundGuestbookReply.modDate = this.$moment(modDate).format('YYYY-MM-DD HH:mm:ss');
 
         this.$store.dispatch('Guestbook/FETCH_UPDATED_GUESTBOOK_REPLY', {});
-        this.$emit('update', foundGuestbookReply);
+        this.$emit('updateReply', foundGuestbookReply);
       }
     },
     /** 방명록이 삭제되고 Modal이 close됐을 때 실행됨 */
