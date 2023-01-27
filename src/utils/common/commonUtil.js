@@ -19,13 +19,20 @@ export const isNotBlank = (value) => {
 };
 
 /** 값을 1개라도 포함하는지 확인 */
-export const isIn = (target, ...values) => {
-  return values.some(v => v === target);
+export const isIn = (target, ...value) => {
+  return value.some(v => v === target);
 };
 
 /** 값이 배열인지 확인 */
 export const isArray = (value) => {
   return Array.isArray(value);
+};
+
+/** 배열에 중복된 값이 있는지 확인 (객체 배열은 사용 불가) */
+export const arrayHasDuplicateValue = (value) => {
+  const setCollection = new Set(value.map(d => d.trim()));
+  
+  return setCollection.size < value.map(d => d.trim).length;
 };
 
 /** 파일 용량 구하기 */

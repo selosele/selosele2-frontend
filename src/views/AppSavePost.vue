@@ -130,7 +130,6 @@
                                :name="'addTag'"
                                :id="'savePostAddTag'"
                                :class="'write__tag'"
-                               :title="'태그 입력 (쉼표로 구분, 5개까지 입력 가능)'"
                                :placeholder="'태그 입력 (쉼표로 구분, 5개까지 입력 가능)'"
                                :block="true"
                                v-model="tagStr">
@@ -211,7 +210,7 @@
 </template>
 
 <script>
-import { isBlank, isNotEmpty, messageUtil } from '@/utils';
+import { arrayHasDuplicateValue, isBlank, isNotEmpty, messageUtil } from '@/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import AppSavePostTag from '@/components/views/post/AppSavePostTag.vue';
 
@@ -277,14 +276,14 @@ export default {
     },
     /** 포스트 저장 */
     onSubmit(values) {
-      const headers = { 'Content-Type': 'multipart/form-data' };
-
       this.setTagArr(values);
-
+      
       const isValid = this.validationCheck();
       if (!isValid) return;
-
+      
       console.log(values);
+
+      const headers = { 'Content-Type': 'multipart/form-data' };
     },
     /** 본문 요약 버튼 클릭 시 */
     async changeOgDesc() {
@@ -359,7 +358,7 @@ export default {
 
       for (let i = 0; i < tagArr.length; i++) {
         this.saveTagList.push({
-          id: i+1, // 식별용 ID. HTTP 요청에 넘기지 않음
+          idx: i+1, // 식별용 index. HTTP 요청에 넘기지 않음
           name: tagArr[i].trim(),
           addTagYn: 'Y',
         });
@@ -369,13 +368,20 @@ export default {
     },
     /** 유효성 검사 */
     validationCheck() {
-      if (5 < this.tagStr.split(',').length) {
+      const tagArr = this.tagStr.split(',');
+
+      if (arrayHasDuplicateValue(tagArr)) {
+        messageUtil.toastWarning('중복된 태그가 있습니다.');
+        return false;
+      }
+
+      if (5 < tagArr.length) {
         messageUtil.toastWarning('태그는 5개까지 입력할 수 있습니다.');
         return false;
       }
 
       return true;
-    }
+    },
   },
 }
 </script>

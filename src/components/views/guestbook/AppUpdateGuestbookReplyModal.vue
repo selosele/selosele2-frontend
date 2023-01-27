@@ -12,7 +12,7 @@
                    :rows="'4'"
                    :resize="'vertical'"
                    :rules="'required'"
-                   :value="guestbookReply.cont">
+                   :value="replacedCont">
       </ui-textarea>
 
       <div class="d-flex-w gap--15 mt--20">
@@ -50,6 +50,15 @@ export default {
   props: {
     /** 방명록 댓글 */
     guestbookReply: Object,
+  },
+  data() {
+    return {
+      /** br태그가 치환된 방명록 댓글 내용 */
+      replacedCont: '',
+    }
+  },
+  created() {
+    this.replacedCont = this.guestbookReply.cont.replaceAll('<br>', '\r\n');
   },
   methods: {
     /** 방명록 댓글 수정 */

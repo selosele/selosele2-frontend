@@ -2,7 +2,7 @@
   <div class="guestbook__depth2__wrapper">
     <ul class="guestbook__depth2__list">
       <li class="guestbook__depth2__item" v-for="(reply,i) in list.slice(0, pageSize)" :key="i">
-        <p class="guestbook__reply__cont">{{ reply.cont }}</p>
+        <p class="guestbook__reply__cont" v-html="reply.cont"></p>
   
         <div class="guestbook__cont__info depth2">
           <span class="guestbook__author">
@@ -97,6 +97,7 @@ export default {
         foundGuestbookReply.modDate = this.$moment(modDate).format('YYYY-MM-DD HH:mm:ss');
 
         this.$store.dispatch('Guestbook/FETCH_UPDATED_GUESTBOOK_REPLY', {});
+        this.$emit('update', foundGuestbookReply);
       }
     },
     /** 방명록이 삭제되고 Modal이 close됐을 때 실행됨 */

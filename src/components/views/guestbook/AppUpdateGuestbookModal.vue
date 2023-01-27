@@ -12,7 +12,7 @@
                    :rows="'4'"
                    :resize="'vertical'"
                    :rules="'required'"
-                   :value="guestbook.cont">
+                   :value="replacedCont">
       </ui-textarea>
 
       <div class="d-flex-w gap--15 mt--20">
@@ -51,12 +51,21 @@ export default {
     /** 방명록 */
     guestbook: Object,
   },
+  data() {
+    return {
+      /** br태그가 치환된 방명록 내용 */
+      replacedCont: '',
+    }
+  },
+  created() {
+    this.replacedCont = this.guestbook.cont.replaceAll('<br>', '\r\n');
+  },
   methods: {
     /** 방명록 수정 */
     async onSubmit(values) {
       const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;
-      
+
       this.$http.put('/guestbook', values)
       .then(res => {
         messageUtil.toastSuccess('저장되었습니다.');

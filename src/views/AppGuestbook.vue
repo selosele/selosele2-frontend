@@ -96,7 +96,8 @@
             <app-guestbook-reply-list v-if="i === replyActiveIndex"
                                       :key="guestbook.guestbookReply"
                                       :list="guestbook.guestbookReply"
-                                      :parentId="guestbook.id">
+                                      :parentId="guestbook.id"
+                                      @update="onUpdateReply">
             </app-guestbook-reply-list>
           </template>
 
@@ -192,6 +193,7 @@ export default {
 
         foundGuestbook.author = author;
         foundGuestbook.cont = cont;
+        foundGuestbook.cont = this.setData(foundGuestbook).cont;
         foundGuestbook.modDate = this.$moment(modDate).format('YYYY-MM-DD HH:mm:ss');
         
         this.$store.dispatch('Guestbook/FETCH_UPDATED_GUESTBOOK', {});
@@ -312,19 +314,24 @@ export default {
       });
     },
     /** 방명록 댓글 추가 시 */
-    async onAddReply(values) {
+    async onAddReply(value) {
       this.guestbookList = this.guestbookList.map(a => {
-        if (a.id === values.parentId) {
-          const data = this.setData(values);
+        if (a.id === value.parentId) {
+          const data = this.setData(value);
           a.guestbookReply.push(data);
         }
 
         return a;
       });
     },
+    /** 방명록 댓글 수정 시 */
+    onUpdateReply(value) {
+      value.cont = this.setData(value).cont;
+    },
     /** 방명록, 방명록 댓글 데이타 가공 */
     setData(data) {
-      data.cont = data.cont.replace('\n', '<br>');
+      data.cont = data.cont.replace(/\r\n|\n/g, '<br>');
+      data.cont = data.cont.replaceAll('\\r\\n', '<br>'); //AS-IS 데이타의 경우 \r\n 문자가 DB에 직접 들어감
       data.regDate = this.$moment(data.regDate).format('YYYY-MM-DD HH:mm:ss');
 
       if (isNotEmpty(data.modDate)) {
