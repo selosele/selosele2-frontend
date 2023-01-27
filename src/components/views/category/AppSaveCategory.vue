@@ -62,7 +62,7 @@ export default {
       const confirm = await messageUtil.confirmSuccess('삭제하시겠습니까?');
       if (!confirm) return;
 
-      this.$http.delete(`/${values.type}/${values.id}`)
+      this.$http.delete(`/${this.getType(values)}/${values.id}`)
       .then(res => {
         messageUtil.toastSuccess('삭제되었습니다.');
         this.$emit('refreshCategory');
@@ -70,7 +70,7 @@ export default {
     },
     /** 카테고리 추가 */
     addCategory(values) {
-      return this.$http.post(`/${values.type}`, values)
+      return this.$http.post(`/${this.getType(values)}`, values)
       .then(res => {
         messageUtil.toastSuccess('저장되었습니다.');
         this.$emit('refreshCategory');
@@ -78,12 +78,22 @@ export default {
     },
     /** 카테고리 수정 */
     updateCategory(values) {
-      return this.$http.put(`/${values.type}`, values)
+      return this.$http.put(`/${this.getType(values)}`, values)
       .then(res => {
         messageUtil.toastSuccess('저장되었습니다.');
         this.$emit('refreshCategory');
       });
-    }
+    },
+    /** 페이지 유형에 따른 API 호출 URL 얻기 */
+    getType(values) {
+      if ('D01003' === values.type) {
+        return 'category';
+      } else if ('D01004' === values.type) {
+        return 'tag';
+      }
+
+      return '';
+    },
   }
 }
 </script>

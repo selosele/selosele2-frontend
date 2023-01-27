@@ -4,7 +4,7 @@ export default [
     path: '/',
     component: () => import('@/views/AppIndex.vue'),
     meta: {
-      type: 'home',
+      type: 'D01001',
       showSatis: false
     },
   },
