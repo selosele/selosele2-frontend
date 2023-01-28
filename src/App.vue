@@ -18,7 +18,7 @@
         <router-view v-else></router-view>
 
         <div class="page__body--right" v-if="$route.meta.showSidebar">
-          <app-sidebar></app-sidebar>
+          <app-sidebar :key="$store.state.Layout.sidebar"></app-sidebar>
         </div>
       </div>
 

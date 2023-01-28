@@ -86,7 +86,7 @@ export default {
     parentId: Number,
   },
   watch: {
-    /** 방명록 댓글이 수정되고 Modal이 close됐을 때 실행됨 */
+    // 방명록 댓글이 수정되고 Modal이 close됐을 때 실행됨
     '$store.state.Guestbook.updatedGuestbookReply'(updatedGuestbookReply) {
       if (0 < Object.values(updatedGuestbookReply).length) {
         const { id, author, cont, modDate } = updatedGuestbookReply;
@@ -100,7 +100,7 @@ export default {
         this.$emit('updateReply', foundGuestbookReply);
       }
     },
-    /** 방명록이 삭제되고 Modal이 close됐을 때 실행됨 */
+    // 방명록이 삭제되고 Modal이 close됐을 때 실행됨
     '$store.state.Guestbook.removedGuestbookReply'(removedGuestbookReply) {
       if (0 < Object.values(removedGuestbookReply).length) {
         const { id } = removedGuestbookReply;

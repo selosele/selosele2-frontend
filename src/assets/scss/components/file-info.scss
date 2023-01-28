@@ -1,0 +1,25 @@
+.file-info__wrapper:deep {
+  .file-info {
+    &__wrapper {
+      display: flex;
+      margin-top: 0.5rem;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    &__txt {
+      display: block;
+      margin-bottom: 0.5rem;
+      padding: 0.35rem 0.5rem;
+      border: 1px solid $grey05;
+      background-color: $grey02;
+      font-size: 0.85rem;
+
+      @media (min-width: $min-mini-width) {
+        display: inline-block;
+        margin-bottom: 0;
+        vertical-align: middle;
+      }
+    }
+  }
+}

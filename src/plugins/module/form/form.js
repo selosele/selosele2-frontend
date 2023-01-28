@@ -12,6 +12,7 @@ import UiCheckboxGroup from '@/components/shared/form/UiCheckboxGroup.vue';
 import UiDatepicker from '@/components/shared/form/UiDatepicker.vue';
 import UiFileField from '@/components/shared/form/UiFileField.vue';
 import UiFileUploadField from '@/components/shared/form/UiFileUploadField.vue';
+import UiFileInfo from '@/components/shared/file/UiFileInfo.vue';
 
 export const formModule = {
   install: (app, options) => {
@@ -29,5 +30,6 @@ export const formModule = {
     app.component('ui-datepicker', UiDatepicker);
     app.component('ui-file-field', UiFileField);
     app.component('ui-file-upload-field', UiFileUploadField);
+    app.component('ui-file-info', UiFileInfo);
   }
 };

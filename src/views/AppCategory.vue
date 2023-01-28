@@ -82,7 +82,7 @@ export default {
       
       let category = {};
 
-      return this.$http.get(`/post/${this.type}/${this.id}`, { params: paginationDto })
+      return this.$http.get(`/post/${this.getType()}/${this.id}`, { params: paginationDto })
       .then(res => {
         res.data[0].map(d => {
           category.type = isNotEmpty(d.postCategory) ? '카테고리' : '태그';
@@ -106,6 +106,16 @@ export default {
     onMore() {
       this.page++;
       this.listPostByCategory();
+    },
+    /** 페이지 유형에 따른 API 호출 URL 얻기 */
+    getType() {
+      if ('D01004' === this.type) {
+        return 'category';
+      } else if ('D01005' === this.type) {
+        return 'tag';
+      }
+
+      return '';
     },
     /** 데이타 로딩 */
     dataLoading() {

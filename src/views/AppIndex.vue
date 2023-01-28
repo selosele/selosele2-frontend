@@ -135,7 +135,7 @@ export default {
         text: '전체',
       });
       
-      return this.$http.get('/category')
+      return this.$http.get('/category/list/count')
       .then(res => {
         res.data.map(d => {
           this.categoryList.push({

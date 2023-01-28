@@ -1,6 +1,14 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
-    <div class="write__wrapper">
+    <ui-loading :activeModel="!previewLoaded" :fullPage="true"></ui-loading>
+
+    <template v-if="!dataLoaded">
+      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
+      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
+      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
+    </template>
+
+    <div class="write__wrapper" v-else>
       <ui-form :name="'savePostForm'"
                :ref="'savePostForm'"
                :class="'write__frm'"
@@ -39,7 +47,8 @@
                                :name="'title'"
                                :id="'savePostTitle'"
                                :rules="'required'"
-                               :block="true">
+                               :block="true"
+                               :value="post?.title">
                 </ui-text-field>
               </div>
             </td>
@@ -59,6 +68,7 @@
               </ui-textarea>
 
               <md-editor :language="'en-US'"
+                         :preview="false"
                          v-model="cont">
               </md-editor>
             </td>
@@ -80,7 +90,8 @@
                              :id="'savePostOgDesc'"
                              :class="'write__og-desc'"
                              :placeholder="'50자 이내(생략 시, 제목이 들어감)'"
-                             :block="true">
+                             :block="true"
+                             :value="post?.ogDesc">
               </ui-text-field>
             </td>
           </tr>
@@ -105,17 +116,17 @@
                 </ui-file-button>
               </ui-file-field>
 
-              <div class="blog-config__avatar-image-use-wrapper" v-if="post?.ogImg">
-                <span class="blog-config__avatar-image-use">
-                  {{ ogImg }} (용량 : {{ getFileSize(ogImgSize) }})
-                </span>
-
+              <ui-file-info :imgName="ogImg"
+                            :imgSize="ogImgSize"
+                            v-if="post?.ogImg"
+              >
                 <ui-checkbox :name="'delOgImg'"
                              :id="'savePostDelOgImg'"
+                             :class="'ml--10'"
                              :label="'삭제'"
                              :values="'Y,N'">
                 </ui-checkbox>
-              </div>
+              </ui-file-info>
             </td>
           </tr>
           <tr v-if="'D01002' === $route.meta.type">
@@ -174,7 +185,7 @@
                         :label="'비고정'"
                         :rules="'required'"
                         :value="'N'"
-                        v-model="secretYn">
+                        v-model="pinYn">
               </ui-radio>
 
               <ui-radio :id="'savePostPinY'"
@@ -182,12 +193,18 @@
                         :label="'고정'"
                         :rules="'required'"
                         :value="'Y'"
-                        v-model="secretYn">
+                        v-model="pinYn">
               </ui-radio>
             </td>
           </tr>
 
           <template v-slot:btn>
+            <ui-button :type="'button'"
+                       :color="'warning'"
+                       :class="'write__btn'"
+                       @click="previewPost">미리보기
+            </ui-button>
+            
             <ui-button :type="'button'"
                        :color="'success'"
                        :class="'write__btn'">임시저장
@@ -210,9 +227,10 @@
 </template>
 
 <script>
-import { arrayHasDuplicateValue, isBlank, isNotEmpty, messageUtil } from '@/utils';
+import { arrayHasDuplicateValue, getFormValues, isBlank, isNotEmpty, messageUtil } from '@/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import AppSavePostTag from '@/components/views/post/AppSavePostTag.vue';
+import AppPreviewPostModal from '@/components/views/post/AppPreviewPostModal.vue';
 
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
@@ -226,7 +244,7 @@ export default {
   data() {
     return {
       /** 페이지 타이틀 */
-      pageTitle: '포스트 작성',
+      pageTitle: '',
       /** 수정 포스트 */
       post: null,
       /** 수정 포스트 내용 */
@@ -251,6 +269,10 @@ export default {
       tagStr: '',
       /** 포스트 작성/수정 시 추가한 태그 목록 */
       saveTagList: [],
+      /** 데이타 로딩 완료 여부 */
+      dataLoaded: false,
+      /** 미리보기 데이타 로딩 완료 여부 */
+      previewLoaded: false,
     }
   },
   /** 해당 컴포넌트를 벗어나 새로운 페이지로 이동할 때 호출됨 */
@@ -261,40 +283,85 @@ export default {
     if (!confirm) return false;
   },
   created() {
+    this.pageTitle = !this.isUpdatePage ? '포스트 작성' : '포스트 수정';
+    
     // 페이지 타이틀 세팅
     breadcrumbService.setPageTitle(this.pageTitle);
 
     this.init();
   },
+  computed: {
+    /** 포스트 수정 페이지인지 확인 */
+    isUpdatePage: {
+      get() {
+        return isNotEmpty(this.$route.params.id);
+      },
+      set(v) {}
+    }
+  },
   methods: {
     /** 초기 세팅 */
     async init() {
-      await Promise.all([
-        this.listCategory(),
-        this.listTag(),
-      ]);
+
+      this.previewLoaded = true;
+
+      // 포스트 수정 페이지일 경우, 포스트 조회 메서드를 실행하기 위함
+      if (this.isUpdatePage) {
+        await Promise.all([
+          this.listCategory(),
+          this.listTag(),
+          this.getPost(this.$route.params.id),
+        ]);
+      } else {
+        this.dataLoaded = true;
+        
+        await Promise.all([
+          this.listCategory(),
+          this.listTag(),
+        ]);
+      }
+
+      this.dataLoading();
     },
     /** 포스트 저장 */
     async onSubmit(values) {
-      const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
-      if (!confirm) return;
-      
       const isValid = this.validationCheck();
       if (!isValid) return;
+
+      const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
+      if (!confirm) return;
 
       // 태그 배열에 추가
       this.setTagArr(values);
       
       const headers = { 'Content-Type': 'multipart/form-data' };
 
-      this.$http.post('/post', values, { headers })
+      if (this.isUpdatePage) {
+        await this.$http.put('/post', values, { headers });
+      } else {
+        await this.$http.post('/post', values, { headers });
+      }
+
+      messageUtil.toastSuccess('저장되었습니다.');
+
+      this.$store.dispatch('Post/FETCH_MAIN_POSTLIST', {});
+      this.$store.dispatch('Layout/FETCH_SIDEBAR', {});
+
+      this.$router.push('/');
+    },
+    /** 포스트 조회 */
+    getPost(id) {
+      return this.$http.get(`/post/${id}`)
       .then(res => {
-        messageUtil.toastSuccess('저장되었습니다.');
+        this.post = { ...res.data };
 
-        this.$store.dispatch('Post/FETCH_MAIN_POSTLIST', {});
-        this.$store.dispatch('Layout/FETCH_SIDEBAR', {});
-
-        this.$router.push('/');
+        this.cont = this.post.rawText;
+        this.secretYn = this.post.secretYn;
+        this.pinYn = this.post.pinYn;
+        this.categoryId = this.post.postCategory[0].categoryId;
+        this.ogImg = this.post.ogImg;
+        this.ogImgSize = this.post.ogImgSize;
+        this.tagStr = this.post.postTag.map(d => d.tag.nm).join(', ');
       });
     },
     /** 본문 요약 버튼 클릭 시 */
@@ -313,7 +380,7 @@ export default {
     },
     /** cloudinary 파일 클릭 시 */
     onClickFile(file) {
-      this.$refs['savePostForm'].setFieldValue('ogImg', file.public_id);
+      this.$refs['savePostForm'].setFieldValue('ogImg', file.public_id + '.' + file.format);
       this.$refs['savePostForm'].setFieldValue('ogImgUrl', file.url);
       this.$refs['savePostForm'].setFieldValue('ogImgSize', file.bytes);
     },
@@ -369,13 +436,34 @@ export default {
       const tagArr = this.tagStr.split(',');
 
       for (let i = 0; i < tagArr.length; i++) {
+        const foundTag = this.tagList.find(d => d.text === tagArr[i].trim());
+
         this.saveTagList.push({
+          // DB에서 조회해온 태그와 일치하는 태그가 있을 경우에만 id 키값을 넣는다. 키값이 있으면 UPDATE, 없으면 INSERT를 하기 위함
+          ...(isNotEmpty(foundTag) && { id: foundTag.value }),
           nm: tagArr[i].trim(),
-          addTagYn: 'Y',
         });
       }
 
       formValues['saveTagList'] = JSON.stringify(this.saveTagList);
+    },
+    /** 포스트 미리보기 */
+    previewPost() {
+      const body = getFormValues(this.$refs['savePostForm'].$el);
+      
+      this.previewLoaded = false;
+
+      return this.$http.post('/post/preview', body)
+      .then(res => {
+        this.previewLoaded = true;
+
+        this.$modal.show({
+          component: AppPreviewPostModal,
+          bind: {
+            post: res.data,
+          },
+        });
+      });
     },
     /** 유효성 검사 */
     validationCheck() {
@@ -392,6 +480,12 @@ export default {
       }
 
       return true;
+    },
+    /** 데이타 로딩 */
+    dataLoading() {
+      if (isNotEmpty(this.post)) {
+        this.dataLoaded = true;
+      }
     },
   },
 }

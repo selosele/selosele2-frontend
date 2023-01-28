@@ -93,17 +93,17 @@
               </ui-file-button>
             </ui-file-field>
 
-            <div class="blog-config__avatar-image-use-wrapper" v-if="blogConfig.avatarImg">
-              <span class="blog-config__avatar-image-use">
-                {{ avatarImg }} (용량 : {{ getFileSize(avatarImgSize) }})
-              </span>
-
+            <ui-file-info :imgName="avatarImg"
+                          :imgSize="avatarImgSize"
+                          v-if="blogConfig.avatarImg"
+            >
               <ui-checkbox :name="'delAvatarImg'"
                            :id="'blogConfigDelAvatarImg'"
+                           :class="'ml--10'"
                            :label="'삭제'"
                            :values="'Y,N'">
               </ui-checkbox>
-            </div>
+            </ui-file-info>
           </td>
         </tr>
         <tr>
@@ -131,17 +131,17 @@
               </ui-file-button>
             </ui-file-field>
 
-            <div class="blog-config__og-image-use-wrapper" v-if="blogConfig.ogImg">
-              <span class="blog-config__og-image-use">
-                {{ ogImg }} (용량 : {{ getFileSize(ogImgSize) }})
-              </span>
-
+            <ui-file-info :imgName="ogImg"
+                          :imgSize="ogImgSize"
+                          v-if="blogConfig.ogImg"
+            >
               <ui-checkbox :name="'delOgImg'"
                            :id="'blogConfigDelOgImg'"
+                           :class="'ml--10'"
                            :label="'삭제'"
                            :values="'Y,N'">
               </ui-checkbox>
-            </div>
+            </ui-file-info>
           </td>
         </tr>
         <tr>
@@ -250,7 +250,7 @@
 
 <script>
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
-import { messageUtil, getFileSize, isNotEmpty } from '@/utils';
+import { messageUtil, isNotEmpty } from '@/utils';
 
 export default {
   name: 'app-blog-config',
@@ -267,7 +267,6 @@ export default {
       avatarFileList: [],
       ogFileList: [],
       previewBlogConfig: {},
-      getFileSize,
     }
   },
   /** 해당 컴포넌트를 벗어나 새로운 페이지로 이동할 때 호출됨 */
@@ -349,11 +348,11 @@ export default {
     /** Cloudinary 파일 클릭 시 */
     onClickFile(file, key) {
       if ('avatar' === key) {
-        this.$refs['blogConfigForm'].setFieldValue('avatarImg', file.public_id);
+        this.$refs['blogConfigForm'].setFieldValue('avatarImg', file.public_id + '.' + file.format);
         this.$refs['blogConfigForm'].setFieldValue('avatarImgUrl', file.url);
         this.$refs['blogConfigForm'].setFieldValue('avatarImgSize', file.bytes);
       } else if ('og' === key) {
-        this.$refs['blogConfigForm'].setFieldValue('ogImg', file.public_id);
+        this.$refs['blogConfigForm'].setFieldValue('ogImg', file.public_id + '.' + file.format);
         this.$refs['blogConfigForm'].setFieldValue('ogImgUrl', file.url);
         this.$refs['blogConfigForm'].setFieldValue('ogImgSize', file.bytes);
       }

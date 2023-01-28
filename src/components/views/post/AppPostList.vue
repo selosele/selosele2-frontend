@@ -137,6 +137,10 @@ export default {
       this.$http.delete('/post', { data: checkPostList })
       .then(res => {
         messageUtil.toastSuccess('삭제되었습니다.');
+
+        this.$store.dispatch('Post/FETCH_MAIN_POSTLIST', {});
+        this.$store.dispatch('Layout/FETCH_SIDEBAR', {});
+
         this.$emit('removePost');
       });
     },

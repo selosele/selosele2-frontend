@@ -185,7 +185,7 @@ export default {
     document.removeEventListener('click', this.closeMenu);
   },
   watch: {
-    /** 방명록이 수정되고 Modal이 close됐을 때 실행됨 */
+    // 방명록이 수정되고 Modal이 close됐을 때 실행됨
     '$store.state.Guestbook.updatedGuestbook'(updatedGuestbook) {
       if (0 < Object.values(updatedGuestbook).length) {
         const { id, author, cont, modDate } = updatedGuestbook;
@@ -199,7 +199,7 @@ export default {
         this.$store.dispatch('Guestbook/FETCH_UPDATED_GUESTBOOK', {});
       }
     },
-    /** 방명록이 삭제되고 Modal이 close됐을 때 실행됨 */
+    // 방명록이 삭제되고 Modal이 close됐을 때 실행됨
     '$store.state.Guestbook.removedGuestbook'(removedGuestbook) {
       if (0 < Object.values(removedGuestbook).length) {
         const { id } = removedGuestbook;

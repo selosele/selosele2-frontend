@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { isEmpty } from '@/utils';
+import { getFormValues, isEmpty } from '@/utils';
 import { Form } from 'vee-validate';
 
 export default {
@@ -41,7 +41,7 @@ export default {
   },
   mounted() {
     const form = this.$refs[this.name].$el;
-    this.formOldValues = Object.fromEntries(new FormData(form));
+    this.formOldValues = getFormValues(form);
   },
   methods: {
     /** form 제출 시 */
@@ -94,7 +94,7 @@ export default {
       if (isEmpty(field)) return null;
 
       const form = this.$refs[this.name].$el;
-      const formValues = Object.fromEntries(new FormData(form));
+      const formValues = getFormValues(form);
       
       return formValues[field];
     }

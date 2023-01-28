@@ -109,11 +109,17 @@ export default {
     this.tagList = [...this.storeSidebar.tag];
   },
   computed: {
-    storeSidebar() {
-      return this.$store.state.Layout.sidebar;
+    storeSidebar: {
+      get() {
+        return this.$store.state.Layout.sidebar;
+      },
+      set(v) {}
     },
-    widgetActive() {
-      return this.$store.state.Layout.isActive;
+    widgetActive: {
+      get() {
+        return this.$store.state.Layout.isActive;
+      },
+      set(v) {}
     },
   },
   watch: {
@@ -187,7 +193,7 @@ export default {
     },
     /** 카테고리 목록 및 개수 조회 */
     listCategoryAndCount() {
-      return this.$http.get('/category')
+      return this.$http.get('/category/list/count')
       .then(res => {
         res.data.map(d => {
           this.categoryList.push(d);
@@ -198,7 +204,7 @@ export default {
     },
     /** 태그 목록 및 개수 조회 */
     listTagAndCount() {
-      return this.$http.get('/tag')
+      return this.$http.get('/tag/list/count')
       .then(res => {
         res.data.map(d => {
           this.tagList.push(d);

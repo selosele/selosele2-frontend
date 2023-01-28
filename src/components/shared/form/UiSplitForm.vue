@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { getFormValues } from '@/utils';
 import UiForm from './UiForm.vue';
 
 export default {
@@ -54,7 +55,7 @@ export default {
     },
     /** form values 가져오기 */
     getFormValues(form) {
-      return Object.fromEntries(new FormData(form));
+      return getFormValues(form);
     }
   },
 }

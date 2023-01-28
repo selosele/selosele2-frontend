@@ -258,13 +258,16 @@ export default {
       if (!confirm) return;
 
       this.$http.delete(`/post/${values.id}`)
-      .then(res => {
+      .then(async res => {
         messageUtil.toastSuccess('삭제되었습니다.');
         this.goToList();
       });
     },
     /** 목록으로 돌아가기 */
     goToList() {
+      this.$store.dispatch('Post/FETCH_MAIN_POSTLIST', {});
+      this.$store.dispatch('Layout/FETCH_SIDEBAR', {});
+
       this.$router.push({
         path: '/',
         query: {

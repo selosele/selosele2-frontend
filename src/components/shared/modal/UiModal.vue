@@ -41,11 +41,15 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: calc(100vh - 4rem);
+  margin: auto;
 }
 :deep(.modal-content) {
-  position: relative;
+  overflow: auto;
   display: flex;
   flex-direction: column;
+  position: relative;
+  max-height: 100%;
   margin: 0 1rem;
   padding: 1rem;
   border: 1px solid #e2e8f0;
