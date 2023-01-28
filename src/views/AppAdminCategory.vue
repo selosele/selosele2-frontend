@@ -30,7 +30,7 @@
               
               <app-save-category v-if="dataLoaded2"
                                  :category="category"
-                                 :type="'D01003'"
+                                 :type="'D01004'"
                                  :key="type + category.id"
                                  @refreshCategory="refreshTree">
               </app-save-category>
@@ -60,7 +60,7 @@
 
               <app-save-category v-if="dataLoaded2"
                                  :category="category"
-                                 :type="'D01004'"
+                                 :type="'D01005'"
                                  :key="type + category.id"
                                  @refreshCategory="refreshTree">
               </app-save-category>
@@ -116,14 +116,14 @@ export default {
     listCategoryTreeAndPost() {
       return this.$http.get('/category/list/tree')
       .then(res => {
-        this.createTree(res.data, 'D01003');
+        this.createTree(res.data, 'D01004');
       });
     },
     /** 태그-포스트 계층형 구조 조회 */
     listTagTreeAndPost() {
       return this.$http.get('/tag/list/tree')
       .then(res => {
-        this.createTree(res.data, 'D01004');
+        this.createTree(res.data, 'D01005');
       });
     },
     /** 트리 생성 */
@@ -131,9 +131,9 @@ export default {
       data.forEach(parent => {
         let childNodes = [];
 
-        if ('D01003' === type) {
+        if ('D01004' === type) {
           childNodes = parent.postCategory;
-        } else if ('D01004' === type) {
+        } else if ('D01005' === type) {
           childNodes = parent.postTag;
         }
 
@@ -169,13 +169,13 @@ export default {
     },
     /** 트리 label 가공 */
     getTreeLabel(label, type) {
-      return 'D01003' === type ? label : `#${label}`;
+      return 'D01004' === type ? label : `#${label}`;
     },
     /** 트리 배열에 node 넣기 */
     pushNode(node, type) {
-      if ('D01003' === type) {
+      if ('D01004' === type) {
         this.categoryTree.push(node);
-      } else if ('D01004' === type) {
+      } else if ('D01005' === type) {
         this.tagTree.push(node);
       }
     },

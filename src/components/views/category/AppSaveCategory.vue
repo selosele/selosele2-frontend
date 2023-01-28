@@ -86,9 +86,9 @@ export default {
     },
     /** 페이지 유형에 따른 API 호출 URL 얻기 */
     getType(values) {
-      if ('D01003' === values.type) {
+      if ('D01004' === values.type) {
         return 'category';
-      } else if ('D01004' === values.type) {
+      } else if ('D01005' === values.type) {
         return 'tag';
       }
 

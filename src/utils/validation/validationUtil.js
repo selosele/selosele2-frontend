@@ -2,7 +2,7 @@ import { defineRule, configure } from 'vee-validate';
 import { required, min, max, between } from '@vee-validate/rules';
 import { localize } from '@vee-validate/i18n';
 
-export const initDefineRule = () => {
+export function initDefineRule() {
   
   defineRule('required', required);
   defineRule('min', min);
@@ -20,4 +20,4 @@ export const initDefineRule = () => {
     }),
   });
 
-};
+}

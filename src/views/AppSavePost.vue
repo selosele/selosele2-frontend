@@ -282,6 +282,7 @@ export default {
       const isValid = this.validationCheck();
       if (!isValid) return;
 
+      // 태그 배열에 추가
       this.setTagArr(values);
       
       const headers = { 'Content-Type': 'multipart/form-data' };
