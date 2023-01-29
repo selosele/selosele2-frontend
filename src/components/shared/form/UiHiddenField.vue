@@ -3,20 +3,20 @@
          :id="id"
          :ref="id"
          :name="name"
-         :value="modelValue"
-         v-bind="$attrs"
+         :value="value"
+         v-slot="{ field }"
+         v-bind="{ ...field, ...$attrs }"
   >
   </Field>
 </template>
 
 <script>
-import { Field, ErrorMessage } from 'vee-validate';
+import { Field } from 'vee-validate';
 
 export default {
   name: 'ui-hidden-field',
   components: {
     Field,
-    ErrorMessage,
   },
   props: {
     /** input type */
@@ -25,8 +25,15 @@ export default {
     id: String,
     /** input name */
     name: String,
+    /** input value */
+    value: {
+      type: [String, Number],
+      default: undefined,
+    },
     /** input modelValue */
-    modelValue: String,
+    modelValue: {
+      default: '',
+    },
   },
 }
 </script>

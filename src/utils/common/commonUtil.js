@@ -51,5 +51,5 @@ export function getFileSize(bytes, decimals = 2) {
 
 /** form values -> JSON으로 가공 */
 export function getFormValues(form) {
-  return Object.fromEntries(new FormData(form))
+  return Object.fromEntries(new FormData(form));
 }

@@ -16,7 +16,7 @@
         </div>
       </ui-form>
 
-      <div class="post__btn-wrapper mt--15" v-if="isLogin && 'main' === type">
+      <div class="post__btn-wrapper mt--15" v-if="isLogin && 'D01001' === type">
         <ui-icon-button :routerLink="'/add-post'"
                         :color="'primary'"
                         :icon="'xi-pen'"
@@ -149,7 +149,7 @@ export default {
       const runValidate = await this.$refs['postCategoryForm'].validateAll();
       if (!runValidate.valid) return;
 
-      this.$http.get('/post', { params: { categoryId } })
+      this.$http.get('/post', { params: { categoryId, type: 'D01001' } })
       .then(res => {
         this.$store.dispatch('Post/FETCH_SELECTED_CATEGORY_ID', categoryId);
         this.$emit('listPost', res.data);

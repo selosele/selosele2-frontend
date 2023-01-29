@@ -1,6 +1,7 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
-    <ui-loading :activeModel="!previewLoaded" :fullPage="true"></ui-loading>
+    <ui-loading :activeModel="!previewPostLoaded" :fullPage="true"></ui-loading>
+    <ui-loading :activeModel="!tmpPostListLoaded" :fullPage="true"></ui-loading>
 
     <template v-if="!dataLoaded">
       <ui-skeletor :height="'1.3rem'"></ui-skeletor>
@@ -18,10 +19,23 @@
         <div class="write__save-wrapper">
           <ui-button :type="'button'"
                      :color="'primary'"
-                     :class="'write__btn--load'">불러오기
+                     :class="'write__btn--load'"
+                     @click="listTmpPost">불러오기
           </ui-button>
     
-          <ul class="write__save-list"></ul>
+          <ul class="write__save-list" v-if="0 < tmpPostList.length">
+            <li v-for="(tmpPost,i) in tmpPostList" :key="i">
+              <ui-icon-button :type="'button'"
+                              :icon="'xi-close-min'"
+                              :text="'삭제'"
+                              :class="'write__save-list__delete'"
+                              @click="removeTmpPost(tmpPost.id)">
+              </ui-icon-button>
+
+              <a href="javascript:;" class="link" @click.prevent="applyTmpPost(tmpPost)">{{ tmpPost.title }}</a>
+              <span class="write__save-list__date">{{ tmpPost.regDate }}</span>
+            </li>
+          </ul>
         </div>
 
         <ui-hidden-field :name="'id'" :id="'savePostId'" :value="post?.id"></ui-hidden-field>
@@ -48,7 +62,8 @@
                                :id="'savePostTitle'"
                                :rules="'required'"
                                :block="true"
-                               :value="post?.title">
+                               :value="title"
+                               v-model="title">
                 </ui-text-field>
               </div>
             </td>
@@ -91,7 +106,8 @@
                              :class="'write__og-desc'"
                              :placeholder="'50자 이내(생략 시, 제목이 들어감)'"
                              :block="true"
-                             :value="post?.ogDesc">
+                             :value="ogDesc"
+                             v-model="ogDesc">
               </ui-text-field>
             </td>
           </tr>
@@ -100,9 +116,9 @@
               <label for="savePostOgImgFile">대표 이미지</label>
             </th>
             <td>
-              <ui-hidden-field :name="'ogImg'" :id="'savePostOgImg'" :value="post?.avatarImg"></ui-hidden-field>
-              <ui-hidden-field :name="'ogImgUrl'" :id="'savePostOgImgUrl'" :value="post?.avatarImgUrl"></ui-hidden-field>
-              <ui-hidden-field :name="'ogImgSize'" :id="'savePostOgImgSize'" :value="post?.avatarImgSize"></ui-hidden-field>
+              <ui-hidden-field :name="'ogImg'" :id="'savePostOgImg'" :value="post?.ogImg"></ui-hidden-field>
+              <ui-hidden-field :name="'ogImgUrl'" :id="'savePostOgImgUrl'" :value="post?.ogImgUrl"></ui-hidden-field>
+              <ui-hidden-field :name="'ogImgSize'" :id="'savePostOgImgSize'" :value="post?.ogImgSize"></ui-hidden-field>
 
               <ui-file-field :name="'ogImgFile'"
                              :id="'savePostOgImgFile'"
@@ -158,11 +174,11 @@
             </td>
           </tr>
           <tr v-if="'D01002' === $route.meta.type">
-            <th scope="row">공개/비공개</th>
+            <th scope="row">공개</th>
             <td>
               <ui-radio :id="'savePostSecretN'"
                         :name="'secretYn'"
-                        :label="'공개'"
+                        :label="'예'"
                         :rules="'required'"
                         :value="'N'"
                         v-model="secretYn">
@@ -170,7 +186,7 @@
           
               <ui-radio :id="'savePostSecretY'"
                         :name="'secretYn'"
-                        :label="'비공개'"
+                        :label="'아니오'"
                         :rules="'required'"
                         :value="'Y'"
                         v-model="secretYn">
@@ -182,7 +198,7 @@
             <td>
               <ui-radio :id="'savePostPinN'"
                         :name="'pinYn'"
-                        :label="'비고정'"
+                        :label="'아니오'"
                         :rules="'required'"
                         :value="'N'"
                         v-model="pinYn">
@@ -190,24 +206,39 @@
 
               <ui-radio :id="'savePostPinY'"
                         :name="'pinYn'"
-                        :label="'고정'"
+                        :label="'예'"
                         :rules="'required'"
                         :value="'Y'"
                         v-model="pinYn">
               </ui-radio>
             </td>
           </tr>
+          <tr>
+            <th scope="row">임시저장</th>
+            <td>
+              <ui-radio :id="'savePostTmpN'"
+                        :name="'tmpYn'"
+                        :label="'아니오'"
+                        :rules="'required'"
+                        :value="'N'"
+                        v-model="tmpYn">
+              </ui-radio>
+
+              <ui-radio :id="'savePostTmpY'"
+                        :name="'tmpYn'"
+                        :label="'예'"
+                        :rules="'required'"
+                        :value="'Y'"
+                        v-model="tmpYn">
+              </ui-radio>
+            </td>
+          </tr>
 
           <template v-slot:btn>
             <ui-button :type="'button'"
-                       :color="'warning'"
+                       :color="'success'"
                        :class="'write__btn'"
                        @click="previewPost">미리보기
-            </ui-button>
-            
-            <ui-button :type="'button'"
-                       :color="'success'"
-                       :class="'write__btn'">임시저장
             </ui-button>
 
             <ui-button :type="'reset'"
@@ -245,10 +276,14 @@ export default {
     return {
       /** 페이지 타이틀 */
       pageTitle: '',
-      /** 수정 포스트 */
+      /** 포스트 */
       post: null,
-      /** 수정 포스트 내용 */
+      /** 포스트 제목 */
+      title: '',
+      /** 포스트 내용 */
       cont: '',
+      /** 내용 요약 */
+      ogDesc: '',
       /** 대표 이미지 */
       ogImg: '',
       /** 대표 이미지 용량 */
@@ -257,7 +292,7 @@ export default {
       ogImgFileList: [],
       /** 포스트 카테고리 목록 */
       categoryList: [],
-      /** 수정 포스트의 카테고리 ID */
+      /** 포스트 카테고리 ID */
       categoryId: '',
       /** 포스트 태그 목록 */
       tagList: [],
@@ -265,14 +300,20 @@ export default {
       secretYn: 'N',
       /** 포스트 상단고정 여부 */
       pinYn: 'N',
+      /** 포스트 임시저장 여부 */
+      tmpYn: 'N',
       /** 포스트 작성/수정 시 입력한 태그 문자열 */
       tagStr: '',
       /** 포스트 작성/수정 시 추가한 태그 목록 */
       saveTagList: [],
+      /** 임시저장 포스트 목록 */
+      tmpPostList: [],
       /** 데이타 로딩 완료 여부 */
       dataLoaded: false,
       /** 미리보기 데이타 로딩 완료 여부 */
-      previewLoaded: false,
+      previewPostLoaded: false,
+      /** 임시저장 포스트 목록 로딩 완료 여부 */
+      tmpPostListLoaded: false,
     }
   },
   /** 해당 컴포넌트를 벗어나 새로운 페이지로 이동할 때 호출됨 */
@@ -302,8 +343,8 @@ export default {
   methods: {
     /** 초기 세팅 */
     async init() {
-
-      this.previewLoaded = true;
+      this.previewPostLoaded = true;
+      this.tmpPostListLoaded = true;
 
       // 포스트 수정 페이지일 경우, 포스트 조회 메서드를 실행하기 위함
       if (this.isUpdatePage) {
@@ -325,10 +366,19 @@ export default {
     },
     /** 포스트 저장 */
     async onSubmit(values) {
+      console.log(values);
+      const msg = ['저장하시겠습니까?', '저장되었습니다'];
+
+      // 임시저장 메시지 가공
+      if ('Y' === values.tmpYn) {
+        msg[0] = '임시' + msg[0];
+        msg[1] = '임시' + msg[1];
+      }
+
       const isValid = this.validationCheck();
       if (!isValid) return;
 
-      const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
+      const confirm = await messageUtil.confirmSuccess(msg[0]);
       if (!confirm) return;
 
       // 태그 배열에 추가
@@ -342,27 +392,41 @@ export default {
         await this.$http.post('/post', values, { headers });
       }
 
-      messageUtil.toastSuccess('저장되었습니다.');
+      messageUtil.toastSuccess(msg[1]);
 
       this.$store.dispatch('Post/FETCH_MAIN_POSTLIST', {});
       this.$store.dispatch('Layout/FETCH_SIDEBAR', {});
 
-      this.$router.push('/');
+      // 임시저장이 아닌 경우에만 페이지를 이동함
+      if ('N' === values.tmpYn) {
+        this.$router.push('/');
+      }
     },
     /** 포스트 조회 */
     getPost(id) {
       return this.$http.get(`/post/${id}`)
       .then(res => {
         this.post = { ...res.data };
-
-        this.cont = this.post.rawText;
-        this.secretYn = this.post.secretYn;
-        this.pinYn = this.post.pinYn;
-        this.categoryId = this.post.postCategory[0].categoryId;
-        this.ogImg = this.post.ogImg;
-        this.ogImgSize = this.post.ogImgSize;
-        this.tagStr = this.post.postTag.map(d => d.tag.nm).join(', ');
+        this.setData(this.post);
       });
+    },
+    /** 포스트 데이타 세팅 */
+    setData(post) {
+      this.$refs['savePostForm']?.setFieldValue('id', post.id);
+      this.$refs['savePostForm']?.setFieldValue('ogImg', post.ogImg);
+      this.$refs['savePostForm']?.setFieldValue('ogImgUrl', post.ogImgUrl);
+      this.$refs['savePostForm']?.setFieldValue('ogImgSize', post.ogImgSize);
+
+      this.title = post.title;
+      this.cont = post.rawText;
+      this.secretYn = post.secretYn;
+      this.pinYn = post.pinYn;
+      this.tmpYn = post.tmpYn;
+      this.categoryId = post.postCategory[0].categoryId;
+      this.ogDesc = post.ogDesc;
+      this.ogImg = post.ogImg;
+      this.ogImgSize = post.ogImgSize;
+      this.tagStr = post.postTag.map(d => d.tag.nm).join(', ');
     },
     /** 본문 요약 버튼 클릭 시 */
     async changeOgDesc() {
@@ -451,11 +515,11 @@ export default {
     previewPost() {
       const body = getFormValues(this.$refs['savePostForm'].$el);
       
-      this.previewLoaded = false;
+      this.previewPostLoaded = false;
 
       return this.$http.post('/post/preview', body)
       .then(res => {
-        this.previewLoaded = true;
+        this.previewPostLoaded = true;
 
         this.$modal.show({
           component: AppPreviewPostModal,
@@ -463,6 +527,47 @@ export default {
             post: res.data,
           },
         });
+      });
+    },
+    /** 임시저장 포스트 목록 조회 */
+    listTmpPost() {
+      if (0 < this.tmpPostList.length) {
+        this.tmpPostList = [];
+        this.tmpPostListLoaded = true;
+        return;
+      }
+
+      this.tmpPostListLoaded = false;
+
+      const listPostDto = { tmpYn: 'Y' };
+
+      return this.$http.get('/post', { params: listPostDto })
+      .then(res => {
+        res.data[0].map(d => {
+          d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
+        });
+
+        this.tmpPostList = [...res.data[0]];
+        this.tmpPostListLoaded = true;
+      });
+    },
+    /** 임시저장 포스트 적용 */
+    async applyTmpPost(tmpPost) {
+      const confirm = await messageUtil.confirmSuccess('적용하시겠습니까?');
+      if (!confirm) return;
+
+      this.post = { ...tmpPost };
+      this.setData(this.post);
+    },
+    /** 임시저장 포스트 삭제 */
+    async removeTmpPost(postId) {
+      const confirm = await messageUtil.confirmSuccess('삭제하시겠습니까?');
+      if (!confirm) return;
+
+      return this.$http.delete(`/post/${postId}`)
+      .then(res => {
+        messageUtil.toastSuccess('삭제되었습니다.');
+        this.tmpPostList = this.tmpPostList.filter(d => d.id !== postId);
       });
     },
     /** 유효성 검사 */

@@ -67,6 +67,22 @@
             pointer-events: none;
           }
         }
+
+        &--tmp {
+          &:after {
+            content: "\e9c3";
+            display: inline-block;
+            position: absolute;
+            top: 1.3rem;
+            right: 0;
+            font-family: $icon-font;
+            font-size: 6rem;
+            line-height: 1;
+            color: $black04;
+            opacity: 0.06;
+            pointer-events: none;
+          }
+        }
       }
    }
 

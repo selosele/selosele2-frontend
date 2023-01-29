@@ -64,7 +64,7 @@
                     v-if="$route.query['q'] && 0 < postList.length">
         </ui-loading>
 
-        <app-post-list-detail :type="'search'"
+        <app-post-list-detail :type="'D01006'"
                               :postList="postList"
                               v-if="dataLoaded">
         </app-post-list-detail>

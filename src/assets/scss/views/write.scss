@@ -20,7 +20,6 @@
          }
    
          &-list {
-            display: none;
             overflow-y: auto;
             position: absolute;
             top: calc(100% + 1.9rem);
@@ -56,22 +55,25 @@
                   vertical-align: middle;
    
                   @media (min-width: $min-mini-width) {
-                     max-width: calc(100% - 8.5rem);
+                     max-width: calc(100% - 9rem);
                      @include ellipsis;
                   }
                }
             }
    
             &__delete {
+               display: inline-flex;
+               justify-content: center;
+               align-items: center;
                min-width: 0;
                width: 0.8rem;
                height: 0.8rem;
-               line-height: 0.8rem;
                margin-right: 0.5rem;
                padding: 0;
                border: 0;
                border-radius: 50%;
                font-size: 0.8rem;
+               line-height: 1;
                text-shadow: none;
             }
    
@@ -90,40 +92,6 @@
       &__frm {
          > table {
             margin-top: 0;
-   
-            .cm-s-neo.CodeMirror {
-               font-family: $default-font03;
-            }
-   
-            .mdeditor {
-               &.has-no-preview {
-                  .mdeditor_markdown {
-                     height: 100%;
-                  }
-               }
-   
-               &_toolbar {
-                  margin-bottom: 0.55rem;
-                  border: 1px solid $grey05;
-                  box-shadow: none;
-   
-                  button {
-                     height: 100%;
-                  }
-               }
-   
-               &_scroll {
-                  height: 100%;
-                  background-color: $grey12;
-               }
-   
-               &_body {
-                  overflow: auto;
-                  height: 24rem;
-                  border-color: $grey05;
-                  background-color: $grey12;
-               }
-            }
          }
       }
 
