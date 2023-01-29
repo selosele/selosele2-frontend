@@ -110,6 +110,7 @@
             <ui-icon-button :type="'button'"
                             :icon="'xi-cog'"
                             :text="'방명록 수정/삭제'"
+                            :title="'방명록 수정/삭제'"
                             :class="'guestbook__btn--toggle'"
                             @click.stop="toggleMenu(i)">
             </ui-icon-button>

@@ -366,7 +366,6 @@ export default {
     },
     /** 포스트 저장 */
     async onSubmit(values) {
-      console.log(values);
       const msg = ['저장하시겠습니까?', '저장되었습니다'];
 
       // 임시저장 메시지 가공

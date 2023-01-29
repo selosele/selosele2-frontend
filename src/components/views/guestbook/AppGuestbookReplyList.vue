@@ -30,11 +30,12 @@
           <ui-icon-button :type="'button'"
                           :icon="'xi-cog'"
                           :text="'방명록 댓글 수정/삭제'"
+                          :title="'방명록 댓글 수정/삭제'"
                           :class="'guestbook__reply__btn--toggle'"
                           @click.stop="toggleMenu(i)">
           </ui-icon-button>
   
-          <div class="guestbook__reply__toggle-list"  v-show="i === activeIndex">
+          <div class="guestbook__reply__toggle-list" v-show="i === activeIndex">
             <ul>
               <li>
                 <button type="button"

@@ -34,7 +34,7 @@
     
         <div class="post__reply__write__btns">
           <ui-button :type="'reset'"
-                     :class="'post__reply__btn--reset'">다시 작성
+                     :class="'post__reply__btn--reset'">다시작성
           </ui-button>
 
           <ui-button :type="'submit'"
@@ -44,21 +44,55 @@
       </div>
     </ui-form>
   
-    <p class="post__reply__no-data">댓글이 없습니다. 제일 먼저 댓글을 작성해보세요.</p>
+    <p class="post__reply__no-data" v-if="0 === replyList.length">댓글이 없습니다. 제일 먼저 댓글을 작성해보세요.</p>
+
+    <app-post-reply-list v-else
+                         :replyList="replyList"
+                         @refreshList="onRefreshList">
+    </app-post-reply-list>
   </div>
 </template>
 
 <script>
+import AppPostReplyList from './AppPostReplyList.vue';
+
 export default {
   name: 'app-add-post-reply',
+  components: {
+    AppPostReplyList,
+  },
   props: {
     /** 포스트 ID */
     id: Number,
+  },
+  data() {
+    return {
+      /** 포스트 댓글 목록 */
+      replyList: Array,
+    }
+  },
+  created() {
+    this.listPostReply();
   },
   methods: {
     /** 포스트 댓글 저장 */
     onSubmit(values) {
       console.log(values);
+    },
+    /** 포스트 댓글 목록 조회 */
+    listPostReply() {
+      return this.$http.get(`/postreply/list/${this.id}`)
+      .then(res => {
+        res.data[0].map(d => {
+          d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
+        });
+
+        this.replyList = [...res.data[0]];
+      });
+    },
+    /** 댓글 목록 새로고침 */
+    onRefreshList() {
+      this.listPostReply();
     },
   },
 }

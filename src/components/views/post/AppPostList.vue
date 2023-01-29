@@ -131,7 +131,7 @@ export default {
         return obj;
       });
 
-      const confirm = await messageUtil.confirmSuccess('포스트를 삭제하시겠습니까?');
+      const confirm = await messageUtil.confirmSuccess('삭제하시겠습니까?');
       if (!confirm) return;
 
       this.$http.delete('/post', { data: checkPostList })

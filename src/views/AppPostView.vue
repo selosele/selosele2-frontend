@@ -204,8 +204,7 @@ export default {
 
       this.postUrl = this.$nowUrl;
       this.postLikeCnt = this.post.postLike.length;
-      this.snsCodeList = this.$store.state.Code.data
-        .filter(d => d.prefix === 'C01');
+      this.snsCodeList = this.$store.state.Code.data.filter(d => d.prefix === 'C01');
     },
     /** 포스트 조회 */
     getPost(id) {
@@ -248,13 +247,14 @@ export default {
       return this.$http.post(`/postlike/${id}`)
       .then(res => {
         if (0 === this.postLikeCnt && -1 === res.data) return;
+
         this.getPostLike(id);
         this.postLikeCnt += res.data;
       });
     },
     /** 포스트 삭제 */
     async onSubmit(values) {
-      const confirm = await messageUtil.confirmSuccess('포스트를 삭제하시겠습니까?');
+      const confirm = await messageUtil.confirmSuccess('삭제하시겠습니까?');
       if (!confirm) return;
 
       this.$http.delete(`/post/${values.id}`)
