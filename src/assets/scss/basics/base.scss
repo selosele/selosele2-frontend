@@ -154,6 +154,7 @@ input {
   }
 
   &[disabled] {
+    background-color: $grey02;
     cursor: not-allowed;
   }
 }

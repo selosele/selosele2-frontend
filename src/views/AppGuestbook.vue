@@ -115,13 +115,13 @@
                             @click.stop="toggleMenu(i)">
             </ui-icon-button>
 
-            <div class="guestbook__toggle-list" v-show="i === activeIndex">
+            <div class="guestbook__toggle-list" v-if="i === activeIndex">
               <ul>
                 <li>
                   <button type="button" 
                           class="guestbook__btn--edit1" 
                           ref="guestbookMenuBtn" 
-                          @click="openModal('update', guestbook)">
+                          @click="openModal('E01003', guestbook, isLogin)">
                     <i class="xi-pen-o" aria-hidden="true"></i> 방명록 수정
                   </button>
                 </li>
@@ -129,7 +129,7 @@
                   <button type="button" 
                           class="guestbook__btn--delete1"
                           ref="guestbookMenuBtn" 
-                          @click="openModal('remove', guestbook)">
+                          @click="openModal('E01004', guestbook, isLogin)">
                     <i class="xi-trash-o" aria-hidden="true"></i> 방명록 삭제
                   </button>
                 </li>
@@ -275,13 +275,18 @@ export default {
       }
     },
     /** 방명록 수정/삭제 Modal */
-    openModal(type, guestbook) {
-      if ('update' === type) {
+    openModal(type, guestbook, isLogin) {
+      if (!isLogin && 'Y' === guestbook.adminYn) {
+        messageUtil.toastError('수정/삭제 권한이 없습니다.');
+        return;
+      }
+
+      if ('E01003' === type) {
         this.$modal.show({
           component: AppUpdateGuestbookModal,
           bind: { guestbook },
         });
-      } else if ('remove' === type) {
+      } else if ('E01004' === type) {
         this.$modal.show({
           component: AppRemoveGuestbookModal,
           bind: { id: guestbook.id },

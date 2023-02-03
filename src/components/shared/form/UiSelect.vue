@@ -26,6 +26,7 @@
                 :key="i"
                 :value="d.value"
                 :selected="d.value == selectedValue"
+                :readonly="readonly"
                 :disabled="disabled">{{ d.text }}</option>
       </template>
     </Field>
@@ -52,6 +53,8 @@ export default {
     name: String,
     /** select title */
     title: String,
+    /** select readonly */
+    readonly: Boolean,
     /** select disabled */
     disabled: Boolean,
     /** select label */

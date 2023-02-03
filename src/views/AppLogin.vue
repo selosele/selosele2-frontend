@@ -22,7 +22,7 @@
                          :name="'userPw'"
                          :title="'비밀번호 입력'"
                          :placeholder="'비밀번호'"
-                         :rules="userPwRules"
+                         :rules="'required|min:8|max:15'"
                          v-model="userPw">
           </ui-text-field>
           
@@ -61,15 +61,6 @@ export default {
   created() {
     // 페이지 타이틀 세팅
     breadcrumbService.setPageTitle(this.pageTitle);
-  },
-  computed: {
-    /** 비밀번호 유효성 검증 rules */
-    userPwRules() {
-      if (this.isProduction) {
-        return 'required|min:8|max:15';
-      }
-      return 'required';
-    },
   },
   methods: {
     /** 로그인 */

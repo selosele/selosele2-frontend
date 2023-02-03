@@ -19,6 +19,7 @@
              :title="title"
              :placeholder="placeholder"
              :readonly="readonly"
+             :disabled="disabled"
              :autocomplete="autocomplete"
              :value="value"
              v-bind="{ ...field, ...$attrs }"
@@ -62,6 +63,8 @@ export default {
     placeholder: String,
     /** input readonly */
     readonly: Boolean,
+    /** input disabled */
+    disabled: Boolean,
     /** input label */
     label: String,
     /** input autocomplete */

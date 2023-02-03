@@ -19,6 +19,7 @@
              :title="title"
              :placeholder="placeholder"
              :readonly="readonly"
+             :disabled="disabled"
              :step="step"
              :min="min"
              :max="max"
@@ -45,7 +46,8 @@ import UiTextField from './UiTextField.vue';
 
 export default defineComponent({
   name: 'ui-numeric-field',
-  extends: defineComponent(UiTextField),
+  extends: UiTextField,
+  setup: UiTextField.setup,
   components: {
     Field,
     ErrorMessage,

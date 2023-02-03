@@ -155,7 +155,7 @@
                               :min="'0'"
                               :max="'1.1'"
                               :rules="'between:0,1.1'"
-                              :text="'0.1 ~ 1 미만 (초기화 0)'"
+                              :text="'0.1 ~ 1 이하 (초기화 0)'"
                               :value="blogConfig.ogImgContrast"
                               v-model="previewBlogConfig.ogImgContrast">
             </ui-numeric-field>

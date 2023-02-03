@@ -20,6 +20,7 @@
                 :rows="rows"
                 :placeholder="placeholder"
                 :readonly="readonly"
+                :disabled="disabled"
                 :value="value"
                 v-bind="{ ...field, ...$attrs }"
                 @input="onInput($event)"
@@ -60,6 +61,8 @@ export default {
     rows: String,
     /** textarea readonly */
     readonly: Boolean,
+    /** textarea disabled */
+    disabled: Boolean,
     /** textarea label */
     label: String,
     /** textarea validation rules */

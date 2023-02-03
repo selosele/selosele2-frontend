@@ -10,7 +10,7 @@
                        :id="'guestbookRemovePw'"
                        :title="'비밀번호 입력'"
                        :placeholder="'비밀번호 입력'"
-                       :readonly="isLogin"
+                       :disabled="isLogin"
                        :rules="!isLogin ? 'required|min:8|max:15' : ''">
         </ui-text-field>
 

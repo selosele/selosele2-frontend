@@ -1,6 +1,6 @@
 <template>
   <div>
-    <strong class="post__reply__count">댓글 <span>{{ replyList.length }}</span></strong>
+    <strong class="post__reply__count">댓글 <span>{{ realReplyList.length }}</span></strong>
   
     <ui-icon-button :type="'button'"
                     :color="'primary'"
@@ -110,6 +110,8 @@ export default {
   props: {
     /** 포스트 댓글 목록 */
     replyList: Array,
+    /** 삭제되지 않은 포스트 댓글 목록 */
+    realReplyList: Array,
   },
   data() {
     return {

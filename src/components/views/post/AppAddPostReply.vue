@@ -48,6 +48,7 @@
 
     <app-post-reply-list v-else
                          :replyList="replyList"
+                         :realReplyList="realReplyList"
                          @refreshList="onRefreshList">
     </app-post-reply-list>
   </div>
@@ -69,6 +70,8 @@ export default {
     return {
       /** 포스트 댓글 목록 */
       replyList: Array,
+      /** 삭제되지 않은 포스트 댓글 목록 */
+      realReplyList: Array,
     }
   },
   created() {
@@ -88,6 +91,7 @@ export default {
         });
 
         this.replyList = [...res.data[0]];
+        this.realReplyList = this.replyList.filter(d => d.delYn === 'N');
       });
     },
     /** 댓글 목록 새로고침 */

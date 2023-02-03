@@ -35,13 +35,13 @@
                           @click.stop="toggleMenu(i)">
           </ui-icon-button>
   
-          <div class="guestbook__reply__toggle-list" v-show="i === activeIndex">
+          <div class="guestbook__reply__toggle-list" v-if="i === activeIndex">
             <ul>
               <li>
                 <button type="button"
                         class="guestbook__btn--edit2"
                         ref="guestbookMenuBtn"
-                        @click="openModal('update', reply)">
+                        @click="openModal('E01003', reply, isLogin)">
                   <i class="xi-pen-o" aria-hidden="true"></i> 댓글 수정
                 </button>
               </li>
@@ -49,7 +49,7 @@
                 <button type="button"
                         class="guestbook__btn--delete2" 
                         ref="guestbookMenuBtn" 
-                        @click="openModal('remove', reply)">
+                        @click="openModal('E01004', reply, isLogin)">
                   <i class="xi-trash-o" aria-hidden="true"></i> 댓글 삭제
                 </button>
               </li>
@@ -72,7 +72,7 @@
 <script>
 import AppUpdateGuestbookReplyModal from '@/components/views/guestbook/AppUpdateGuestbookReplyModal.vue';
 import AppRemoveGuestbookReplyModal from '@/components/views/guestbook/AppRemoveGuestbookReplyModal.vue';
-import { isNotEmpty } from '@/utils';
+import { isNotEmpty, messageUtil } from '@/utils';
 
 export default {
   name: 'app-guestbook-reply-list',
@@ -144,14 +144,19 @@ export default {
         this.activeIndex = -1;
       }
     },
-    /** 방명록 수정/삭제 Modal */
-    openModal(type, guestbookReply) {
-      if ('update' === type) {
+    /** 방명록 댓글 수정/삭제 Modal */
+    openModal(type, guestbookReply, isLogin) {
+      if (!isLogin && 'Y' === guestbookReply.adminYn) {
+        messageUtil.toastError('수정/삭제 권한이 없습니다.');
+        return;
+      }
+
+      if ('E01003' === type) {
         this.$modal.show({
           component: AppUpdateGuestbookReplyModal,
           bind: { guestbookReply },
         });
-      } else if ('remove' === type) {
+      } else if ('E01004' === type) {
         this.$modal.show({
           component: AppRemoveGuestbookReplyModal,
           bind: { id: guestbookReply.id },
