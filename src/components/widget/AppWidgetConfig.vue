@@ -50,10 +50,17 @@ export default {
     this.listWidgetUseN();
   },
   computed: {
-    /** 변경 위젯 값 */
+    /** 위젯 값 */
     widgetValue: {
       get() {
         return this.$store.state.Layout.sidebar.widget;
+      },
+      set(v) {}
+    },
+    /** 위젯 값 */
+    changeWidgetValue: {
+      get() {
+        return this.$store.state.Layout.changeWidget;
       },
       set(v) {}
     }
@@ -119,9 +126,14 @@ export default {
     },
     /** 위젯 저장 유효성 검사 */
     validationCheck() {
-      for (const widget of this.widgetValue) {
+      for (const widget of this.changeWidgetValue) {
         if (isBlank(widget.title)) {
           messageUtil.toastWarning('위젯 명을 입력하세요.');
+          return false;
+        }
+
+        if (30 < widget.title.length) {
+          messageUtil.toastWarning('위젯 명을 30자 이하로 입력하세요.');
           return false;
         }
 
@@ -150,7 +162,8 @@ export default {
     /** 위젯관리 버튼 클릭 시 */
     toggleList() {
       this.listActive = !this.listActive;
-      this.$store.dispatch('Layout/SET_IS_ACTIVE', this.listActive);
+      this.$store.dispatch('Layout/FETCH_IS_ACTIVE', this.listActive);
+      this.$store.dispatch('Layout/FETCH_CHANGE_WIDGET', this.$store.state.Layout.sidebar.widget);
     },
   },
 };

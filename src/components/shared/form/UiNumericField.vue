@@ -1,5 +1,5 @@
 <template>
-  <div class="input-wrapper" v-show="!hidden">
+  <div :class="`input-wrapper${inlineInput}`" v-show="!hidden">
     <label :for="id"
            :class="'input-label'"
            v-if="label">{{ label }}

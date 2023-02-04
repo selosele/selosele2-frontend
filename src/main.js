@@ -30,15 +30,15 @@ const app = createApp({
     this.$http.interceptors.response.use(
       response => response,
       async error => {
-        if (isNotBlank(error.response.data.type) && 'biz' === error.response.data.type) {
+        if (isNotBlank(error?.response?.data?.type) && 'biz' === error?.response?.data?.type) {
           // 비즈니스 로직 예외 처리
-          messageUtil.toastError(error.response.data.message);
+          messageUtil.toastError(error?.response?.data?.message);
         } else {
           messageUtil.toastError('오류가 발생했습니다.');
         }
 
         // 권한 오류, JWT 만료/변조 시 강제 로그아웃
-        if (401 === error.response.status) {
+        if (401 === error?.response?.status) {
           const res = await this.$store.dispatch('Auth/LOGOUT', this.$http);
           
           if ('ok' === res) {
@@ -51,7 +51,7 @@ const app = createApp({
           }
         }
         // 404 에러
-        if (404 === error.response.status) {
+        if (404 === error?.response?.status) {
           this.$router.push('/error');
         }
 

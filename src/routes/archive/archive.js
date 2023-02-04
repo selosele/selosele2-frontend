@@ -9,7 +9,7 @@ export default [
     path: '/category/:id',
     component: () => import('@/views/AppCategory.vue'),
     props: (route) => ({
-      type: 'D01004',
+      pageType: 'D01004',
       id: route.params.id,
     }),
   },
@@ -18,7 +18,7 @@ export default [
     path: '/tag/:id',
     component: () => import('@/views/AppCategory.vue'),
     props: (route) => ({
-      type: 'D01005',
+      pageType: 'D01005',
       id: route.params.id,
     }),
   },

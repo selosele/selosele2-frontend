@@ -1,14 +1,14 @@
 <template>
-  <ul :class="['post__wrapper', { 'search__results': 'D01006' === type }]">
+  <ul :class="['post__wrapper', { 'search__results': 'D01006' === pageType }]">
     <li class="post__wrapper__list" v-for="(post,i) in postList" :key="i">
       <div :class="['post__wrapper__list__item', 
-                  { 'post__wrapper__list__item--logined': isLogin && 'D01001' === type },
-                  { 'post__wrapper__list__item--pin': 'Y' === post.pinYn && 'D01001' === type },
-                  { 'post__wrapper__list__item--tmp': 'Y' === post.tmpYn && 'D01001' === type },
+                  { 'post__wrapper__list__item--logined': isLogin && 'D01001' === pageType },
+                  { 'post__wrapper__list__item--pin': 'Y' === post.pinYn && 'D01001' === pageType },
+                  { 'post__wrapper__list__item--tmp': 'Y' === post.tmpYn && 'D01001' === pageType },
                   { 'post__wrapper__list__item--secret': 'Y' === post.secretYn },
                   { 'post__wrapper__list__item--new': isNewPost(post.regDate) },
         ]">
-        <span class="post__check only-input" v-if="isLogin && 'D01001' === type">
+        <span class="post__check only-input" v-if="isLogin && 'D01001' === pageType">
           <ui-checkbox :name="'checkPost'"
                        :id="`checkPost${post.id}`"
                        :class="'post__checkbox'"
@@ -22,7 +22,7 @@
   
         <article :aria-labelledby="`title${post.id}`" :aria-describedby="`cont${post.id}`" class="post__box">
           <h2 :id="`title${post.id}`" class="post__title">
-            <router-link :to="{ path: `/post/${post.id}`, query: { page } }" v-if="'D01001' === type">
+            <router-link :to="{ path: `/post/${post.id}`, query: { page } }" v-if="'D01001' === pageType">
               {{ post.title }}
             </router-link>
   
@@ -53,12 +53,12 @@
               </span>
             </template>
   
-            <span class="post__box__item post__box__item--like-count" v-if="'D01001' === type">
+            <span class="post__box__item post__box__item--like-count" v-if="'D01001' === pageType">
               <i class="xi-heart-o" aria-hidden="true"></i>
               <span class="sr-only">추천수</span> {{ post.likeCnt }}
             </span>
   
-            <span class="post__box__item post__box__item--comment-count" v-if="'D01001' === type">
+            <span class="post__box__item post__box__item--comment-count" v-if="'D01001' === pageType">
               <i class="xi-speech-o" aria-hidden="true"></i>
               <span class="sr-only">댓글수</span> {{ post.replyCnt }}
             </span>
@@ -74,7 +74,7 @@ export default {
   name: 'app-post-list-detail',
   props: {
     // main: 메인, search: 검색
-    type: String,
+    pageType: String,
     // 현재 페이지 번호
     page: Number,
     // 포스트 목록

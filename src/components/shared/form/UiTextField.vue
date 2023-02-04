@@ -1,5 +1,5 @@
 <template>
-  <div class="input-wrapper" v-show="!hidden">
+  <div :class="`input-wrapper${inlineInput}`" v-show="!hidden">
     <label :for="id"
            :class="'input-label'"
            v-if="label">{{ label }}
@@ -46,6 +46,7 @@ import { isNotEmpty } from '@/utils';
 
 export default {
   name: 'ui-text-field',
+  inheritAttrs: false,
   components: {
     Field,
     ErrorMessage,
@@ -73,6 +74,8 @@ export default {
     rules: String,
     /** block input */
     block: Boolean,
+    /** inline input */
+    inline: Boolean,
     /** input text */
     text: String,
     /** input 숨김 여부 */
@@ -95,6 +98,15 @@ export default {
       get() {
         if (isNotEmpty(this.block) && true === this.block) {
           return ` input-field is--block`;
+        }
+        return '';
+      },
+      set(v) {}
+    },
+    inlineInput: {
+      get() {
+        if (isNotEmpty(this.inline) && true === this.inline) {
+          return ` input-wrapper--inline-block`;
         }
         return '';
       },

@@ -145,18 +145,18 @@ export default {
       }
     },
     /** 방명록 댓글 수정/삭제 Modal */
-    openModal(type, guestbookReply, isLogin) {
+    openModal(crudType, guestbookReply, isLogin) {
       if (!isLogin && 'Y' === guestbookReply.adminYn) {
         messageUtil.toastError('수정/삭제 권한이 없습니다.');
         return;
       }
 
-      if ('E01003' === type) {
+      if ('E01003' === crudType) {
         this.$modal.show({
           component: AppUpdateGuestbookReplyModal,
           bind: { guestbookReply },
         });
-      } else if ('E01004' === type) {
+      } else if ('E01004' === crudType) {
         this.$modal.show({
           component: AppRemoveGuestbookReplyModal,
           bind: { id: guestbookReply.id },

@@ -7,7 +7,7 @@
       <div class="d-flex-w gap--10">
         <ui-text-field :type="'password'"
                        :name="'authorPw'"
-                       :id="'guestbookReplyRemovePw'"
+                       :id="'removeGuestbookReplyPw'"
                        :title="'비밀번호 입력'"
                        :placeholder="'비밀번호 입력'"
                        :disabled="isLogin"

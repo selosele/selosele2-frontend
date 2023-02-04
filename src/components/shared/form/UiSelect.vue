@@ -1,5 +1,5 @@
 <template>
-  <div class="input-wrapper" v-show="!hidden">
+  <div :class="`input-wrapper${selectInline}`" v-show="!hidden">
     <label :for="id"
            :class="'input-label'"
            v-if="label">{{ label }}
@@ -42,6 +42,7 @@ import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
   name: 'ui-select',
+  inheritAttrs: false,
   components: {
     Field,
     ErrorMessage,
@@ -63,6 +64,8 @@ export default {
     rules: String,
     /** block select */
     block: Boolean,
+    /** inline select */
+    inline: Boolean,
     /** select default value */
     defaultValue: [String, Number],
     /** select selected value */
@@ -87,12 +90,25 @@ export default {
       set(v) {}
     },
     /** select block 스타일 */
-    selectBlock() {
-      if (isNotEmpty(this.block) && true === this.block) {
-        return ` is--block`;
-      }
-      return '';
+    selectBlock: {
+      get() {
+        if (isNotEmpty(this.block) && true === this.block) {
+          return ` is--block`;
+        }
+        return '';
+      },
+      set(v) {}
     },
+    /** select inline 스타일 */
+    selectInline: {
+      get() {
+        if (isNotEmpty(this.inline) && true === this.inline) {
+          return ` input-wrapper--inline-block`;
+        }
+        return '';
+      },
+      set(v) {}
+    }
   },
   methods: {
     onChange($event) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="input-wrapper" v-show="!hidden">
+  <div :class="`input-wrapper${inlineInput}`" v-show="!hidden">
     <label :for="id"
            :class="'input-label'"
            v-if="label">{{ label }}
@@ -42,6 +42,7 @@ import { isNotEmpty } from '@/utils';
 
 export default {
   name: 'ui-textarea',
+  inheritAttrs: false,
   components: {
     Field,
     ErrorMessage,
@@ -69,6 +70,8 @@ export default {
     rules: String,
     /** block textarea */
     block: Boolean,
+    /** inline textarea */
+    inline: Boolean,
     /** textarea resize */
     resize: String,
     /** textarea 숨김 여부 */
@@ -103,6 +106,17 @@ export default {
       get() {
         if (isNotEmpty(props.block) && true === props.block) {
           return ' input-field is--block';
+        }
+        return '';
+      },
+      set(v) {}
+    });
+
+    /** block textarea */
+    const inlineInput = computed({
+      get() {
+        if (isNotEmpty(props.inline) && true === props.inline) {
+          return ` input-wrapper--inline-block`;
         }
         return '';
       },
@@ -145,6 +159,7 @@ export default {
 
     return {
       blockTextarea,
+      inlineInput,
       resizeClass,
       inputEl,
       onInput,

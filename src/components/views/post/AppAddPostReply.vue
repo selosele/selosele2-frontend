@@ -2,8 +2,9 @@
   <div class="post__reply__wrapper">
     <h2>댓글 남기기</h2>
 
-    <ui-form :name="'addReplyForm'" :class="'post__reply__write-frm'" @onsubmit="onSubmit">
-      <ui-hidden-field :name="'parentId'" :id="'parentId'" :value="id"></ui-hidden-field>
+    <ui-form :name="'addPostReplyForm'" :class="'post__reply__write-frm'" @onsubmit="onSubmit">
+      <ui-hidden-field :name="'parentId'" :id="'addPostReplyParentId'" :value="id"></ui-hidden-field>
+      <ui-hidden-field :name="'crudType'" :id="'addPostReplyCrudType'" :value="'E01001'"></ui-hidden-field>
 
       <ui-textarea :name="'cont'"
                    :id="'addReplyCont'"
@@ -12,7 +13,7 @@
                    :cols="'30'"
                    :rows="'4'"
                    :resize="'vertical'"
-                   :rules="'required'">
+                   :rules="'required|max:1000'">
       </ui-textarea>
 
       <div class="post__reply__write__inputs">
@@ -21,7 +22,9 @@
                        :id="'addPostReplyAuthor'"
                        :class="'post__reply__input'"
                        :label="'닉네임'"
-                       :rules="'required|max:20'">
+                       :rules="'required|max:20'"
+                       :readonly="isLogin"
+                       :value="isLogin ? '관리자' : ''">
         </ui-text-field>
     
         <ui-text-field :type="'password'"
@@ -47,14 +50,17 @@
     <p class="post__reply__no-data" v-if="0 === replyList.length">댓글이 없습니다. 제일 먼저 댓글을 작성해보세요.</p>
 
     <app-post-reply-list v-else
+                         :key="replyList"
                          :replyList="replyList"
-                         :realReplyList="realReplyList"
-                         @refreshList="onRefreshList">
+                         @refreshList="listPostReply"
+                         @removeReply="listPostReply"
+                         @updateReply="onUpdateReply">
     </app-post-reply-list>
   </div>
 </template>
 
 <script>
+import { isNotEmpty, messageUtil } from '@/utils';
 import AppPostReplyList from './AppPostReplyList.vue';
 
 export default {
@@ -70,8 +76,6 @@ export default {
     return {
       /** 포스트 댓글 목록 */
       replyList: Array,
-      /** 삭제되지 않은 포스트 댓글 목록 */
-      realReplyList: Array,
     }
   },
   created() {
@@ -79,24 +83,52 @@ export default {
   },
   methods: {
     /** 포스트 댓글 저장 */
-    onSubmit(values) {
-      console.log(values);
+    async onSubmit(values) {
+      const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
+      if (!confirm) return;
+
+      this.$http.post('/postreply', values)
+      .then(res => {
+        messageUtil.toastSuccess('저장되었습니다.');
+
+        this.listPostReply();
+      });
     },
     /** 포스트 댓글 목록 조회 */
     listPostReply() {
       return this.$http.get(`/postreply/list/${this.id}`)
       .then(res => {
         res.data[0].map(d => {
-          d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
+          this.setData(d);
         });
 
         this.replyList = [...res.data[0]];
-        this.realReplyList = this.replyList.filter(d => d.delYn === 'N');
       });
     },
-    /** 댓글 목록 새로고침 */
-    onRefreshList() {
-      this.listPostReply();
+    /** 포스트 댓글 수정 시 */
+    onUpdateReply(reply) {
+      const { id, author, cont, modDate } = reply;
+
+      this.replyList.map(d => {
+        if (d.id === id) {
+          d.author = author;
+          d.cont = cont;
+          d.cont = this.setData(d).cont;
+          d.modDate = this.$moment(modDate).format('YYYY-MM-DD HH:mm:ss');
+        }
+      });
+    },
+    /** 포스트 댓글 데이타 가공 */
+    setData(data) {
+      data.cont = data.cont.replace(/\r\n|\n/g, '<br>');
+      data.cont = data.cont.replaceAll('\\r\\n', '<br>'); // AS-IS 데이타의 경우 \r\n 문자가 DB에 직접 들어감
+      data.regDate = this.$moment(data.regDate).format('YYYY-MM-DD HH:mm:ss');
+
+      if (isNotEmpty(data.modDate)) {
+        data.modDate = this.$moment(data.modDate).format('YYYY-MM-DD HH:mm:ss');
+      }
+
+      return data;
     },
   },
 }

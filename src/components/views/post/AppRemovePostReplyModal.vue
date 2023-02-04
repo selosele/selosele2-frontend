@@ -1,13 +1,22 @@
 <template>
-  <ui-modal :title="'방명록 삭제'" :name="this.$options.name">
-    <ui-form :name="'removeGuestbookForm'" @onsubmit="onSubmit">
-      <ui-hidden-field :name="'id'" :value="id">
+  <ui-modal :title="'포스트 댓글 삭제'" :name="this.$options.name">
+    <ui-form :name="'removePostReplyForm'" @onsubmit="onSubmit">
+      <ui-hidden-field :name="'id'" id="removePostReplyId" :value="reply.id">
+      </ui-hidden-field>
+
+      <ui-hidden-field :name="'parentId'" id="removePostReplyParentId" :value="reply.parentId">
+      </ui-hidden-field>
+
+      <ui-hidden-field :name="'author'" id="removePostReplyAuthor" :value="reply.author">
+      </ui-hidden-field>
+
+      <ui-hidden-field :name="'crudType'" id="removePostReplyCrudType" :value="'E01004'">
       </ui-hidden-field>
 
       <div class="d-flex-w gap--10">
         <ui-text-field :type="'password'"
                        :name="'authorPw'"
-                       :id="'removeGuestbookPw'"
+                       :id="'removePostReplyPw'"
                        :title="'비밀번호 입력'"
                        :placeholder="'비밀번호 입력'"
                        :disabled="isLogin"
@@ -26,23 +35,23 @@
 import { messageUtil } from '@/utils';
 
 export default {
-  name: 'app-remove-guestbook-modal',
+  name: 'app-remove-post-reply-modal',
   props: {
-    /** 방명록 ID */
-    id: String,
+    /** 포스트 댓글 */
+    reply: Object,
   },
   methods: {
-    /** 방명록 삭제 */
+    /** 포스트 댓글 삭제 */
     async onSubmit(values) {
       const confirm = await messageUtil.confirmSuccess('삭제하시겠습니까?');
       if (!confirm) return;
       
-      this.$http.delete(`/guestbook/${values.id}`, { data: values })
+      this.$http.post('/postreply/remove', values)
       .then(res => {
         messageUtil.toastSuccess('삭제되었습니다.');
         
         this.$modal.hide(this.$options.name);
-        this.$store.dispatch('Guestbook/FETCH_REMOVED_GUESTBOOK', values);
+        this.$store.dispatch('Post/FETCH_REMOVED_POST_REPLY', values);
       });
     },
   },

@@ -11,7 +11,7 @@
                    :placeholder="'댓글을 남겨주세요.'"
                    :cols="'30'"
                    :rows="'3'"
-                   :rules="'required'">
+                   :rules="'required|max:1000'">
       </ui-textarea>
 
       <div class="guestbook__reply__btns">

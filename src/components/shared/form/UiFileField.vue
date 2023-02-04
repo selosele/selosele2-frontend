@@ -1,5 +1,5 @@
 <template>
-  <div :class="`input-wrapper${gapClass}`" v-show="!hidden">
+  <div :class="`input-wrapper${gapClass}${inlineInput}`" v-show="!hidden">
     <Field type="file"
            :name="name"
            :id="id"
@@ -29,6 +29,7 @@ import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
   name: 'ui-file-field',
+  inheritAttrs: false,
   components: {
     Field,
     ErrorMessage,
@@ -44,6 +45,8 @@ export default {
     accept: String,
     /** block input */
     block: Boolean,
+    /** inline input */
+    inline: Boolean,
     /** block input */
     gap: [String, Number],
     /** input label */
@@ -64,6 +67,15 @@ export default {
       get() {
         if (isNotEmpty(this.gap)) {
           return ` d-flex-w gap--${this.gap}`;
+        }
+        return '';
+      },
+      set(v) {}
+    },
+    inlineInput: {
+      get() {
+        if (isNotEmpty(this.inline) && true === this.inline) {
+          return ` input-wrapper--inline-block`;
         }
         return '';
       },

@@ -1,7 +1,8 @@
 <template>
-  <div class="mb--15">
+  <div class="mb--15 d-flex gap--10">
     <ui-text-field :class="'tree-filter-field'"
                    :placeholder="placeholder"
+                   :inline="true"
                    v-model="searchText"
                    v-if="filter">
     </ui-text-field>

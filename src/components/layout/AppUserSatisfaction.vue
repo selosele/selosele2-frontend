@@ -30,6 +30,7 @@
                          :class="'satisfaction__comment'"
                          :title="'의견'"
                          :placeholder="'의견을 입력하세요.'"
+                         :rules="'max:1000'"
                          v-model="comment">
           </ui-text-field>
 

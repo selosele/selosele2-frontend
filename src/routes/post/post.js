@@ -7,7 +7,7 @@ export default [
       requiresAuth: true,
       showSidebar: false,
       showSatis: false,
-      type: 'D01002',
+      pageType: 'D01002',
     },
   },
   {
@@ -18,7 +18,7 @@ export default [
       requiresAuth: true,
       showSidebar: false,
       showSatis: false,
-      type: 'D01002',
+      pageType: 'D01002',
     },
   },
   {
@@ -26,7 +26,7 @@ export default [
     path: '/post/:id',
     component: () => import('@/views/AppPostView.vue'),
     meta: {
-      type: 'D01002',
+      pageType: 'D01002',
     },
   },
 ];

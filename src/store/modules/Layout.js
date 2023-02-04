@@ -8,6 +8,8 @@ export const Layout = {
     sidebar: {},
     /** 위젯관리 활성화 여부 */
     isActive: false,
+    /** 변경 위젯 값 */
+    changeWidget: {},
   }),
   mutations: {
     SET_PAGE_TITLE(state, pageTitle) {
@@ -21,6 +23,9 @@ export const Layout = {
     },
     SET_IS_ACTIVE(state, isActive) {
       state.isActive = isActive;
+    },
+    SET_CHANGE_WIDGET(state, changeWidget) {
+      state.changeWidget = changeWidget;
     },
   },
   actions: {
@@ -39,8 +44,11 @@ export const Layout = {
         });
       });
     },
-    SET_IS_ACTIVE({ commit }, values) {
+    FETCH_IS_ACTIVE({ commit }, values) {
       commit('SET_IS_ACTIVE', values);
+    },
+    FETCH_CHANGE_WIDGET({ commit }, values) {
+      commit('SET_CHANGE_WIDGET', values);
     },
   },
 };

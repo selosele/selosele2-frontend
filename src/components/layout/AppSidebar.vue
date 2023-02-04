@@ -115,6 +115,12 @@ export default {
       },
       set(v) {}
     },
+    changeWidget: {
+      get() {
+        return this.$store.state.Layout.changeWidget;
+      },
+      set(v) {}
+    },
     widgetActive: {
       get() {
         return this.$store.state.Layout.isActive;
@@ -125,7 +131,7 @@ export default {
   watch: {
     '$route'() {
       // 페이지 전환 시, 위젯관리 기능 비활성화
-      this.$store.dispatch('Layout/SET_IS_ACTIVE', false);
+      this.$store.dispatch('Layout/FETCH_IS_ACTIVE', false);
     },
   },
   methods: {
@@ -137,7 +143,8 @@ export default {
       ];
 
       const className = [
-        'sidebar__item-title-icon', 'sidebar__item-title-text'
+        'sidebar__item-title-icon',
+        'sidebar__item-title-text'
       ];
 
       return -1 !== tag.indexOf(e.target.tagName.toLowerCase())
@@ -146,6 +153,13 @@ export default {
     /** 위젯 명 변경 시 */
     onChangeTitle(e, id) {
       this.storeSidebar.widget.map(d => {
+        if (id === d.id) {
+          d.title = e.target.textContent;
+        }
+        return d;
+      });
+
+      this.changeWidget.map(d => {
         if (id === d.id) {
           d.title = e.target.textContent;
         }
@@ -171,6 +185,7 @@ export default {
     },
     /** 위젯 정렬 종료 시 */
     onUpdateList(values) {
+      
       // 정렬순서 값 변경
       values.forEach((item, idx) => {
         item.sort = idx + 1;

@@ -7,7 +7,7 @@
                    :name="'id'"
                    :id="'codeId'"
                    :label="'코드 ID'"
-                   :rules="'required'"
+                   :rules="'required|max:6'"
                    :readonly="true"
                    :block="true"
                    v-model="id">
@@ -17,7 +17,7 @@
                    :name="'prefix'"
                    :id="'codePrefix'"
                    :label="'코드 접두어'"
-                   :rules="'required'"
+                   :rules="'required|max:3'"
                    :block="true"
                    v-model="prefix">
     </ui-text-field>
@@ -26,7 +26,7 @@
                    :name="'val'"
                    :id="'codeVal'"
                    :label="'코드 값'"
-                   :rules="'required'"
+                   :rules="'required|max:3'"
                    :block="true"
                    v-model="val">
     </ui-text-field>
@@ -35,7 +35,7 @@
                    :name="'nm'"
                    :id="'codeNm'"
                    :label="'코드 명'"
-                   :rules="'required'"
+                   :rules="'required|max:30'"
                    :block="true"
                    :value="code.nm">
     </ui-text-field>
@@ -45,7 +45,7 @@
                  :id="'codeDesc'"
                  :resize="'vertical'"
                  :label="'코드 설명'"
-                 :rules="'required'"
+                 :rules="'required|max:30'"
                  :value="code.desc">
     </ui-textarea>
 

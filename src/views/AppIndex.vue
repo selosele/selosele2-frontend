@@ -4,7 +4,7 @@
 
     <app-post-list
       v-if="dataLoaded"
-      :type="'D01001'"
+      :pageType="'D01001'"
       :page="page"
       :postList="pagingPostList"
       :categoryList="categoryList"
@@ -96,7 +96,7 @@ export default {
     },
     /** 포스트 목록 조회 */
     async listPost() {
-      const listPostDto = { type: 'D01001' };
+      const listPostDto = { pageType: 'D01001' };
       const post = await this.$http.get('/post', { params: listPostDto });
 
       post.data[0].map(d => {

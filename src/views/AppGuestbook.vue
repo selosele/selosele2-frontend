@@ -1,24 +1,24 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
     <div class="guestbook__wrapper">
-      <ui-form :class="'guestbook__write-frm'" :name="'guestbookForm'" @onsubmit="onSubmit">
+      <ui-form :class="'guestbook__write-frm'" :name="'addGuestbookForm'" @onsubmit="onSubmit">
         <div class="guestbook__write">
           <ui-textarea :name="'cont'"
-                       :id="'guestbookWriteCont'"
+                       :id="'addGuestbookCont'"
                        :class="'guestbook__textarea'"
                        :title="'방명록 내용 입력'"
                        :placeholder="'하고싶은 말을 남겨주세요.'"
                        :cols="'30'"
                        :rows="'4'"
-                       :rules="'required'">
+                       :rules="'required|max:1000'">
           </ui-textarea>
 
           <div class="guestbook__write__inputs">
             <div class="guestbook__write__input-box">
-              <label for="guestbookWriteAuthor" class="pt--5">닉네임</label>
+              <label for="addGuestbookAuthor" class="pt--5">닉네임</label>
               <ui-text-field :type="'text'"
                              :name="'author'"
-                             :id="'guestbookWriteAuthor'"
+                             :id="'addGuestbookAuthor'"
                              :class="'guestbook__input'"
                              :rules="'required|max:20'"
                              :readonly="isLogin"
@@ -27,10 +27,10 @@
             </div>
 
             <div class="guestbook__write__input-box">
-              <label for="guestbookWritePw" class="pt--5">비밀번호</label>
+              <label for="addGuestbookPw" class="pt--5">비밀번호</label>
               <ui-text-field :type="'password'"
                              :name="'authorPw'"
-                             :id="'guestbookWritePw'"
+                             :id="'addGuestbookPw'"
                              :class="'guestbook__input'"
                              :rules="'required|min:8|max:15'">
               </ui-text-field>
@@ -275,18 +275,18 @@ export default {
       }
     },
     /** 방명록 수정/삭제 Modal */
-    openModal(type, guestbook, isLogin) {
+    openModal(crudType, guestbook, isLogin) {
       if (!isLogin && 'Y' === guestbook.adminYn) {
         messageUtil.toastError('수정/삭제 권한이 없습니다.');
         return;
       }
 
-      if ('E01003' === type) {
+      if ('E01003' === crudType) {
         this.$modal.show({
           component: AppUpdateGuestbookModal,
           bind: { guestbook },
         });
-      } else if ('E01004' === type) {
+      } else if ('E01004' === crudType) {
         this.$modal.show({
           component: AppRemoveGuestbookModal,
           bind: { id: guestbook.id },
@@ -337,7 +337,7 @@ export default {
     /** 방명록, 방명록 댓글 데이타 가공 */
     setData(data) {
       data.cont = data.cont.replace(/\r\n|\n/g, '<br>');
-      data.cont = data.cont.replaceAll('\\r\\n', '<br>'); //AS-IS 데이타의 경우 \r\n 문자가 DB에 직접 들어감
+      data.cont = data.cont.replaceAll('\\r\\n', '<br>'); // AS-IS 데이타의 경우 \r\n 문자가 DB에 직접 들어감
       data.regDate = this.$moment(data.regDate).format('YYYY-MM-DD HH:mm:ss');
 
       if (isNotEmpty(data.modDate)) {

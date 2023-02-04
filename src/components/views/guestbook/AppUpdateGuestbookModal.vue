@@ -5,32 +5,30 @@
       </ui-hidden-field>
 
       <ui-textarea :name="'cont'"
-                   :id="'guestbookUpdateCont'"
+                   :id="'updateGuestbookCont'"
                    :title="'방명록 내용 입력'"
                    :placeholder="'하고싶은 말을 남겨주세요.'"
                    :cols="'30'"
                    :rows="'4'"
                    :resize="'vertical'"
-                   :rules="'required'"
+                   :rules="'required|max:1000'"
                    :value="replacedCont">
       </ui-textarea>
 
       <div class="d-flex-w gap--15 mt--20">
-        <label for="guestbookUpdateAuthor" class="pt--5">닉네임</label>
+        <label for="updateGuestbookAuthor" class="pt--5">닉네임</label>
         <ui-text-field :type="'text'"
                        :name="'author'"
-                       :id="'guestbookUpdateAuthor'"
-                       :class="'guestbook__input'"
+                       :id="'updateGuestbookAuthor'"
                        :rules="'required|max:20'"
                        :readonly="'Y' === guestbook.adminYn"
                        :value="guestbook.author">
         </ui-text-field>
 
-        <label for="guestbookUpdatePw" class="pt--5">비밀번호</label>
+        <label for="updateGuestbookPw" class="pt--5">비밀번호</label>
         <ui-text-field :type="'password'"
                        :name="'authorPw'"
-                       :id="'guestbookUpdatePw'"
-                       :class="'guestbook__input'"
+                       :id="'updateGuestbookPw'"
                        :rules="'required|min:8|max:15'">
         </ui-text-field>
 

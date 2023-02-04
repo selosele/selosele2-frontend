@@ -79,6 +79,7 @@
           &-text {
             overflow: hidden;
             width: calc(100% - 2rem);
+            min-height: 1.3rem;
             caret-color: auto;
             cursor: text;
           }

@@ -145,7 +145,7 @@
               </ui-file-info>
             </td>
           </tr>
-          <tr v-if="'D01002' === $route.meta.type">
+          <tr v-if="'D01002' === $route.meta.pageType">
             <th scope="row">
               <label for="savePostAddTag">태그</label>
             </th>
@@ -173,7 +173,7 @@
               </div>
             </td>
           </tr>
-          <tr v-if="'D01002' === $route.meta.type">
+          <tr v-if="'D01002' === $route.meta.pageType">
             <th scope="row">공개</th>
             <td>
               <ui-radio :id="'savePostSecretN'"
@@ -193,7 +193,7 @@
               </ui-radio>
             </td>
           </tr>
-          <tr v-if="'D01002' === $route.meta.type">
+          <tr v-if="'D01002' === $route.meta.pageType">
             <th scope="row">상단고정</th>
             <td>
               <ui-radio :id="'savePostPinN'"

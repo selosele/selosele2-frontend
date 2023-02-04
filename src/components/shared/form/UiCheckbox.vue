@@ -31,6 +31,7 @@ import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
   name: 'ui-checkbox',
+  inheritAttrs: false,
   components: {
     Field,
     ErrorMessage,

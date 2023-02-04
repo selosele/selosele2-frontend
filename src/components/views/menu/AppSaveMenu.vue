@@ -29,7 +29,7 @@
                    :name="'name'"
                    :id="'menuName'"
                    :label="'메뉴 명'"
-                   :rules="'required'"
+                   :rules="'required|max:50'"
                    :block="true"
                    :value="menu.name">
     </ui-text-field>
@@ -38,7 +38,7 @@
                    :name="'link'"
                    :id="'menuLink'"
                    :label="'메뉴 링크'"
-                   :rules="'required'"
+                   :rules="'required|max:255'"
                    :block="true"
                    :value="menu.link">
     </ui-text-field>

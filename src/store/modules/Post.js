@@ -10,6 +10,10 @@ export const Post = {
     checkAll: false,
     /** 선택된 카테고리 ID */
     selectedCategoryId: '',
+    /** 수정된 포스트 댓글 */
+    updatedPostReply: {},
+    /** 삭제된 포스트 댓글 */
+    removedPostReply: {},
   }),
   mutations: {
     SET_MAIN_POSTLIST(state, mainPostObj) {
@@ -24,6 +28,12 @@ export const Post = {
     SET_SELECTED_CATEGORY_ID(state, selectedCategoryId) {
       state.selectedCategoryId = selectedCategoryId;
     },
+    SET_UPDATED_POST_REPLY(state, updatedPostReply) {
+      state.updatedPostReply = updatedPostReply;
+    },
+    SET_REMOVED_POST_REPLY(state, removedPostReply) {
+      state.removedPostReply = removedPostReply;
+    },
   },
   actions: {
     FETCH_MAIN_POSTLIST({ commit }, values) {
@@ -37,6 +47,12 @@ export const Post = {
     },
     FETCH_SELECTED_CATEGORY_ID({ commit }, values) {
       commit('SET_SELECTED_CATEGORY_ID', values);
+    },
+    FETCH_UPDATED_POST_REPLY({ commit }, values) {
+      commit('SET_UPDATED_POST_REPLY', values);
+    },
+    FETCH_REMOVED_POST_REPLY({ commit }, values) {
+      commit('SET_REMOVED_POST_REPLY', values);
     },
   },
 };

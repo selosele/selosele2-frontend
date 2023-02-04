@@ -16,7 +16,7 @@
         </div>
       </ui-form>
 
-      <div class="post__btn-wrapper mt--15" v-if="isLogin && 'D01001' === type">
+      <div class="post__btn-wrapper mt--15" v-if="isLogin && 'D01001' === pageType">
         <ui-icon-button :routerLink="'/add-post'"
                         :color="'primary'"
                         :icon="'xi-pen'"
@@ -40,7 +40,7 @@
         </span>
       </div>
 
-      <app-post-list-detail :type="type"
+      <app-post-list-detail :pageType="pageType"
                             :page="page"
                             :key="postList"
                             :postList="postList"
@@ -64,7 +64,7 @@ export default {
   },
   props: {
     /** main: 메인, search: 검색 */
-    type: String,
+    pageType: String,
     /** 현재 페이지 번호 */
     page: Number,
     /** 포스트 목록 */
@@ -149,7 +149,7 @@ export default {
       const runValidate = await this.$refs['postCategoryForm'].validateAll();
       if (!runValidate.valid) return;
 
-      this.$http.get('/post', { params: { categoryId, type: 'D01001' } })
+      this.$http.get('/post', { params: { categoryId, pageType: 'D01001' } })
       .then(res => {
         this.$store.dispatch('Post/FETCH_SELECTED_CATEGORY_ID', categoryId);
         this.$emit('listPost', res.data);
