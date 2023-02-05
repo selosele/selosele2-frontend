@@ -34,7 +34,12 @@
           :class="'input-field-text'">
     </span>
 
-    <ErrorMessage class="form-field-error" :name="name">
+    <ErrorMessage
+      :class="{
+        'form-field-error': true,
+        'form-field-error--tooltip': tooltip,
+      }"
+      :name="name">
     </ErrorMessage>
   </div>
 </template>
@@ -82,6 +87,11 @@ export default {
     hidden: {
       type: Boolean,
       default: false,
+    },
+    /** 에러메시지 tooltip 사용 여부 */
+    tooltip: {
+      type: Boolean,
+      default: true,
     },
     /** input value */
     value: {

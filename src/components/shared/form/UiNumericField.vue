@@ -34,7 +34,12 @@
           :class="'input-field-text'">
     </span>
 
-    <ErrorMessage class="form-field-error" :name="name">
+    <ErrorMessage
+      :class="{
+        'form-field-error': true,
+        'form-field-error--tooltip': tooltip,
+      }"
+      :name="name">
     </ErrorMessage>
   </div>
 </template>

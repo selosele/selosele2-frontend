@@ -45,10 +45,10 @@ export default {
       pageTitle: '콘텐츠 관리',
       columnDefs: [
         { }, // 체크박스
-        { headerName: '콘텐츠 URL', field: 'link' },
+        { headerName: '콘텐츠 URL', field: 'link', width: 100 },
         { headerName: '콘텐츠 제목', field: 'title' },
-        { headerName: '콘텐츠 등록일시', field: 'regDate', width: 150 },
-        { headerName: '콘텐츠 수정일시', field: 'modDate', width: 150  },
+        { headerName: '콘텐츠 등록일시', field: 'regDate', width: 100 },
+        { headerName: '콘텐츠 수정일시', field: 'modDate', width: 100  },
       ],
       rowData: [],
       gridApi: null,

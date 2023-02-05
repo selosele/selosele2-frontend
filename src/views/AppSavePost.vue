@@ -60,7 +60,7 @@
                 <ui-text-field :type="'text'"
                                :name="'title'"
                                :id="'savePostTitle'"
-                               :rules="'required'"
+                               :rules="'required|max:200'"
                                :block="true"
                                :value="title"
                                v-model="title">
@@ -77,7 +77,7 @@
                            :id="'savePostCont'"
                            :cols="'80'"
                            :rows="'18'"
-                           :rules="'required'"
+                           :rules="'required|max:4500'"
                            :hidden="true"
                            v-model="cont">
               </ui-textarea>
@@ -106,6 +106,7 @@
                              :class="'write__og-desc'"
                              :placeholder="'50자 이내(생략 시, 제목이 들어감)'"
                              :block="true"
+                             :rules="'max:200'"
                              :value="ogDesc"
                              v-model="ogDesc">
               </ui-text-field>
