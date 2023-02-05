@@ -76,7 +76,7 @@
                             @click="copyPostUrl">
             </ui-icon-button>
             
-            <ui-icon-button :href="`https://twitter.com/intent/tweet?text=${encodeURI(post?.title)}%20${encodeURI($nowUrl)}`"
+            <ui-icon-button :href="`https://twitter.com/intent/tweet?text=${encodeURI(post?.title)}%20${encodeURI(postUrl)}`"
                             :target="'_blank'"
                             :title="'새창'"
                             :rel="'noopener noreferrer nofollow'"
@@ -87,7 +87,7 @@
                             :class="'post__contents__sns'">
             </ui-icon-button>
     
-            <ui-icon-button :href="`https://www.facebook.com/sharer/sharer.php?u=${encodeURI($nowUrl)}`"
+            <ui-icon-button :href="`https://www.facebook.com/sharer/sharer.php?u=${encodeURI(postUrl)}`"
                             :target="'_blank'"
                             :title="'새창'"
                             :rel="'noopener noreferrer nofollow'"
@@ -170,6 +170,7 @@ export default {
       post: null,
       prevPost: null,
       nextPost: null,
+      postUrl: '',
       postLikeCnt: 0,
       isPostLiked: false,
       snsCodeList: [],
@@ -191,6 +192,7 @@ export default {
       this.post = null;
       this.prevPost = null;
       this.nextPost = null;
+      this.postUrl = location.href;
 
       await Promise.all([
         this.getPost(id),
