@@ -159,7 +159,6 @@
                                :id="'savePostAddTag'"
                                :class="'write__tag'"
                                :placeholder="'태그 입력 (쉼표로 구분, 5개까지 입력 가능)'"
-                               :block="true"
                                v-model="tagStr">
                 </ui-text-field>
 
@@ -543,6 +542,12 @@ export default {
 
       return this.$http.get('/post', { params: listPostDto })
       .then(res => {
+        if (0 === res.data[0].length) {
+          messageUtil.toastWarning('임시저장된 포스트가 없습니다.');
+          this.tmpPostListLoaded = true;
+          return;
+        }
+
         res.data[0].map(d => {
           d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
         });

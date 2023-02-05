@@ -15,6 +15,7 @@
                          :title="'아이디 입력'"
                          :placeholder="'아이디'"
                          :rules="'required|max:10'"
+                         :tooltip="false"
                          v-model="userId">
           </ui-text-field>
           
@@ -23,6 +24,7 @@
                          :title="'비밀번호 입력'"
                          :placeholder="'비밀번호'"
                          :rules="'required|min:8|max:15'"
+                         :tooltip="false"
                          v-model="userPw">
           </ui-text-field>
           

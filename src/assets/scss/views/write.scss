@@ -145,27 +145,38 @@
             gap: 0.5rem;
 
             .input-wrapper {
-               &.write__tag {
-                  width: 100%;
-                  
-                  @media (min-width: $min-small-width) {
-                     width: calc(100% - 8.5rem);
-                  }
-               }
-
                + .input-wrapper {
                   margin-top: 0;
                }
+
+               &:first-child {
+                  width: 100%;
+               }
+
+               &:nth-child(2) {
+                  display: block;
+                  width: 100%;
+               }
+
+               @media (min-width: $min-small-width) {
+                  &:first-child {
+                     width: calc(100% - 8.5rem);
+                  }
+
+                  &:nth-child(2) {
+                     display: inline-block;
+                     width: 8rem;
+                  }
+               }
+            }
+
+            .write__tag {
+               width: 100%;
             }
 
             .write__select-tag {
                display: block;
                width: 100%;
-         
-               @media (min-width: $min-small-width) {
-                  display: inline-block;
-                  width: 8rem;
-               }
             }
          }
       }
