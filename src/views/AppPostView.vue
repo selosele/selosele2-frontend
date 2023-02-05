@@ -170,7 +170,6 @@ export default {
       post: null,
       prevPost: null,
       nextPost: null,
-      postUrl: null,
       postLikeCnt: 0,
       isPostLiked: false,
       snsCodeList: [],
@@ -192,7 +191,6 @@ export default {
       this.post = null;
       this.prevPost = null;
       this.nextPost = null;
-      this.postUrl = null;
 
       await Promise.all([
         this.getPost(id),
@@ -202,7 +200,6 @@ export default {
 
       this.dataLoading();
 
-      this.postUrl = location.href;
       this.postLikeCnt = this.post.postLike.length;
       this.snsCodeList = this.$store.state.Code.data.filter(d => d.prefix === 'C01');
     },
@@ -277,7 +274,7 @@ export default {
     },
     /** 포스트 URL 복사 */
     copyPostUrl() {
-      navigator.clipboard.writeText(this.postUrl);
+      navigator.clipboard.writeText(location.href);
       messageUtil.toastSuccess('URL이 복사되었습니다.');
     },
     /** 데이타 로딩 */
