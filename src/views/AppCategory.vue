@@ -40,7 +40,7 @@ import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 export default {
   name: 'app-category',
   props: {
-    type: String,
+    pageType: String,
     id: String,
   },
   data() {
@@ -109,9 +109,9 @@ export default {
     },
     /** 페이지 유형에 따른 API 호출 URL 얻기 */
     getType() {
-      if ('D01004' === this.type) {
+      if ('D01004' === this.pageType) {
         return 'category';
-      } else if ('D01005' === this.type) {
+      } else if ('D01005' === this.pageType) {
         return 'tag';
       }
 
