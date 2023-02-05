@@ -1,5 +1,5 @@
 <template>
-  <div class="file-info__wrapper mt--10">
+  <div class="file-info__wrapper d-flex-w gap--10 mt--10">
     <span class="file-info__txt">
       {{ imgName }} (용량 : {{ getFileSize(imgSize) }})
     </span>

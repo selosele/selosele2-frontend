@@ -99,7 +99,6 @@
             >
               <ui-checkbox :name="'delAvatarImg'"
                            :id="'blogConfigDelAvatarImg'"
-                           :class="'ml--10'"
                            :label="'삭제'"
                            :values="'Y,N'">
               </ui-checkbox>
@@ -137,7 +136,6 @@
             >
               <ui-checkbox :name="'delOgImg'"
                            :id="'blogConfigDelOgImg'"
-                           :class="'ml--10'"
                            :label="'삭제'"
                            :values="'Y,N'">
               </ui-checkbox>
