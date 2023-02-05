@@ -24,7 +24,7 @@
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
-  name: 'app-file-upload',
+  name: 'app-admin-file-upload',
   data() {
     return {
       pageTitle: '이미지 업로드',

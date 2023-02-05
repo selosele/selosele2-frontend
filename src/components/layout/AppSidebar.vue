@@ -63,7 +63,7 @@
                       class="widget__use"
                       @click="onChangeUseYn($event, widget.id)"
                       v-if="widgetActive">
-                <span class="sr-only">사용여부 선택</span>
+                <span class="sr-only">사용 여부 선택</span>
               </button>
             </div>
           </div>
@@ -166,7 +166,7 @@ export default {
         return d;
       });
     },
-    /** 위젯 사용여부 변경 시 */
+    /** 위젯 사용 여부 변경 시 */
     onChangeUseYn(e, id) {
       this.storeSidebar.widget.map(d => {
         if (id === d.id) {

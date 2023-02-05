@@ -25,7 +25,7 @@
           <ui-button :type="'submit'"
                      :color="'primary'"
                      :block="true"
-                     :class="'mt--5'">사용여부 저장
+                     :class="'mt--5'">사용 여부 저장
           </ui-button>
         </ui-form>
       </div>
@@ -106,7 +106,7 @@ export default {
         this.init();
       });
     },
-    /** 사용여부 저장 버튼 클릭 시 */
+    /** 사용 여부 저장 버튼 클릭 시 */
     async updateWidgetUseYn(values) {
       const body = this.useWidgetIds(values);
 
@@ -115,7 +115,7 @@ export default {
         return;
       }
 
-      const confirm = await messageUtil.confirmSuccess('사용여부를 저장하시겠습니까?');
+      const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;
 
       this.$http.put('/widget/use', body)

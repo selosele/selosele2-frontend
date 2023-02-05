@@ -2,7 +2,7 @@ export default [
   {
     // 블로그 환경설정 페이지
     path: '/admin/blog-config',
-    component: () => import('@/views/AppBlogConfig.vue'),
+    component: () => import('@/views/AppAdminBlogConfig.vue'),
     meta: {
       requiresAuth: true,
       showSidebar: false,
@@ -12,7 +12,7 @@ export default [
   {
     // 공통코드 관리 페이지
     path: '/admin/code',
-    component: () => import('@/views/AppCode.vue'),
+    component: () => import('@/views/AppAdminCode.vue'),
     meta: {
       requiresAuth: true,
       showSidebar: false,
@@ -22,7 +22,7 @@ export default [
   {
     // 콘텐츠 관리 페이지
     path: '/admin/content',
-    component: () => import('@/views/AppContent.vue'),
+    component: () => import('@/views/AppAdminContent.vue'),
     meta: {
       requiresAuth: true,
       showSidebar: false,
@@ -62,7 +62,17 @@ export default [
   {
     // 이미지 업로드 페이지
     path: '/admin/file-upload',
-    component: () => import('@/views/AppFileUpload.vue'),
+    component: () => import('@/views/AppAdminFileUpload.vue'),
+    meta: {
+      requiresAuth: true,
+      showSidebar: false,
+      showSatis: false,
+    },
+  },
+  {
+    // 포스트 댓글 관리 페이지
+    path: '/admin/post-reply',
+    component: () => import('@/views/AppAdminPostReply.vue'),
     meta: {
       requiresAuth: true,
       showSidebar: false,

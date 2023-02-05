@@ -35,11 +35,11 @@
 </template>
 
 <script>
-import { messageUtil } from '@/utils';
+import { isNotEmpty, messageUtil } from '@/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
-  name: 'app-content',
+  name: 'app-admin-content',
   data() {
     return {
       pageTitle: '콘텐츠 관리',
@@ -67,7 +67,7 @@ export default {
       this.gridApi = params;
     },
     onCellDoubleClicked(params) {
-      this.$router.push('/content' + params.data['link']);
+      this.$router.push(`/content${params.data['link']}`);
     },
     /** 콘텐츠 목록 조회 */
     listContent() {
@@ -77,7 +77,10 @@ export default {
 
         res.data.map(d => {
           d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
-          d.modDate = this.$moment(d.modDate).format('YYYY-MM-DD HH:mm:ss');
+
+          if (isNotEmpty(d.modDate)) {
+            d.modDate = this.$moment(d.modDate).format('YYYY-MM-DD HH:mm:ss');
+          }
 
           this.rowData.push(d);
         });

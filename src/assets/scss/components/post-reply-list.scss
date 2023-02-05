@@ -135,14 +135,16 @@
 
     &__btn {
       &--refresh {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
         min-width: 0;
-        width: 1.4rem;
-        height: 1.4rem;
-        line-height: 1.4rem;
+        width: 1.2rem;
+        height: 1.2rem;
         margin-left: 0.5rem;
         padding: 0;
         border-radius: 50%;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
       }
 
       &--toggle {
@@ -222,8 +224,6 @@
 
     &__count {
       display: inline-block;
-      margin-top: 2rem;
-      padding-bottom: 0.7rem;
       font-size: 0.9rem;
       color: $sub-color03;
     }
@@ -241,6 +241,10 @@
       padding: $size;
       background-color: $grey07;
       font-size: 0.85rem;
+
+      &__wrapper {
+        margin-top: 2rem;
+      }
 
       + .post__reply__list {
         border-top: 1px solid $grey05;

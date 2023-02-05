@@ -253,7 +253,7 @@ import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import { messageUtil, isNotEmpty } from '@/utils';
 
 export default {
-  name: 'app-blog-config',
+  name: 'app-admin-blog-config',
   data() {
     return {
       pageTitle: '블로그 환경설정',

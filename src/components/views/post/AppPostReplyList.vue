@@ -1,16 +1,27 @@
 <template>
-  <div>
-    <strong class="post__reply__count">댓글 <span>{{ realReplyList.length }}</span></strong>
-  
-    <ui-icon-button :type="'button'"
-                    :color="'primary'"
-                    :icon="'xi-refresh'"
-                    :text="'댓글 목록 새로고침'"
-                    :title="'댓글 목록 새로고침'"
-                    :class="'post__reply__btn--refresh'"
-                    @click="refreshList">
-    </ui-icon-button>
+  <div class="post__reply__list__wrapper">
+    <div class="d-flex-w flex--between mb--10">
+      <div>
+        <strong class="post__reply__count">댓글 <span>{{ realReplyList.length }}</span></strong>
+        <ui-icon-button :type="'button'"
+                        :color="'primary'"
+                        :icon="'xi-refresh'"
+                        :text="'댓글 목록 새로고침'"
+                        :title="'댓글 목록 새로고침'"
+                        :class="'post__reply__btn--refresh'"
+                        @click="refreshList">
+        </ui-icon-button>
+      </div>
 
+      <div>
+        <ui-button :type="'button'"
+                   :color="'secondary'"
+                   :routerLink="'/admin/post-reply'"
+                   v-if="isLogin">댓글 관리
+        </ui-button>
+      </div>
+    </div>
+  
     <ul class="post__reply__depth1">
       <li v-for="(reply,i) in replyList" :key="i"
           :data-depth="reply.depth"

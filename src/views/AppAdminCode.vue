@@ -49,7 +49,7 @@ import { messageUtil } from '@/utils';
 import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
-  name: 'app-code',
+  name: 'app-admin-code',
   components: {
     AppSaveCode,
   },
@@ -64,7 +64,7 @@ export default {
         { headerName: '코드 명', field: 'nm' },
         { headerName: '코드 설명', field: 'desc' },
         { headerName: '코드 등록일시', field: 'regDate' },
-        { headerName: '코드 사용여부', field: 'useYn', width: 150, align: 'center' },
+        { headerName: '코드 사용 여부', field: 'useYn', width: 150, align: 'center' },
       ],
       rowData: [],
       code: null,
@@ -144,7 +144,7 @@ export default {
       await this.listCode();
       this.$store.dispatch('Code/FETCH_CODE', this.rowData);
     },
-    /** 코드 사용여부 가공 */
+    /** 코드 사용 여부 가공 */
     getUseYn(useYn) {
       switch (useYn) {
         case 'Y': return '사용';
