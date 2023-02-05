@@ -202,7 +202,7 @@ export default {
 
       this.dataLoading();
 
-      this.postUrl = this.$nowUrl;
+      this.postUrl = location.href;
       this.postLikeCnt = this.post.postLike.length;
       this.snsCodeList = this.$store.state.Code.data.filter(d => d.prefix === 'C01');
     },
