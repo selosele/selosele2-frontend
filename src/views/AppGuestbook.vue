@@ -58,7 +58,7 @@
       </template>
 
       <ul class="guestbook__depth1" v-if="dataLoaded">
-        <li class="guestbook__depth1__list" v-for="(guestbook,i) in guestbookList" :key="i">
+        <li class="guestbook__depth1__list" v-for="(guestbook,i) in guestbookList" :key="guestbook">
           <p class="guestbook__cont" v-html="guestbook.cont"></p>
 
           <div class="guestbook__cont__info depth1">
@@ -312,6 +312,7 @@ export default {
         const guestbook = { ...res.data };
         
         guestbook.regDate = this.$moment(guestbook.regDate).format('YYYY-MM-DD HH:mm:ss');
+        guestbook.guestbookReply = [];
 
         this.guestbookList.push(guestbook);
         this.guestbookList = this.guestbookList.sort((a,b) => b.id - a.id);

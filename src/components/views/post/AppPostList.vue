@@ -135,7 +135,7 @@ export default {
       const confirm = await messageUtil.confirmSuccess('삭제하시겠습니까?');
       if (!confirm) return;
 
-      this.$http.delete('/post', { data: checkPostList })
+      this.$http.post('/post/remove', checkPostList)
       .then(res => {
         messageUtil.toastSuccess('삭제되었습니다.');
 

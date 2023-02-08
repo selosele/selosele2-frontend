@@ -105,7 +105,7 @@ export default {
         });
       });
 
-      this.$http.delete('/content', { data: removeContentDto })
+      this.$http.post('/content/remove', removeContentDto)
       .then(res => {
         this.gridApi.removeSelectedRows();
         messageUtil.toastSuccess('삭제되었습니다.');

@@ -2,6 +2,7 @@
   <app-content-wrapper :pageTitle="pageTitle">
     <ui-loading :activeModel="!previewPostLoaded" :fullPage="true"></ui-loading>
     <ui-loading :activeModel="!tmpPostListLoaded" :fullPage="true"></ui-loading>
+    <ui-loading :activeModel="!postSaved" :fullPage="true"></ui-loading>
 
     <template v-if="!dataLoaded">
       <ui-skeletor :height="'1.3rem'"></ui-skeletor>
@@ -314,6 +315,8 @@ export default {
       previewPostLoaded: false,
       /** 임시저장 포스트 목록 로딩 완료 여부 */
       tmpPostListLoaded: false,
+      /** 포스트 작성 완료 여부 */
+      postSaved: false,
     }
   },
   /** 해당 컴포넌트를 벗어나 새로운 페이지로 이동할 때 호출됨 */
@@ -345,6 +348,7 @@ export default {
     async init() {
       this.previewPostLoaded = true;
       this.tmpPostListLoaded = true;
+      this.postSaved = true;
 
       // 포스트 수정 페이지일 경우, 포스트 조회 메서드를 실행하기 위함
       if (this.isUpdatePage) {
@@ -380,6 +384,8 @@ export default {
       const confirm = await messageUtil.confirmSuccess(msg[0]);
       if (!confirm) return;
 
+      this.postSaved = false;
+
       // 태그 배열에 추가
       this.setTagArr(values);
       
@@ -395,6 +401,7 @@ export default {
 
       this.$store.dispatch('Post/FETCH_MAIN_POSTLIST', {});
       this.$store.dispatch('Layout/FETCH_SIDEBAR', {});
+      this.postSaved = true;
 
       // 임시저장이 아닌 경우에만 페이지를 이동함
       if ('N' === values.tmpYn) {

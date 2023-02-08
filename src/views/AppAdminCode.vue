@@ -130,7 +130,7 @@ export default {
         });
       });
 
-      this.$http.delete('/code', { data: removeCodeDto })
+      this.$http.post('/code/remove', removeCodeDto)
       .then(res => {
         this.gridApi.removeSelectedRows();
         messageUtil.toastSuccess('삭제되었습니다.');

@@ -32,13 +32,6 @@
               </strong>
               <time :datetime="post?.regDate">{{ post?.regDate }}</time>
             </span>
-    
-            <span class="post__contents__date post__contents__date--modified-at" v-if="post?.modDate">
-              <strong>
-                <i class="xi-time" aria-hidden="true"></i> 수정일
-              </strong>
-              <time :datetime="post?.modDate">{{ post?.modDate }}</time>
-            </span>
           </div>
     
           <div class="post__contents__info-wrapper">

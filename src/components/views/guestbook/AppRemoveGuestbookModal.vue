@@ -37,7 +37,7 @@ export default {
       const confirm = await messageUtil.confirmSuccess('삭제하시겠습니까?');
       if (!confirm) return;
       
-      this.$http.delete(`/guestbook/${values.id}`, { data: values })
+      this.$http.post('/guestbook/remove', values)
       .then(res => {
         messageUtil.toastSuccess('삭제되었습니다.');
         
