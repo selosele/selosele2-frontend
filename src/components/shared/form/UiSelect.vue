@@ -10,7 +10,7 @@
            :ref="id"
            :name="name"
            :title="title"
-           :class="`input-field${selectBlock}`"
+           :class="`input-field${selectBlock}${selectDisabled}`"
            :rules="rules"
            v-bind="$attrs"
            v-model="mv"
@@ -118,7 +118,17 @@ export default {
         return '';
       },
       set(v) {}
-    }
+    },
+    /** disabled */
+    selectDisabled: {
+      get() {
+        if (isNotEmpty(this.disabled) && true === this.disabled) {
+          return ` is--disabled`;
+        }
+        return '';
+      },
+      set(v) {}
+    },
   },
   methods: {
     onChange($event) {

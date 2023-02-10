@@ -15,7 +15,7 @@
           <div class="post__contents__body line-numbers" v-html="post?.cont"></div>
           <!-- END : 내용 영역 -->
     
-          <div class="post__contents__like-wrapper">
+          <div class="post__contents__like-wrapper" v-if="isPostPage">
             <ui-icon-button :icon="isPostLiked ? 'xi-heart' : 'xi-heart-o'"
                             :text="'추천수'"
                             :class="'post__contents__like-btn'"
@@ -34,7 +34,7 @@
             </span>
           </div>
     
-          <div class="post__contents__info-wrapper">
+          <div class="post__contents__info-wrapper" v-if="isPostPage">
             <template v-if="0 < post?.postCategory.length">
               <ui-icon-button v-for="(category,i) in post?.postCategory" :key="i"
                               :routerLink="`/category/${category.category.id}`"
@@ -59,7 +59,8 @@
                             :color="'secondary'"
                             :text="'목록으로'"
                             :class="'post__contents__btn post__contents__btn--list'"
-                            @click="goToList">
+                            @click="goToList"
+                            v-if="isPostPage">
             </ui-icon-button>
     
             <ui-icon-button :icon="'xi-link'"
@@ -92,27 +93,27 @@
             </ui-icon-button>
     
             <template v-if="isLogin">
-              <ui-icon-button :routerLink="'/add-post'"
+              <ui-icon-button :routerLink="isPostPage ? '/add-post' : '/add-content'"
                               :color="'primary'"
                               :icon="'xi-pen'"
-                              :class="'post__contents__btn'">포스트 작성
+                              :class="'post__contents__btn'">{{ isPostPage ? '포스트' : '콘텐츠' }} 작성
               </ui-icon-button>
     
-              <ui-icon-button :routerLink="`/edit-post/${post?.id}`"
+              <ui-icon-button :routerLink="isPostPage ? `/edit-post/${post?.id}` : `/edit-content${post?.link}`"
                               :color="'success'"
                               :icon="'xi-pen'"
-                              :class="'post__contents__btn'">포스트 수정
+                              :class="'post__contents__btn'">{{ isPostPage ? '포스트' : '콘텐츠' }} 수정
               </ui-icon-button>
     
               <ui-icon-button :type="'submit'"
                               :color="'dark'"
                               :icon="'xi-trash'"
-                              :class="'post__contents__btn'">포스트 삭제
+                              :class="'post__contents__btn'">{{ isPostPage ? '포스트' : '콘텐츠' }} 삭제
               </ui-icon-button>
             </template>
           </div>
     
-          <nav class="post__contents__paginations">
+          <nav class="post__contents__paginations" v-if="isPostPage">
             <h2 class="sr-only">이전/다음 포스트</h2>
     
             <router-link v-if="null !== prevPost"
@@ -132,7 +133,9 @@
             </router-link>
           </nav>
     
-          <app-add-post-reply :id="post?.id"></app-add-post-reply>
+          <app-add-post-reply :id="post?.id"
+                              v-if="isPostPage">
+          </app-add-post-reply>
         </ui-form>
       </template>
     </div>
@@ -178,6 +181,22 @@ export default {
       this.init(id);
     }
   },
+  computed: {
+    /** 포스트 페이지인지 확인 */
+    isPostPage: {
+      get() {
+        return 'D01002' === this.$route.meta.pageType;
+      },
+      set(v) {}
+    },
+    /** 콘텐츠 페이지인지 확인 */
+    isContentPage: {
+      get() {
+        return 'D01003' === this.$route.meta.pageType;
+      },
+      set(v) {}
+    },
+  },
   methods: {
     /** 초기 세팅 */
     async init(id) {
@@ -187,20 +206,27 @@ export default {
       this.nextPost = null;
       this.postUrl = location.href;
 
-      await Promise.all([
-        this.getPost(id),
-        this.getPostLike(id),
-        this.listPrevAndNextPost(id),
-      ]);
+      if (this.isPostPage) {
+        await Promise.all([
+          this.getPost(id),
+          this.getPostLike(id),
+          this.listPrevAndNextPost(id),
+        ]);
+
+        this.postLikeCnt = this.post.postLike.length;
+      } else if (this.isContentPage) {
+        await this.getPost(id);
+      }
 
       this.dataLoading();
 
-      this.postLikeCnt = this.post.postLike.length;
       this.snsCodeList = this.$store.state.Code.data.filter(d => d.prefix === 'C01');
     },
     /** 포스트 조회 */
     getPost(id) {
-      return this.$http.get(`/post/${id}`)
+      let url = this.isPostPage ? `/post/${id}` : `/content/${id}`;
+
+      return this.$http.get(url)
       .then(res => {
         this.post = { ...res.data };
         this.post.regDate = this.$moment(this.post.regDate).format('YYYY-MM-DD HH:mm:ss');

@@ -3,6 +3,7 @@ import index from './index/index';
 import error from './error/error';
 import auth from './auth/auth';
 import post from './post/post';
+import content from './content/content';
 import search from './search/search';
 import archive from './archive/archive';
 import guestbook from './guestbook/guestbook';
@@ -15,6 +16,7 @@ const routes = [
   ...error,               // 에러
   ...auth,                // 권한
   ...post,                // 포스트
+  ...content,             // 콘텐츠
   ...search,              // 검색
   ...archive,             // 아카이브
   ...guestbook,           // 방명록

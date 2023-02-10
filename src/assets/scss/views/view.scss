@@ -190,6 +190,7 @@
    
             &-wrapper {
                margin-top: 2.5rem;
+               margin-bottom: 1.3rem;
                padding: 0.9rem;
                background-color: $grey02;
    
@@ -224,7 +225,6 @@
    
             &-wrapper {
                display: flex;
-               margin: 1.3rem 0;
                flex-wrap: wrap;
                gap: 0.5rem;
             }
@@ -247,6 +247,7 @@
    
          &__btns {
             display: flex;
+            margin-top: 1.3rem;
             margin-bottom: 2rem;
             flex-wrap: wrap;
             gap: 0.5rem;

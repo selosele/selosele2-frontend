@@ -53,8 +53,9 @@
                            :class="'write__select-category'"
                            :title="'카테고리 선택'"
                            :defaultValue="'카테고리 선택'"
-                           :rules="'required'"
+                           :rules="isPostPage ? 'required' : ''"
                            :tooltip="true"
+                           :disabled="isContentPage"
                            :data="categoryList"
                            v-model="categoryId">
                 </ui-select>
@@ -149,7 +150,7 @@
               </ui-file-info>
             </td>
           </tr>
-          <tr v-if="'D01002' === $route.meta.pageType">
+          <tr v-if="isPostPage">
             <th scope="row">
               <label for="savePostAddTag">태그</label>
             </th>
@@ -176,7 +177,7 @@
               </div>
             </td>
           </tr>
-          <tr v-if="'D01002' === $route.meta.pageType">
+          <tr v-if="isPostPage">
             <th scope="row">공개</th>
             <td>
               <ui-radio :id="'savePostSecretN'"
@@ -196,7 +197,7 @@
               </ui-radio>
             </td>
           </tr>
-          <tr v-if="'D01002' === $route.meta.pageType">
+          <tr v-if="isPostPage">
             <th scope="row">상단고정</th>
             <td>
               <ui-radio :id="'savePostPinN'"
@@ -329,18 +330,39 @@ export default {
     if (!confirm) return false;
   },
   created() {
-    this.pageTitle = !this.isUpdatePage ? '포스트 작성' : '포스트 수정';
-    
+    this.pageTitle = this.getPageTitle();
+
     // 페이지 타이틀 세팅
     breadcrumbService.setPageTitle(this.pageTitle);
 
     this.init();
   },
   computed: {
-    /** 포스트 수정 페이지인지 확인 */
-    isUpdatePage: {
+    /** 포스트 페이지인지 확인 */
+    isPostPage: {
       get() {
-        return isNotEmpty(this.$route.params.id);
+        return 'D01002' === this.$route.meta.pageType;
+      },
+      set(v) {}
+    },
+    /** 콘텐츠 페이지인지 확인 */
+    isContentPage: {
+      get() {
+        return 'D01003' === this.$route.meta.pageType;
+      },
+      set(v) {}
+    },
+    /** 포스트 수정 페이지인지 확인 */
+    isUpdatePostPage: {
+      get() {
+        return 'D01002' === this.$route.meta.pageType && isNotEmpty(this.$route.params.id);
+      },
+      set(v) {}
+    },
+    /** 콘텐츠 수정 페이지인지 확인 */
+    isUpdateContentPage: {
+      get() {
+        return 'D01003' === this.$route.meta.pageType && isNotEmpty(this.$route.params.id);
       },
       set(v) {}
     }
@@ -353,13 +375,18 @@ export default {
       this.postSaved = true;
 
       // 포스트 수정 페이지일 경우, 포스트 조회 메서드를 실행하기 위함
-      if (this.isUpdatePage) {
+      if (this.isUpdatePostPage) {
         await Promise.all([
           this.listCategory(),
           this.listTag(),
           this.getPost(this.$route.params.id),
         ]);
-      } else {
+      }
+      // 콘텐츠 수정 페이지일 경우, 콘텐츠 조회 메서드를 실행하기 위함
+      else if (this.isUpdateContentPage) {
+        await this.getPost(this.$route.params.id);
+      }
+      else {
         this.dataLoaded = true;
         
         await Promise.all([
@@ -369,6 +396,14 @@ export default {
       }
 
       this.dataLoading();
+    },
+    /** 페이지 타이틀 가공 */
+    getPageTitle() {
+      if (this.isPostPage) {
+        return !this.isUpdatePostPage ? '포스트 작성' : '포스트 수정';
+      } else if (this.isContentPage) {
+        return !this.isUpdateContentPage ? '콘텐츠 작성' : '콘텐츠 수정';
+      }
     },
     /** 포스트 저장 */
     async onSubmit(values) {
@@ -393,7 +428,7 @@ export default {
       
       const headers = { 'Content-Type': 'multipart/form-data' };
 
-      if (this.isUpdatePage) {
+      if (this.isUpdatePostPage) {
         await this.$http.put('/post', values, { headers });
       } else {
         await this.$http.post('/post', values, { headers });
@@ -412,7 +447,9 @@ export default {
     },
     /** 포스트 조회 */
     getPost(id) {
-      return this.$http.get(`/post/${id}`)
+      let url = this.isUpdatePostPage ? `/post/${id}` : `/content/${id}`;
+
+      return this.$http.get(url)
       .then(res => {
         this.post = { ...res.data };
         this.setData(this.post);
@@ -427,14 +464,17 @@ export default {
 
       this.title = post.title;
       this.cont = post.rawText;
-      this.secretYn = post.secretYn;
-      this.pinYn = post.pinYn;
       this.tmpYn = post.tmpYn;
-      this.categoryId = post.postCategory[0].categoryId;
       this.ogDesc = post.ogDesc;
       this.ogImg = post.ogImg;
       this.ogImgSize = post.ogImgSize;
-      this.tagStr = post.postTag.map(d => d.tag.nm).join(', ');
+      
+      if (this.isUpdatePostPage) {
+        this.pinYn = post.pinYn;
+        this.secretYn = post.secretYn;
+        this.categoryId = post.postCategory[0].categoryId;
+        this.tagStr = post.postTag.map(d => d.tag.nm).join(', ');
+      }
     },
     /** 본문 요약 버튼 클릭 시 */
     async changeOgDesc() {
