@@ -54,6 +54,7 @@
                            :title="'카테고리 선택'"
                            :defaultValue="'카테고리 선택'"
                            :rules="'required'"
+                           :tooltip="true"
                            :data="categoryList"
                            v-model="categoryId">
                 </ui-select>
@@ -62,6 +63,7 @@
                                :name="'title'"
                                :id="'savePostTitle'"
                                :rules="'required|max:200'"
+                               :tooltip="true"
                                :block="true"
                                :value="title"
                                v-model="title">

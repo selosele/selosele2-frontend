@@ -24,6 +24,7 @@
                            :class="'post__reply__input'"
                            :label="'닉네임'"
                            :rules="'required|max:20'"
+                           :tooltip="true"
                            :readonly="isLogin"
                            :value="isLogin ? '관리자' : ''">
             </ui-text-field>
@@ -33,7 +34,8 @@
                            :id="'addPostReplyAuthorPw'"
                            :class="'post__reply__input'"
                            :label="'비밀번호'"
-                           :rules="'required|min:8|max:15'">
+                           :rules="'required|min:8|max:15'"
+                           :tooltip="true">
             </ui-text-field>
           </div>
     

@@ -10,7 +10,6 @@
                      :defaultValue="'카테고리 선택'"
                      :data="categoryList"
                      :rules="'required'"
-                     :tooltip="false"
                      v-model="selectedCategoryId"
                      @onchange="listPostByCategory">
           </ui-select>
