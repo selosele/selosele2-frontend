@@ -125,7 +125,7 @@ export default {
     /** 데이타 로딩 */
     dataLoading() {
 
-      // 댓글 목록이 없어도 로딩이 완료되어야 함
+      // 데이타가 없어도 로딩이 완료되어야 함
       this.dataLoaded = true;
     },
   },

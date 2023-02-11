@@ -172,9 +172,9 @@ export default {
     },
     /** 데이타 로딩 */
     dataLoading() {
-      if (isNotEmpty(this.menu) && 0 < Object.values(this.menu).length) {
-        this.dataLoaded2 = true;
-      }
+      
+      // 데이타가 없어도 로딩이 완료되어야 함
+      this.dataLoaded2 = true;
     },
   }
 }

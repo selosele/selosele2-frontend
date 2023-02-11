@@ -118,9 +118,9 @@ export default {
     },
     /** 데이타 로딩 */
     dataLoading() {
-      if (0 < this.rowData.length) {
-        this.dataLoaded = true;
-      }
+
+      // 데이타가 없어도 로딩이 완료되어야 함
+      this.dataLoaded = true;
     },
   },
 }
