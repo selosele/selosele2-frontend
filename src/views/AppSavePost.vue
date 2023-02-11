@@ -40,6 +40,7 @@
         </div>
 
         <ui-hidden-field :name="'id'" :id="'savePostId'" :value="post?.id"></ui-hidden-field>
+        <ui-hidden-field :name="'crudType'" :id="'savePostCrudType'" :value="'E01001'"></ui-hidden-field>
     
         <ui-write-table :name="'포스트 작성 폼'">
           <tr>
@@ -148,6 +149,44 @@
                              :values="'Y,N'">
                 </ui-checkbox>
               </ui-file-info>
+            </td>
+          </tr>
+          <tr v-if="isContentPage">
+            <th scope="row">
+              <label for="saveContentLink">콘텐츠 링크</label>
+            </th>
+            <td>
+              <ui-text-field :type="'text'"
+                             :name="'link'"
+                             :id="'saveContentLink'"
+                             :placeholder="'예) /page명'"
+                             :rules="'required|max:50'"
+                             :readonly="isUpdateContentPage"
+                             :block="true"
+                             :value="post?.link">
+              </ui-text-field>
+            </td>
+          </tr>
+          <tr v-if="isUpdateContentPage">
+            <th scope="row">
+              <label for="saveContentUpdateMenuNameY">연결메뉴명 수정</label>
+            </th>
+            <td>
+              <ui-radio :id="'saveContentUpdateMenuNameN'"
+                        :name="'updateMenuNameYn'"
+                        :label="'아니오'"
+                        :rules="'required'"
+                        :value="'N'"
+                        v-model="updateMenuNameYn">
+              </ui-radio>
+
+              <ui-radio :id="'saveContentUpdateMenuNameY'"
+                        :name="'updateMenuNameYn'"
+                        :label="'예'"
+                        :rules="'required'"
+                        :value="'Y'"
+                        v-model="updateMenuNameYn">
+              </ui-radio>
             </td>
           </tr>
           <tr v-if="isPostPage">
@@ -306,6 +345,8 @@ export default {
       pinYn: 'N',
       /** 포스트 임시저장 여부 */
       tmpYn: 'N',
+      /** 콘텐츠 연결메뉴명 수정 여부 */
+      updateMenuNameYn: 'Y',
       /** 포스트 작성/수정 시 입력한 태그 문자열 */
       tagStr: '',
       /** 포스트 작성/수정 시 추가한 태그 목록 */
@@ -338,28 +379,28 @@ export default {
     this.init();
   },
   computed: {
-    /** 포스트 페이지인지 확인 */
+    /** 포스트 페이지일경우 */
     isPostPage: {
       get() {
         return 'D01002' === this.$route.meta.pageType;
       },
       set(v) {}
     },
-    /** 콘텐츠 페이지인지 확인 */
+    /** 콘텐츠 페이지일경우 */
     isContentPage: {
       get() {
         return 'D01003' === this.$route.meta.pageType;
       },
       set(v) {}
     },
-    /** 포스트 수정 페이지인지 확인 */
+    /** 포스트 수정 페이지일경우 */
     isUpdatePostPage: {
       get() {
         return 'D01002' === this.$route.meta.pageType && isNotEmpty(this.$route.params.id);
       },
       set(v) {}
     },
-    /** 콘텐츠 수정 페이지인지 확인 */
+    /** 콘텐츠 수정 페이지일경우 */
     isUpdateContentPage: {
       get() {
         return 'D01003' === this.$route.meta.pageType && isNotEmpty(this.$route.params.id);
@@ -428,10 +469,23 @@ export default {
       
       const headers = { 'Content-Type': 'multipart/form-data' };
 
+      // 포스트 수정
       if (this.isUpdatePostPage) {
+        values.crudType = 'E01003';
         await this.$http.put('/post', values, { headers });
-      } else {
+      }
+      // 콘텐츠 수정
+      else if (this.isUpdateContentPage) {
+        values.crudType = 'E01003';
+        await this.$http.put('/content', values, { headers });
+      }
+      // 포스트 추가
+      else if (this.isPostPage) {
         await this.$http.post('/post', values, { headers });
+      }
+      // 콘텐츠 추가
+      else if (this.isContentPage) {
+        await this.$http.post('/content', values, { headers });
       }
 
       messageUtil.toastSuccess(msg[1]);
@@ -442,6 +496,13 @@ export default {
 
       // 임시저장이 아닌 경우에만 페이지를 이동함
       if ('N' === values.tmpYn) {
+        this.$store.dispatch('Menu/LIST_MENU', {
+          client: this.$http,
+          params: {
+            useYn: 'Y',
+          },
+        });
+        
         this.$router.push('/');
       }
     },
@@ -565,7 +626,9 @@ export default {
       
       this.previewPostLoaded = false;
 
-      return this.$http.post('/post/preview', body)
+      let url = this.isPostPage ? '/post/preview' : '/content/preview';
+
+      return this.$http.post(url, body)
       .then(res => {
         this.previewPostLoaded = true;
 
@@ -588,8 +651,9 @@ export default {
       this.tmpPostListLoaded = false;
 
       const listPostDto = { tmpYn: 'Y' };
+      let url = this.isPostPage ? '/post' : '/content';
 
-      return this.$http.get('/post', { params: listPostDto })
+      return this.$http.get(url, { params: listPostDto })
       .then(res => {
         if (0 === res.data[0].length) {
           messageUtil.toastWarning('임시저장된 포스트가 없습니다.');
@@ -636,6 +700,15 @@ export default {
       if (5 < tagArr.length) {
         messageUtil.toastWarning('태그는 5개까지 입력할 수 있습니다.');
         return false;
+      }
+
+      if (this.isContentPage) {
+        const link = this.$refs['savePostForm'].getFieldValue('link');
+        
+        if (0 !== link.indexOf('/')) {
+          messageUtil.toastWarning('링크는 "/"로 시작해야 합니다.');
+          return false;
+        }
       }
 
       return true;

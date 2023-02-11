@@ -53,7 +53,7 @@ export default {
   watch: {
     '$store.state.Auth.accessToken'(accessToken) {
       this.listMenu();
-    }
+    },
   },
   methods: {
     /** 메뉴 목록 조회 */

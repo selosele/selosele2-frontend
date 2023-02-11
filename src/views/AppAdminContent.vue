@@ -75,7 +75,7 @@ export default {
       .then(res => {
         this.rowData = [];
 
-        res.data.map(d => {
+        res.data[0].map(d => {
           d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
 
           if (isNotEmpty(d.modDate)) {

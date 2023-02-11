@@ -275,7 +275,9 @@ export default {
       const confirm = await messageUtil.confirmSuccess('삭제하시겠습니까?');
       if (!confirm) return;
 
-      this.$http.delete(`/post/${values.id}`)
+      let url = this.isPostPage ? `/post/${values.id}` : `/content/${values.id}`;
+
+      this.$http.delete(url)
       .then(async res => {
         messageUtil.toastSuccess('삭제되었습니다.');
         this.goToList();
