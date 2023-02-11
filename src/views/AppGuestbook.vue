@@ -58,7 +58,7 @@
       </template>
 
       <ul class="guestbook__depth1" v-if="dataLoaded">
-        <li class="guestbook__depth1__list" v-for="(guestbook,i) in guestbookList" :key="guestbook">
+        <li class="guestbook__depth1__list" :id="`guestbook${guestbook.id}`" v-for="(guestbook,i) in guestbookList" :key="guestbook">
           <p class="guestbook__cont" v-html="guestbook.cont"></p>
 
           <div class="guestbook__cont__info depth1">

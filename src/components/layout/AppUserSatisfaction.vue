@@ -7,8 +7,8 @@
     </p>
 
     <ui-form :class="'satisfaction__frm'" :name="'satisForm'" @onsubmit="onSubmit">
-      <ui-hidden-field :name="'pagePath'" :value="''">
-      </ui-hidden-field>
+      <ui-hidden-field :name="'pagePath'" :value="''"></ui-hidden-field>
+      <ui-hidden-field :name="'pageTitle'" :value="''"></ui-hidden-field>
 
       <div class="satisfaction__field">
         <ui-radio v-for="(item,i) in satisArr"
@@ -47,6 +47,7 @@
 
 <script>
 import { messageUtil } from '@/utils';
+import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-user-satisfaction',
@@ -74,6 +75,7 @@ export default {
     /** 만족도조사 제출 */
     async onSubmit(values) {
       values.pagePath = decodeURIComponent(this.$route.path);
+      values.pageTitle = breadcrumbService.getPageTitle();
       
       const confirm = await messageUtil.confirmSuccess('제출하시겠습니까?');
       if (!confirm) return;

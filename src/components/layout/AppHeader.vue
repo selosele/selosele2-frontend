@@ -31,6 +31,24 @@
                             :text="'환경설정'"
                             :class="'masthead__util'">
             </ui-icon-button>
+
+            <ui-icon-button :icon="'xi-message'"
+                            :text="'알림 확인'"
+                            :class="'masthead__util masthead__util--notice'"
+                            ref="notiBtn"
+                            @click.stop="toggleNotiLayer">
+
+              <span class="masthead__util--notice-count" v-if="0 < notiCnt">
+                {{ 10 < notiCnt ? '9+' : notiCnt }}
+              </span>
+            </ui-icon-button>
+
+            <app-notification ref="notiLayer"
+                              :key="notiList"
+                              :list="notiList"
+                              @check="onCheckNotification"
+                              v-if="notiToggle">
+            </app-notification>
           </template>
         </div>
 
@@ -56,23 +74,50 @@
 </template>
 
 <script>
-import { isBlank, messageUtil } from '@/utils';
+import { isBlank, isNotEmpty, messageUtil } from '@/utils';
+import { authService } from '@/services/auth/authService';
+import AppNotification from '@/components/layout/AppNotification.vue';
 
 export default {
   name: 'app-header',
+  components: {
+    AppNotification,
+  },
   props: {
     resStatus: String,
   },
   data() {
     return {
+      notiList: [],
+      notiCnt: 0,
+      notiToggle: false,
       dataLoaded: false,
     }
+  },
+  created() {
+    this.listNotification();
+  },
+  mounted() {
+    document.addEventListener('click', this.closeNotiLayer);
+  },
+  unmounted() {
+    document.removeEventListener('click', this.closeNotiLayer);
   },
   watch: {
     'resStatus'() {
       // 데이타를 받아오는 동안에도 실행되므로, props값의 변경을 감지해줘야 한다.
       this.dataLoading(this.resStatus);
     },
+    '$route'() {
+      this.notiToggle = false;
+    },
+    '$store.state.Auth.accessToken'(accessToken) {
+      if (isNotEmpty(accessToken)) {
+
+        // 로그인 후 알림 목록 조회
+        this.listNotification();
+      }
+    }
   },
   computed: {
     clazz: {
@@ -146,6 +191,31 @@ export default {
     /** 메뉴 toggle */
     toggleMobileMenu() {
       this.$emit('toggleMobileMenu');
+    },
+    /** 알림 레이어 toggle */
+    toggleNotiLayer() {
+      this.notiToggle = !this.notiToggle;
+    },
+    /** 알림 레이어 닫기 */
+    closeNotiLayer(e) {
+      if (isNotEmpty(this.$refs['notiLayer']) && e.target !== this.$refs['notiLayer']
+                                              && e.target !== this.$refs['notiBtn']) {
+        this.notiToggle = false;
+      }
+    },
+    /** 알림 목록 조회 */
+    listNotification() {
+      if (!authService.getUser()) return;
+
+      return this.$http.get('/notification')
+      .then(res => {
+        this.notiList = [...res.data[0]];
+        this.notiCnt = res.data[1];
+      });
+    },
+    /** 알림 확인 여부 값 수정 시 */
+    onCheckNotification() {
+      this.listNotification();
     },
     /** 데이타 로딩 */
     dataLoading(resStatus) {
