@@ -124,9 +124,9 @@ export default {
     },
     /** 데이타 로딩 */
     dataLoading() {
-      if (0 < this.rowData.length) {
-        this.dataLoaded = true;
-      }
+
+      // 댓글 목록이 없어도 로딩이 완료되어야 함
+      this.dataLoaded = true;
     },
   },
 }
