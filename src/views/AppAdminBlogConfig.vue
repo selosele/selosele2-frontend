@@ -219,15 +219,29 @@
         </tr>
         <tr>
           <th scope="row">
-            <label for="blogConfigshowSatisYn">페이지 만족도조사 표출</label>
+            <label for="blogConfigShowSatisYn">페이지 만족도조사 표출</label>
           </th>
           <td>
             <ui-checkbox :name="'showSatisYn'"
-                         :id="'blogConfigshowSatisYn'"
+                         :id="'blogConfigShowSatisYn'"
                          :label="'페이지 만족도조사 표출'"
                          :labelHidden="true"
                          :values="'Y,N'"
                          v-model="showSatisYn">
+            </ui-checkbox>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <label for="blogConfigKakaoMsgYn">카카오톡 메시지 수신</label>
+          </th>
+          <td>
+            <ui-checkbox :name="'kakaoMsgYn'"
+                         :id="'blogConfigKakaoMsgYn'"
+                         :label="'카카오톡 메시지 수신'"
+                         :labelHidden="true"
+                         :values="'Y,N'"
+                         v-model="kakaoMsgYn">
             </ui-checkbox>
           </td>
         </tr>
@@ -262,6 +276,7 @@ export default {
       ogImgUrl: '',
       ogImgSize: '',
       showSatisYn: '',
+      kakaoMsgYn: '',
       avatarFileList: [],
       ogFileList: [],
       previewBlogConfig: {},
@@ -288,6 +303,7 @@ export default {
     this.ogImg = this.blogConfig.ogImg;
     this.ogImgSize = this.blogConfig.ogImgSize;
     this.showSatisYn = this.blogConfig.showSatisYn;
+    this.kakaoMsgYn = this.blogConfig.kakaoMsgYn;
 
     this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', null);
     this.previewBlogConfig = Object.assign({}, this.$store.state.BlogConfig.data);
