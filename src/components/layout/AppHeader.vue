@@ -39,7 +39,7 @@
                             @click.stop="toggleNotiLayer">
 
               <span class="masthead__util--notice-count" v-if="0 < notiCnt">
-                {{ 10 < notiCnt ? '9+' : notiCnt }}
+                {{ 10 <= notiCnt ? '9+' : notiCnt }}
               </span>
             </ui-icon-button>
 

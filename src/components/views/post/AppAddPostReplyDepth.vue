@@ -4,6 +4,7 @@
       <ui-form :name="'addPostReplyDepthForm'" :class="'post__reply__list-frm'" @onsubmit="onSubmit">
         <ui-hidden-field :name="'parentId'" :id="'addPostReplyParentId'" :value="reply.parentId"></ui-hidden-field>
         <ui-hidden-field :name="'parentReplyId'" :id="'addPostReplyParentReplyId'" :value="reply.id"></ui-hidden-field>
+        <ui-hidden-field :name="'title'" :id="'addPostReplyTitle'" :value="''"></ui-hidden-field>
         <ui-hidden-field :name="'group'" :id="'addPostReplyGroup'" :value="reply.id"></ui-hidden-field>
         <ui-hidden-field :name="'depth'" :id="'addPostReplyDepth'" :value="reply.depth + 1"></ui-hidden-field>
         <ui-hidden-field :name="'crudType'" :id="'addPostReplyCrudType'" :value="'E01001'"></ui-hidden-field>
@@ -49,6 +50,7 @@
 </template>
 
 <script>
+import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import { messageUtil } from '@/utils';
 
 export default {
@@ -62,6 +64,8 @@ export default {
     async onSubmit(values) {
       const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;
+
+      values.title = breadcrumbService.getPageTitle();
 
       this.$http.post('/postreply', values)
       .then(res => {

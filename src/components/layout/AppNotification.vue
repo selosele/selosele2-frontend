@@ -229,7 +229,7 @@
 </template>
 
 <script>
-import { isNotEmpty } from '@/utils';
+import { isNotEmpty, messageUtil } from '@/utils';
 
   export default {
     name: 'app-notification',
@@ -297,6 +297,11 @@ import { isNotEmpty } from '@/utils';
       },
       /** 알림 확인 여부 수정 */
       updateCheckYn() {
+        if (0 === this.idList.length) {
+          messageUtil.toastWarning('알림을 선택하세요.');
+          return;
+        }
+
         return this.$http.put('/notification', this.idList)
         .then(res => {
           this.$emit('check');

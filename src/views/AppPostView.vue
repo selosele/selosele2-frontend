@@ -262,7 +262,12 @@ export default {
     },
     /** 포스트 추천/추천 해제 */
     savePostLike(id) {
-      return this.$http.post(`/postlike/${id}`)
+      const savePostLikeDto = {
+        postId: id,
+        title: breadcrumbService.getPageTitle(),
+      };
+
+      return this.$http.post('postlike', savePostLikeDto)
       .then(res => {
         if (0 === this.postLikeCnt && -1 === res.data) return;
 

@@ -30,6 +30,8 @@
             'post__reply__list--deleted': 'Y' === reply.delYn,
             'post__reply__list--admin': 'Y' === reply.adminYn,
           }"
+          :id="`postReply${reply.id}`"
+          :ref="`postReply${reply.id}`"
       >
         <p class="post__reply__cont" v-html="reply.cont"></p>
     
@@ -150,6 +152,8 @@ export default {
   },
   mounted() {
     document.addEventListener('click', this.closeMenu);
+
+    this.scrollToReply();
   },
   unmounted() {
     document.removeEventListener('click', this.closeMenu);
@@ -198,6 +202,14 @@ export default {
           component: AppRemovePostReplyModal,
           bind: { reply },
         });
+      }
+    },
+    /** 포스트 댓글로 스크롤 이동 */
+    scrollToReply() {
+      if (isNotEmpty(location.hash)) {
+        const replyEl = document.getElementById(location.hash.replace('#', ''));
+        
+        replyEl?.scrollIntoView();
       }
     },
   },

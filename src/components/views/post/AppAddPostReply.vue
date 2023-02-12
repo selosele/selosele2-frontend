@@ -4,6 +4,7 @@
 
     <ui-form :name="'addPostReplyForm'" :class="'post__reply__write-frm'" @onsubmit="onSubmit">
       <ui-hidden-field :name="'parentId'" :id="'addPostReplyParentId'" :value="id"></ui-hidden-field>
+      <ui-hidden-field :name="'title'" :id="'addPostReplyTitle'" :value="''"></ui-hidden-field>
       <ui-hidden-field :name="'crudType'" :id="'addPostReplyCrudType'" :value="'E01001'"></ui-hidden-field>
 
       <ui-textarea :name="'cont'"
@@ -63,6 +64,7 @@
 
 <script>
 import { isNotEmpty, messageUtil } from '@/utils';
+import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import AppPostReplyList from './AppPostReplyList.vue';
 
 export default {
@@ -88,6 +90,8 @@ export default {
     async onSubmit(values) {
       const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;
+
+      values.title = breadcrumbService.getPageTitle();
 
       this.$http.post('/postreply', values)
       .then(res => {
