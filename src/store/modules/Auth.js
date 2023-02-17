@@ -1,4 +1,5 @@
 import { isNotBlank } from "@/utils/common/commonUtil";
+import { authService } from "@/services/auth/authService";
 
 /** 인증·인가 Store */
 export const Auth = {
@@ -9,11 +10,11 @@ export const Auth = {
   mutations: {
     SET_ACCESS_TOKEN(state, accessToken) {
       state.accessToken = accessToken;
-      localStorage.setItem('accessToken', accessToken);
+      authService.setAccessToken(accessToken);
     },
     CLEAR_ACCESS_TOKEN(state) {
       state.accessToken = null;
-      localStorage.removeItem('accessToken');
+      authService.removeAccessToken();
     },
   },
   actions: {
@@ -28,12 +29,16 @@ export const Auth = {
     },
     LOGOUT({ commit }, client) {
       return new Promise((resolve, reject) => {
-        client.defaults.headers.common['Authorization'] = '';
-        commit('Auth/CLEAR_ACCESS_TOKEN', null, { root: true });
-        commit('Post/SET_MAIN_POSTLIST', {}, { root: true });
-        commit('Layout/SET_SIDEBAR', {}, { root: true });
-        commit('Menu/SET_MENU', [], { root: true });
-        resolve('ok');
+        client.post('/auth/signout')
+        .then(res => {
+          client.defaults.headers.common['Authorization'] = '';
+          
+          commit('Auth/CLEAR_ACCESS_TOKEN', null, { root: true });
+          commit('Post/SET_MAIN_POSTLIST', {}, { root: true });
+          commit('Layout/SET_SIDEBAR', {}, { root: true });
+          commit('Menu/SET_MENU', [], { root: true });
+          resolve('ok');
+        });
       });
     },
   },

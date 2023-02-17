@@ -1,3 +1,5 @@
+import jwtDecode from 'jwt-decode';
+
 /** 인증·인가 Service */
 class AuthService {
 
@@ -12,12 +14,39 @@ class AuthService {
       return null;
     }
 
-    return JSON.parse(atob(accessToken.split('.')[1]));
+    return jwtDecode(accessToken);
   }
 
-  /** JWT 가져오기 */
+  /** Access Token 가져오기 */
   getAccessToken() {
     return localStorage.getItem('accessToken');
+  }
+
+  /** Access Token 세팅 */
+  setAccessToken(token) {
+    localStorage.setItem('accessToken', token);
+  }
+
+  /** Access Token 제거 */
+  removeAccessToken() {
+    localStorage.removeItem('accessToken');
+  }
+
+  /** 액세스 토큰의 남은 시간 확인 */
+  getAccessTokenRemaningTime() {
+    const accessToken = this.getAccessToken();
+
+    if (!accessToken) {
+      return null;
+    }
+
+    const decodedToken = jwtDecode(accessToken);
+    const expirationTime = decodedToken.exp;
+
+    const currentTime = Math.floor(Date.now() / 1000);
+    const remainingTime = expirationTime - currentTime;
+
+    return remainingTime;
   }
 
   /** 1개의 권한 확인 */

@@ -27,6 +27,32 @@ const app = createApp({
       this.$store.commit('Auth/SET_ACCESS_TOKEN', accessToken);
     }
 
+    // this.$http.interceptors.request.use(
+    //   async (config) => {
+    //     if (authService.getAccessToken()) {
+
+    //       // 액세스 토큰의 남은 시간을 계산해서
+    //       const accessTokenRemaningTime = authService.getAccessTokenRemaningTime();
+    //       console.log(accessTokenRemaningTime);
+    
+    //       // 1분 이하로 남았으면 갱신을 한다.
+    //       if (accessTokenRemaningTime <= 60) {
+    //         const res = await this.$http.post('/auth/refresh');
+    //         const accessToken = res.data?.accessToken;
+
+    //         authService.setAccessToken(accessToken);
+    //         config.headers['Authorization'] = `Bearer ${accessToken}`;
+
+    //         return config;
+    //       }
+    //     }
+    //     return config;
+    //   },
+    //   (error) => {
+    //     return Promise.reject(error);
+    //   }
+    // );
+
     this.$http.interceptors.response.use(
       response => response,
       async error => {
@@ -40,7 +66,7 @@ const app = createApp({
         // 권한 오류, JWT 만료/변조 시 강제 로그아웃
         if (401 === error?.response?.status) {
           const res = await this.$store.dispatch('Auth/LOGOUT', this.$http);
-          
+        
           if ('ok' === res) {
             this.$router.push({
               path: '/',
