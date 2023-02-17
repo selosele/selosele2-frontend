@@ -35,7 +35,7 @@
   }
 
   @media (min-width: $min-general-width) {
-    width: 1600px;
+    width: calc(1600px - 4.75rem);
   }
 
   &__list {
