@@ -41,7 +41,6 @@ import AppSidebar from '@/components/layout/AppSidebar.vue';
 import AppSkipLinks from '@/components/layout/AppSkipLinks.vue';
 import AppUserSatisfaction from '@/components/layout/AppUserSatisfaction.vue';
 import { ModalsContainer } from 'vue-final-modal';
-import { authService } from '@/services/auth/authService';
 
 import '@vuepic/vue-datepicker/dist/main.css';
 
@@ -65,7 +64,6 @@ export default {
     };
   },
   created() {
-    this.initJwt();
     this.listCode();
     this.getBlogConfig();
   },
@@ -83,14 +81,6 @@ export default {
     },
   },
   methods: {
-    /** JWT 세팅 */
-    initJwt() {
-      const accessToken = authService.getAccessToken();
-      
-      if (accessToken) {
-        this.$http.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-      }
-    },
     /** 공통코드 목록 조회 */
     listCode() {
       this.$http.get('/code')
