@@ -239,9 +239,9 @@ export default {
     },
     /** 데이타 로딩 */
     dataLoading() {
-      if (0 < this.storeSidebar.widget.length 
-        && 0 < this.categoryList.length 
-        && 0 < this.tagList.length) {
+      if (0 < this.storeSidebar?.widget?.length 
+        && 0 < this.categoryList?.length 
+        && 0 < this.tagList?.length) {
         this.dataLoaded = true;
       }
     },

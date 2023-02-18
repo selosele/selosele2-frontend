@@ -57,7 +57,7 @@ router.beforeEach((to, from, next) => {
   // 로그인이 필요한 페이지
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (store.getters.isLogin) {
-      // 로그인 되어 있으면 가던 길 가고
+      // 로그인이 되어 있으면 가던 길을 가고
       next();
       return;
     }
@@ -66,6 +66,7 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
+  
 });
 
 export default router;

@@ -7,6 +7,7 @@ import { Post } from '@/store/modules/Post';
 import { Guestbook } from '@/store/modules/Guestbook';
 import { Menu } from '@/store/modules/Menu';
 import { Splitter } from '@/store/modules/Splitter';
+import { authService } from '@/services/auth/authService';
 
 export default createStore({
   modules: {
@@ -30,7 +31,7 @@ export default createStore({
     },
     /** 로그인 여부 */
     isLogin(state) {
-      return state.Auth.accessToken !== null;
+      return state.Auth.accessToken !== null && authService.isValidAccessToken();
     },
     /** Splitter 활성화 여부 */
     isSplitterActive(state) {

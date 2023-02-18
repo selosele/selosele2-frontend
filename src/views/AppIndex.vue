@@ -97,25 +97,25 @@ export default {
     /** 포스트 목록 조회 */
     async listPost() {
       const listPostDto = { pageType: 'D01001' };
-      const post = await this.$http.get('/post', { params: listPostDto });
+      const { data } = await this.$http.get('/post', { params: listPostDto });
 
-      post.data[0].map(d => {
+      data[0].map(d => {
         this.postList.push(d);
       });
       
-      this.listCnt = post.data[1];
+      this.listCnt = data[1];
 
       this.$store.dispatch('Post/FETCH_MAIN_POSTLIST', {
         postList: this.postList,
         listCnt: this.listCnt,
       });
 
-      return post;
+      return data;
     },
     /** 포스트 목록 갱신 */
     async refreshPostList() {
       const post = await this.listPost();
-      this.listPostByCategory(post.data);
+      this.listPostByCategory(post);
     },
     /** 카테고리 필터링 */
     async listPostByCategory(values) {

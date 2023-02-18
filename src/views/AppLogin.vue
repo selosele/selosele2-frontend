@@ -65,8 +65,8 @@ export default {
   methods: {
     /** 로그인 */
     async onSubmit(values) {
-      const res = await this.$http.post('/auth/signin', values);
-      const accessToken = res.data?.accessToken;
+      const { data } = await this.$http.post('/auth/signin', values);
+      const accessToken = data?.accessToken;
       
       if (accessToken) {
         this.$http.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
