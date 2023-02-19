@@ -497,7 +497,6 @@ export default {
       // 임시저장이 아닌 경우에만 페이지를 이동함
       if ('N' === values.tmpYn) {
         this.$store.dispatch('Menu/LIST_MENU', {
-          client: this.$http,
           params: {
             useYn: 'Y',
           },

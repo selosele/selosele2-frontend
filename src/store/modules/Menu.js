@@ -1,3 +1,5 @@
+import { axiosInstance } from "@/api";
+
 /** 메뉴 Store */
 export const Menu = {
   namespaced: true,
@@ -13,8 +15,8 @@ export const Menu = {
     FETCH_MENU({ commit }, values) {
       commit('SET_MENU', values);
     },
-    LIST_MENU({ commit }, values) {
-      values.client.get('/menu/list/tree', { params: values.params })
+    async LIST_MENU({ commit }, values) {
+      return axiosInstance.get('/menu/list/tree', { params: values.params })
       .then(res => {
         commit('SET_MENU', res.data);
       });

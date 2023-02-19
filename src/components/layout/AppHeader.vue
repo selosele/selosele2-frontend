@@ -38,14 +38,14 @@
                             ref="notiBtn"
                             @click.stop="toggleNotiLayer">
 
-              <span class="masthead__util--notice-count" v-if="0 < notiCnt">
-                {{ 10 <= notiCnt ? '9+' : notiCnt }}
+              <span class="masthead__util--notice-count" v-if="0 < $store.state.Notification.notiCnt">
+                {{ 10 <= $store.state.Notification.notiCnt ? '9+' : $store.state.Notification.notiCnt }}
               </span>
             </ui-icon-button>
 
             <app-notification ref="notiLayer"
-                              :key="notiList"
-                              :list="notiList"
+                              :key="$store.state.Notification.notiList"
+                              :list="$store.state.Notification.notiList"
                               @check="onCheckNotification"
                               v-if="notiToggle">
             </app-notification>
@@ -75,7 +75,6 @@
 
 <script>
 import { isBlank, isNotEmpty, messageUtil } from '@/utils';
-import { authService } from '@/services/auth/authService';
 import AppNotification from '@/components/layout/AppNotification.vue';
 
 export default {
@@ -88,8 +87,6 @@ export default {
   },
   data() {
     return {
-      notiList: [],
-      notiCnt: 0,
       notiToggle: false,
       dataLoaded: false,
     }
@@ -111,13 +108,6 @@ export default {
     '$route'() {
       this.notiToggle = false;
     },
-    '$store.state.Auth.accessToken'(accessToken) {
-      if (isNotEmpty(accessToken)) {
-
-        // 로그인 후 알림 목록 조회
-        this.listNotification();
-      }
-    }
   },
   computed: {
     clazz: {
@@ -205,13 +195,7 @@ export default {
     },
     /** 알림 목록 조회 */
     listNotification() {
-      if (!authService.getUser()) return;
-
-      return this.$http.get('/notification')
-      .then(res => {
-        this.notiList = [...res.data[0]];
-        this.notiCnt = res.data[1];
-      });
+      this.$store.dispatch('Notification/LIST_NOTIFICATION');
     },
     /** 알림 확인 여부 값 수정 시 */
     onCheckNotification() {

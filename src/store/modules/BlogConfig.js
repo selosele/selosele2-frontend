@@ -1,3 +1,5 @@
+import { axiosInstance } from "@/api";
+
 /** 블로그 환경설정 Store */
 export const BlogConfig = {
   namespaced: true,
@@ -22,7 +24,7 @@ export const BlogConfig = {
     },
     GET_BLOG_CONFIG({ commit }, values) {
       return new Promise((resolve, reject) => {
-        values.client.get('/blogconfig')
+        axiosInstance.get('/blogconfig')
         .then(res => {
           commit('SET_BLOG_CONFIG', res.data);
           resolve(res.data);

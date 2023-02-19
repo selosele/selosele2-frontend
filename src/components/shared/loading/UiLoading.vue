@@ -15,8 +15,11 @@ export default {
     Loading,
   },
   computed: {
-    active() {
-      return this.activeModel;
+    active: {
+      get() {
+        return this.activeModel;
+      },
+      set(v) {}
     }
   },
   props: {

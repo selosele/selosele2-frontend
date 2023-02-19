@@ -1,3 +1,5 @@
+import { axiosInstance } from "@/api";
+
 /** 레이아웃 Store */
 export const Layout = {
   namespaced: true,
@@ -37,7 +39,7 @@ export const Layout = {
     },
     LIST_WIDGET({ commit }, values) {
       return new Promise((resolve, reject) => {
-        values.client.get('/widget', { params: values?.params })
+        axiosInstance.get('/widget', { params: values?.params })
         .then(res => {
           commit('SET_WIDGET', res.data);
           resolve(res.data);

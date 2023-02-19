@@ -1,18 +1,20 @@
 import { createStore } from 'vuex';
 import { Code } from '@/store/modules/Code';
 import { Auth } from '@/store/modules/Auth';
+import { Notification } from '@/store/modules/Notification';
 import { BlogConfig } from '@/store/modules/BlogConfig';
 import { Layout } from '@/store/modules/Layout';
 import { Post } from '@/store/modules/Post';
 import { Guestbook } from '@/store/modules/Guestbook';
 import { Menu } from '@/store/modules/Menu';
 import { Splitter } from '@/store/modules/Splitter';
-import { authService } from '@/services/auth/authService';
+import { isNotEmpty } from '@/utils';
 
 export default createStore({
   modules: {
     Code,           // 공통코드
     Auth,           // 인증·인가
+    Notification,   // 알림
     BlogConfig,     // 블로그 환경설정
     Layout,         // 레이아웃
     Post,           // 포스트
@@ -31,7 +33,7 @@ export default createStore({
     },
     /** 로그인 여부 */
     isLogin(state) {
-      return state.Auth.accessToken !== null && authService.isValidAccessToken();
+      return isNotEmpty(state.Auth.accessToken);
     },
     /** Splitter 활성화 여부 */
     isSplitterActive(state) {

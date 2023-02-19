@@ -50,16 +50,10 @@ export default {
   unmounted() {
     document.removeEventListener('click', this.closeMenu);
   },
-  watch: {
-    '$store.state.Auth.accessToken'(accessToken) {
-      this.listMenu();
-    },
-  },
   methods: {
     /** 메뉴 목록 조회 */
-    listMenu() {
-      this.$store.dispatch('Menu/LIST_MENU', {
-        client: this.$http,
+    async listMenu() {
+      await this.$store.dispatch('Menu/LIST_MENU', {
         params: {
           useYn: 'Y',
         },

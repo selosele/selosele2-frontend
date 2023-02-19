@@ -86,7 +86,6 @@ export default {
     /** 위젯 목록 조회 및 store 업데이트 */
     listWidget() {
       return this.$store.dispatch('Layout/LIST_WIDGET', {
-        client: this.$http,
         params: {
           useYn: 'Y',
         },

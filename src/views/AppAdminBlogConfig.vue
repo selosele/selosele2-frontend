@@ -287,10 +287,7 @@ export default {
     if (isNotEmpty(this.$store.state.BlogConfig?.previewData)) {
       //블로그 환경설정 미리보기 데이타 초기화
       this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', null);
-      
-      await this.$store.dispatch('BlogConfig/GET_BLOG_CONFIG', {
-        client: this.$http
-      });
+      await this.$store.dispatch('BlogConfig/GET_BLOG_CONFIG');
     }
     next();
   },

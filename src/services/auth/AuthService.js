@@ -1,7 +1,7 @@
 import jwtDecode from 'jwt-decode';
 
 /** 인증·인가 Service */
-class AuthService {
+export class AuthService {
 
   constructor() {
   }
@@ -43,7 +43,7 @@ class AuthService {
     const decodedToken = jwtDecode(accessToken);
     const expirationTime = decodedToken.exp;
 
-    const currentTime = Math.floor(Date.now() / 1000);
+    const currentTime = Math.floor(new Date().getTime() / 1000);
     const remainingTime = expirationTime - currentTime;
 
     return remainingTime;
@@ -103,5 +103,3 @@ class AuthService {
   }
   
 }
-
-export const authService = new AuthService();

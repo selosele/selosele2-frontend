@@ -161,7 +161,6 @@ export default {
     /** 메뉴 목록 조회 */
     listMenu() {
       this.$store.dispatch('Menu/LIST_MENU', {
-        client: this.$http,
         params: {
           useYn: 'Y',
         },
