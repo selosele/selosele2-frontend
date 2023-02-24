@@ -92,7 +92,9 @@ export default {
     }
   },
   created() {
-    this.listNotification();
+    if (this.$store.getters.isLogin) {
+      this.listNotification();
+    }
   },
   mounted() {
     document.addEventListener('click', this.closeNotiLayer);
@@ -172,7 +174,7 @@ export default {
       const confirm = await messageUtil.confirmQuestion('로그아웃하시겠습니까?');
       if (!confirm) return;
 
-      const res = await this.$store.dispatch('Auth/LOGOUT', this.$http);
+      const res = await this.$store.dispatch('Auth/LOGOUT');
 
       if ('ok' === res) {
         this.$router.push('/a/goto');

@@ -45,7 +45,7 @@ axiosInstance.interceptors.response.use(
     if (401 === error?.response?.status && !originalRequest._retry) {
       // 강제 로그아웃
       // const errVal = this.$moment().format('YYYYMMDDHHmmss');
-      // new AuthService().logout(store, axiosInstance, this.$router, errVal);
+      // new AuthService().logout(errVal);
 
       if (!isRefreshing) {
         originalRequest._retry = true;
@@ -56,18 +56,18 @@ axiosInstance.interceptors.response.use(
           const newAccessToken = data.accessToken;
           
           new AuthService().setAccessToken(newAccessToken);
+          store.commit('Auth/SET_ACCESS_TOKEN', newAccessToken);
       
           originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-          store.commit('Auth/SET_ACCESS_TOKEN', newAccessToken);
+
+          originalRequest._retry = false;
+          isRefreshing = false;
+
+          return axiosInstance(originalRequest); // try~catch 블록 바깥에서 return을 하면 HTTP 요청 순서가 꼬이게 됨
         } catch (error) {
           console.error('Error refreshing access token:', error);
           return Promise.reject(error);
-        } finally {
-          originalRequest._retry = false;
-          isRefreshing = false;
         }
-
-        return axiosInstance(originalRequest);
       }
     }
 

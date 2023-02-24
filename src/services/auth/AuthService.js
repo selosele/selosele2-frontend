@@ -1,3 +1,5 @@
+import router from '@/routes';
+import store from '@/store';
 import jwtDecode from 'jwt-decode';
 
 /** 인증·인가 Service */
@@ -23,8 +25,8 @@ export class AuthService {
   }
 
   /** Access Token 세팅 */
-  setAccessToken(token) {
-    localStorage.setItem('accessToken', token);
+  setAccessToken(accessToken) {
+    localStorage.setItem('accessToken', accessToken);
   }
 
   /** Access Token 제거 */
@@ -91,8 +93,8 @@ export class AuthService {
   }
 
   /** 로그아웃 */
-  async logout(store, http, router, e) {
-    const res = await store.dispatch('Auth/LOGOUT', http);
+  async logout(e) {
+    const res = await store.dispatch('Auth/LOGOUT');
         
     if ('ok' === res) {
       router.push({
