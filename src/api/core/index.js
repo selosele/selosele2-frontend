@@ -2,6 +2,7 @@ import { AuthService } from '@/services/auth/authService';
 import { isNotBlank, messageUtil } from '@/utils';
 import axios from 'axios';
 import store from '@/store';
+import moment from 'moment';
 
 const axiosInstance = axios.create({
   baseURL: '/api',
@@ -43,10 +44,6 @@ axiosInstance.interceptors.response.use(
 
     // 권한 에러 및 JWT 만료 시
     if (401 === error?.response?.status && !originalRequest._retry) {
-      // 강제 로그아웃
-      // const errVal = this.$moment().format('YYYYMMDDHHmmss');
-      // new AuthService().logout(errVal);
-
       if (!isRefreshing) {
         originalRequest._retry = true;
         isRefreshing = true;
@@ -65,7 +62,11 @@ axiosInstance.interceptors.response.use(
 
           return axiosInstance(originalRequest); // try~catch 블록 바깥에서 return을 하면 HTTP 요청 순서가 꼬이게 됨
         } catch (error) {
+
+          // 강제 로그아웃
           console.error('Error refreshing access token:', error);
+          
+          new AuthService().logout(moment().format('YYYYMMDDHHmmss'));
           return Promise.reject(error);
         }
       }
