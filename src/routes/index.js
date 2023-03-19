@@ -30,7 +30,7 @@ const router = createRouter({
     if (savedPosition) {
       return savedPosition;
     }
-    return { top: 0, left: 0 }; // 새 경로로 이동할 때 스크롤 위치를 초기화해준다.
+    return { top: 0, left: 0 }; // 새 페이지로 이동할 때 스크롤 위치를 초기화해준다.
   },
 });
 
@@ -39,6 +39,7 @@ router.beforeEach((to, from, next) => {
   if (isEmpty(to.meta.showSidebar)) {
     to.meta.showSidebar = true;
   }
+  
   if (isEmpty(to.meta.showSatis)) {
     to.meta.showSatis = true;
   }

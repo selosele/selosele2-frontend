@@ -1,41 +1,33 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
     <div class="category__wrapper">
-      <template v-if="!dataLoaded">
-        <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-        <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-        <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-      </template>
+      <ul>
+        <template v-for="(post,i) in postList" :key="i">
+          <li :class="[
+            'category__item',
+            'Y' === post.secretYn && 'category__item--secret']">
+            <router-link :to="`/post/${post.id}`">
+              <strong class="category__title">{{ post.title }}</strong>
+              <span class="category__date">{{ post.regDate }}</span>
+            </router-link>
+          </li>
+        </template>
+      </ul>
 
-      <template v-else>
-        <ul>
-          <template v-for="(post,i) in postList" :key="i">
-            <li :class="[
-              'category__item',
-              'Y' === post.secretYn && 'category__item--secret']">
-              <router-link :to="`/post/${post.id}`">
-                <strong class="category__title">{{ post.title }}</strong>
-                <span class="category__date">{{ post.regDate }}</span>
-              </router-link>
-            </li>
-          </template>
-        </ul>
-
-        <button type="button"
-                class="btn--more"
-                @click="onMore"
-                v-if="listCnt > pageSize && !isLastPage">
-          <i class="xi-ellipsis-h" aria-hidden="true"></i>
-          <span class="sr-only">더보기</span>
-        </button>
-      </template>
+      <button type="button"
+              class="btn--more"
+              @click="onMore"
+              v-if="listCnt > pageSize && !isLastPage">
+        <i class="xi-ellipsis-h" aria-hidden="true"></i>
+        <span class="sr-only">더보기</span>
+      </button>
     </div>
   </app-content-wrapper>
 </template>
 
 <script>
 import { isNotEmpty } from '@/utils';
-import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
+import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-category',
@@ -51,7 +43,6 @@ export default {
       listCnt: 0,
       postList: [],
       isLastPage: false,
-      dataLoaded: false,
     }
   },
   created() {
@@ -67,11 +58,9 @@ export default {
     async init() {
       this.page = 1;
       this.isLastPage = false;
-      this.dataLoaded = false;
       this.postList = [];
 
       await this.listPostByCategory();
-      this.dataLoading();
     },
     /** 카테고리별 포스트 목록 조회 */
     listPostByCategory() {
@@ -88,6 +77,7 @@ export default {
           category.type = isNotEmpty(d.postCategory) ? '카테고리' : '태그';
           category.nm = isNotEmpty(d.postCategory) ? d.postCategory[0].category.nm : d.postTag[0].tag.nm;
           d.regDate = this.$moment(d.regDate).format('YYYY.MM.DD');
+          
           this.postList.push(d);
         });
 
@@ -99,7 +89,7 @@ export default {
 
         // 페이지 타이틀 세팅
         this.pageTitle = `'${category.nm}' ${category.type}의 글`;
-        breadcrumbService.setPageTitle(this.pageTitle);
+        new BreadcrumbService().setPageTitle(this.pageTitle);
       });
     },
     /** 더보기 */
@@ -116,12 +106,6 @@ export default {
       }
 
       return '';
-    },
-    /** 데이타 로딩 */
-    dataLoading() {
-      if (0 < this.postList.length) {
-        this.dataLoaded = true;
-      }
     },
   },
 }

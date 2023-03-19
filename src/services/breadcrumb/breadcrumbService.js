@@ -2,7 +2,7 @@ import store from '@/store';
 import { isNotEmpty } from '@/utils';
 
 /** Breadcrumb Service */
-class BreadcrumbService {
+export class BreadcrumbService {
 
   nowPageTitle = '';
 
@@ -25,5 +25,3 @@ class BreadcrumbService {
   }
   
 }
-
-export const breadcrumbService = new BreadcrumbService();

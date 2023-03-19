@@ -1,4 +1,9 @@
 <template>
+  <ui-loading :activeModel="!$store.state.Loading.isLoading"
+              :is-full-page="true"
+              :color="'#538204'">
+  </ui-loading>
+
   <app-skip-links></app-skip-links>
 
   <div id="body" :class="{ 'scroll-down': !scrollDown }">
@@ -22,7 +27,7 @@
         </div>
       </div>
 
-      <app-user-satisfaction v-if="($route.meta.showSatis && 'Y' === this.$store.state.BlogConfig.data?.showSatisYn)">
+      <app-user-satisfaction v-if="($route.meta.showSatis && 'Y' === $store.state.BlogConfig.data?.showSatisYn)">
       </app-user-satisfaction>
     </app-main>
 

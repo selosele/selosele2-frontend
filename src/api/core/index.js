@@ -1,8 +1,8 @@
 import { AuthService } from '@/services/auth/authService';
 import { isNotBlank, messageUtil } from '@/utils';
-import axios from 'axios';
 import store from '@/store';
-import moment from 'moment';
+import router from '@/routes';
+import axios from 'axios';
 
 const axiosInstance = axios.create({
   baseURL: '/api',
@@ -20,6 +20,8 @@ axiosInstance.interceptors.request.use(
       store.commit('Auth/SET_ACCESS_TOKEN', accessToken);
     }
 
+    store.commit('Loading/SET_LOADING', false);
+
     return config;
   },
   error => {
@@ -30,9 +32,15 @@ axiosInstance.interceptors.request.use(
 let isRefreshing = false;
 
 axiosInstance.interceptors.response.use(
-  response => response,
+  response => {
+    store.commit('Loading/SET_LOADING', true);
+
+    return response;
+  },
   async error => {
     const originalRequest = error.config;
+
+    store.commit('Loading/SET_LOADING', true);
 
     if (isNotBlank(error?.response?.data?.type) && 'biz' === error?.response?.data?.type) {
       // 비즈니스 로직 예외 처리
@@ -66,7 +74,7 @@ axiosInstance.interceptors.response.use(
           // 강제 로그아웃
           console.error('Error refreshing access token:', error);
           
-          new AuthService().logout(moment().format('YYYYMMDDHHmmss'));
+          new AuthService().logout(true);
           return Promise.reject(error);
         }
       }
@@ -74,7 +82,7 @@ axiosInstance.interceptors.response.use(
 
     // 404 에러
     if (404 === error?.response?.status) {
-      this.$router.push('/error');
+      router.push('/error');
     }
 
     return Promise.reject(error);

@@ -1,44 +1,36 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
-    <template v-if="!dataLoaded">
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-    </template>
-
-    <template v-else>
-      <div class="d-flex flex--right gap--10 mb--15">
-        <ui-datepicker
-          v-model="regDate"
-          @clear="onClear"
-          @update:modelValue="listByRegDate"
-        >
-        </ui-datepicker>
-
-        <ui-button :color="'secondary'"
-                   @click="listByAllDate">전체
-        </ui-button>
-
-        <ui-button :color="'dark'"
-                   @click="listByNowDate">Today
-        </ui-button>
-      </div>
-
-      <ui-grid
-        :columnDefs="columnDefs"
-        :rowData="rowData"
-        :rowNumIndex="0"
-        :pagination="true"
-        @gridready="onGridReady"
-        @celldoubleclicked="onCellDoubleClicked"
+    <div class="d-flex flex--right gap--10 mb--15">
+      <ui-datepicker
+        v-model="regDate"
+        @clear="onClear"
+        @update:modelValue="listByRegDate"
       >
-      </ui-grid>
-    </template>
+      </ui-datepicker>
+
+      <ui-button :color="'secondary'"
+                 @click="listByAllDate">전체
+      </ui-button>
+
+      <ui-button :color="'dark'"
+                 @click="listByNowDate">Today
+      </ui-button>
+    </div>
+
+    <ui-grid
+      :columnDefs="columnDefs"
+      :rowData="rowData"
+      :rowNumIndex="0"
+      :pagination="true"
+      @gridready="onGridReady"
+      @celldoubleclicked="onCellDoubleClicked"
+    >
+    </ui-grid>
   </app-content-wrapper>
 </template>
 
 <script>
-import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
+import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-admin-satisfaction',
@@ -55,17 +47,15 @@ export default {
       rowData: [],
       regDate: null,
       gridApi: null,
-      dataLoaded: false,
     }
   },
   async created() {
     // 페이지 타이틀 세팅
-    breadcrumbService.setPageTitle(this.pageTitle);
+    new BreadcrumbService().setPageTitle(this.pageTitle);
 
     await this.listSatisfaction({
       isToday: 'N',
     });
-    this.dataLoading();
   },
   methods: {
     onGridReady(params) {
@@ -115,12 +105,6 @@ export default {
         isToday: 'N',
       });
       this.gridApi.setRowData(this.rowData);
-    },
-    /** 데이타 로딩 */
-    dataLoading() {
-
-      // 데이타가 없어도 로딩이 완료되어야 함
-      this.dataLoaded = true;
     },
   },
 }

@@ -1,52 +1,44 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
-    <template v-if="!dataLoaded">
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-    </template>
+    <div class="d-flex flex--right gap--10 mb--15">
+      <ui-button :color="'primary'"
+                 @click="addCode">추가
+      </ui-button>
 
-    <template v-else>
-      <div class="d-flex flex--right gap--10 mb--15">
-        <ui-button :color="'primary'"
-                   @click="addCode">추가
-        </ui-button>
+      <ui-button :color="'dark'"
+                 @click="removeCode">삭제
+      </ui-button>
+    </div>
 
-        <ui-button :color="'dark'"
-                   @click="removeCode">삭제
-        </ui-button>
-      </div>
-
-      <ui-split-pane>
-        <ui-pane>
-          <ui-grid
-            :columnDefs="columnDefs"
-            :rowData="rowData"
-            :checkboxIndex="0"
-            :pagination="true"
-            @gridready="onGridReady"
-            @cellclicked="onCellClicked"
-          >
-          </ui-grid>
-        </ui-pane>
-        
-        <ui-pane v-if="isSplitterActive">
-          <app-save-code
-            :code="code"
-            :key="code.id"
-            @saveCode="onSaveCode"
-          >
-          </app-save-code>
-        </ui-pane>
-      </ui-split-pane>
-    </template>
+    <ui-split-pane>
+      <ui-pane>
+        <ui-grid
+          :columnDefs="columnDefs"
+          :rowData="rowData"
+          :checkboxIndex="0"
+          :pagination="true"
+          @gridready="onGridReady"
+          @cellclicked="onCellClicked"
+        >
+        </ui-grid>
+      </ui-pane>
+      
+      <ui-pane v-if="isSplitterActive">
+        <app-save-code
+          :code="code"
+          :key="code.id"
+          @saveCode="onSaveCode"
+        >
+        </app-save-code>
+      </ui-pane>
+    </ui-split-pane>
   </app-content-wrapper>
 </template>
 
 <script>
 import AppSaveCode from '@/components/views/code/AppSaveCode.vue';
 import { messageUtil } from '@/utils';
-import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
+import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-admin-code',
@@ -69,15 +61,13 @@ export default {
       rowData: [],
       code: null,
       gridApi: null,
-      dataLoaded: false,
     }
   },
   async created() {
     // 페이지 타이틀 세팅
-    breadcrumbService.setPageTitle(this.pageTitle);
+    new BreadcrumbService().setPageTitle(this.pageTitle);
 
     await this.listCode();
-    this.dataLoading();
   },
   methods: {
     onGridReady(params) {
@@ -101,7 +91,6 @@ export default {
         });
 
         this.rowData = [...res.data];
-        this.dataLoading();
       });
     },
     /** 공통코드 추가 */
@@ -150,12 +139,6 @@ export default {
         case 'Y': return '사용';
         case 'N': return '미사용';
       }
-    },
-    /** 데이타 로딩 */
-    dataLoading() {
-
-      // 데이타가 없어도 로딩이 완료되어야 함
-      this.dataLoaded = true;
     },
   },
 }

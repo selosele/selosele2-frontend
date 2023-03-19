@@ -47,7 +47,7 @@
 
 <script>
 import { messageUtil } from '@/utils';
-import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
+import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-login',
@@ -60,7 +60,7 @@ export default {
   },
   created() {
     // 페이지 타이틀 세팅
-    breadcrumbService.setPageTitle(this.pageTitle);
+    new BreadcrumbService().setPageTitle(this.pageTitle);
   },
   methods: {
     /** 로그인 */

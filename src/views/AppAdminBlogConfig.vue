@@ -1,7 +1,5 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
-    <ui-loading :activeModel="!blogConfigSaved" :fullPage="true"></ui-loading>
-
     <ui-form :name="'blogConfigForm'"
              :ref="'blogConfigForm'"
              :class="'blog-config__frm'"
@@ -263,7 +261,7 @@
 </template>
 
 <script>
-import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
+import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import { messageUtil, isNotEmpty } from '@/utils';
 
 export default {
@@ -282,7 +280,6 @@ export default {
       avatarFileList: [],
       ogFileList: [],
       previewBlogConfig: {},
-      blogConfigSaved: false,
     }
   },
   /** 해당 컴포넌트를 벗어나 새로운 페이지로 이동할 때 호출됨 */
@@ -296,9 +293,8 @@ export default {
   },
   created() {
     // 페이지 타이틀 세팅
-    breadcrumbService.setPageTitle(this.pageTitle);
+    new BreadcrumbService().setPageTitle(this.pageTitle);
 
-    this.blogConfigSaved = true;
     this.avatarImg = this.blogConfig.avatarImg;
     this.avatarImgSize = this.blogConfig.avatarImgSize;
     this.ogImg = this.blogConfig.ogImg;
@@ -334,20 +330,16 @@ export default {
       const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;
 
-      this.blogConfigSaved = false;
-
       const headers = { 'Content-Type': 'multipart/form-data' };
 
       this.$http.put('/blogconfig', values, { headers })
       .then(res => {
-        this.blogConfigSaved = true;
-
         messageUtil.toastSuccess('저장되었습니다.');
 
         this.$store.dispatch('BlogConfig/FETCH_BLOG_CONFIG', res.data);
         this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', null);
 
-        breadcrumbService.setPageTitle(this.pageTitle);
+        new BreadcrumbService().setPageTitle(this.pageTitle);
       });
     },
     /** 블로그 아바타 이미지 file input 값 변경 시 */

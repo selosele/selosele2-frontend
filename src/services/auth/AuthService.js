@@ -1,6 +1,7 @@
 import router from '@/routes';
 import store from '@/store';
 import jwtDecode from 'jwt-decode';
+import moment from 'moment';
 
 /** 인증·인가 Service */
 export class AuthService {
@@ -93,13 +94,14 @@ export class AuthService {
   }
 
   /** 로그아웃 */
-  async logout(e) {
+  async logout(hasQueryString) {
     const res = await store.dispatch('Auth/LOGOUT');
+    const e = moment().format('YYYYMMDDHHmmss');
         
     if ('ok' === res) {
       router.push({
         path: '/',
-        query: { e },
+        ...(hasQueryString && { query: { e } }), // '/' 페이지에서 로그아웃 시, 강제 페이지 이동을 위해 임의의 쿼리스트링을 넘겨줌
       });
     }
   }

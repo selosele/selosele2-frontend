@@ -1,16 +1,6 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
-    <ui-loading :activeModel="!previewPostLoaded" :fullPage="true"></ui-loading>
-    <ui-loading :activeModel="!tmpPostListLoaded" :fullPage="true"></ui-loading>
-    <ui-loading :activeModel="!postSaved" :fullPage="true"></ui-loading>
-
-    <template v-if="!dataLoaded">
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-    </template>
-
-    <div class="write__wrapper" v-else>
+    <div class="write__wrapper">
       <ui-form :name="'savePostForm'"
                :ref="'savePostForm'"
                :class="'write__frm'"
@@ -302,7 +292,7 @@
 
 <script>
 import { arrayHasDuplicateValue, getFormValues, isBlank, isNotEmpty, messageUtil } from '@/utils';
-import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
+import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import AppSavePostTag from '@/components/views/post/AppSavePostTag.vue';
 import AppPreviewPostModal from '@/components/views/post/AppPreviewPostModal.vue';
 
@@ -353,14 +343,6 @@ export default {
       saveTagList: [],
       /** 임시저장 포스트 목록 */
       tmpPostList: [],
-      /** 데이타 로딩 완료 여부 */
-      dataLoaded: false,
-      /** 미리보기 데이타 로딩 완료 여부 */
-      previewPostLoaded: false,
-      /** 임시저장 포스트 목록 로딩 완료 여부 */
-      tmpPostListLoaded: false,
-      /** 포스트 작성 완료 여부 */
-      postSaved: false,
     }
   },
   /** 해당 컴포넌트를 벗어나 새로운 페이지로 이동할 때 호출됨 */
@@ -374,7 +356,7 @@ export default {
     this.pageTitle = this.getPageTitle();
 
     // 페이지 타이틀 세팅
-    breadcrumbService.setPageTitle(this.pageTitle);
+    new BreadcrumbService().setPageTitle(this.pageTitle);
 
     this.init();
   },
@@ -411,10 +393,6 @@ export default {
   methods: {
     /** 초기 세팅 */
     async init() {
-      this.previewPostLoaded = true;
-      this.tmpPostListLoaded = true;
-      this.postSaved = true;
-
       // 포스트 수정 페이지일 경우, 포스트 조회 메서드를 실행하기 위함
       if (this.isUpdatePostPage) {
         await Promise.all([
@@ -428,15 +406,11 @@ export default {
         await this.getPost(this.$route.params.id);
       }
       else {
-        this.dataLoaded = true;
-        
         await Promise.all([
           this.listCategory(),
           this.listTag(),
         ]);
       }
-
-      this.dataLoading();
     },
     /** 페이지 타이틀 가공 */
     getPageTitle() {
@@ -461,8 +435,6 @@ export default {
 
       const confirm = await messageUtil.confirmSuccess(msg[0]);
       if (!confirm) return;
-
-      this.postSaved = false;
 
       // 태그 배열에 추가
       this.setTagArr(values);
@@ -492,7 +464,6 @@ export default {
 
       this.$store.dispatch('Post/FETCH_MAIN_POSTLIST', {});
       this.$store.dispatch('Layout/FETCH_SIDEBAR', {});
-      this.postSaved = true;
 
       // 임시저장이 아닌 경우에만 페이지를 이동함
       if ('N' === values.tmpYn) {
@@ -622,15 +593,10 @@ export default {
     /** 포스트 미리보기 */
     previewPost() {
       const body = getFormValues(this.$refs['savePostForm'].$el);
-      
-      this.previewPostLoaded = false;
-
       let url = this.isPostPage ? '/post/preview' : '/content/preview';
 
       return this.$http.post(url, body)
       .then(res => {
-        this.previewPostLoaded = true;
-
         this.$modal.show({
           component: AppPreviewPostModal,
           bind: {
@@ -643,11 +609,8 @@ export default {
     listTmpPost() {
       if (0 < this.tmpPostList.length) {
         this.tmpPostList = [];
-        this.tmpPostListLoaded = true;
         return;
       }
-
-      this.tmpPostListLoaded = false;
 
       const listPostDto = { tmpYn: 'Y' };
       let url = this.isPostPage ? '/post' : '/content';
@@ -656,7 +619,6 @@ export default {
       .then(res => {
         if (0 === res.data[0].length) {
           messageUtil.toastWarning('임시저장된 포스트가 없습니다.');
-          this.tmpPostListLoaded = true;
           return;
         }
 
@@ -665,7 +627,6 @@ export default {
         });
 
         this.tmpPostList = [...res.data[0]];
-        this.tmpPostListLoaded = true;
       });
     },
     /** 임시저장 포스트 적용 */
@@ -711,12 +672,6 @@ export default {
       }
 
       return true;
-    },
-    /** 데이타 로딩 */
-    dataLoading() {
-      if (isNotEmpty(this.post)) {
-        this.dataLoaded = true;
-      }
     },
   },
 }

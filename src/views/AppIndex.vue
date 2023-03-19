@@ -1,7 +1,5 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
-    <ui-loading :activeModel="!dataLoaded" :fullPage="true"></ui-loading>
-
     <app-post-list
       v-if="dataLoaded"
       :pageType="'D01001'"
@@ -30,7 +28,7 @@
 import AppPostList from '@/components/views/post/AppPostList.vue';
 import AppWidgetConfig from '@/components/widget/AppWidgetConfig.vue';
 import { isNotEmpty } from '@/utils';
-import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
+import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-index',
@@ -51,7 +49,7 @@ export default {
   },
   async created() {
     // 페이지 타이틀 세팅
-    breadcrumbService.setPageTitle(this.pageTitle);
+    new BreadcrumbService().setPageTitle(this.pageTitle);
 
     this.page = parseInt(this.$route.query.page) || 1;
 

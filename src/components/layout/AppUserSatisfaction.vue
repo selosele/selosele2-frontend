@@ -47,7 +47,7 @@
 
 <script>
 import { messageUtil } from '@/utils';
-import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
+import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-user-satisfaction',
@@ -75,7 +75,7 @@ export default {
     /** 만족도조사 제출 */
     async onSubmit(values) {
       values.pagePath = decodeURIComponent(this.$route.path);
-      values.pageTitle = breadcrumbService.getPageTitle();
+      values.pageTitle = new BreadcrumbService().getPageTitle();
       
       const confirm = await messageUtil.confirmSuccess('제출하시겠습니까?');
       if (!confirm) return;

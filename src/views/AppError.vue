@@ -7,11 +7,7 @@
         <h2 class="popular-post__title">이런 글은 어떠신가요?</h2>
 
         <ul>
-          <ui-skeletor class="popular-post__list__item" v-if="!dataLoaded"></ui-skeletor>
-          <ui-skeletor marginTop="0" class="popular-post__list__item" v-if="!dataLoaded"></ui-skeletor>
-          <ui-skeletor marginTop="0" class="popular-post__list__item" v-if="!dataLoaded"></ui-skeletor>
-
-          <template v-if="postList.length > 0 && dataLoaded">
+          <template v-if="0 < postList.length">
             <li class="popular-post__list__item" v-for="(post,i) in postList" :key="i">
               <router-link :to="`/post/${post.id}`">
                 <p class="popular-post__list__image">
@@ -31,7 +27,7 @@
 </template>
 
 <script>
-import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
+import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-error',
@@ -39,15 +35,13 @@ export default {
     return {
       pageTitle: '페이지를 찾을 수 없습니다.',
       postList: [],
-      dataLoaded: false,
     }
   },
   async created() {
     // 페이지 타이틀 세팅
-    breadcrumbService.setPageTitle(this.pageTitle);
+    new BreadcrumbService().setPageTitle(this.pageTitle);
 
     await this.listPostByLimit(3);
-    this.dataLoading();
   },
   methods: {
     /** 개수별 포스트 조회 */
@@ -57,14 +51,7 @@ export default {
         res.data.map(d => {
           this.postList.push(d);
         });
-        this.dataLoading();
       });
-    },
-    /** 데이타 로딩 */
-    dataLoading() {
-      if (0 < this.postList.length) {
-        this.dataLoaded = true;
-      }
     },
   },
 }

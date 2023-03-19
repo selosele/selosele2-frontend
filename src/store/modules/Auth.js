@@ -42,6 +42,7 @@ export const Auth = {
         .then(res => {
           axiosInstance.defaults.headers.common['Authorization'] = '';
           
+          commit('Loading/SET_LOADING', false, { root: true });
           commit('Auth/CLEAR_ACCESS_TOKEN', null, { root: true });
           commit('Post/SET_MAIN_POSTLIST', {}, { root: true });
           commit('Layout/SET_SIDEBAR', {}, { root: true });

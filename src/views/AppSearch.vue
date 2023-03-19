@@ -59,14 +59,8 @@
         </p>
 
       <div class="search__results__wrapper" ref="resultsWrapper">
-        <ui-loading :activeModel="!dataLoaded"
-                    :fullPage="true"
-                    v-if="$route.query['q'] && 0 < postList.length">
-        </ui-loading>
-
         <app-post-list-detail :type="'D01006'"
-                              :postList="postList"
-                              v-if="dataLoaded">
+                              :postList="postList">
         </app-post-list-detail>
 
         <div class="search__more__wrapper"
@@ -95,7 +89,7 @@
 <script>
 import AppPostListDetail from '@/components/views/post/AppPostListDetail.vue';
 import { messageUtil, isBlank } from '@/utils';
-import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
+import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-search',
@@ -116,12 +110,11 @@ export default {
       googleSearchUrl: '',
       toInputActive: false,
       isLastPage: false,
-      dataLoaded: false,
     }
   },
   async created() {
     // 페이지 타이틀 세팅
-    breadcrumbService.setPageTitle(this.pageTitle);
+    new BreadcrumbService().setPageTitle(this.pageTitle);
 
     // 검색옵션 코드 세팅
     this.$store.state.Code.data.map((d,i) => {
@@ -143,8 +136,6 @@ export default {
         page: this.page,
         pageSize: this.pageSize,
       });
-      
-      this.dataLoading();
     }
   },
   beforeRouteUpdate(to, from, next) {
@@ -164,8 +155,6 @@ export default {
     /** 초기 세팅 */
     init() {
       this.page = 1;
-      this.dataLoaded = false;
-
       this.postList = [];
       this.isLastPage = false;
     },
@@ -180,7 +169,6 @@ export default {
       values.pageSize = this.pageSize;
       
       await this.listPostSearch(values);
-      this.dataLoading();
     },
     /** 유효성 검사 */
     validationCheck() {
@@ -253,12 +241,6 @@ export default {
 
       window.scrollTo(0, st);
       this.$refs['q'].focus();
-    },
-    /** 데이타 로딩 */
-    dataLoading() {
-      if (0 < this.postList.length) {
-        this.dataLoaded = true;
-      }
     },
   }
 };

@@ -1,12 +1,6 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
     <div class="post-view__wrapper">
-      <template v-if="!dataLoaded">
-        <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-        <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-        <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-      </template>
-  
       <template v-if="dataLoaded">
         <ui-form :name="'postForm'" @onsubmit="onSubmit">
           <ui-hidden-field :name="'id'" :value="post?.id"></ui-hidden-field>
@@ -144,7 +138,7 @@
 
 <script>
 import { messageUtil, isNotBlank, isNotEmpty } from '@/utils';
-import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
+import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import AppAddPostReply from '@/components/views/post/AppAddPostReply.vue';
 
 /**
@@ -170,11 +164,13 @@ export default {
       postLikeCnt: 0,
       isPostLiked: false,
       snsCodeList: [],
+      breadcrumbService: null,
       dataLoaded: false,
     }
   },
   created() {
     this.init(this.$route.params.id);
+    this.breadcrumbService = new BreadcrumbService();
   },
   watch: {
     '$route.params.id'(id) {
@@ -200,7 +196,6 @@ export default {
   methods: {
     /** 초기 세팅 */
     async init(id) {
-      this.dataLoaded = false;
       this.post = null;
       this.prevPost = null;
       this.nextPost = null;
@@ -218,8 +213,6 @@ export default {
         await this.getPost(id);
       }
 
-      this.dataLoading();
-
       this.snsCodeList = this.$store.state.Code.data.filter(d => d.prefix === 'C01');
     },
     /** 포스트 조회 */
@@ -228,6 +221,7 @@ export default {
 
       return this.$http.get(url)
       .then(res => {
+        this.dataLoaded = true;
         this.post = { ...res.data };
         this.post.regDate = this.$moment(this.post.regDate).format('YYYY-MM-DD HH:mm:ss');
 
@@ -237,7 +231,7 @@ export default {
 
         // 페이지 타이틀 세팅
         this.pageTitle = this.post.title;
-        breadcrumbService.setPageTitle(this.pageTitle);
+        this.breadcrumbService.setPageTitle(this.pageTitle);
       });
     },
     /** 이전/다음 포스트 조회 */
@@ -264,7 +258,7 @@ export default {
     savePostLike(id) {
       const savePostLikeDto = {
         postId: id,
-        title: breadcrumbService.getPageTitle(),
+        title: this.breadcrumbService.getPageTitle(),
       };
 
       return this.$http.post('postlike', savePostLikeDto)
@@ -304,12 +298,6 @@ export default {
     copyPostUrl() {
       navigator.clipboard.writeText(location.href);
       messageUtil.toastSuccess('URL이 복사되었습니다.');
-    },
-    /** 데이타 로딩 */
-    dataLoading() {
-      if (isNotEmpty(this.post)) {
-        this.dataLoaded = true;
-      }
     },
   },
 }

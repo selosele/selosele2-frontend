@@ -8,6 +8,7 @@ import { Post } from '@/store/modules/Post';
 import { Guestbook } from '@/store/modules/Guestbook';
 import { Menu } from '@/store/modules/Menu';
 import { Splitter } from '@/store/modules/Splitter';
+import { Loading } from '@/store/modules/Loading';
 import { isNotEmpty } from '@/utils';
 import { AuthService } from '@/services/auth/authService';
 
@@ -22,6 +23,7 @@ export default createStore({
     Guestbook,      // 방명록
     Menu,           // 메뉴
     Splitter,       // Splitter
+    Loading,        // 로딩
   },
   getters: {
     /** 로컬 환경일 경우 */

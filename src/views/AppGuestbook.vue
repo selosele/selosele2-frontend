@@ -51,13 +51,7 @@
         </div>
       </ui-form>
 
-      <template v-if="!dataLoaded">
-        <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-        <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-        <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-      </template>
-
-      <ul class="guestbook__depth1" v-if="dataLoaded">
+      <ul class="guestbook__depth1">
         <li class="guestbook__depth1__list" :id="`guestbook${guestbook.id}`" v-for="(guestbook,i) in guestbookList" :key="guestbook">
           <p class="guestbook__cont" v-html="guestbook.cont"></p>
 
@@ -144,7 +138,7 @@
 
 <script>
 import { messageUtil, isNotEmpty } from '@/utils';
-import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
+import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import AppAddGuestbookReply from '@/components/views/guestbook/AppAddGuestbookReply.vue';
 import AppGuestbookReplyList from '@/components/views/guestbook/AppGuestbookReplyList.vue';
 import AppUpdateGuestbookModal from '@/components/views/guestbook/AppUpdateGuestbookModal.vue';
@@ -167,15 +161,13 @@ export default {
       replyActiveIndex: -1,
       isScrolled: false,
       isLastPage: false,
-      dataLoaded: false,
     }
   },
   async created() {
     // 페이지 타이틀 세팅
-    breadcrumbService.setPageTitle(this.pageTitle);
+    new BreadcrumbService().setPageTitle(this.pageTitle);
 
     await this.listGuestbook();
-    this.dataLoading();
   },
   mounted() {
     window.addEventListener('scroll', this.onScroll);
@@ -346,12 +338,6 @@ export default {
       }
 
       return data;
-    },
-    /** 데이타 로딩 */
-    dataLoading() {
-
-      // 데이타가 없어도 로딩이 완료되어야 함
-      this.dataLoaded = true;
     },
   },
 };

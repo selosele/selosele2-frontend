@@ -1,11 +1,12 @@
 <template>
   <aside class="sidebar">
-    <template v-if="!dataLoaded">
-      <ui-skeletor :height="'8rem'"></ui-skeletor>
-      <ui-skeletor :height="'8rem'"></ui-skeletor>
-    </template>
+    <ui-loading :activeModel="!dataLoaded"
+                :is-full-page="false"
+                :loader="'bars'"
+                :color="'#538204'">
+    </ui-loading>
 
-    <template v-else>
+    <template v-if="dataLoaded">
       <ui-sort-list v-model:list="storeSidebar.widget"
                     :shouldCancelStart="onShouldCancelStart"
                     @updateList="onUpdateList">
@@ -87,6 +88,7 @@ export default {
   },
   async created() {
     if (0 === Object.values(this.storeSidebar).length) {
+      
       // 위젯 목록을 먼저 조회하고
       await this.listWidget();
 

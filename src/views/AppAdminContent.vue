@@ -1,42 +1,34 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
-    <template v-if="!dataLoaded">
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-    </template>
+    <div class="d-flex flex--right gap--10 mb--15">
+      <ui-icon-button :routerLink="'/add-content'"
+                      :color="'primary'"
+                      :icon="'xi-pen'"
+                      :class="'content__create'">콘텐츠 생성
+      </ui-icon-button>
 
-    <template v-else>
-      <div class="d-flex flex--right gap--10 mb--15">
-        <ui-icon-button :routerLink="'/add-content'"
-                        :color="'primary'"
-                        :icon="'xi-pen'"
-                        :class="'content__create'">콘텐츠 생성
-        </ui-icon-button>
+      <ui-icon-button :color="'dark'"
+                      :icon="'xi-trash'"
+                      :class="'content__delete'"
+                      @click="removeContent">콘텐츠 삭제
+      </ui-icon-button>
+    </div>
 
-        <ui-icon-button :color="'dark'"
-                        :icon="'xi-trash'"
-                        :class="'content__delete'"
-                        @click="removeContent">콘텐츠 삭제
-        </ui-icon-button>
-      </div>
-
-      <ui-grid
-        :columnDefs="columnDefs"
-        :rowData="rowData"
-        :checkboxIndex="0"
-        :pagination="true"
-        @gridready="onGridReady"
-        @celldoubleclicked="onCellDoubleClicked"
-      >
-      </ui-grid>
-    </template>
+    <ui-grid
+      :columnDefs="columnDefs"
+      :rowData="rowData"
+      :checkboxIndex="0"
+      :pagination="true"
+      @gridready="onGridReady"
+      @celldoubleclicked="onCellDoubleClicked"
+    >
+    </ui-grid>
   </app-content-wrapper>
 </template>
 
 <script>
 import { isNotEmpty, messageUtil } from '@/utils';
-import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
+import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-admin-content',
@@ -52,15 +44,13 @@ export default {
       ],
       rowData: [],
       gridApi: null,
-      dataLoaded: false,
     }
   },
   async created() {
     // 페이지 타이틀 세팅
-    breadcrumbService.setPageTitle(this.pageTitle);
+    new BreadcrumbService().setPageTitle(this.pageTitle);
 
     await this.listContent();
-    this.dataLoading();
   },
   methods: {
     onGridReady(params) {
@@ -110,12 +100,6 @@ export default {
         this.gridApi.removeSelectedRows();
         messageUtil.toastSuccess('삭제되었습니다.');
       });
-    },
-    /** 데이타 로딩 */
-    dataLoading() {
-      
-      // 데이타가 없어도 로딩이 완료되어야 함
-      this.dataLoaded2 = true;
     },
   },
 }

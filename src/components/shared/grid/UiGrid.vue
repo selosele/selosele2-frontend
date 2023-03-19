@@ -121,7 +121,10 @@ export default {
     /** grid ready 이벤트 */
     onGridReady(params) {
       this.gridApi = params.api;
-      this.gridApi.sizeColumnsToFit();
+
+      setTimeout(() => {
+        this.gridApi.sizeColumnsToFit();
+      }, 50);
 
       const newGridApi = Object.assign(this.gridApi, {
         getRowDatas: () => this.getRowDatas(),

@@ -1,43 +1,35 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
-    <template v-if="!dataLoaded">
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-    </template>
+    <div class="d-flex flex--right gap--10 mb--15">
+      <ui-select :name="'option'"
+                 :id="'listPostReplyAllOption'"
+                 :title="'댓글 조회 옵션 선택'"
+                 :data="optionList"
+                 v-model="option"
+                 @onchange="listPostReplyAll">
+      </ui-select>
 
-    <template v-else>
-      <div class="d-flex flex--right gap--10 mb--15">
-        <ui-select :name="'option'"
-                   :id="'listPostReplyAllOption'"
-                   :title="'댓글 조회 옵션 선택'"
-                   :data="optionList"
-                   v-model="option"
-                   @onchange="listPostReplyAll">
-        </ui-select>
+      <ui-button :type="'button'"
+                 :color="'primary'"
+                 @click="restorePostReply"
+                 v-if="'delYn' === option">복구
+      </ui-button>
+    </div>
 
-        <ui-button :type="'button'"
-                   :color="'primary'"
-                   @click="restorePostReply"
-                   v-if="'delYn' === option">복구
-        </ui-button>
-      </div>
-
-      <ui-grid
-        :columnDefs="columnDefs"
-        :rowData="rowData"
-        :checkboxIndex="0"
-        :pagination="true"
-        @gridready="onGridReady"
-        @celldoubleclicked="onCellDoubleClicked"
-      >
-      </ui-grid>
-    </template>
+    <ui-grid
+      :columnDefs="columnDefs"
+      :rowData="rowData"
+      :checkboxIndex="0"
+      :pagination="true"
+      @gridready="onGridReady"
+      @celldoubleclicked="onCellDoubleClicked"
+    >
+    </ui-grid>
   </app-content-wrapper>
 </template>
 
 <script>
-import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
+import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import { isNotBlank, isNotEmpty, messageUtil } from '@/utils';
 
 export default {
@@ -56,12 +48,11 @@ export default {
       optionList: [],
       option: '',
       gridApi: null,
-      dataLoaded: false,
     }
   },
   async created() {
     // 페이지 타이틀 세팅
-    breadcrumbService.setPageTitle(this.pageTitle);
+    new BreadcrumbService().setPageTitle(this.pageTitle);
 
     this.optionList = [
       { value: '', text: '전체' },  
@@ -70,7 +61,6 @@ export default {
     ];
 
     await this.listPostReplyAll();
-    this.dataLoading();
   },
   methods: {
     onGridReady(params) {
@@ -121,12 +111,6 @@ export default {
         messageUtil.toastSuccess('복구되었습니다.');
         this.gridApi.removeSelectedRows();
       });
-    },
-    /** 데이타 로딩 */
-    dataLoading() {
-
-      // 데이타가 없어도 로딩이 완료되어야 함
-      this.dataLoaded = true;
     },
   },
 }

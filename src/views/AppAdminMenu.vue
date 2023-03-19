@@ -1,47 +1,35 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
-    <template v-if="!dataLoaded">
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-    </template>
+    <ui-split-pane>
+      <ui-pane :isTransparent="true">
+        <ui-tree :nodes="menuTree"
+                 :useCheckbox="false"
+                 :filter="true"
+                 :placeholder="'메뉴명 입력'"
+                 @nodeClick="onNodeClick">
 
-    <template v-else>
-      <ui-split-pane>
-        <ui-pane :isTransparent="true">
-          <ui-tree :nodes="menuTree"
-                   :useCheckbox="false"
-                   :filter="true"
-                   :placeholder="'메뉴명 입력'"
-                   @nodeClick="onNodeClick">
+          <template v-slot:btn>
+            <ui-button :color="'primary'"
+                       @click="addMenu">추가
+            </ui-button>
+          </template>
+        </ui-tree>
+      </ui-pane>
 
-            <template v-slot:btn>
-              <ui-button :color="'primary'"
-                         @click="addMenu">추가
-              </ui-button>
-            </template>
-          </ui-tree>
-        </ui-pane>
-
-        <ui-pane v-if="isSplitterActive">
-          <ui-loading :activeModel="!dataLoaded2"></ui-loading>
-          
-          <app-save-menu v-if="dataLoaded2"
-                         :menu="menu"
-                         :parentMenuList="parentMenuList"
-                         :key="menu.id"
-                         @refreshMenu="refreshTree">
-          </app-save-menu>
-        </ui-pane>
-      </ui-split-pane>
-    </template>
+      <ui-pane v-if="isSplitterActive">
+        <app-save-menu :menu="menu"
+                       :parentMenuList="parentMenuList"
+                       :key="menu.id"
+                       @refreshMenu="refreshTree">
+        </app-save-menu>
+      </ui-pane>
+    </ui-split-pane>
   </app-content-wrapper>
 </template>
 
 <script>
 import AppSaveMenu from '@/components/views/menu/AppSaveMenu.vue';
-import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
-import { isNotEmpty } from '@/utils';
+import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-admin-menu',
@@ -54,8 +42,6 @@ export default {
       menuTree: [],
       menu: {},
       parentMenuList: [],
-      dataLoaded: false,
-      dataLoaded2: false,
     }
   },
   created() {
@@ -65,13 +51,11 @@ export default {
     /** 초기 세팅 */
     async init() {
       // 페이지 타이틀 세팅
-      breadcrumbService.setPageTitle(this.pageTitle);
+      new BreadcrumbService().setPageTitle(this.pageTitle);
 
       await this.listMenuTree();
 
       this.$store.commit('Splitter/TOGGLE', true);
-      this.dataLoaded = true;
-      this.dataLoaded2 = true;
     },
     /** 메뉴 계층형 구조 조회 */
     listMenuTree() {
@@ -108,12 +92,9 @@ export default {
     async onNodeClick(node) {
       this.$store.commit('Splitter/TOGGLE', true);
 
-      // 똑같은 node를 여러번 클릭해서 API가 호출되는 것을 막기 위해, node.id와 menu.id가 다를 때만 API를 호출한다.
+      // 똑같은 node를 여러 번 클릭해서 API가 호출되는 것을 막기 위해, node.id와 menu.id가 다를 때만 API를 호출한다.
       if (node.id !== this.menu?.id) {
-        this.dataLoaded2 = false;
-
         await this.getMenu(node);
-        this.dataLoading();
       }
     },
     /** 트리 갱신 */
@@ -143,7 +124,7 @@ export default {
         };
       });
       
-      // 2022.12.31. 최대 2depth로 제한해야 해서, 아래와 같은 로직이 의미가 없음. 추후 depth 확장 고려해서 로직을 주석처리만 해둠.
+      // 2022.12.31. 최대 2depth로 제한해야 해서, 아래 로직이 의미가 없음. 추후 depth 확장 고려해서 로직을 주석처리만 해둠.
       // if (!nodes) return [];
       // if (!arr) arr = [];
 
@@ -169,12 +150,6 @@ export default {
       this.menu.parentId = 0;
       this.menu.depth = 1;
       this.parentMenuList = this.listParentMenu(this.$store.state.Menu.data, []);
-    },
-    /** 데이타 로딩 */
-    dataLoading() {
-      
-      // 데이타가 없어도 로딩이 완료되어야 함
-      this.dataLoaded2 = true;
     },
   }
 }

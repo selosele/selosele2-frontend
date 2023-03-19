@@ -1,80 +1,66 @@
 <template>
   <app-content-wrapper :pageTitle="pageTitle">
-    <template v-if="!dataLoaded">
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-      <ui-skeletor :height="'1.3rem'"></ui-skeletor>
-    </template>
+    <ui-tabs @tabChanged="onTabChanged">
+      <ui-tab :name="'카테고리'">
+        <ui-split-pane>
+          <ui-pane :isTransparent="true">
+            <ui-tree :nodes="categoryTree"
+                     :useCheckbox="false"
+                     :filter="true"
+                     :placeholder="'카테고리/포스트 제목 입력'"
+                     @nodeClick="onNodeClick">
 
-    <template v-else>
-      <ui-tabs @tabChanged="onTabChanged">
-        <ui-tab :name="'카테고리'">
-          <ui-split-pane>
-            <ui-pane :isTransparent="true">
-              <ui-tree :nodes="categoryTree"
-                       :useCheckbox="false"
-                       :filter="true"
-                       :placeholder="'카테고리/포스트 제목 입력'"
-                       @nodeClick="onNodeClick">
+              <template v-slot:btn>
+                <ui-button :color="'primary'"
+                           @click="addCategory">추가
+                </ui-button>
+              </template>
+            </ui-tree>
+          </ui-pane>
 
-                <template v-slot:btn>
-                  <ui-button :color="'primary'"
-                             @click="addCategory">추가
-                  </ui-button>
-                </template>
-              </ui-tree>
-            </ui-pane>
+          <ui-pane v-if="isSplitterActive">
+            <app-save-category :category="category"
+                               :type="'D01004'"
+                               :key="type + category.id"
+                               @refreshCategory="refreshTree">
+            </app-save-category>
+          </ui-pane>
+        </ui-split-pane>
+      </ui-tab>
 
-            <ui-pane v-if="isSplitterActive">
-              <ui-loading :activeModel="!dataLoaded2"></ui-loading>
-              
-              <app-save-category v-if="dataLoaded2"
-                                 :category="category"
-                                 :type="'D01004'"
-                                 :key="type + category.id"
-                                 @refreshCategory="refreshTree">
-              </app-save-category>
-            </ui-pane>
-          </ui-split-pane>
-        </ui-tab>
+      <ui-tab :name="'태그'">
+        <ui-split-pane>
+          <ui-pane :isTransparent="true">
+            <ui-tree :nodes="tagTree"
+                      :useCheckbox="false"
+                      :filter="true"
+                      :placeholder="'태그/포스트 제목 입력'"
+                      @nodeClick="onNodeClick">
 
-        <ui-tab :name="'태그'">
-          <ui-split-pane>
-            <ui-pane :isTransparent="true">
-              <ui-tree :nodes="tagTree"
-                       :useCheckbox="false"
-                       :filter="true"
-                       :placeholder="'태그/포스트 제목 입력'"
-                       @nodeClick="onNodeClick">
+              <template v-slot:btn>
+                <ui-button :color="'primary'"
+                            @click="addCategory">추가
+                </ui-button>
+              </template>
+            </ui-tree>
+          </ui-pane>
 
-                <template v-slot:btn>
-                  <ui-button :color="'primary'"
-                             @click="addCategory">추가
-                  </ui-button>
-                </template>
-              </ui-tree>
-            </ui-pane>
-
-            <ui-pane v-if="isSplitterActive">
-              <ui-loading :activeModel="!dataLoaded2"></ui-loading>
-
-              <app-save-category v-if="dataLoaded2"
-                                 :category="category"
-                                 :type="'D01005'"
-                                 :key="type + category.id"
-                                 @refreshCategory="refreshTree">
-              </app-save-category>
-            </ui-pane>
-          </ui-split-pane>
-        </ui-tab>
-      </ui-tabs>
-    </template>
+          <ui-pane v-if="isSplitterActive">
+            <app-save-category :category="category"
+                               :type="'D01005'"
+                               :key="type + category.id"
+                               @refreshCategory="refreshTree">
+            </app-save-category>
+          </ui-pane>
+        </ui-split-pane>
+      </ui-tab>
+    </ui-tabs>
   </app-content-wrapper>
 </template>
 
 <script>
 import AppSaveCategory from '@/components/views/category/AppSaveCategory.vue';
-import { breadcrumbService } from '@/services/breadcrumb/breadcrumbService';
+import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import { isNotEmpty } from '@/utils';
 
 export default {
@@ -90,8 +76,6 @@ export default {
       category: {},
       type: '',
       activeIndex: -1,
-      dataLoaded: false,
-      dataLoaded2: false,
     }
   },
   created() {
@@ -101,7 +85,7 @@ export default {
     /** 초기 세팅 */
     async init() {
       // 페이지 타이틀 세팅
-      breadcrumbService.setPageTitle(this.pageTitle);
+      new BreadcrumbService().setPageTitle(this.pageTitle);
 
       await Promise.all([
         this.listCategoryTreeAndPost(),
@@ -109,8 +93,6 @@ export default {
       ]);
 
       this.$store.commit('Splitter/TOGGLE', true);
-      this.dataLoaded = true;
-      this.dataLoaded2 = true;
     },
     /** 카테고리-포스트 계층형 구조 조회 */
     listCategoryTreeAndPost() {
@@ -185,10 +167,7 @@ export default {
 
       // 똑같은 node를 여러번 클릭해서 API가 호출되는 것을 막기 위해, node.id와 category.id가 다를 때만 API를 호출한다.
       if (isNotEmpty(node.nodes) && node.id !== this.category?.id) {
-        this.dataLoaded2 = false;
-
         await this.getCategory(node);
-        this.dataLoading2();
       }
     },
     /** 탭 변경 시 */
@@ -214,12 +193,6 @@ export default {
     resetCategory() {
       this.category = {};
       this.category.id = null;
-    },
-    /** 데이타 로딩 */
-    dataLoading2() {
-      
-      // 데이타가 없어도 로딩이 완료되어야 함
-      this.dataLoaded2 = true;
     },
   },
 }
