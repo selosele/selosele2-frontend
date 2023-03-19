@@ -5,7 +5,7 @@
 - 작업기간: 2022.09.10. ~
 - 어플리케이션 명: selosele2
 - Backend: Nest.js
-- Frontend: Vue
+- Frontend: Vue.js
 - DBMS: MariaDB
 - ORM: TypeORM
 - Port: 8080
