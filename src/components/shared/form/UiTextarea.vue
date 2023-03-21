@@ -15,12 +15,9 @@
                 :ref="(el) => { inputEl = el }"
                 :class="`${blockTextarea}${resizeClass}`"
                 :name="name"
-                :title="title"
                 :cols="cols"
                 :rows="rows"
-                :placeholder="placeholder"
                 :readonly="readonly"
-                :disabled="disabled"
                 :value="value"
                 v-bind="{ ...field, ...$attrs }"
                 @input="onInput($event)"
@@ -47,7 +44,6 @@ import { isNotEmpty } from '@/utils';
 
 export default {
   name: 'ui-textarea',
-  inheritAttrs: false,
   components: {
     Field,
     ErrorMessage,
@@ -57,18 +53,12 @@ export default {
     id: String,
     /** textarea name */
     name: String,
-    /** textarea title */
-    title: String,
-    /** textarea placeholder */
-    placeholder: String,
     /** textarea cols */
     cols: String,
     /** textarea rows */
     rows: String,
     /** textarea readonly */
     readonly: Boolean,
-    /** textarea disabled */
-    disabled: Boolean,
     /** textarea label */
     label: String,
     /** textarea validation rules */

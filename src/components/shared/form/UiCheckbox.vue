@@ -4,7 +4,6 @@
            :name="name"
            :id="id"
            :ref="id"
-           :title="title"
            :rules="rules"
            :value="value || getValueByIdx(0)"
            :unchecked-value="getValueByIdx(1)"
@@ -36,7 +35,6 @@ import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
   name: 'ui-checkbox',
-  inheritAttrs: false,
   components: {
     Field,
     ErrorMessage,
@@ -46,8 +44,6 @@ export default {
     id: String,
     /** checkbox name */
     name: String,
-    /** checkbox title */
-    title: String,
     /** checkbox checked */
     checked: Boolean,
     /** checkbox label */

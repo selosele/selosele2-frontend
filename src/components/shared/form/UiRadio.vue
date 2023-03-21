@@ -4,7 +4,6 @@
            :name="name"
            :id="id"
            :ref="id"
-           :title="title"
            :rules="rules"
            :value="value"
            v-bind="$attrs"
@@ -31,7 +30,6 @@ import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
   name: 'ui-radio',
-  inheritAttrs: false,
   components: {
     Field,
     ErrorMessage,
@@ -41,8 +39,6 @@ export default {
     id: String,
     /** radio name */
     name: String,
-    /** radio title */
-    title: String,
     /** radio label */
     label: String,
     /** radio validation rules */

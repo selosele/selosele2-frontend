@@ -4,8 +4,6 @@
            :name="name"
            :id="id"
            :ref="id"
-           :title="title"
-           :accept="accept"
            :rules="rules"
            v-bind="$attrs"
            @change="onChange"
@@ -34,7 +32,6 @@ import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
   name: 'ui-file-field',
-  inheritAttrs: false,
   components: {
     Field,
     ErrorMessage,
@@ -44,10 +41,6 @@ export default {
     id: String,
     /** input name */
     name: String,
-    /** input title */
-    title: String,
-    /** input accept */
-    accept: String,
     /** block input */
     block: Boolean,
     /** inline input */

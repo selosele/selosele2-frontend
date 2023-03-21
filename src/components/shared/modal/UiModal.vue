@@ -22,7 +22,6 @@
 import { VueFinalModal } from 'vue-final-modal';
 
 export default {
-  inheritAttrs: false,
   name: 'ui-modal',
   props: {
     /** Modal title */

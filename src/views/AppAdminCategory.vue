@@ -39,7 +39,7 @@
 
               <template v-slot:btn>
                 <ui-button :color="'primary'"
-                            @click="addCategory">추가
+                           @click="addCategory">추가
                 </ui-button>
               </template>
             </ui-tree>

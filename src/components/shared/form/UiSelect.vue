@@ -9,7 +9,6 @@
            :id="id"
            :ref="id"
            :name="name"
-           :title="title"
            :class="`input-field${selectBlock}${selectDisabled}`"
            :rules="rules"
            v-bind="$attrs"
@@ -47,7 +46,6 @@ import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
   name: 'ui-select',
-  inheritAttrs: false,
   components: {
     Field,
     ErrorMessage,
@@ -57,8 +55,6 @@ export default {
     id: String,
     /** select name */
     name: String,
-    /** select title */
-    title: String,
     /** select readonly */
     readonly: Boolean,
     /** select disabled */

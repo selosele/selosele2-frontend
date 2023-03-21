@@ -16,13 +16,6 @@
              :class="`input-field input-field--numeric${blockInput}`"
              :ref="(el) => { inputEl = el }"
              :name="name"
-             :title="title"
-             :placeholder="placeholder"
-             :readonly="readonly"
-             :disabled="disabled"
-             :step="step"
-             :min="min"
-             :max="max"
              :value="`${value}`"
              v-bind="{ ...field, ...$attrs }"
              @input="onInput($event)"
@@ -56,14 +49,6 @@ export default defineComponent({
   components: {
     Field,
     ErrorMessage,
-  },
-  props: {
-    /** 증감 수치 */
-    step: [String, Number],
-    /** 최소 값 */
-    min: [String, Number],
-    /** 최대 값 */
-    max: [String, Number],
   },
 });
 </script>

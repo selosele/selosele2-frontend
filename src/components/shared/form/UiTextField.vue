@@ -16,11 +16,7 @@
              :class="`input-field${blockInput}`"
              :ref="(el) => { inputEl = el }"
              :name="name"
-             :title="title"
-             :placeholder="placeholder"
              :readonly="readonly"
-             :disabled="disabled"
-             :autocomplete="autocomplete"
              :value="value"
              v-bind="{ ...field, ...$attrs }"
              @input="onInput($event)"
@@ -51,7 +47,6 @@ import { isNotEmpty } from '@/utils';
 
 export default {
   name: 'ui-text-field',
-  inheritAttrs: false,
   components: {
     Field,
     ErrorMessage,
@@ -63,18 +58,10 @@ export default {
     id: String,
     /** input name */
     name: String,
-    /** input title */
-    title: String,
-    /** input placeholder */
-    placeholder: String,
     /** input readonly */
     readonly: Boolean,
-    /** input disabled */
-    disabled: Boolean,
     /** input label */
     label: String,
-    /** input autocomplete */
-    autocomplete: String,
     /** input 유효성검사 rules */
     rules: String,
     /** block input */

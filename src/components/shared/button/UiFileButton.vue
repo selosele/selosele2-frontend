@@ -1,7 +1,6 @@
 <template>
   <button :type="type"
           :class="`btn ${btnColor}${btnBlock}`"
-          :title="title"
           v-bind="$attrs"
           @click="listFile">
     <slot></slot>

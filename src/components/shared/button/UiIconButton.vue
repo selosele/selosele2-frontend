@@ -1,7 +1,6 @@
 <template>
   <button :type="type"
           :class="`btn ${btnColor}${btnBlock}`"
-          :title="title"
           v-bind="$attrs"
           v-if="!routerLink && 'link' !== type">
     <i :class="icon" aria-hidden="true"></i>
@@ -19,9 +18,6 @@
   </router-link>
 
   <a :href="href"
-     :target="target"
-     :title="title"
-     :rel="rel"
      :class="`btn ${btnColor}${btnBlock}`"
      v-bind="$attrs"
      v-if="!routerLink && 'link' === type">

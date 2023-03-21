@@ -1,7 +1,6 @@
 <template>
   <button :type="type"
           :class="`btn ${btnColor}${btnBlock}`"
-          :title="title"
           v-bind="$attrs"
           v-if="!routerLink && 'link' !== type">
     <slot></slot>
@@ -15,9 +14,6 @@
   </router-link>
 
   <a :href="href"
-     :target="target"
-     :title="title"
-     :rel="rel"
      :class="`btn ${btnColor}${btnBlock}`"
      v-bind="$attrs"
      v-if="!routerLink && 'link' === type">
@@ -56,21 +52,6 @@ export default {
       type: String,
       default: '',
     },
-    /** target */
-    target: {
-      type: String,
-      default: '_self',
-    },
-    /** title */
-    title: {
-      type: String,
-      default: '',
-    },
-    /** rel */
-    rel: {
-      type: String,
-      default: '',
-    }
   },
   computed: {
     /** 버튼 color */
