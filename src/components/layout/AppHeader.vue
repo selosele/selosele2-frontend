@@ -127,6 +127,7 @@ export default {
           { backgroundImage: this.backgroundImage },
           { backgroundPositionX: this.backgroundPositionX },
           { backgroundPositionY: this.backgroundPositionY },
+          { backgroundSize: this.backgroundSize },
           { '--data-blur': this.backgroundBlur },
         ];
       },
@@ -167,6 +168,12 @@ export default {
       }
       return `${this.$store.state.BlogConfig.data?.ogImgPosY}%`;
     },
+    backgroundSize() {
+      if ('Y' === this.$store.state.BlogConfig.data?.ogImgCoverYn) {
+        return 'cover';
+      }
+      return 'contain';
+    }
   },
   methods: {
     /** 로그아웃 */

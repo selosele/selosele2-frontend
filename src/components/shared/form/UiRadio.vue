@@ -7,6 +7,7 @@
            :title="title"
            :rules="rules"
            :value="value"
+           v-bind="$attrs"
            v-model="mv">
     </Field>
 
