@@ -1,6 +1,6 @@
 <template>
   <ui-loading :activeModel="!$store.state.Loading.isLoading"
-              :is-full-page="true"
+              :fullPage="true"
               :color="'#538204'">
   </ui-loading>
 

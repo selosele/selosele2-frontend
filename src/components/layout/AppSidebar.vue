@@ -1,76 +1,75 @@
 <template>
   <aside class="sidebar">
     <ui-loading :activeModel="!dataLoaded"
-                :is-full-page="false"
+                :fullPage="false"
                 :loader="'bars'"
                 :color="'#538204'">
     </ui-loading>
 
-    <template v-if="dataLoaded">
-      <ui-sort-list v-model:list="storeSidebar.widget"
-                    :shouldCancelStart="onShouldCancelStart"
-                    @updateList="onUpdateList">
-        <ui-sort-item v-for="(widget,i) in storeSidebar.widget"
-          :key="widget.id"
-          :index="i"
-          :disabled="!widgetActive"
-        >
-          <div :class="[
-            'sidebar__item-list',
-            { 'sidebar__item-list--category': 1 === widget.id },
-            { 'sidebar__item-list--tag': 2 === widget.id },
-            { 'sidebar__item-list--active': widgetActive },
-          ]">
-            <div class="widget widget__box">
-              <h2 class="sidebar__item-title widget__title">
-                <i :class="widget.icon + ' sidebar__item-title-icon'"
-                   :aria-hidden="!widgetActive">
-                  <span v-if="widgetActive">
-                    <ui-text-field :type="'text'"
-                                   :name="'icon'"
-                                   :title="'아이콘 클래스명'"
-                                   :placeholder="'아이콘 클래스명'"
-                                   :autocomplete="'off'"
-                                   :value="widget.icon"
-                                   v-model="widget.icon">
-                    </ui-text-field>
-                  </span>
-                </i>
+    <ui-sort-list v-model:list="storeSidebar.widget"
+                  :shouldCancelStart="onShouldCancelStart"
+                  @updateList="onUpdateList"
+                  v-if="dataLoaded">
+      <ui-sort-item v-for="(widget,i) in storeSidebar.widget"
+        :key="widget.id"
+        :index="i"
+        :disabled="!widgetActive"
+      >
+        <div :class="[
+          'sidebar__item-list',
+          { 'sidebar__item-list--category': 1 === widget.id },
+          { 'sidebar__item-list--tag': 2 === widget.id },
+          { 'sidebar__item-list--active': widgetActive },
+        ]">
+          <div class="widget widget__box">
+            <h2 class="sidebar__item-title widget__title">
+              <i :class="widget.icon + ' sidebar__item-title-icon'"
+                 :aria-hidden="!widgetActive">
+                <span v-if="widgetActive">
+                  <ui-text-field :type="'text'"
+                                 :name="'icon'"
+                                 :title="'아이콘 클래스명'"
+                                 :placeholder="'아이콘 클래스명'"
+                                 :autocomplete="'off'"
+                                 :value="widget.icon"
+                                 v-model="widget.icon">
+                  </ui-text-field>
+                </span>
+              </i>
 
-                <em :contenteditable="widgetActive"
-                    class="sidebar__item-title-text"
-                    @input="onChangeTitle($event, widget.id)">{{ widget.title }}
-                </em>
-              </h2>
+              <em :contenteditable="widgetActive"
+                  class="sidebar__item-title-text"
+                  @input="onChangeTitle($event, widget.id)">{{ widget.title }}
+              </em>
+            </h2>
 
-              <ul v-if="1 === widget.id">
-                <li v-for="(category,j) in categoryList" :key="j">
-                  <router-link :to="`/category/${category.id}`">{{ category.nm }}
-                    <span class="sidebar__item-count">{{ category.count }}</span>
-                  </router-link>
-                </li>
-              </ul>
+            <ul v-if="1 === widget.id">
+              <li v-for="(category,j) in categoryList" :key="j">
+                <router-link :to="`/category/${category.id}`">{{ category.nm }}
+                  <span class="sidebar__item-count">{{ category.count }}</span>
+                </router-link>
+              </li>
+            </ul>
 
-              <ul v-if="2 === widget.id">
-                <li v-for="(tag,j) in tagList" :key="j">
-                  <router-link :to="`/tag/${tag.id}`"
-                               :style="{ fontSize: `${getFontSize(tag.count)}%` }">{{ tag.nm }}
-                    <span class="sidebar__item-count">{{ tag.count }}</span>
-                  </router-link>
-                </li>
-              </ul>
+            <ul v-if="2 === widget.id">
+              <li v-for="(tag,j) in tagList" :key="j">
+                <router-link :to="`/tag/${tag.id}`"
+                             :style="{ fontSize: `${getFontSize(tag.count)}%` }">{{ tag.nm }}
+                  <span class="sidebar__item-count">{{ tag.count }}</span>
+                </router-link>
+              </li>
+            </ul>
 
-              <button type="button"
-                      class="widget__use"
-                      @click="onChangeUseYn($event, widget.id)"
-                      v-if="widgetActive">
-                <span class="sr-only">사용 여부 선택</span>
-              </button>
-            </div>
+            <button type="button"
+                    class="widget__use"
+                    @click="onChangeUseYn($event, widget.id)"
+                    v-if="widgetActive">
+              <span class="sr-only">사용 여부 선택</span>
+            </button>
           </div>
-        </ui-sort-item>
-      </ui-sort-list>
-    </template>
+        </div>
+      </ui-sort-item>
+    </ui-sort-list>
   </aside>
 </template>
 

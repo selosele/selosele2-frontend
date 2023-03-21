@@ -1,7 +1,9 @@
 <template>
   <loading v-model:active="active"
            :can-cancel="cancel"
-           :is-full-page="fullPage">
+           :is-full-page="fullPage"
+           :loader="loader"
+           :color="color">
   </loading>
 </template>
 
@@ -38,6 +40,16 @@ export default {
       type: Boolean,
       default: false,
     },
+    /** 로딩 타입 (spinner, dots, bars) */
+    loader: {
+      type: String,
+      default: 'spinner',
+    },
+    /** 로딩 색상 */
+    color: {
+      type: String,
+      default: '#000',
+    }
   }
 }
 </script>
