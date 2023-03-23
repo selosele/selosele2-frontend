@@ -6,7 +6,7 @@
           <ui-select :name="'t'"
                      :id="'t'"
                      :title="'검색 옵션'"
-                     :class="'search__option'"
+                     :clazz="['search__option']"
                      :data="tData"
                      :selectedValue="this.$route.query['t']"
                      v-model="t">

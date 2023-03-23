@@ -1,5 +1,5 @@
 <template>
-  <div class="radio-wrapper" v-show="!hidden">
+  <div :class="['radio-wrapper', ...clazz]" v-show="!hidden">
     <Field type="radio"
            :name="name"
            :id="id"
@@ -37,6 +37,11 @@ export default {
   props: {
     /** radio id */
     id: String,
+    /** radio class */
+    clazz: {
+      type: Array,
+      default: () => []
+    },
     /** radio name */
     name: String,
     /** radio label */

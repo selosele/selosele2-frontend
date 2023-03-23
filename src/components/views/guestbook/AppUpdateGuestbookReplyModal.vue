@@ -33,7 +33,7 @@
         </ui-text-field>
 
         <ui-button :type="'submit'"
-                   :color="'primary'">수정
+                   :color="'primary'">저장
         </ui-button>
       </div>
     </ui-form>

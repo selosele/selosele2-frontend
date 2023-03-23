@@ -1,5 +1,5 @@
 <template>
-  <div class="checkbox-wrapper" v-show="!hidden">
+  <div :class="['checkbox-wrapper', ...clazz]" v-show="!hidden">
     <Field type="checkbox"
            :name="name"
            :id="id"
@@ -42,6 +42,11 @@ export default {
   props: {
     /** checkbox id */
     id: String,
+    /** checkbox class */
+    clazz: {
+      type: Array,
+      default: () => []
+    },
     /** checkbox name */
     name: String,
     /** checkbox checked */

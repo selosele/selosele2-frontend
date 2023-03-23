@@ -6,7 +6,7 @@
 
       <ui-textarea :name="'cont'"
                    :id="`guestbookReplyCont${idx}`"
-                   :class="'guestbook__reply__cont guestbook__textarea'"
+                   :clazz="['guestbook__reply__cont', 'guestbook__textarea']"
                    :title="'댓글 입력'"
                    :placeholder="'댓글을 남겨주세요.'"
                    :cols="'30'"
@@ -20,7 +20,7 @@
           <ui-text-field :type="'text'"
                          :name="'author'"
                          :id="`guestbookReplyAuthor${idx}`"
-                         :class="'guestbook__input'"
+                         :clazz="['guestbook__input']"
                          :rules="'required|max:20'"
                          :readonly="isLogin"
                          :value="isLogin ? '관리자' : ''">
@@ -30,7 +30,7 @@
           <ui-text-field :type="'password'"
                          :name="'authorPw'"
                          :id="`guestbookReplyPw${idx}`"
-                         :class="'guestbook__input'"
+                         :clazz="['guestbook__input']"
                          :rules="'required|min:8|max:15'">
           </ui-text-field>
         </div>

@@ -41,7 +41,7 @@
               <div class="write__title">
                 <ui-select :name="'categoryId'"
                            :id="'savePostCategory'"
-                           :class="'write__select-category'"
+                           :clazz="['write__select-category']"
                            :title="'카테고리 선택'"
                            :defaultValue="'카테고리 선택'"
                            :rules="isPostPage ? 'required' : ''"
@@ -98,7 +98,7 @@
               <ui-text-field :type="'text'"
                              :name="'ogDesc'"
                              :id="'savePostOgDesc'"
-                             :class="'write__og-desc'"
+                             :clazz="['write__og-desc']"
                              :placeholder="'50자 이내(생략 시, 제목이 들어감)'"
                              :block="true"
                              :rules="'max:200'"
@@ -134,7 +134,7 @@
               >
                 <ui-checkbox :name="'delOgImg'"
                              :id="'savePostDelOgImg'"
-                             :class="'ml--10'"
+                             :clazz="['ml--10']"
                              :label="'삭제'"
                              :values="'Y,N'">
                 </ui-checkbox>
@@ -153,7 +153,7 @@
                              :rules="'required|max:50'"
                              :readonly="isUpdateContentPage"
                              :block="true"
-                             :value="post?.link">
+                             v-model="contentLink">
               </ui-text-field>
             </td>
           </tr>
@@ -190,14 +190,14 @@
                 <ui-text-field :type="'text'"
                                :name="'addTag'"
                                :id="'savePostAddTag'"
-                               :class="'write__tag'"
+                               :clazz="['write__tag']"
                                :placeholder="'태그 입력 (쉼표로 구분, 5개까지 입력 가능)'"
                                v-model="tagStr">
                 </ui-text-field>
 
                 <ui-select :name="'tag'"
                            :id="'savePostTag'"
-                           :class="'write__select-tag'"
+                           :clazz="['write__select-tag']"
                            :title="'태그 선택'"
                            :defaultValue="'나의 태그'"
                            :data="tagList"
@@ -343,6 +343,8 @@ export default {
       saveTagList: [],
       /** 임시저장 포스트 목록 */
       tmpPostList: [],
+      /** 콘텐츠 링크 */
+      contentLink: '',
     }
   },
   /** 해당 컴포넌트를 벗어나 새로운 페이지로 이동할 때 호출됨 */
@@ -505,6 +507,8 @@ export default {
         this.secretYn = post.secretYn;
         this.categoryId = post.postCategory[0].categoryId;
         this.tagStr = post.postTag.map(d => d.tag.nm).join(', ');
+      } else if (this.isUpdateContentPage) {
+        this.contentLink = post?.link;
       }
     },
     /** 본문 요약 버튼 클릭 시 */

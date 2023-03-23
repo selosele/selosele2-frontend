@@ -1,5 +1,5 @@
 <template>
-  <div :class="`input-wrapper${selectInline}`" v-show="!hidden">
+  <div :class="['input-wrapper', selectInline]" v-show="!hidden">
     <label :for="id"
            :class="'input-label'"
            v-if="label">{{ label }}
@@ -9,7 +9,7 @@
            :id="id"
            :ref="id"
            :name="name"
-           :class="`input-field${selectBlock}${selectDisabled}`"
+           :class="['input-field', selectBlock, selectDisabled, ...clazz]"
            :rules="rules"
            v-bind="$attrs"
            v-model="mv"
@@ -53,6 +53,11 @@ export default {
   props: {
     /** select id */
     id: String,
+    /** select class */
+    clazz: {
+      type: Array,
+      default: () => []
+    },
     /** select name */
     name: String,
     /** select readonly */

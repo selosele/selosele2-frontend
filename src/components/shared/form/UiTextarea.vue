@@ -1,5 +1,5 @@
 <template>
-  <div :class="`input-wrapper${inlineInput}`" v-show="!hidden">
+  <div :class="['input-wrapper', inlineInput]" v-show="!hidden">
     <label :for="id"
            :class="'input-label'"
            v-if="label">{{ label }}
@@ -13,7 +13,7 @@
 
       <textarea :id="id"
                 :ref="(el) => { inputEl = el }"
-                :class="`${blockTextarea}${resizeClass}`"
+                :class="[blockTextarea, resizeClass, ...clazz]"
                 :name="name"
                 :cols="cols"
                 :rows="rows"
@@ -51,6 +51,11 @@ export default {
   props: {
     /** textarea id */
     id: String,
+    /** textarea class */
+    clazz: {
+      type: Array,
+      default: () => []
+    },
     /** textarea name */
     name: String,
     /** textarea cols */

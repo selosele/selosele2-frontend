@@ -1,5 +1,5 @@
 <template>
-  <div :class="`input-wrapper${inlineInput}`" v-show="!hidden">
+  <div :class="['input-wrapper', inlineInput]" v-show="!hidden">
     <label :for="id"
            :class="'input-label'"
            v-if="label">{{ label }}
@@ -13,7 +13,7 @@
 
       <input :type="'number'"
              :id="id"
-             :class="`input-field input-field--numeric${blockInput}`"
+             :class="['input-field--numeric', blockInput, ...clazz]"
              :ref="(el) => { inputEl = el }"
              :name="name"
              :value="`${value}`"

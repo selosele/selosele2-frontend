@@ -11,7 +11,7 @@
         <span class="post__check only-input" v-if="isLogin && 'D01001' === pageType">
           <ui-checkbox :name="'checkPost'"
                        :id="`checkPost${post.id}`"
-                       :class="'post__checkbox'"
+                       :clazz="['post__checkbox']"
                        :label="'포스트 삭제'"
                        :labelHidden="true"
                        :value="post.id"

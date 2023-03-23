@@ -22,7 +22,7 @@
             <ui-text-field :type="'text'"
                            :name="'author'"
                            :id="`depthAuthor${reply.id}`"
-                           :class="'post__reply__input'"
+                           :clazz="['post__reply__input']"
                            :label="'닉네임'"
                            :rules="'required|max:20'"
                            :tooltip="true"
@@ -33,7 +33,7 @@
             <ui-text-field :type="'password'"
                            :name="'authorPw'"
                            :id="'addPostReplyAuthorPw'"
-                           :class="'post__reply__input'"
+                           :clazz="['post__reply__input']"
                            :label="'비밀번호'"
                            :rules="'required|min:8|max:15'"
                            :tooltip="true">

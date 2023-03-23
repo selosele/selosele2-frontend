@@ -1,5 +1,5 @@
 <template>
-  <div :class="`input-wrapper${gapClass}${inlineInput}`" v-show="!hidden">
+  <div :class="['input-wrapper', gapClass, inlineInput]" v-show="!hidden">
     <Field type="file"
            :name="name"
            :id="id"

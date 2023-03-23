@@ -15,7 +15,7 @@
             <ui-checkbox :name="'checkAll'"
                          :id="'postLikeCheckAll'"
                          :label="'모두 선택'"
-                         :class="'notice-check-all'"
+                         :clazz="['notice-check-all']"
                          :values="'Y,N'"
                          v-model="checkAll"
                          v-if="0 < postLikeList.length">
@@ -59,7 +59,7 @@
             <ui-checkbox :name="'checkAll'"
                          :id="'postReplyCheckAll'"
                          :label="'모두 선택'"
-                         :class="'notice-check-all'"
+                         :clazz="['notice-check-all']"
                          :values="'Y,N'"
                          v-model="checkAll"
                          v-if="0 < postReplyList.length">
@@ -103,7 +103,7 @@
             <ui-checkbox :name="'checkAll'"
                          :id="'guestbookCheckAll'"
                          :label="'모두 선택'"
-                         :class="'notice-check-all'"
+                         :clazz="['notice-check-all']"
                          :values="'Y,N'"
                          v-model="checkAll"
                          v-if="0 < guestbookList.length">
@@ -145,7 +145,7 @@
             <ui-checkbox :name="'checkAll'"
                          :id="'guestbookReplyCheckAll'"
                          :label="'모두 선택'"
-                         :class="'notice-check-all'"
+                         :clazz="['notice-check-all']"
                          :values="'Y,N'"
                          v-model="checkAll"
                          v-if="0 < guestbookReplyList.length">
@@ -187,7 +187,7 @@
             <ui-checkbox :name="'checkAll'"
                          :id="'satisfactionCheckAll'"
                          :label="'모두 선택'"
-                         :class="'notice-check-all'"
+                         :clazz="['notice-check-all']"
                          v-model="checkAll"
                          v-if="0 < satisfactionList.length">
             </ui-checkbox>

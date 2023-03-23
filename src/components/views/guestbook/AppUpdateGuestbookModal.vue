@@ -1,8 +1,7 @@
 <template>
   <ui-modal :title="'방명록 수정'" :name="this.$options.name">
     <ui-form :name="'removeGuestbookForm'" @onsubmit="onSubmit">
-      <ui-hidden-field :name="'id'" :value="guestbook.id">
-      </ui-hidden-field>
+      <ui-hidden-field :name="'id'" :value="guestbook.id"></ui-hidden-field>
 
       <ui-textarea :name="'cont'"
                    :id="'updateGuestbookCont'"
@@ -33,7 +32,7 @@
         </ui-text-field>
 
         <ui-button :type="'submit'"
-                   :color="'primary'">수정
+                   :color="'primary'">저장
         </ui-button>
       </div>
     </ui-form>

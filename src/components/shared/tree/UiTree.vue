@@ -1,6 +1,6 @@
 <template>
   <div class="mb--15 d-flex gap--10">
-    <ui-text-field :class="'tree-filter-field'"
+    <ui-text-field :clazz="['tree-filter-field']"
                    :placeholder="placeholder"
                    :inline="true"
                    v-model="searchText"

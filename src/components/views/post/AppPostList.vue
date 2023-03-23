@@ -5,7 +5,7 @@
         <div class="post__category-filter d-flex-w gap--10 mb--15">
           <ui-select :name="'categoryId'"
                      :id="'categoryId'"
-                     :class="'post__category-filter-select'"
+                     :clazz="['post__category-filter-select']"
                      :title="'카테고리 선택'"
                      :defaultValue="'카테고리 선택'"
                      :data="categoryList"

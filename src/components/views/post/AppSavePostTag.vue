@@ -6,7 +6,7 @@
   
       <ui-text-field :type="'text'"
                      :name="'tag' + tag.id"
-                     :class="'write__tag'"
+                     :clazz="['write__tag']"
                      :title="'태그명 입력(50자 이내)'"
                      :placeholder="'태그명 입력(50자 이내)'"
                      :rules="'max:50'"

@@ -1,5 +1,5 @@
 <template>
-  <div :class="`input-wrapper${inlineInput}`" v-show="!hidden">
+  <div :class="['input-wrapper', inlineInput]" v-show="!hidden">
     <label :for="id"
            :class="'input-label'"
            v-if="label">{{ label }}
@@ -13,7 +13,7 @@
 
       <input :type="type"
              :id="id"
-             :class="`input-field${blockInput}`"
+             :class="['input-field', blockInput, ...clazz]"
              :ref="(el) => { inputEl = el }"
              :name="name"
              :readonly="readonly"
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { Field, ErrorMessage, useField } from 'vee-validate';
 import { isNotEmpty } from '@/utils';
 
@@ -56,6 +56,11 @@ export default {
     type: String,
     /** input id */
     id: String,
+    /** input class */
+    clazz: {
+      type: Array,
+      default: () => []
+    },
     /** input name */
     name: String,
     /** input readonly */
@@ -90,26 +95,6 @@ export default {
       default: '',
     },
   },
-  computed: {
-    blockInput: {
-      get() {
-        if (isNotEmpty(this.block) && true === this.block) {
-          return ` input-field is--block`;
-        }
-        return '';
-      },
-      set(v) {}
-    },
-    inlineInput: {
-      get() {
-        if (isNotEmpty(this.inline) && true === this.inline) {
-          return ` input-wrapper--inline-block`;
-        }
-        return '';
-      },
-      set(v) {}
-    }
-  },
   setup(props, { emit }) {
     const {
       value: inputValue,
@@ -120,6 +105,26 @@ export default {
     } = useField(props.name, props.rules, {
       initialValue: props.modelValue,
       valueProp: props.modelValue,
+    });
+
+    const blockInput = computed({
+      get() {
+        if (isNotEmpty(props.block) && true === props.block) {
+          return ` input-field is--block`;
+        }
+        return '';
+      },
+      set(v) {}
+    });
+
+    const inlineInput = computed({
+      get() {
+        if (isNotEmpty(props.inline) && true === props.inline) {
+          return ` input-wrapper--inline-block`;
+        }
+        return '';
+      },
+      set(v) {}
     });
 
     /** input 요소 */
@@ -146,6 +151,8 @@ export default {
     };
 
     return {
+      blockInput,
+      inlineInput,
       inputEl,
       onInput,
       onChange,
