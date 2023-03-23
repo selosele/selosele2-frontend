@@ -145,6 +145,8 @@
       &-avatar {
         display: flex;
         overflow: hidden;
+        position: relative;
+        z-index: 0; // iOS 사파리 overflow: hidden + border-radius: 50% 미작동 버그 fix
         width: 4.5rem;
         height: 4.5rem;
         margin: 1.3rem auto 0;
