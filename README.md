@@ -8,7 +8,7 @@
 - Frontend: Vue.js
 - DBMS: MariaDB
 - ORM: TypeORM
-- Port: 8080
+- Port: 8080(로컬)
 - 프론트엔드 구동: ```npm start```
 - 프론트엔드 빌드: ```npm run build```
 - [Backend 저장소](https://github.com/selosele/selosele2-backend)
