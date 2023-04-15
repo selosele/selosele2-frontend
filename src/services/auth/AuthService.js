@@ -20,17 +20,17 @@ export class AuthService {
     return jwtDecode(accessToken);
   }
 
-  /** Access Token 반환 */
+  /** 액세스 토큰 반환 */
   getAccessToken() {
     return localStorage.getItem('accessToken');
   }
 
-  /** Access Token 세팅 */
+  /** 액세스 토큰 세팅 */
   setAccessToken(accessToken) {
     localStorage.setItem('accessToken', accessToken);
   }
 
-  /** Access Token 제거 */
+  /** 액세스 토큰 제거 */
   removeAccessToken() {
     localStorage.removeItem('accessToken');
   }
