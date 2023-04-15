@@ -178,6 +178,8 @@ export default {
     },
     /** 권한 목록 조회 */
     listRole() {
+      this.$store.commit('Loading/SET_USE_LOADING', false);
+
       return this.$http.get('/auth/role')
       .then(res => {
         this.roleList = [
@@ -190,6 +192,7 @@ export default {
         ];
         
         this.roleList.push({ value: '0', text: '모든 권한 허용' });
+        this.$store.commit('Loading/SET_USE_LOADING', true);
       });
     },
     /** 메뉴 권한 model 얻기 */

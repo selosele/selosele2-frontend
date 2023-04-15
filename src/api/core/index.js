@@ -4,14 +4,14 @@ import store from '@/store';
 import router from '@/routes';
 import axios from 'axios';
 
-const axiosInstance = axios.create({
+const http = axios.create({
   baseURL: '/api',
   headers: {
     'Cache-Control': 'no-cache',
   }
 });
 
-axiosInstance.interceptors.request.use(
+http.interceptors.request.use(
   config => {
     const accessToken = new AuthService().getAccessToken();
 
@@ -20,7 +20,9 @@ axiosInstance.interceptors.request.use(
       store.commit('Auth/SET_ACCESS_TOKEN', accessToken);
     }
 
-    store.commit('Loading/SET_LOADING', false);
+    if (store.state.Loading.useLoading) {
+      store.commit('Loading/SET_IS_LOADING', false);
+    }
 
     return config;
   },
@@ -31,16 +33,18 @@ axiosInstance.interceptors.request.use(
 
 let isRefreshing = false;
 
-axiosInstance.interceptors.response.use(
+http.interceptors.response.use(
   response => {
-    store.commit('Loading/SET_LOADING', true);
+    if (store.state.Loading.useLoading) {
+      store.commit('Loading/SET_IS_LOADING', true);
+    }
 
     return response;
   },
   async error => {
     const originalRequest = error.config;
 
-    store.commit('Loading/SET_LOADING', true);
+    store.commit('Loading/SET_IS_LOADING', true);
 
     if (isNotBlank(error?.response?.data?.type) && 'biz' === error?.response?.data?.type) {
       // 비즈니스 로직 예외 처리
@@ -57,7 +61,7 @@ axiosInstance.interceptors.response.use(
         isRefreshing = true;
 
         try {
-          const { data } = await axiosInstance.post('/auth/refresh');
+          const { data } = await http.post('/auth/refresh');
           const newAccessToken = data.accessToken;
           
           new AuthService().setAccessToken(newAccessToken);
@@ -68,7 +72,7 @@ axiosInstance.interceptors.response.use(
           originalRequest._retry = false;
           isRefreshing = false;
 
-          return axiosInstance(originalRequest); // try~catch 블록 바깥에서 return을 하면 HTTP 요청 순서가 꼬이게 됨
+          return http(originalRequest); // try~catch 블록 바깥에서 return을 하면 HTTP 요청 순서가 꼬이게 됨
         } catch (error) {
 
           // 강제 로그아웃
@@ -89,4 +93,4 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export { axiosInstance };
+export { http };

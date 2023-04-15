@@ -75,10 +75,13 @@ export default {
     },
     /** 공통코드 조회 */
     onCellClicked(params) {
+      this.$store.commit('Loading/SET_USE_LOADING', false);
+
       this.$http.get(`/code/${params.data.id}`)
       .then(res => {
         this.code = { ...res.data };
         this.$store.commit('Splitter/TOGGLE', true);
+        this.$store.commit('Loading/SET_USE_LOADING', true);
       });
     },
     /** 공통코드 목록 조회 */
