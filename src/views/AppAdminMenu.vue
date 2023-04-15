@@ -69,7 +69,7 @@ export default {
     createTree(data) {
       data.forEach(parent => {
 
-        // 최상위 node
+        /** 최상위 node */
         let rootNode = {
           id: parent.id,
           label: parent.name,
@@ -106,6 +106,8 @@ export default {
     },
     /** 메뉴 조회 */
     getMenu(node) {
+      this.$store.commit('Loading/SET_USE_LOADING', false);
+
       return this.$http.get(`/menu/${node.id}`)
       .then(res => {
         this.menu = { ...res.data };
@@ -113,6 +115,7 @@ export default {
           .filter(d => d.value !== this.menu.id);
 
         this.menu.regDate = this.$moment(this.menu.regDate).format('YYYY-MM-DD HH:mm:ss');
+        this.$store.commit('Loading/SET_USE_LOADING', true);
       });
     },
     /** 조회된 메뉴를 제외한 메뉴 목록 조회 */

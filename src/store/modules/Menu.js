@@ -1,4 +1,4 @@
-import { axiosInstance } from "@/api";
+import { http } from "@/api";
 
 /** 메뉴 Store */
 export const Menu = {
@@ -16,7 +16,7 @@ export const Menu = {
       commit('SET_MENU', values);
     },
     async LIST_MENU({ commit }, values) {
-      return axiosInstance.get('/menu/list/tree', { params: values.params })
+      return http.get('/menu/list/tree', { params: values.params })
       .then(res => {
         commit('SET_MENU', res.data);
       });

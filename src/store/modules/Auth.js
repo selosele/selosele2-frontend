@@ -1,6 +1,6 @@
 import { isNotBlank } from "@/utils/common/commonUtil";
 import { AuthService } from "@/services/auth/authService";
-import { axiosInstance } from "@/api";
+import { http } from "@/api";
 import router from "@/routes";
 import { messageUtil } from "@/utils";
 
@@ -38,11 +38,11 @@ export const Auth = {
     },
     LOGOUT({ commit, dispatch }) {
       return new Promise((resolve, reject) => {
-        axiosInstance.post('/auth/signout')
+        http.post('/auth/signout')
         .then(res => {
-          axiosInstance.defaults.headers.common['Authorization'] = '';
+          http.defaults.headers.common['Authorization'] = '';
           
-          commit('Loading/SET_LOADING', false, { root: true });
+          commit('Loading/SET_IS_LOADING', false, { root: true });
           commit('Auth/CLEAR_ACCESS_TOKEN', null, { root: true });
           commit('Post/SET_MAIN_POSTLIST', {}, { root: true });
           commit('Layout/SET_SIDEBAR', {}, { root: true });

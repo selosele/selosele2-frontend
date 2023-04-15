@@ -1,4 +1,4 @@
-import { axiosInstance } from "@/api";
+import { http } from "@/api";
 
 /** 알림 Store */
 export const Notification = {
@@ -21,7 +21,7 @@ export const Notification = {
     },
     LIST_NOTIFICATION({ commit }) {
       return new Promise((resolve, reject) => {
-        axiosInstance.get('/notification')
+        http.get('/notification')
         .then(res => {
           commit('SET_NOTIFICATION', res.data);
           resolve(res.data);

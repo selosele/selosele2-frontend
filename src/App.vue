@@ -1,5 +1,5 @@
 <template>
-  <ui-loading :activeModel="!$store.state.Loading.isLoading"
+  <ui-loading :activeModel="$store.state.Loading.useLoading && !$store.state.Loading.isLoading"
               :fullPage="true"
               :color="'#538204'">
   </ui-loading>

@@ -9,7 +9,7 @@ import { formModule, layoutModule, uiModule } from './plugins/module';
 import { $vfm } from 'vue-final-modal';
 import { vfmPlugin } from 'vue-final-modal';
 import VueCookies from 'vue-cookies';
-import { axiosInstance } from '@/api';
+import { http } from '@/api';
 
 import '@/assets/scss/style.scss';
 
@@ -28,11 +28,11 @@ app.mixin({
 });
 
 app.config.globalProperties.$rootUrl = window.location.origin;
-app.config.globalProperties.$http = axiosInstance;
+app.config.globalProperties.$http = http;
 app.config.globalProperties.$moment = moment;
 app.config.globalProperties.$modal = $vfm;
 
-// Production Tip 비활성화(안되는듯)
+// Production Tip 비활성화
 app.config.warnHandler = (msg, vm, trace) => {
   return null;
 };
