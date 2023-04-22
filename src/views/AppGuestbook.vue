@@ -15,7 +15,7 @@
 
           <div class="guestbook__write__inputs">
             <div class="guestbook__write__input-box">
-              <label for="addGuestbookAuthor" class="pt--5">닉네임</label>
+              <label for="addGuestbookAuthor" class="guestbook__write__label">닉네임</label>
               <ui-text-field :type="'text'"
                              :name="'author'"
                              :id="'addGuestbookAuthor'"
@@ -27,7 +27,7 @@
             </div>
 
             <div class="guestbook__write__input-box">
-              <label for="addGuestbookPw" class="pt--5">비밀번호</label>
+              <label for="addGuestbookPw" class="guestbook__write__label">비밀번호</label>
               <ui-text-field :type="'password'"
                              :name="'authorPw'"
                              :id="'addGuestbookPw'"
@@ -36,12 +36,7 @@
               </ui-text-field>
             </div>
 
-            <div class="guestbook__write__btns d-flex-w gap--10">
-              <ui-button :type="'reset'"
-                         :color="'secondary'"
-                         :class="'guestbook__btn guestbook__btn--reset'">다시작성
-              </ui-button>
-
+            <div class="guestbook__write__btns">
               <ui-button :type="'submit'"
                          :color="'primary'"
                          :class="'guestbook__btn guestbook__btn--write'">저장
@@ -314,13 +309,13 @@ export default {
     },
     /** 방명록 댓글 추가 시 */
     async onAddReply(value) {
-      this.guestbookList = this.guestbookList.map(a => {
-        if (a.id === value.parentId) {
+      this.guestbookList = this.guestbookList.map(guestbook => {
+        if (guestbook.id === value.parentId) {
           const data = this.setData(value);
-          a.guestbookReply.push(data);
+          guestbook.guestbookReply.push(data);
         }
 
-        return a;
+        return guestbook;
       });
     },
     /** 방명록 댓글 수정 시 */

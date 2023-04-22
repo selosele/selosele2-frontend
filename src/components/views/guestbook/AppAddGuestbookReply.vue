@@ -1,8 +1,7 @@
 <template>
   <div class="guestbook__reply__wrapper">
     <ui-form :name="`guestbookReplyForm${idx}`" @onsubmit="onSubmit">
-      <ui-hidden-field :name="'parentId'" :value="parentId">
-      </ui-hidden-field>
+      <ui-hidden-field :name="'parentId'" :value="parentId"></ui-hidden-field>
 
       <ui-textarea :name="'cont'"
                    :id="`guestbookReplyCont${idx}`"
@@ -15,8 +14,8 @@
       </ui-textarea>
 
       <div class="guestbook__reply__btns">
-        <div class="guestbook__reply__btns-inner">
-          <label :for="`guestbookReplyAuthor${idx}`" class="pt--5">닉네임</label>
+        <div class="guestbook__reply__input-box">
+          <label :for="`guestbookReplyAuthor${idx}`" class="guestbook__reply__label">닉네임</label>
           <ui-text-field :type="'text'"
                          :name="'author'"
                          :id="`guestbookReplyAuthor${idx}`"
@@ -25,8 +24,10 @@
                          :readonly="isLogin"
                          :value="isLogin ? '관리자' : ''">
           </ui-text-field>
+        </div>
 
-          <label :for="`guestbookReplyPw${idx}`" class="pt--5">비밀번호</label>
+        <div class="guestbook__reply__input-box">
+          <label :for="`guestbookReplyPw${idx}`" class="guestbook__reply__label">비밀번호</label>
           <ui-text-field :type="'password'"
                          :name="'authorPw'"
                          :id="`guestbookReplyPw${idx}`"
@@ -35,10 +36,12 @@
           </ui-text-field>
         </div>
 
-        <ui-button :type="'submit'"
-                   :color="'primary'"
-                   :class="'guestbook__btn guestbook__btn--reply-write'">저장
-        </ui-button>
+        <div class="guestbook__reply__write__btns">
+          <ui-button :type="'submit'"
+                     :color="'primary'"
+                     :class="'guestbook__btn guestbook__btn--reply-write'">저장
+          </ui-button>
+        </div>
       </div>
     </ui-form>
   </div>

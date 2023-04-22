@@ -39,10 +39,6 @@
         </ui-text-field>
     
         <div class="post__reply__write__btns">
-          <ui-button :type="'reset'"
-                     :class="'post__reply__btn--reset'">다시작성
-          </ui-button>
-
           <ui-button :type="'submit'"
                      :class="'post__reply__btn--write'">저장
           </ui-button>
