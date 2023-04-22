@@ -74,10 +74,9 @@ http.interceptors.response.use(
 
           return http(originalRequest); // try~catch 블록 바깥에서 return을 하면 HTTP 요청 순서가 꼬이게 됨
         } catch (error) {
-
-          // 강제 로그아웃
           console.error('Error refreshing access token:', error);
           
+          // 강제 로그아웃
           new AuthService().logout(true);
           return Promise.reject(error);
         }
