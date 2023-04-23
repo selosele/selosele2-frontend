@@ -1,22 +1,25 @@
 <template>
-  <ui-modal :title="'방명록 댓글 삭제'" :name="this.$options.name">
+  <ui-modal :title="'방명록 댓글 삭제'" :name="this.$options.name" class="guestbook-modal__wrapper">
     <ui-form :name="'removeGuestbookReplyForm'" @onsubmit="onSubmit">
-      <ui-hidden-field :name="'id'" :value="id">
-      </ui-hidden-field>
+      <ui-hidden-field :name="'id'" :value="id"></ui-hidden-field>
 
-      <div class="d-flex-w gap--10">
+      <div class="guestbook__write__input-box no-width">
         <ui-text-field :type="'password'"
                        :name="'authorPw'"
                        :id="'removeGuestbookReplyPw'"
+                       :clazz="['guestbook__input']"
                        :title="'비밀번호 입력'"
                        :placeholder="'비밀번호 입력'"
                        :disabled="isLogin"
                        :rules="!isLogin ? 'required|min:8|max:15' : ''">
         </ui-text-field>
 
-        <ui-button :type="'submit'"
-                   :color="'primary'">삭제
-        </ui-button>
+        <div class="guestbook__write__btns">
+          <ui-button :type="'submit'"
+                     :color="'primary'"
+                     :class="'guestbook__btn guestbook__btn--write'">삭제
+          </ui-button>
+        </div>
       </div>
     </ui-form>
   </ui-modal>
@@ -50,5 +53,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+@import '@/assets/scss/views/guestbook-modal.scss';
 </style>

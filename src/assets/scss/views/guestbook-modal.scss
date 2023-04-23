@@ -1,0 +1,93 @@
+.guestbook-modal__wrapper:deep {
+  .guestbook {
+    &__write {
+      &__inputs {
+        display: flex;
+        flex-wrap: wrap;
+        
+        @media (min-width: $min-small-width) {
+          width: auto;
+          margin-top: 1rem;
+        }
+      }
+
+      &__input-box {
+        display: inline-flex;
+        width: 100%;
+        margin-top: 0.7rem;
+        font-size: 0.85rem;
+        vertical-align: top;
+        flex-wrap: wrap;
+        gap: 0.7rem;
+
+        &.no-width {
+          display: block;
+
+          @media (min-width: $min-small-width) {
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+          }
+        }
+        
+        &:not(.no-width) {
+          .input-wrapper {
+            width: calc(100% - 3.95rem);
+  
+            @media (min-width: $min-small-width) {
+              width: auto;
+            }
+          }
+        }
+
+        @media (min-width: $min-small-width) {
+          width: auto;
+          margin-top: 0;
+          margin-right: 0.7rem;
+        }
+      }
+
+      &__label {
+        width: 3.25rem;
+        padding-top: 0.25rem;
+
+        @media (min-width: $min-small-width) {
+          min-width: 0;
+        }
+      }
+
+      &__btns {
+        width: 100%;
+        margin-top: 0.7rem;
+  
+        @media (min-width: $min-small-width) {
+          width: auto;
+          margin-top: 0;
+        }
+      }
+    }
+    
+    &__input {
+      display: block;
+      width: 100%;
+      
+      @media (min-width: $min-small-width) {
+        width: 6rem;
+      }
+  
+      @media (min-width: $min-medium-width) {
+        width: 7rem;
+      }
+    }
+
+    &__btn {
+      &--write {
+        width: 100%;
+        
+        @media (min-width: $min-small-width) {
+          width: auto;
+        }
+      }
+    }
+  }
+}
