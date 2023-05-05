@@ -71,7 +71,9 @@ export class AuthService {
     if (!user) return false;
 
     for (const { roleId } of user.userRole) {
-      return role === roleId;
+      if (true === (role === roleId)) {
+        return true;
+      }
     }
     
     return false;
