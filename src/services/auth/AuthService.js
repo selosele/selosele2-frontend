@@ -68,6 +68,7 @@ export class AuthService {
   /** 1개의 권한 확인 */
   hasRole(role) {
     const user = this.getUser();
+    
     if (!user) return false;
 
     for (const { roleId } of user.userRole) {
@@ -82,6 +83,7 @@ export class AuthService {
   /** 모든 권한이 있는지 확인 */
   hasRoleAll(...roles) {
     const user = this.getUser();
+
     if (!user) return false;
 
     return roles.every(v => user.userRole.filter(r => r.roleId === v).length > 0);
@@ -90,6 +92,7 @@ export class AuthService {
   /** 권한이 1개라도 있는지 확인 */
   hasRoleOr(...roles) {
     const user = this.getUser();
+
     if (!user) return false;
 
     return roles.some(v => user.userRole.filter(r => r.roleId === v).length > 0);
