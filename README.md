@@ -11,5 +11,6 @@
 - Port: 8080(Local)
 - Frontend 구동: ```npm start```
 - Frontend 빌드: ```npm run build```
+  - Jenkins 자동 빌드 세팅 진행 중
 - [Backend 저장소](https://github.com/selosele/selosele2-backend)
 - [AS-IS 저장소](https://github.com/selosele/devblog)
