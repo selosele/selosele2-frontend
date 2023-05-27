@@ -22,7 +22,7 @@
                              :clazz="['guestbook__input']"
                              :rules="'required|max:20'"
                              :readonly="isLogin"
-                             :value="isLogin ? '관리자' : ''">
+                             :value="isLogin ? adminNickName : ''">
               </ui-text-field>
             </div>
 
@@ -156,11 +156,16 @@ export default {
       replyActiveIndex: -1,
       isScrolled: false,
       isLastPage: false,
+      nickNameCodeList: [],
+      adminNickName: '',
     }
   },
   async created() {
     // 페이지 타이틀 세팅
     new BreadcrumbService().setPageTitle(this.pageTitle);
+
+    this.nickNameCodeList = this.$store.state.Code.data.filter(d => d.prefix === 'F01');
+    this.adminNickName = this.nickNameCodeList.find(d => d.id === 'F01001').nm;
 
     await this.listGuestbook();
   },

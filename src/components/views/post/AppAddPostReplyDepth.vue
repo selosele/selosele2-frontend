@@ -27,7 +27,7 @@
                            :rules="'required|max:20'"
                            :tooltip="true"
                            :readonly="isLogin"
-                           :value="isLogin ? '관리자' : ''">
+                           :value="isLogin ? adminNickName : ''">
             </ui-text-field>
 
             <ui-text-field :type="'password'"
@@ -58,6 +58,16 @@ export default {
   props: {
     /** 포스트 댓글 */
     reply: Object,
+  },
+  data() {
+    return {
+      nickNameCodeList: [],
+      adminNickName: '',
+    }
+  },
+  created() {
+    this.nickNameCodeList = this.$store.state.Code.data.filter(d => d.prefix === 'F01');
+    this.adminNickName = this.nickNameCodeList.find(d => d.id === 'F01001').nm;
   },
   methods: {
     /** 포스트 댓글 저장 */

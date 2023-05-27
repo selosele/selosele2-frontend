@@ -22,7 +22,7 @@
                          :clazz="['guestbook__input']"
                          :rules="'required|max:20'"
                          :readonly="isLogin"
-                         :value="isLogin ? '관리자' : ''">
+                         :value="isLogin ? adminNickName : ''">
           </ui-text-field>
         </div>
 
@@ -57,6 +57,16 @@ export default {
     idx: Number,
     /** 상위 방명록 ID */
     parentId: Number,
+  },
+  data() {
+    return {
+      nickNameCodeList: [],
+      adminNickName: '',
+    }
+  },
+  created() {
+    this.nickNameCodeList = this.$store.state.Code.data.filter(d => d.prefix === 'F01');
+    this.adminNickName = this.nickNameCodeList.find(d => d.id === 'F01001').nm;
   },
   methods: {
     /** 방명록 댓글 추가 */

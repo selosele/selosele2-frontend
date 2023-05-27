@@ -297,7 +297,7 @@ export default {
     /** 포스트 URL 복사 */
     copyPostUrl() {
       navigator.clipboard.writeText(location.href);
-      messageUtil.toastSuccess('URL이 복사되었습니다.');
+      messageUtil.toastSuccess(`${this.isPostPage ? '포스트' : '콘텐츠'} URL이 복사되었습니다.`);
     },
   },
 }

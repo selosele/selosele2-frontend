@@ -18,28 +18,31 @@
       </ui-textarea>
 
       <div class="post__reply__write__inputs">
-        <ui-text-field :type="'text'"
-                       :name="'author'"
-                       :id="'addPostReplyAuthor'"
-                       :clazz="['post__reply__input']"
-                       :label="'닉네임'"
-                       :rules="'required|max:20'"
-                       :tooltip="true"
-                       :readonly="isLogin"
-                       :value="isLogin ? '관리자' : ''">
-        </ui-text-field>
+        <div class="post__reply__write__input-box">
+          <label for="addPostReplyAuthor" class="post__reply__write__label">닉네임</label>
+          <ui-text-field :type="'text'"
+                         :name="'author'"
+                         :id="'addPostReplyAuthor'"
+                         :clazz="['post__reply__input']"
+                         :rules="'required|max:20'"
+                         :readonly="isLogin"
+                         :value="isLogin ? adminNickName : ''">
+          </ui-text-field>
+        </div>
     
-        <ui-text-field :type="'password'"
-                       :name="'authorPw'"
-                       :id="'addPostReplyAuthorPw'"
-                       :clazz="['post__reply__input']"
-                       :label="'비밀번호'"
-                       :tooltip="true"
-                       :rules="'required|min:8|max:15'">
-        </ui-text-field>
+        <div class="post__reply__write__input-box">
+          <label for="addPostReplyAuthorPw" class="post__reply__write__label">비밀번호</label>
+          <ui-text-field :type="'password'"
+                         :name="'authorPw'"
+                         :id="'addPostReplyAuthorPw'"
+                         :clazz="['post__reply__input']"
+                         :rules="'required|min:8|max:15'">
+          </ui-text-field>
+        </div>
     
         <div class="post__reply__write__btns">
           <ui-button :type="'submit'"
+                     :color="'primary'"
                      :class="'post__reply__btn--write'">저장
           </ui-button>
         </div>
@@ -76,9 +79,14 @@ export default {
     return {
       /** 포스트 댓글 목록 */
       replyList: Array,
+      nickNameCodeList: [],
+      adminNickName: '',
     }
   },
   created() {
+    this.nickNameCodeList = this.$store.state.Code.data.filter(d => d.prefix === 'F01');
+    this.adminNickName = this.nickNameCodeList.find(d => d.id === 'F01001').nm;
+
     this.listPostReply();
   },
   methods: {
