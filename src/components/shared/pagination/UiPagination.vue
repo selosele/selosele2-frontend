@@ -14,7 +14,7 @@
         <span :class="[
                 'link',
                 { 'link--disabled': page <= 1 }]"
-              @click="onPage(page-1)">
+              @click="onPage(page - 1)">
           <i class="xi-angle-left" aria-hidden="true"></i>
           <span class="sr-only">이전 페이지</span>
         </span>
@@ -35,7 +35,7 @@
         <span :class="[
                 'link',
                 { 'link--disabled': page >= paginationTotal }]"
-              @click="onPage(page+1)">
+              @click="onPage(page + 1)">
           <i class="xi-angle-right" aria-hidden="true"></i>
           <span class="sr-only">다음 페이지</span>
         </span>
@@ -135,7 +135,7 @@ export default {
     /** Pagination 시작 번호 */
     paginationStart() {
       const startPage = (parseInt(this.page / this.size - 1) * this.size) + 1;
-      return this.page >= this.size ? this.size-1 : startPage;
+      return this.page >= this.size ? this.size - 1 : startPage;
     },
     /** Pagination 끝 번호 */
     paginationEnd() {
@@ -144,7 +144,7 @@ export default {
     },
     /** Pagination 전체 개수 */
     paginationTotal() {
-      return Math.round(this.total / this.computedRows);
+      return Math.ceil(this.total / this.computedRows);
     },
   },
   methods: {
