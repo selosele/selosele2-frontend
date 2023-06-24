@@ -53,9 +53,9 @@ export default {
 
     this.page = isNotEmpty(this.$route.query.page) ? parseInt(this.$route.query.page) : 1;
 
-    this.listCategoryAndCount();
+    await this.listCategoryAndCount();
 
-    this.init();
+    await this.init();
   },
   computed: {
     storePageSize() {
