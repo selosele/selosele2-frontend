@@ -51,7 +51,7 @@ export default {
     // 페이지 타이틀 세팅
     new BreadcrumbService().setPageTitle(this.pageTitle);
 
-    this.page = parseInt(this.$route.query.page) || 1;
+    this.page = isNotEmpty(this.$route.query.page) ? parseInt(this.$route.query.page) : 1;
 
     this.listCategoryAndCount();
 
