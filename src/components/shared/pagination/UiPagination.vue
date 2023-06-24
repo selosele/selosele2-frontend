@@ -144,7 +144,7 @@ export default {
     },
     /** Pagination 전체 개수 */
     paginationTotal() {
-      return Math.ceil(this.total / this.computedRows);
+      return Math.ceil(this.noPinPostList.length / this.computedRows);
     },
   },
   methods: {
