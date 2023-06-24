@@ -15,7 +15,7 @@ import '@/assets/scss/style.scss';
 
 initDefineRule();
 
-moment.locale('kr');
+moment.locale('ko');
 
 const app = createApp({
   extends: App,
@@ -31,11 +31,6 @@ app.config.globalProperties.$rootUrl = window.location.origin;
 app.config.globalProperties.$http = http;
 app.config.globalProperties.$moment = moment;
 app.config.globalProperties.$modal = $vfm;
-
-// Production Tip 비활성화
-app.config.warnHandler = (msg, vm, trace) => {
-  return null;
-};
 
 app.use(store)
    .use(router)
