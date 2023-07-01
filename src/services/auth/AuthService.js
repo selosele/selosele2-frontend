@@ -3,7 +3,7 @@ import store from '@/store';
 import jwtDecode from 'jwt-decode';
 import moment from 'moment';
 
-/** 인증·인가 Service */
+/** 인증 Service */
 export class AuthService {
 
   constructor() {

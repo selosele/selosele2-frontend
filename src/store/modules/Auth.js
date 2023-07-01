@@ -4,7 +4,7 @@ import { http } from "@/api";
 import router from "@/routes";
 import { messageUtil } from "@/utils";
 
-/** 인증·인가 Store */
+/** 인증 Store */
 export const Auth = {
   namespaced: true,
   state: () => ({

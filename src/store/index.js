@@ -15,7 +15,7 @@ import { AuthService } from '@/services/auth/authService';
 export default createStore({
   modules: {
     Code,           // 공통코드
-    Auth,           // 인증·인가
+    Auth,           // 인증
     Notification,   // 알림
     BlogConfig,     // 블로그 환경설정
     Layout,         // 레이아웃
