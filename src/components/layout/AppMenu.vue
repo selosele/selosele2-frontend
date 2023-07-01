@@ -1,5 +1,9 @@
 <template>
-  <nav id="gnb" class="gnb">
+  <nav id="gnb" :class="[
+    'gnb',
+    { 'gnb--visible': $store.state.Layout.isMenuVisible },
+    { 'gnb--animate': $store.state.Layout.isMenuAnimate }
+  ]">
     <ul class="gnb__list" v-if="0 < $store.state.Menu.data.length">
       <template v-for="(menu,i) in $store.state.Menu.data" :key="i">
         <li class="gnb__list__item" v-if="0 === menu.children.length">

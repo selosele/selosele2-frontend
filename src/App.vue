@@ -116,25 +116,18 @@ export default {
     toggleMobileMenu(e) {
       const menu = this.$refs['menu'].$el;
 
-      document.body.classList.add('layer-opened');
-
-      menu.classList.add('gnb--visible')
-      menu.setAttribute('tabindex', 0);
-      menu.focus();
-
+      this.$store.dispatch('Layout/FETCH_IS_MENU_VISIBLE', { visible: true, el: menu });
+      
       setTimeout(() => {
-        menu.classList.add('gnb--animate');
+        this.$store.dispatch('Layout/FETCH_IS_MENU_ANIMATE', true);
       }, 150);
     },
     /** 메뉴 닫기 */
     closeMobileMenu() {
-      const menu = this.$refs['menu'].$el;
-
-      menu.classList.remove('gnb--animate');
+      this.$store.dispatch('Layout/FETCH_IS_MENU_ANIMATE', false);
 
       setTimeout(() => {
-        menu.classList.remove('gnb--visible');
-        document.body.classList.remove('layer-opened');
+        this.$store.dispatch('Layout/FETCH_IS_MENU_VISIBLE', { visible: false, el: null });
       }, 150);
     },
     /** 바깥 영역 클릭해서 메뉴 닫기 */

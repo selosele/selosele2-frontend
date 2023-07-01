@@ -1,4 +1,5 @@
 import { http } from "@/api";
+import { isNotEmpty } from "@/utils";
 
 /** 레이아웃 Store */
 export const Layout = {
@@ -12,6 +13,10 @@ export const Layout = {
     isActive: false,
     /** 변경 위젯 값 */
     changeWidget: {},
+    /** 메뉴 표시 여부 */
+    isMenuVisible: false,
+    /** 메뉴 애니메이션 활성화 여부 */
+    isMenuAnimate: false,
   }),
   mutations: {
     SET_PAGE_TITLE(state, pageTitle) {
@@ -28,6 +33,12 @@ export const Layout = {
     },
     SET_CHANGE_WIDGET(state, changeWidget) {
       state.changeWidget = changeWidget;
+    },
+    SET_IS_MENU_VISIBLE(state, isMenuVisible) {
+      state.isMenuVisible = isMenuVisible;
+    },
+    SET_IS_MENU_ANIMATE(state, isMenuAnimate) {
+      state.isMenuAnimate = isMenuAnimate;
     },
   },
   actions: {
@@ -51,6 +62,23 @@ export const Layout = {
     },
     FETCH_CHANGE_WIDGET({ commit }, values) {
       commit('SET_CHANGE_WIDGET', values);
+    },
+    FETCH_IS_MENU_VISIBLE({ commit }, values) {
+      if (values.visible) {
+        document.body.classList.add('layer-opened');
+      } else {
+        document.body.classList.remove('layer-opened');
+      }
+
+      if (isNotEmpty(values.el)) {
+        values.el.setAttribute('tabindex', 0);
+        values.el.focus();
+      }
+
+      commit('SET_IS_MENU_VISIBLE', values.visible);
+    },
+    FETCH_IS_MENU_ANIMATE({ commit }, values) {
+      commit('SET_IS_MENU_ANIMATE', values);
     },
   },
 };
