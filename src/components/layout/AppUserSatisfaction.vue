@@ -68,8 +68,9 @@ export default {
         });
       }
     });
-
-    this.defaultScore = this.satisArr.find(d => d?.value === '003')?.value;
+  },
+  mounted() {
+    this.defaultScore = this.satisArr.find(d => d.value === '003').value;
   },
   methods: {
     /** 만족도조사 제출 */
