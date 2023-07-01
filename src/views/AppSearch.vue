@@ -49,7 +49,7 @@
             <ui-icon-button :type="'link'"
                             :color="'dark'"
                             :icon="'xi-google'"
-                            :class="'btn--dark search__google'"
+                            :class="'search__google'"
                             :href="googleSearchUrl"
                             :target="'_blank'"
                             :title="'새창'"
