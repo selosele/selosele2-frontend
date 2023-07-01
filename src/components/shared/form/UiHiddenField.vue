@@ -4,8 +4,7 @@
          :ref="id"
          :name="name"
          :value="value"
-         v-slot="{ field }"
-         v-bind="{ ...field, ...$attrs }"
+         v-bind="$attrs"
   >
   </Field>
 </template>
