@@ -17,7 +17,7 @@ export default {
     /** 이미지명 */
     imgName: String,
     /** 이미지 용량 */
-    imgSize: String,
+    imgSize: Number,
   },
   data() {
     return {
