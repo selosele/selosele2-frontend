@@ -49,7 +49,9 @@
       </div>
     </ui-form>
   
-    <p class="post__reply__no-data" v-if="0 === replyList.length">댓글이 없습니다. 제일 먼저 댓글을 작성해보세요.</p>
+    <p class="post__reply__no-data" v-if="0 === replyList.length">
+      댓글이 없습니다. 제일 먼저 댓글을 작성해보세요.
+    </p>
 
     <app-post-reply-list v-else
                          :key="replyList"
@@ -78,7 +80,7 @@ export default {
   data() {
     return {
       /** 포스트 댓글 목록 */
-      replyList: Array,
+      replyList: [],
       nickNameCodeList: [],
       adminNickName: '',
     }
@@ -110,9 +112,8 @@ export default {
       .then(res => {
         res.data[0].map(d => {
           this.setData(d);
+          this.replyList.push(d);
         });
-
-        this.replyList = [...res.data[0]];
       });
     },
     /** 포스트 댓글 수정 시 */
