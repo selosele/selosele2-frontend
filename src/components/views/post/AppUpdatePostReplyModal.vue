@@ -1,14 +1,9 @@
 <template>
-  <ui-modal :title="'포스트 댓글 수정'" :name="this.$options.name">
+  <ui-modal :title="'포스트 댓글 수정'" :name="this.$options.name" class="post-reply-modal__wrapper">
     <ui-form :name="'updatePostReplyForm'" @onsubmit="onSubmit">
-      <ui-hidden-field :name="'id'" id="updatePostReplyId" :value="reply.id">
-      </ui-hidden-field>
-
-      <ui-hidden-field :name="'parentId'" id="updatePostReplyParentId" :value="reply.parentId">
-      </ui-hidden-field>
-
-      <ui-hidden-field :name="'crudType'" id="updatePostReplyCrudType" :value="'E01003'">
-      </ui-hidden-field>
+      <ui-hidden-field :name="'id'" id="updatePostReplyId" :value="reply.id" />
+      <ui-hidden-field :name="'parentId'" id="updatePostReplyParentId" :value="reply.parentId" />
+      <ui-hidden-field :name="'crudType'" id="updatePostReplyCrudType" :value="'E01003'" />
 
       <ui-textarea :name="'cont'"
                    :id="'updatePostReplyCont'"
@@ -21,26 +16,35 @@
                    :value="replacedCont">
       </ui-textarea>
 
-      <div class="d-flex-w gap--15 mt--20">
-        <label for="updatePostReplyAuthor" class="pt--5">닉네임</label>
-        <ui-text-field :type="'text'"
-                       :name="'author'"
-                       :id="'updatePostReplyAuthor'"
-                       :rules="'required|max:20'"
-                       :readonly="'Y' === reply.adminYn"
-                       :value="reply.author">
-        </ui-text-field>
+      <div class="post-reply__write__inputs">
+        <div class="post-reply__write__input-box">
+          <label for="updatePostReplyAuthor" class="post-reply__write__label">닉네임</label>
+          <ui-text-field :type="'text'"
+                        :name="'author'"
+                        :id="'updatePostReplyAuthor'"
+                        :clazz="['post-reply__input']"
+                        :rules="'required|max:20'"
+                        :readonly="'Y' === reply.adminYn"
+                        :value="reply.author">
+          </ui-text-field>
+        </div>
 
-        <label for="updatePostReplyPw" class="pt--5">비밀번호</label>
-        <ui-text-field :type="'password'"
-                       :name="'authorPw'"
-                       :id="'updatePostReplyPw'"
-                       :rules="'required|min:8|max:15'">
-        </ui-text-field>
+        <div class="post-reply__write__input-box">
+          <label for="updatePostReplyPw" class="post-reply__write__label">비밀번호</label>
+          <ui-text-field :type="'password'"
+                         :name="'authorPw'"
+                         :id="'updatePostReplyPw'"
+                         :clazz="['post-reply__input']"
+                         :rules="'required|min:8|max:15'">
+          </ui-text-field>
+        </div>
 
-        <ui-button :type="'submit'"
-                   :color="'primary'">수정
-        </ui-button>
+        <div class="post-reply__write__btns">
+          <ui-button :type="'submit'"
+                     :color="'primary'"
+                     :class="'post-reply__btn post-reply__btn--write'">수정
+          </ui-button>
+        </div>
       </div>
     </ui-form>
   </ui-modal>
@@ -83,5 +87,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+@import '@/assets/scss/views/post-reply-modal.scss';
 </style>

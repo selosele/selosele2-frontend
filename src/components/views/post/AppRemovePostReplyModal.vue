@@ -1,31 +1,28 @@
 <template>
-  <ui-modal :title="'포스트 댓글 삭제'" :name="this.$options.name">
+  <ui-modal :title="'포스트 댓글 삭제'" :name="this.$options.name" class="post-reply-modal__wrapper">
     <ui-form :name="'removePostReplyForm'" @onsubmit="onSubmit">
-      <ui-hidden-field :name="'id'" id="removePostReplyId" :value="reply.id">
-      </ui-hidden-field>
+      <ui-hidden-field :name="'id'" id="removePostReplyId" :value="reply.id" />
+      <ui-hidden-field :name="'parentId'" id="removePostReplyParentId" :value="reply.parentId" />
+      <ui-hidden-field :name="'author'" id="removePostReplyAuthor" :value="reply.author" />
+      <ui-hidden-field :name="'crudType'" id="removePostReplyCrudType" :value="'E01004'" />
 
-      <ui-hidden-field :name="'parentId'" id="removePostReplyParentId" :value="reply.parentId">
-      </ui-hidden-field>
-
-      <ui-hidden-field :name="'author'" id="removePostReplyAuthor" :value="reply.author">
-      </ui-hidden-field>
-
-      <ui-hidden-field :name="'crudType'" id="removePostReplyCrudType" :value="'E01004'">
-      </ui-hidden-field>
-
-      <div class="d-flex-w gap--10">
+      <div class="post-reply__write__input-box no-width">
         <ui-text-field :type="'password'"
                        :name="'authorPw'"
                        :id="'removePostReplyPw'"
+                       :clazz="['post-reply__input']"
                        :title="'비밀번호 입력'"
                        :placeholder="'비밀번호 입력'"
                        :disabled="isLogin"
                        :rules="!isLogin ? 'required|min:8|max:15' : ''">
         </ui-text-field>
 
-        <ui-button :type="'submit'"
-                   :color="'primary'">삭제
-        </ui-button>
+        <div class="post-reply__write__btns">
+          <ui-button :type="'submit'"
+                     :color="'primary'"
+                     :class="'post-reply__btn post-reply__btn--write'">삭제
+          </ui-button>
+        </div>
       </div>
     </ui-form>
   </ui-modal>
@@ -59,5 +56,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+@import '@/assets/scss/views/post-reply-modal.scss';
 </style>
