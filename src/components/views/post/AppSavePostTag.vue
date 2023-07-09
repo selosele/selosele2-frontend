@@ -1,8 +1,8 @@
 <template>
   <span class="write__tag__item__wrapper">
     <span class="write__tag__item">
-      <ui-hidden-field :name="'id'" :value="tag.id"></ui-hidden-field>
-      <ui-hidden-field :name="'addTagYn'" :value="tag.addTagYn"></ui-hidden-field>
+      <ui-hidden-field :name="'id'" :value="tag.id" />
+      <ui-hidden-field :name="'addTagYn'" :value="tag.addTagYn" />
   
       <ui-text-field :type="'text'"
                      :name="'tag' + tag.id"

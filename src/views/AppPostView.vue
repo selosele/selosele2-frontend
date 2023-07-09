@@ -3,7 +3,7 @@
     <div class="post-view__wrapper">
       <template v-if="dataLoaded">
         <ui-form :name="'postForm'" @onsubmit="onSubmit">
-          <ui-hidden-field :name="'id'" :value="post?.id"></ui-hidden-field>
+          <ui-hidden-field :name="'id'" :value="post?.id" />
     
           <!-- START : 내용 영역 -->
           <div class="post__contents__body line-numbers" v-html="post?.cont"></div>
@@ -261,7 +261,9 @@ export default {
         title: this.breadcrumbService.getPageTitle(),
       };
 
-      return this.$http.post('postlike', savePostLikeDto)
+      this.$store.commit('Loading/SET_USE_LOADING', false);
+
+      return this.$http.post('/postlike', savePostLikeDto)
       .then(res => {
         if (0 === this.postLikeCnt && -1 === res.data) return;
 

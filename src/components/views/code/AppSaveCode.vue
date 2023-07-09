@@ -1,7 +1,6 @@
 <template>
   <ui-split-form :name="'saveCodeForm'" @onsubmit="onSubmit">
-    <ui-hidden-field :name="'originId'" :value="code.id">
-    </ui-hidden-field>
+    <ui-hidden-field :name="'originId'" :value="code.id" />
 
     <ui-text-field :type="'text'"
                    :name="'id'"

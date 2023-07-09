@@ -4,11 +4,8 @@
                  @onsubmit="onSubmit"
                  @remove="onRemove"
   >
-    <ui-hidden-field :name="'id'" :value="category.id">
-    </ui-hidden-field>
-
-    <ui-hidden-field :name="'type'" :value="type">
-    </ui-hidden-field>
+    <ui-hidden-field :name="'id'" :value="category.id" />
+    <ui-hidden-field :name="'type'" :value="type" />
 
     <ui-text-field :type="'text'"
                    :name="'nm'"

@@ -6,13 +6,13 @@
   >
     <ui-hidden-field :name="'id'"
                      :ref="'menuId'"
-                     :value="menu.id">
-    </ui-hidden-field>
+                     :value="menu.id"
+    />
 
     <ui-hidden-field :name="'depth'"
                      :ref="'menuDepth'"
-                     :value="menu.depth || 1">
-    </ui-hidden-field>
+                     :value="menu.depth || 1"
+    />
 
     <ui-select :name="'parentId'"
                :id="'menuParentId'"

@@ -29,8 +29,8 @@
           </ul>
         </div>
 
-        <ui-hidden-field :name="'id'" :id="'savePostId'" :value="post?.id"></ui-hidden-field>
-        <ui-hidden-field :name="'crudType'" :id="'savePostCrudType'" :value="'E01001'"></ui-hidden-field>
+        <ui-hidden-field :name="'id'" :id="'savePostId'" :value="post?.id" />
+        <ui-hidden-field :name="'crudType'" :id="'savePostCrudType'" :value="'E01001'" />
     
         <ui-write-table :name="'포스트 작성 폼'">
           <tr>
@@ -112,9 +112,9 @@
               <label for="savePostOgImgFile">대표 이미지</label>
             </th>
             <td>
-              <ui-hidden-field :name="'ogImg'" :id="'savePostOgImg'" :value="post?.ogImg"></ui-hidden-field>
-              <ui-hidden-field :name="'ogImgUrl'" :id="'savePostOgImgUrl'" :value="post?.ogImgUrl"></ui-hidden-field>
-              <ui-hidden-field :name="'ogImgSize'" :id="'savePostOgImgSize'" :value="post?.ogImgSize"></ui-hidden-field>
+              <ui-hidden-field :name="'ogImg'" :id="'savePostOgImg'" :value="post?.ogImg" />
+              <ui-hidden-field :name="'ogImgUrl'" :id="'savePostOgImgUrl'" :value="post?.ogImgUrl" />
+              <ui-hidden-field :name="'ogImgSize'" :id="'savePostOgImgSize'" :value="post?.ogImgSize" />
 
               <ui-file-field :name="'ogImgFile'"
                              :id="'savePostOgImgFile'"
@@ -184,7 +184,7 @@
               <label for="savePostAddTag">태그</label>
             </th>
             <td>
-              <ui-hidden-field :name="'saveTagList'" :id="'saveTagList'"></ui-hidden-field>
+              <ui-hidden-field :name="'saveTagList'" :id="'saveTagList'" />
             
               <div class="write__tag__wrapper">
                 <ui-text-field :type="'text'"

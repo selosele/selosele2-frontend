@@ -1,7 +1,7 @@
 <template>
   <div class="guestbook__reply__wrapper">
     <ui-form :name="`guestbookReplyForm${idx}`" @onsubmit="onSubmit">
-      <ui-hidden-field :name="'parentId'" :value="parentId"></ui-hidden-field>
+      <ui-hidden-field :name="'parentId'" :value="parentId" />
 
       <ui-textarea :name="'cont'"
                    :id="`guestbookReplyCont${idx}`"

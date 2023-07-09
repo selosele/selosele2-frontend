@@ -5,7 +5,7 @@
              :class="'blog-config__frm'"
              @onsubmit="onSubmit"
       >
-      <ui-hidden-field :name="'id'" :id="'blogConfigId'" :value="blogConfig.id"></ui-hidden-field>
+      <ui-hidden-field :name="'id'" :id="'blogConfigId'" :value="blogConfig.id" />
 
       <ui-write-table :name="'블로그 환경설정 작성 폼'"
                       :colWidth="['20%', '80%']"
@@ -70,14 +70,16 @@
             <label for="blogConfigAvatarImgFile">아바타 이미지</label>
           </th>
           <td>
-            <ui-hidden-field :name="'avatarImg'" :id="'blogConfigAvatarImg'" :value="blogConfig.avatarImg"></ui-hidden-field>
-            <ui-hidden-field :name="'avatarImgUrl'" :id="'blogConfigAvatarImgUrl'" :value="blogConfig.avatarImgUrl"
-                             v-model="previewBlogConfig.avatarImgUrl">
-            </ui-hidden-field>
+            <ui-hidden-field :name="'avatarImg'" :id="'blogConfigAvatarImg'" :value="blogConfig.avatarImg" />
+            <ui-hidden-field :name="'avatarImgUrl'"
+                             :id="'blogConfigAvatarImgUrl'"
+                             :value="blogConfig.avatarImgUrl"
+                             v-model="previewBlogConfig.avatarImgUrl"
+            />
             <ui-hidden-field :name="'avatarImgSize'"
                              :id="'blogConfigAvatarImgSize'"
-                             :value="blogConfig.avatarImgSize">
-            </ui-hidden-field>
+                             :value="blogConfig.avatarImgSize"
+            />
 
             <ui-file-field :name="'avatarImgFile'"
                            :id="'blogConfigAvatarImgFile'"
@@ -110,11 +112,13 @@
             <label for="blogConfigOgImgFile">대표 이미지</label>
           </th>
           <td>
-            <ui-hidden-field :name="'ogImg'" :id="'blogConfigOgImg'" :value="blogConfig.ogImg"></ui-hidden-field>
-            <ui-hidden-field :name="'ogImgUrl'" :id="'blogConfigOgImgUrl'" :value="blogConfig.ogImgUrl"
-                             v-model="previewBlogConfig.ogImgUrl">
-            </ui-hidden-field>
-            <ui-hidden-field :name="'ogImgSize'" :id="'blogConfigOgImgSize'" :value="blogConfig.ogImgSize"></ui-hidden-field>
+            <ui-hidden-field :name="'ogImg'" :id="'blogConfigOgImg'" :value="blogConfig.ogImg" />
+            <ui-hidden-field :name="'ogImgUrl'"
+                             :id="'blogConfigOgImgUrl'"
+                             :value="blogConfig.ogImgUrl"
+                             v-model="previewBlogConfig.ogImgUrl"
+            />
+            <ui-hidden-field :name="'ogImgSize'" :id="'blogConfigOgImgSize'" :value="blogConfig.ogImgSize" />
 
             <ui-file-field :name="'ogImgFile'"
                            :id="'blogConfigOgImgFile'"

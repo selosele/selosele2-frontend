@@ -1,7 +1,7 @@
 <template>
   <ui-modal :title="'방명록 댓글 수정'" :name="this.$options.name" class="guestbook-modal__wrapper">
     <ui-form :name="'removeGuestbookReplyForm'" @onsubmit="onSubmit">
-      <ui-hidden-field :name="'id'" :value="guestbookReply.id"></ui-hidden-field>
+      <ui-hidden-field :name="'id'" :value="guestbookReply.id" />
 
       <ui-textarea :name="'cont'"
                    :id="'updateGuestbookReplyCont'"

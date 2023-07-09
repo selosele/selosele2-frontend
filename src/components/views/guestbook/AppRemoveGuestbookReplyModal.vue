@@ -1,7 +1,7 @@
 <template>
   <ui-modal :title="'방명록 댓글 삭제'" :name="this.$options.name" class="guestbook-modal__wrapper">
     <ui-form :name="'removeGuestbookReplyForm'" @onsubmit="onSubmit">
-      <ui-hidden-field :name="'id'" :value="id"></ui-hidden-field>
+      <ui-hidden-field :name="'id'" :value="id" />
 
       <div class="guestbook__write__input-box no-width">
         <ui-text-field :type="'password'"
