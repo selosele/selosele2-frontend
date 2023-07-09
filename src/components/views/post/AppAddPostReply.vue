@@ -3,9 +3,9 @@
     <h2>댓글 남기기</h2>
 
     <ui-form :name="'addPostReplyForm'" :class="'post__reply__write-frm'" @onsubmit="onSubmit">
-      <ui-hidden-field :name="'parentId'" :id="'addPostReplyParentId'" :value="id"></ui-hidden-field>
-      <ui-hidden-field :name="'title'" :id="'addPostReplyTitle'" :value="''"></ui-hidden-field>
-      <ui-hidden-field :name="'crudType'" :id="'addPostReplyCrudType'" :value="'E01001'"></ui-hidden-field>
+      <ui-hidden-field :name="'parentId'" :id="'addPostReplyParentId'" :value="id" />
+      <ui-hidden-field :name="'title'" :id="'addPostReplyTitle'" :value="''" />
+      <ui-hidden-field :name="'crudType'" :id="'addPostReplyCrudType'" :value="'E01001'" />
 
       <ui-textarea :name="'cont'"
                    :id="'addReplyCont'"
@@ -110,6 +110,8 @@ export default {
     listPostReply() {
       return this.$http.get(`/postreply/list/${this.id}`)
       .then(res => {
+        this.replyList = [];
+
         res.data[0].map(d => {
           this.setData(d);
           this.replyList.push(d);
