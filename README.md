@@ -4,7 +4,7 @@
 
 - 작업기간: 2022.09.10. ~ 2023.02.19.
 - 어플리케이션 명: selosele2
-- Backend: Nest.js
+- Backend: NestJS
 - Frontend: Vue.js
 - DBMS: MariaDB
 - ORM: TypeORM
