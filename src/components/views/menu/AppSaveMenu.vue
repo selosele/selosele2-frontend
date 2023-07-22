@@ -199,7 +199,7 @@ export default {
     getMenuRoleModel() {
       if (isNotEmpty(this.menu.menuRole) && 0 < this.menu.menuRole.length) {
         const list = this.menu.menuRole.filter(m => {
-          return this.roleList.filter(r => r.value === m.roleId).length > 0;
+          return 0 < this.roleList.filter(r => r.value === m.roleId).length;
         });
 
         return 1 < list.length ? '0' : list[0].roleId;

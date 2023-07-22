@@ -2,49 +2,48 @@
   <nav class="pagination">
     <ul>
       <li class="pagination__list pagination__list--first">
-        <span :class="[
-                'link',
-                { 'link--disabled': page <= 1 }]"
-              @click="onPage(1)">
+        <span :tabindex="page <= 1 ? '-1' : '0'"
+              :class="['link', { 'link--disabled': page <= 1 }]"
+              @click="onPage(1)"
+              @keydown.enter="onPage(1)">
           <i class="xi-step-backward" aria-hidden="true"></i>
           <span class="sr-only">첫 번째 페이지</span>
         </span>
       </li>
       <li class="pagination__list pagination__list--prev">
-        <span :class="[
-                'link',
-                { 'link--disabled': page <= 1 }]"
-              @click="onPage(page - 1)">
+        <span :tabindex="page <= 1 ? '-1' : '0'"
+              :class="['link', { 'link--disabled': page <= 1 }]"
+              @click="onPage(page - 1)"
+              @keydown.enter="onPage(page - 1)">
           <i class="xi-angle-left" aria-hidden="true"></i>
           <span class="sr-only">이전 페이지</span>
         </span>
       </li>
 
       <li v-for="(num,i) in pages" :key="i"
-          :class="[
-            'pagination__list',
-            'pagination__list--num',
-            { 'pagination__list--active': page === num }]">
-        <span :title="`${page === num ? '현재 페이지' : ''}`"
+          :class="['pagination__list', 'pagination__list--num', { 'pagination__list--active': page === num }]">
+        <span :tabindex="'0'"
+              :title="`${page === num ? '현재 페이지' : ''}`"
               class="link"
-              @click="onPage(num)">{{ num }}
+              @click="onPage(num)"
+              @keydown.enter="onPage(num)">{{ num }}
         </span>
       </li>
 
       <li class="pagination__list pagination__list--next">
-        <span :class="[
-                'link',
-                { 'link--disabled': page >= paginationTotal }]"
-              @click="onPage(page + 1)">
+        <span :tabindex="page >= paginationTotal ? '-1' : '0'"
+              :class="['link', { 'link--disabled': page >= paginationTotal }]"
+              @click="onPage(page + 1)"
+              @keydown.enter="onPage(page + 1)">
           <i class="xi-angle-right" aria-hidden="true"></i>
           <span class="sr-only">다음 페이지</span>
         </span>
       </li>
       <li class="pagination__list pagination__list--last">
-        <span :class="[
-                'link',
-                { 'link--disabled': page >= paginationTotal }]"
-              @click="onPage(paginationTotal)">
+        <span :tabindex="page >= paginationTotal ? '-1' : '0'"
+              :class="['link', { 'link--disabled': page >= paginationTotal }]"
+              @click="onPage(paginationTotal)"
+              @keydown.enter="onPage(paginationTotal)">
           <i class="xi-step-forward" aria-hidden="true"></i>
           <span class="sr-only">마지막 페이지</span>
         </span>

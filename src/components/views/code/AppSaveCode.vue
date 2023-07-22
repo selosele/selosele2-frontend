@@ -74,7 +74,10 @@ export default {
   name: 'app-save-code',
   props: {
     /** 코드 정보 */
-    code: Object,
+    code: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   data() {
     return {

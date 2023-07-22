@@ -11,6 +11,8 @@
 export default {
   name: 'ui-radio-group',
   props: {
+    /** radio id */
+    id: String,
     /** radio group label */
     label: String,
   },

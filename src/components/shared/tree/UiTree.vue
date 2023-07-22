@@ -3,6 +3,7 @@
     <ui-text-field :clazz="['tree-filter-field']"
                    :placeholder="placeholder"
                    :inline="true"
+                   :name="'menuSearch'"
                    v-model="searchText"
                    v-if="filter">
     </ui-text-field>
@@ -32,6 +33,7 @@ export default {
   components: {
     Tree,
   },
+  emits: ['nodeExpanded', 'update', 'nodeClick'],
   props: {
     /** nodes 데이타 */
     nodes: {

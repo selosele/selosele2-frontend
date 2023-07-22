@@ -11,6 +11,8 @@
 export default {
   name: 'ui-checkbox-group',
   props: {
+    /** checkbox id */
+    id: String,
     /** checkbox group label */
     label: String,
   },

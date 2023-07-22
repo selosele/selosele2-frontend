@@ -91,7 +91,7 @@ export default {
       default: false,
     },
     /** select modelValue */
-    modelValue: String,
+    modelValue: [String, Number],
   },
   computed: {
     mv: {
