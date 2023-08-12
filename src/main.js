@@ -27,7 +27,6 @@ app.mixin({
   },
 });
 
-app.config.globalProperties.$rootUrl = window.location.origin;
 app.config.globalProperties.$http = http;
 app.config.globalProperties.$moment = moment;
 app.config.globalProperties.$modal = $vfm;
