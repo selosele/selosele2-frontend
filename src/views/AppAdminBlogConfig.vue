@@ -282,7 +282,7 @@
 
 <script>
 import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
-import { messageUtil, isNotEmpty } from '@/utils';
+import { messageUtil, isNotEmpty, isEmpty } from '@/utils';
 
 export default {
   name: 'app-admin-blog-config',
@@ -324,7 +324,12 @@ export default {
     this.kakaoMsgYn = this.$store.state.BlogConfig.data?.kakaoMsgYn;
 
     this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', null);
-    this.previewBlogConfig = Object.assign({}, this.$store.state.BlogConfig?.data);
+
+    if (isEmpty(this.$store.state.BlogConfig?.previewData)) {
+      this.previewBlogConfig = Object.assign({}, this.$store.state.BlogConfig?.data);
+    } else {
+      this.previewBlogConfig = Object.assign({}, this.$store.state.BlogConfig?.previewData);
+    }
   },
   watch: {
     /** 환경설정 미리보기 데이타 */
