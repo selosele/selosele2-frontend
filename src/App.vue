@@ -71,8 +71,12 @@ export default {
   },
   created() {
     this.initJwt();
-    this.listCode();
-    this.getBlogConfig();
+
+    // 2023.08.12. 성능 이슈로 인해 동시 실행되도록 처리
+    Promise.all([
+      this.listCode(),
+      this.getBlogConfig()
+    ]);
   },
   mounted() {
     this.lastScrollTop = window.pageYOffset;
@@ -98,7 +102,7 @@ export default {
     },
     /** 공통코드 목록 조회 */
     listCode() {
-      this.$http.get('/code')
+      return this.$http.get('/code')
       .then(res => {
         const codeList = res.data.filter(d => d.useYn === 'Y');
         this.$store.dispatch('Code/FETCH_CODE', codeList);
@@ -106,7 +110,7 @@ export default {
     },
     /** 블로그 환경설정 조회 */
     getBlogConfig() {
-      this.$store.dispatch('BlogConfig/GET_BLOG_CONFIG')
+      return this.$store.dispatch('BlogConfig/GET_BLOG_CONFIG')
       .then(data => {
         this.resStatus = 'ok';
         document.title = data.title;
