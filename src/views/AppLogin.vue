@@ -15,7 +15,6 @@
                          :title="'아이디 입력'"
                          :placeholder="'아이디'"
                          :rules="'required|max:10'"
-                         autofocus
                          v-model="userId">
           </ui-text-field>
           
