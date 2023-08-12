@@ -28,152 +28,152 @@ class MessageUtil {
   }
 
   /** Alert 성공 타입 */
-  alertSuccess(title, msg = '') {
+  alertSuccess(title, text = '') {
     return new Promise((resolve, reject) => {
 			this._alert.fire({
 				title: title,
-				text: msg,
+				text: text,
 				icon: 'success',
 			}).then(result => resolve(result.isConfirmed));
 		});
   }
 
   /** Alert 오류 타입 */
-  alertError(title, msg = '') {
+  alertError(title, text = '') {
     return new Promise((resolve, reject) => {
 			this._alert.fire({
 				title: title,
-				text: msg,
+				text: text,
 				icon: 'error',
 			}).then(result => resolve(result.isConfirmed));
 		});
   }
 
   /** Alert 경고 타입 */
-  alertWarning(title, msg = '') {
+  alertWarning(title, text = '') {
     return new Promise((resolve, reject) => {
 			this._alert.fire({
 				title: title,
-				text: msg,
+				text: text,
 				icon: 'warning',
 			}).then(result => resolve(result.isConfirmed));
 		});
   }
 
   /** Alert 정보 타입 */
-  alertInfo(title, msg = '') {
+  alertInfo(title, text = '') {
     return new Promise((resolve, reject) => {
 			this._alert.fire({
 				title: title,
-				text: msg,
+				text: text,
 				icon: 'info',
 			}).then(result => resolve(result.isConfirmed));
 		});
   }
 
   /** Alert 질문 타입 */
-  alertQuestion(title, msg = '') {
+  alertQuestion(title, text = '') {
     return new Promise((resolve, reject) => {
 			this._alert.fire({
 				title: title,
-				text: msg,
+				text: text,
 				icon: 'question',
 			}).then(result => resolve(result.isConfirmed));
 		});
   }
 
   /** Confirm 성공 타입 */
-  confirmSuccess(title, msg = '') {
+  confirmSuccess(title, text = '') {
     return new Promise((resolve, reject) => {
 			this._confirm.fire({
 				title: title,
-				text: msg,
+				text: text,
 				icon: 'success',
 			}).then(result => resolve(result.isConfirmed));
 		});
   }
 
   /** Confirm 오류 타입 */
-  confirmError(title, msg = '') {
+  confirmError(title, text = '') {
     return new Promise((resolve, reject) => {
 			this._confirm.fire({
 				title: title,
-				text: msg,
+				text: text,
 				icon: 'error',
 			}).then(result => resolve(result.isConfirmed));
 		});
   }
 
   /** Confirm 경고 타입 */
-  confirmWarning(title, msg = '') {
+  confirmWarning(title, text = '') {
     return new Promise((resolve, reject) => {
 			this._confirm.fire({
 				title: title,
-				text: msg,
+				text: text,
 				icon: 'warning',
 			}).then(result => resolve(result.isConfirmed));
 		});
   }
 
   /** Confirm 정보 타입 */
-  confirmInfo(title, msg = '') {
+  confirmInfo(title, text = '') {
     return new Promise((resolve, reject) => {
 			this._confirm.fire({
 				title: title,
-				text: msg,
+				text: text,
 				icon: 'info',
 			}).then(result => resolve(result.isConfirmed));
 		});
   }
 
   /** Confirm 질문 타입 */
-  confirmQuestion(title, msg = '') {
+  confirmQuestion(title, text = '') {
     return new Promise((resolve, reject) => {
 			this._confirm.fire({
 				title: title,
-				text: msg,
+				text: text,
 				icon: 'question',
 			}).then(result => resolve(result.isConfirmed));
 		});
   }
 
   /** Toast 성공 타입 */
-  toastSuccess(msg) {
+  toastSuccess(title) {
     this._toast.fire({
       icon: 'success',
-      title: msg,
+      title: title,
     });
   }
 
   /** Toast 오류 타입 */
-  toastError(msg) {
+  toastError(title) {
     this._toast.fire({
       icon: 'error',
-      title: msg,
+      title: title,
     });
   }
 
   /** Toast 경고 타입 */
-  toastWarning(msg) {
+  toastWarning(title) {
     this._toast.fire({
       icon: 'warning',
-      title: msg,
+      title: title,
     });
   }
 
   /** Toast 정보 타입 */
-  toastInfo(msg) {
+  toastInfo(title) {
     this._toast.fire({
       icon: 'info',
-      title: msg,
+      title: title,
     });
   }
 
   /** Toast 질문 타입 */
-  toastQuestion(msg) {
+  toastQuestion(title) {
     this._toast.fire({
       icon: 'question',
-      title: msg,
+      title: title,
     });
   }
 	
