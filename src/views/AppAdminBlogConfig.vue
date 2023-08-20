@@ -319,7 +319,7 @@ export default {
     // 페이지 타이틀 세팅
     new BreadcrumbService().setPageTitle(this.pageTitle);
 
-    // 2023.08.20. 성능 이슈로 인해 환경설정 페이지에서만 데이터를 한 번 더 불러오도록 수정
+    // 2023.08.20. 성능 이슈로 인해 환경설정 페이지에서만 데이타를 한 번 더 불러오도록 수정
     this.$store.dispatch('BlogConfig/GET_BLOG_CONFIG')
     .then(data => {
       this.avatarImg = data?.avatarImg;
