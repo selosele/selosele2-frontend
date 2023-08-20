@@ -316,20 +316,24 @@ export default {
     // 페이지 타이틀 세팅
     new BreadcrumbService().setPageTitle(this.pageTitle);
 
-    this.avatarImg = this.$store.state.BlogConfig.data?.avatarImg;
-    this.avatarImgSize = this.$store.state.BlogConfig.data?.avatarImgSize;
-    this.ogImg = this.$store.state.BlogConfig.data?.ogImg;
-    this.ogImgSize = this.$store.state.BlogConfig.data?.ogImgSize;
-    this.showSatisYn = this.$store.state.BlogConfig.data?.showSatisYn;
-    this.kakaoMsgYn = this.$store.state.BlogConfig.data?.kakaoMsgYn;
+    // 2023.08.20. 성능 이슈로 인해 환경설정 페이지에서만 데이터를 한 번 더 불러오도록 수정
+    this.$store.dispatch('BlogConfig/GET_BLOG_CONFIG')
+    .then(data => {
+      this.avatarImg = data?.avatarImg;
+      this.avatarImgSize = data?.avatarImgSize;
+      this.ogImg = data?.ogImg;
+      this.ogImgSize = data?.ogImgSize;
+      this.showSatisYn = data?.showSatisYn;
+      this.kakaoMsgYn = data?.kakaoMsgYn;
 
-    this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', null);
-
-    if (isEmpty(this.$store.state.BlogConfig?.previewData)) {
-      this.previewBlogConfig = Object.assign({}, this.$store.state.BlogConfig?.data);
-    } else {
-      this.previewBlogConfig = Object.assign({}, this.$store.state.BlogConfig?.previewData);
-    }
+      this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', null);
+  
+      if (isEmpty(this.$store.state.BlogConfig?.previewData)) {
+        this.previewBlogConfig = Object.assign({}, data);
+      } else {
+        this.previewBlogConfig = Object.assign({}, this.$store.state.BlogConfig?.previewData);
+      }
+    });
   },
   watch: {
     /** 환경설정 미리보기 데이타 */
