@@ -61,7 +61,8 @@
                          :rows="'10'"
                          :resize="'vertical'"
                          :rules="'required|max:100'"
-                         :value="$store.state.BlogConfig.data?.desc">
+                         :value="$store.state.BlogConfig.data?.desc"
+                         v-model="previewBlogConfig.desc">
             </ui-textarea>
           </td>
         </tr>
@@ -233,7 +234,8 @@
                               :max="'10'"
                               :rules="'between:2,10'"
                               :text="'2 ~ 10 (기본 6)'"
-                              :value="$store.state.BlogConfig.data?.pageSize">
+                              :value="$store.state.BlogConfig.data?.pageSize"
+                              v-model="pageSize">
             </ui-numeric-field>
           </td>
         </tr>
@@ -299,6 +301,7 @@ export default {
       kakaoMsgYn: '',
       avatarFileList: [],
       ogFileList: [],
+      pageSize: '',
       previewBlogConfig: {},
     }
   },
@@ -323,6 +326,7 @@ export default {
       this.avatarImgSize = data?.avatarImgSize;
       this.ogImg = data?.ogImg;
       this.ogImgSize = data?.ogImgSize;
+      this.pageSize = data?.pageSize;
       this.showSatisYn = data?.showSatisYn;
       this.kakaoMsgYn = data?.kakaoMsgYn;
 
