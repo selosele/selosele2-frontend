@@ -58,7 +58,7 @@ export const Auth = {
           resolve('ok');
         }).catch(err => {
           
-          // 리프레시 토큰 오류로 인해 로그아웃이 불가한 경우, Access Token을 삭제한다.
+          // 리프레시 토큰 오류로 인해 로그아웃이 불가한 경우, 액세스 토큰을 삭제한다.
           if (401 === err?.response?.status) {
             messageUtil.toastError('인증 오류가 발생했습니다.');
 
