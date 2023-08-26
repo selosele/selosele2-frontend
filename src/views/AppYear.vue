@@ -15,8 +15,8 @@
         </h2>
 
         <ul class="year__list" v-if="i === activeIndex">
-          <template v-if="i === itemLoadedIndex && null !== postList && 0 < postList.length">
-            <li v-for="(post,j) in postList" :key="j">
+          <template v-if="i === itemLoadedIndex">
+            <li v-for="(post,j) in currentPostList" :key="j">
               <router-link :to="`/post/${post.id}`">
                 <strong class="year__title">{{ post.title }}</strong>
                 <span class="year__date">{{ post.regDate }}</span>
@@ -28,7 +28,7 @@
         <button type="button"
                 class="btn--more"
                 @click="onMore(item.year, i)"
-                v-if="i === activeIndex && listCnt > pageSize && !isLastPage">
+                v-if="i === activeIndex && (listCnt > pageSize) && !isLastPage">
           <i class="xi-ellipsis-h" aria-hidden="true"></i>
           <span class="sr-only">더보기</span>
         </button>
@@ -47,10 +47,10 @@ export default {
     return {
       pageTitle: '연도별 모아보기',
       page: 1,
-      pageSize: 20,
+      pageSize: 5,
       listCnt: 0,
       yearList: [],
-      postList: [],
+      currentPostList: [],
       activeIndex: -1,
       itemLoadedIndex: -1,
       isLastPage: false,
@@ -81,52 +81,63 @@ export default {
     },
     /** 목록 toggle */
     toggleList(year, idx) {
-      this.page = 1;
       this.listCnt = 0;
-      this.postList = [];
+      this.currentPostList = [];
       this.isLastPage = false;
       
       if (idx === this.activeIndex) {
-        this.activeIndex = -1;
-        this.itemLoadedIndex = -1;
+        this.updateActiveIndex(-1);
+        this.updateItemLoadedIndex(-1);
         return;
       }
       
-      this.activeIndex = idx;
-
+      this.updateActiveIndex(idx);
       this.listPostByYear(year, idx);
     },
     /** 연도별 포스트 목록 조회 */
-    listPostByYear(year, idx) {
+    async listPostByYear(year, idx, flag = 'new') {
       let paginationDto = {
-        page: this.page,
-        pageSize: this.pageSize,
+        page: this.paginationDto(year)?.page ?? this.page,
+        pageSize: this.paginationDto(year)?.pageSize ?? this.pageSize,
       };
+
+      const data = await this.$store.dispatch('Year/GET_YEAR_POSTS', { year, paginationDto, flag });
+      const currentData = data[year][0];
       
-      return this.$http.get(`/post/year/${year}`, { params: paginationDto })
-      .then(res => {
-        if (0 === res.data[0].length) {
-          messageUtil.toastInfo('마지막 페이지입니다.');
-          return;
-        }
-
-        res.data[0].map(d => {
-          d.regDate = this.$moment(d.regDate).format('YYYY.MM.DD');
-          this.postList.push(d);
-        });
-
-        this.listCnt = res.data[1];
-        this.itemLoadedIndex = idx;
-
-        if (this.listCnt === this.postList.length) {
-          this.isLastPage = true;
-        }
+      currentData.map(d => {
+        const date = new Date(d.regDate);
+        d.regDate = this.$moment(date).format('YYYY.MM.DD');
       });
+
+      this.currentPostList.push(...currentData);
+      
+      this.listCnt = data[year][1];
+      this.updateItemLoadedIndex(idx);
+
+      if (this.listCnt === this.$store.state.Year.data[year][0].length) {
+        this.isLastPage = true;
+      }
+    },
+    /** 연도와 매칭되는 페이지네이션 DTO  */
+    paginationDto(year) {
+      return this.$store.state.Year.data[year]?.paginationDto;
+    },
+    /** 연도와 매칭되는 데이타가 존재하는지 확인 */
+    hasPostList(year) {
+      return Object.prototype.hasOwnProperty.call(this.$store.state.Year.data, year);
+    },
+    /** 로드된 데이타의 Index 업데이트 */
+    updateItemLoadedIndex(idx) {
+      this.itemLoadedIndex = idx;
+    },
+    /** 활성화된 버튼의 Index 업데이트 */
+    updateActiveIndex(idx) {
+      this.activeIndex = idx;
     },
     /** 더보기 */
     onMore(year, idx) {
-      this.page++;
-      this.listPostByYear(year, idx);
+      this.paginationDto(year).page++;
+      this.listPostByYear(year, idx, 'more');
     },
   },
 };

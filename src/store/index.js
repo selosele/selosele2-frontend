@@ -7,6 +7,7 @@ import { Layout } from '@/store/modules/Layout';
 import { Post } from '@/store/modules/Post';
 import { Guestbook } from '@/store/modules/Guestbook';
 import { Menu } from '@/store/modules/Menu';
+import { Year } from '@/store/modules/Year';
 import { Splitter } from '@/store/modules/Splitter';
 import { Loading } from '@/store/modules/Loading';
 import { isNotEmpty } from '@/utils';
@@ -22,6 +23,7 @@ export default createStore({
     Post,           // 포스트
     Guestbook,      // 방명록
     Menu,           // 메뉴
+    Year,           // 연도별 모아보기
     Splitter,       // Splitter
     Loading,        // 로딩
   },
