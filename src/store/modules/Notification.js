@@ -4,13 +4,13 @@ import { http } from "@/api";
 export const Notification = {
   namespaced: true,
   state: () => ({
-    data: [],
+    /** 알림 목록 */
     notiList: [],
+    /** 알림 개수 */
     notiCnt: 0,
   }),
   mutations: {
     SET_NOTIFICATION(state, data) {
-      state.data = data;
       state.notiList = [...data[0]];
       state.notiCnt = data[1];
     },

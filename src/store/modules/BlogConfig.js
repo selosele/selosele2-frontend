@@ -4,7 +4,9 @@ import { http } from "@/api";
 export const BlogConfig = {
   namespaced: true,
   state: () => ({
+    /** 환경설정 데이타 */
     data: null,
+    /** 환경설정 미리보기 데이타 */
     previewData: null,
   }),
   mutations: {

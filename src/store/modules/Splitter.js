@@ -2,6 +2,7 @@
  export const Splitter = {
   namespaced: true,
   state: () => ({
+    /** Splitter 활성화 여부 */
     isActive: false,
   }),
   mutations: {

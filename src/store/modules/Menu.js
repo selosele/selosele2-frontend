@@ -4,6 +4,7 @@ import { http } from "@/api";
 export const Menu = {
   namespaced: true,
   state: () => ({
+    /** 메뉴 데이타 */
     data: [],
   }),
   mutations: {

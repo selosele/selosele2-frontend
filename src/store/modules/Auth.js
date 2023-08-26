@@ -8,6 +8,7 @@ import { messageUtil } from "@/utils";
 export const Auth = {
   namespaced: true,
   state: () => ({
+    /** 액세스 토큰 */
     accessToken: null,
   }),
   mutations: {
@@ -25,6 +26,7 @@ export const Auth = {
       return new Promise((resolve, reject) => {
         commit('Auth/SET_ACCESS_TOKEN', values, { root: true });
         commit('Post/SET_MAIN_POSTLIST', {}, { root: true });
+        commit('Year/SET_YEAR_POSTS', { flag: 'reset' }, { root: true });
         commit('Layout/SET_SIDEBAR', {}, { root: true });
         dispatch('Menu/LIST_MENU', {
           params: {
@@ -45,6 +47,7 @@ export const Auth = {
           commit('Loading/SET_IS_LOADING', false, { root: true });
           commit('Auth/CLEAR_ACCESS_TOKEN', null, { root: true });
           commit('Post/SET_MAIN_POSTLIST', {}, { root: true });
+          commit('Year/SET_YEAR_POSTS', { flag: 'reset' }, { root: true });
           commit('Layout/SET_SIDEBAR', {}, { root: true });
           dispatch('Menu/LIST_MENU', {
             params: {
