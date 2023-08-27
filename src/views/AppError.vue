@@ -27,8 +27,6 @@
 </template>
 
 <script>
-import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
-
 export default {
   name: 'app-error',
   data() {
@@ -39,7 +37,7 @@ export default {
   },
   async created() {
     // 페이지 타이틀 세팅
-    new BreadcrumbService().setPageTitle(this.pageTitle);
+    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
 
     await this.listPostByLimit(3);
   },

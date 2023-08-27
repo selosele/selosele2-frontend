@@ -29,7 +29,6 @@
 
 <script>
 import AppSaveMenu from '@/components/views/menu/AppSaveMenu.vue';
-import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-admin-menu',
@@ -51,7 +50,7 @@ export default {
     /** 초기 세팅 */
     async init() {
       // 페이지 타이틀 세팅
-      new BreadcrumbService().setPageTitle(this.pageTitle);
+      this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
 
       await this.listMenuTree();
 
@@ -127,7 +126,7 @@ export default {
         };
       });
       
-      // 2022.12.31. 최대 2depth로 제한해야 해서, 아래 로직이 의미가 없음. 추후 depth 확장 고려해서 주석처리만 했음.
+      // 2022.12.31. 최대 2depth로 제한해야 해서, 아래 로직이 의미가 없음. 추후 depth 확장 고려해서 주석처리
       // if (!nodes) return [];
       // if (!arr) arr = [];
 

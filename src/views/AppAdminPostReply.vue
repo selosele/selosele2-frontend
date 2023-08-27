@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import { isNotBlank, isNotEmpty, messageUtil } from '@/utils';
 
 export default {
@@ -52,7 +51,7 @@ export default {
   },
   async created() {
     // 페이지 타이틀 세팅
-    new BreadcrumbService().setPageTitle(this.pageTitle);
+    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
 
     this.optionList = [
       { value: '', text: '전체' },  

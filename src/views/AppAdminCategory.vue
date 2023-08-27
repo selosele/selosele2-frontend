@@ -60,7 +60,6 @@
 
 <script>
 import AppSaveCategory from '@/components/views/category/AppSaveCategory.vue';
-import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import { isNotEmpty } from '@/utils';
 
 export default {
@@ -85,7 +84,7 @@ export default {
     /** 초기 세팅 */
     async init() {
       // 페이지 타이틀 세팅
-      new BreadcrumbService().setPageTitle(this.pageTitle);
+      this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
 
       await Promise.all([
         this.listCategoryTreeAndPost(),

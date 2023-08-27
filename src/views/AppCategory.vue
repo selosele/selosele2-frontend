@@ -27,7 +27,6 @@
 
 <script>
 import { isNotEmpty } from '@/utils';
-import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-category',
@@ -89,7 +88,7 @@ export default {
 
         // 페이지 타이틀 세팅
         this.pageTitle = `'${category.nm}' ${category.type}의 글`;
-        new BreadcrumbService().setPageTitle(this.pageTitle);
+        this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
       });
     },
     /** 더보기 */

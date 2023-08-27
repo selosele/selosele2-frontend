@@ -65,7 +65,6 @@
 
 <script>
 import { isNotEmpty, messageUtil } from '@/utils';
-import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import AppPostReplyList from './AppPostReplyList.vue';
 
 export default {
@@ -97,7 +96,7 @@ export default {
       const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;
 
-      values.title = new BreadcrumbService().getPageTitle();
+      values.title = this.$store.state.Breadcrumb.pageTitle;
 
       this.$http.post('/postreply', values)
       .then(res => {

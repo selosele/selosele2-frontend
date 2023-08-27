@@ -1,5 +1,6 @@
 import { createStore } from 'vuex';
 import { Code } from '@/store/modules/Code';
+import { Breadcrumb } from '@/store/modules/Breadcrumb';
 import { Auth } from '@/store/modules/Auth';
 import { Notification } from '@/store/modules/Notification';
 import { BlogConfig } from '@/store/modules/BlogConfig';
@@ -16,6 +17,7 @@ import { AuthService } from '@/services/auth/authService';
 export default createStore({
   modules: {
     Code,           // 공통코드
+    Breadcrumb,     // Breadcrumb
     Auth,           // 인증
     Notification,   // 알림
     BlogConfig,     // 블로그 환경설정

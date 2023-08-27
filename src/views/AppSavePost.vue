@@ -292,7 +292,6 @@
 
 <script>
 import { arrayHasDuplicateValue, getFormValues, isBlank, isNotEmpty, messageUtil } from '@/utils';
-import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import AppSavePostTag from '@/components/views/post/AppSavePostTag.vue';
 import AppPreviewPostModal from '@/components/views/post/AppPreviewPostModal.vue';
 
@@ -358,7 +357,7 @@ export default {
     this.pageTitle = this.getPageTitle();
 
     // 페이지 타이틀 세팅
-    new BreadcrumbService().setPageTitle(this.pageTitle);
+    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
 
     this.init();
   },

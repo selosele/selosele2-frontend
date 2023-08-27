@@ -138,7 +138,6 @@
 
 <script>
 import { messageUtil, isNotBlank, isNotEmpty } from '@/utils';
-import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import AppAddPostReply from '@/components/views/post/AppAddPostReply.vue';
 
 /**
@@ -164,13 +163,11 @@ export default {
       postLikeCnt: 0,
       isPostLiked: false,
       snsCodeList: [],
-      breadcrumbService: null,
       dataLoaded: false,
     }
   },
   created() {
     this.init(this.$route.params.id);
-    this.breadcrumbService = new BreadcrumbService();
   },
   watch: {
     '$route.params.id'(id) {
@@ -231,7 +228,7 @@ export default {
 
         // 페이지 타이틀 세팅
         this.pageTitle = this.post.title;
-        this.breadcrumbService.setPageTitle(this.pageTitle);
+        this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
       });
     },
     /** 이전/다음 포스트 조회 */
@@ -258,7 +255,7 @@ export default {
     savePostLike(id) {
       const savePostLikeDto = {
         postId: id,
-        title: this.breadcrumbService.getPageTitle(),
+        title: this.$store.state.Breadcrumb.pageTitle,
       };
 
       this.$store.commit('Loading/SET_USE_LOADING', false);
@@ -279,7 +276,7 @@ export default {
       let url = this.isPostPage ? `/post/${values.id}` : `/content/${values.id}`;
 
       this.$http.delete(url)
-      .then(async res => {
+      .then(res => {
         messageUtil.toastSuccess('삭제되었습니다.');
         this.goToList();
       });
@@ -297,8 +294,8 @@ export default {
       });
     },
     /** 포스트 URL 복사 */
-    copyPostUrl() {
-      navigator.clipboard.writeText(location.href);
+    async copyPostUrl() {
+      await navigator.clipboard.writeText(location.href);
       messageUtil.toastSuccess(`${this.isPostPage ? '포스트' : '콘텐츠'} URL이 복사되었습니다.`);
     },
   },

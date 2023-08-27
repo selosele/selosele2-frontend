@@ -89,7 +89,6 @@
 <script>
 import AppPostListDetail from '@/components/views/post/AppPostListDetail.vue';
 import { messageUtil, isBlank } from '@/utils';
-import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 
 export default {
   name: 'app-search',
@@ -114,7 +113,7 @@ export default {
   },
   async created() {
     // 페이지 타이틀 세팅
-    new BreadcrumbService().setPageTitle(this.pageTitle);
+    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
 
     // 검색옵션 코드 세팅
     this.$store.state.Code.data.map((d,i) => {

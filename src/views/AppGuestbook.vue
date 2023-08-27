@@ -133,7 +133,6 @@
 
 <script>
 import { messageUtil, isNotEmpty } from '@/utils';
-import { BreadcrumbService } from '@/services/breadcrumb/breadcrumbService';
 import AppAddGuestbookReply from '@/components/views/guestbook/AppAddGuestbookReply.vue';
 import AppGuestbookReplyList from '@/components/views/guestbook/AppGuestbookReplyList.vue';
 import AppUpdateGuestbookModal from '@/components/views/guestbook/AppUpdateGuestbookModal.vue';
@@ -162,7 +161,7 @@ export default {
   },
   async created() {
     // 페이지 타이틀 세팅
-    new BreadcrumbService().setPageTitle(this.pageTitle);
+    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
 
     this.nickNameCodeList = this.$store.state.Code.data.filter(d => d.prefix === 'F01');
     this.adminNickName = this.nickNameCodeList.find(d => d.id === 'F01001').nm;
