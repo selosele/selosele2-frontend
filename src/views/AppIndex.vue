@@ -59,10 +59,10 @@ export default {
       return this.$store.state.BlogConfig.data?.pageSize;
     },
     storePostList() {
-      return this.$store.state.Post.mainPostObj.postList;
+      return this.$store.state.Post.mainPostList.postList;
     },
     storePostListCnt() {
-      return this.$store.state.Post.mainPostObj.listCnt;
+      return this.$store.state.Post.mainPostList.listCnt;
     },
     hasStorePostList() {
       return isNotEmpty(this.storePostList) && 0 < this.storePostList.length;
