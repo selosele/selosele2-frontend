@@ -44,7 +44,7 @@ export default {
       const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;
 
-      // 카테고리 ID 값이 없으면 추가 API를 타고
+      // 카테고리 ID 값이 없으면 등록 API를 타고
       if (isEmpty(values.id)) {
         this.addCategory(values);
       } else {
@@ -65,7 +65,7 @@ export default {
         this.$emit('refreshCategory');
       });
     },
-    /** 카테고리 추가 */
+    /** 카테고리 등록 */
     addCategory(values) {
       return this.$http.post(`/${this.getApiUri(values)}`, values)
       .then(res => {

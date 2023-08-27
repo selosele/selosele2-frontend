@@ -141,7 +141,7 @@ export default {
 
       // return arr;
     },
-    /** 메뉴 추가 */
+    /** 메뉴 등록 */
     addMenu() {
       this.resetMenu();
     },

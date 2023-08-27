@@ -338,7 +338,7 @@ export default {
       updateMenuNameYn: 'Y',
       /** 포스트 작성/수정 시 입력한 태그 문자열 */
       tagStr: '',
-      /** 포스트 작성/수정 시 추가한 태그 목록 */
+      /** 포스트 작성/수정 시 등록한 태그 목록 */
       saveTagList: [],
       /** 임시저장 포스트 목록 */
       tmpPostList: [],
@@ -452,11 +452,11 @@ export default {
         values.crudType = 'E01003';
         await this.$http.put('/content', values, { headers });
       }
-      // 포스트 추가
+      // 포스트 등록
       else if (this.isPostPage) {
         await this.$http.post('/post', values, { headers });
       }
-      // 콘텐츠 추가
+      // 콘텐츠 등록
       else if (this.isContentPage) {
         await this.$http.post('/content', values, { headers });
       }

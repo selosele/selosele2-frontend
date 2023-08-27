@@ -69,7 +69,7 @@ export default {
     this.adminNickName = this.nickNameCodeList.find(d => d.id === 'F01001').nm;
   },
   methods: {
-    /** 방명록 댓글 추가 */
+    /** 방명록 댓글 등록 */
     async onSubmit(values) {
       const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;

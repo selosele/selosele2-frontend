@@ -115,7 +115,7 @@ export default {
       const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;
 
-      // 기존 ID 값이 없으면 추가 API를 타고
+      // 기존 ID 값이 없으면 등록 API를 타고
       if (isEmpty(values.originId)) {
         this.addCode(values);
       } else {
@@ -123,7 +123,7 @@ export default {
         this.updateCode(values);
       }
     },
-    /** 공통코드 추가 */
+    /** 공통코드 등록 */
     addCode(values) {
       return this.$http.post('/code', values)
       .then(res => {

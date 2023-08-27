@@ -95,7 +95,7 @@ export default {
         this.rowData = [...res.data];
       });
     },
-    /** 공통코드 추가 */
+    /** 공통코드 등록 */
     addCode() {
       this.code = {};
       this.code.id = null;

@@ -293,7 +293,7 @@ export default {
 
       this.replyActiveIndex = idx;
     },
-    /** 방명록 추가 */
+    /** 방명록 등록 */
     async onSubmit(values) {
       const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;
@@ -311,7 +311,7 @@ export default {
         messageUtil.toastSuccess('저장되었습니다.');
       });
     },
-    /** 방명록 댓글 추가 시 */
+    /** 방명록 댓글 등록 시 */
     async onAddReply(value) {
       this.guestbookList = this.guestbookList.map(guestbook => {
         if (guestbook.id === value.parentId) {

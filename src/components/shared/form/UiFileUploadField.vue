@@ -97,7 +97,7 @@ export default {
     onChange(files) {
       this.addFiles([files]);
     },
-    /** 파일 추가 */
+    /** 파일 등록 */
     async addFiles(files) {
       for (const file of files) {
         const isValid = this.addFileValidationCheck(file);
@@ -165,7 +165,7 @@ export default {
         this.$emit('upload');
       });
     },
-    /** 파일 추가 유효성 검사 */
+    /** 파일 등록 유효성 검사 */
     addFileValidationCheck(file) {
       if (!file.name.match(/(.*?)\.(jpg|jpeg|png)$/)) {
         messageUtil.toastWarning('jpg, jpeg, png 파일만 업로드 가능합니다.');

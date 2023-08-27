@@ -123,7 +123,7 @@ export default {
       const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;
 
-      // 메뉴 ID 값이 없으면 추가 API를 타고
+      // 메뉴 ID 값이 없으면 등록 API를 타고
       if (isEmpty(values.id)) {
         await this.addMenu(values);
       } else {
@@ -148,7 +148,7 @@ export default {
         this.$emit('refreshMenu');
       });
     },
-    /** 메뉴 추가 */
+    /** 메뉴 등록 */
     addMenu(values) {
       return this.$http.post('/menu', values)
       .then(res => {
