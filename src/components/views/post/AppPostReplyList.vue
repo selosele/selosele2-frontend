@@ -206,8 +206,8 @@ export default {
     },
     /** 포스트 댓글로 스크롤 이동 */
     scrollToReply() {
-      if (isNotEmpty(location.hash)) {
-        const replyEl = document.getElementById(location.hash.replace('#', ''));
+      if (isNotEmpty(window.location.hash)) {
+        const replyEl = document.getElementById(window.location.hash.replace('#', ''));
         
         replyEl?.scrollIntoView();
       }

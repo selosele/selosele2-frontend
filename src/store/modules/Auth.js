@@ -1,8 +1,8 @@
-import { isNotBlank } from "@/utils/common/commonUtil";
-import { AuthService } from "@/services/auth/authService";
+import { isBlank, isNotBlank } from "@/utils/common/commonUtil";
 import { http } from "@/api";
 import router from "@/routes";
 import { messageUtil } from "@/utils";
+import jwtDecode from "jwt-decode";
 
 /** 인증 Store */
 export const Auth = {
@@ -13,15 +13,16 @@ export const Auth = {
   }),
   mutations: {
     SET_ACCESS_TOKEN(state, accessToken) {
+      window.localStorage.setItem('accessToken', accessToken);
       state.accessToken = accessToken;
-      new AuthService().setAccessToken(accessToken);
     },
     CLEAR_ACCESS_TOKEN(state) {
+      window.localStorage.removeItem('accessToken');
       state.accessToken = null;
-      new AuthService().removeAccessToken();
     },
   },
   actions: {
+    /** 로그인 */
     LOGIN({ commit, dispatch }, values) {
       return new Promise((resolve, reject) => {
         commit('Auth/SET_ACCESS_TOKEN', values, { root: true });
@@ -38,6 +39,7 @@ export const Auth = {
         resolve(isNotBlank(values) ? 'ok' : 'no');
       });
     },
+    /** 로그아웃 */
     LOGOUT({ commit, dispatch }) {
       return new Promise((resolve, reject) => {
         http.post('/auth/signout')
@@ -55,19 +57,58 @@ export const Auth = {
             },
           }, { root: true });
 
-          resolve('ok');
+          router.push('/a/goto');
         }).catch(err => {
           
           // 리프레시 토큰 오류로 인해 로그아웃이 불가한 경우, 액세스 토큰을 삭제한다.
           if (401 === err?.response?.status) {
             messageUtil.toastError('인증 오류가 발생했습니다.');
 
-            new AuthService().removeAccessToken();
             commit('Auth/CLEAR_ACCESS_TOKEN', null, { root: true });
             router.push('/a/goto');
           }
         });
       });
+    },
+    /** JWT에서 사용자 정보 추출 후 반환 */
+    GET_USER({ commit, dispatch }) {
+      const accessToken = window.localStorage.getItem('accessToken');
+
+      if (isBlank(accessToken)) {
+        return null;
+      }
+
+      return jwtDecode(accessToken);
+    },
+    /** 1개의 권한 확인 */
+    HAS_ROLE({ commit, dispatch }, role) {
+      const user = this.GET_USER();
+    
+      if (!user) return false;
+
+      for (const { roleId } of user.userRole) {
+        if (true === (role === roleId)) {
+          return true;
+        }
+      }
+      
+      return false;
+    },
+    /** 모든 권한이 있는지 확인 */
+    HAS_ROLE_ALL({ commit, dispatch }, ...roles) {
+      const user = this.GET_USER();
+
+      if (!user) return false;
+
+      return roles.every(v => user.userRole.filter(r => r.roleId === v).length > 0);
+    },
+    /** 권한이 1개라도 있는지 확인 */
+    HAS_ROLE_OR({ commit, dispatch }, ...roles) {
+      const user = this.GET_USER();
+
+      if (!user) return false;
+
+      return roles.some(v => user.userRole.filter(r => r.roleId === v).length > 0);
     },
   },
 };

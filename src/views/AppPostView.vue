@@ -196,7 +196,7 @@ export default {
       this.post = null;
       this.prevPost = null;
       this.nextPost = null;
-      this.postUrl = location.href;
+      this.postUrl = window.location.href;
 
       if (this.isPostPage) {
         await Promise.all([
@@ -295,7 +295,7 @@ export default {
     },
     /** 포스트 URL 복사 */
     async copyPostUrl() {
-      await navigator.clipboard.writeText(location.href);
+      await navigator.clipboard.writeText(window.location.href);
       messageUtil.toastSuccess(`${this.isPostPage ? '포스트' : '콘텐츠'} URL이 복사되었습니다.`);
     },
   },

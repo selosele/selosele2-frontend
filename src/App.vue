@@ -46,7 +46,7 @@ import AppSidebar from '@/components/layout/AppSidebar.vue';
 import AppSkipLinks from '@/components/layout/AppSkipLinks.vue';
 import AppUserSatisfaction from '@/components/layout/AppUserSatisfaction.vue';
 import { ModalsContainer } from 'vue-final-modal';
-import { AuthService } from './services/auth/authService';
+import { isNotBlank } from './utils';
 
 import '@vuepic/vue-datepicker/dist/main.css';
 
@@ -94,9 +94,9 @@ export default {
   methods: {
     /** JWT 세팅 */
     initJwt() {
-      const accessToken = new AuthService().getAccessToken();
+      const accessToken = window.localStorage.getItem('accessToken');
       
-      if (accessToken) {
+      if (isNotBlank(accessToken)) {
         this.$http.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       }
     },

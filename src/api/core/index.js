@@ -1,5 +1,4 @@
-import { AuthService } from '@/services/auth/authService';
-import { isNotBlank, messageUtil } from '@/utils';
+import { isNotBlank, isNotEmpty, messageUtil } from '@/utils';
 import store from '@/store';
 import router from '@/routes';
 import axios from 'axios';
@@ -13,9 +12,9 @@ const http = axios.create({
 
 http.interceptors.request.use(
   config => {
-    const accessToken = new AuthService().getAccessToken();
+    const accessToken = window.localStorage.getItem('accessToken');
 
-    if (accessToken) {
+    if (isNotEmpty(accessToken)) {
       config.headers['Authorization']= `Bearer ${accessToken}`;
       store.commit('Auth/SET_ACCESS_TOKEN', accessToken);
     }
@@ -64,7 +63,6 @@ http.interceptors.response.use(
           const { data } = await http.post('/auth/refresh');
           const newAccessToken = data.accessToken;
           
-          new AuthService().setAccessToken(newAccessToken);
           store.commit('Auth/SET_ACCESS_TOKEN', newAccessToken);
       
           originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
@@ -77,7 +75,8 @@ http.interceptors.response.use(
           console.error('Error refreshing access token:', error);
           
           // 강제 로그아웃
-          new AuthService().logout(true);
+          store.dispatch('Auth/LOGOUT');
+          
           return Promise.reject(error);
         }
       }

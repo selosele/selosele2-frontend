@@ -11,8 +11,7 @@ import { Menu } from '@/store/modules/Menu';
 import { Year } from '@/store/modules/Year';
 import { Splitter } from '@/store/modules/Splitter';
 import { Loading } from '@/store/modules/Loading';
-import { isNotEmpty } from '@/utils';
-import { AuthService } from '@/services/auth/authService';
+import { isNotBlank } from '@/utils';
 
 export default createStore({
   modules: {
@@ -32,16 +31,16 @@ export default createStore({
   getters: {
     /** 로컬 환경일 경우 */
     isDevelopment() {
-      return 'localhost' === location.hostname || '127.0.0.1' === location.hostname;
+      return 'localhost' === window.location.hostname || '127.0.0.1' === window.location.hostname;
     },
     /** 운영 환경일 경우 */
     isProduction() {
-      return 'localhost' !== location.hostname && '127.0.0.1' !== location.hostname;
+      return 'localhost' !== window.location.hostname && '127.0.0.1' !== window.location.hostname;
     },
     /** 로그인 여부 */
     isLogin(state) {
       // 새로고침 시, 상태가 초기화되므로 localStorage에 저장된 accessToken의 존재 유무도 확인해야 정상적인 값을 반환한다.
-      return isNotEmpty(state.Auth.accessToken) || isNotEmpty(new AuthService().getAccessToken());
+      return isNotBlank(state.Auth.accessToken) || isNotBlank(window.localStorage.getItem('accessToken'));
     },
     /** Splitter 활성화 여부 */
     isSplitterActive(state) {
