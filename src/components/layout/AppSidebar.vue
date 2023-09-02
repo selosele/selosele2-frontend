@@ -62,7 +62,6 @@
 
             <button type="button"
                     class="widget__use"
-                    :ref="`widgetUse${widget.id}`"
                     :title="'클릭하여 위젯을 \'미사용\' 상태로 변경'"
                     @click="onChangeUseYn($event, widget.id)"
                     v-if="widgetActive">
