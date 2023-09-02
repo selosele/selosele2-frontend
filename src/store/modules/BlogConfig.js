@@ -1,4 +1,5 @@
 import { http } from "@/api";
+import store from "..";
 
 /** 블로그 환경설정 Store */
 export const BlogConfig = {
@@ -25,6 +26,8 @@ export const BlogConfig = {
       commit('SET_PREVIEW_DATA', values);
     },
     GET_BLOG_CONFIG({ commit }, values) {
+      store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '로딩 중...');
+
       return new Promise((resolve, reject) => {
         http.get('/blogconfig')
         .then(res => {
