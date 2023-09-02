@@ -16,9 +16,9 @@ export const Breadcrumb = {
   actions: {
     FETCH_PAGE_TITLE({ commit }, pageTitle) {
       if (isNotEmpty(pageTitle)) {
-        document.title = `${pageTitle} - ${store.state.BlogConfig.data?.title}`;
+        window.document.title = `${pageTitle} - ${store.state.BlogConfig.data?.title}`;
       } else {
-        document.title = store.state.BlogConfig.data?.title;
+        window.document.title = store.state.BlogConfig.data?.title;
       }
 
       commit('SET_PAGE_TITLE', pageTitle);

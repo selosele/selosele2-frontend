@@ -97,10 +97,10 @@ export default {
     }
   },
   mounted() {
-    document.addEventListener('click', this.closeNotiLayer);
+    window.document.addEventListener('click', this.closeNotiLayer);
   },
   unmounted() {
-    document.removeEventListener('click', this.closeNotiLayer);
+    window.document.removeEventListener('click', this.closeNotiLayer);
   },
   watch: {
     'resStatus'() {

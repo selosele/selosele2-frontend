@@ -49,10 +49,10 @@ export default {
     this.listMenu();
   },
   mounted() {
-    document.addEventListener('click', this.closeMenu);
+    window.document.addEventListener('click', this.closeMenu);
   },
   unmounted() {
-    document.removeEventListener('click', this.closeMenu);
+    window.document.removeEventListener('click', this.closeMenu);
   },
   methods: {
     /** 메뉴 목록 조회 */

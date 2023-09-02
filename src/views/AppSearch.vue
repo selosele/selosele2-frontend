@@ -145,10 +145,10 @@ export default {
     next();
   },
   mounted() {
-    document.addEventListener('scroll', this.onScroll);
+    window.document.addEventListener('scroll', this.onScroll);
   },
   unmounted() {
-    document.removeEventListener('scroll', this.onScroll);
+    window.document.removeEventListener('scroll', this.onScroll);
   },
   methods: {
     /** 초기 세팅 */

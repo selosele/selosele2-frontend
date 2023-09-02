@@ -65,9 +65,9 @@ export const Layout = {
     },
     FETCH_IS_MENU_VISIBLE({ commit }, values) {
       if (values.visible) {
-        document.body.classList.add('layer-opened');
+        window.document.body.classList.add('layer-opened');
       } else {
-        document.body.classList.remove('layer-opened');
+        window.document.body.classList.remove('layer-opened');
       }
 
       if (isNotEmpty(values.el)) {

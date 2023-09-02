@@ -151,12 +151,12 @@ export default {
     }
   },
   mounted() {
-    document.addEventListener('click', this.closeMenu);
+    window.document.addEventListener('click', this.closeMenu);
 
     this.scrollToReply();
   },
   unmounted() {
-    document.removeEventListener('click', this.closeMenu);
+    window.document.removeEventListener('click', this.closeMenu);
   },
   methods: {
     /** 포스트 댓글 목록 새로고침 */
@@ -207,7 +207,7 @@ export default {
     /** 포스트 댓글로 스크롤 이동 */
     scrollToReply() {
       if (isNotEmpty(window.location.hash)) {
-        const replyEl = document.getElementById(window.location.hash.replace('#', ''));
+        const replyEl = window.document.getElementById(window.location.hash.replace('#', ''));
         
         replyEl?.scrollIntoView();
       }

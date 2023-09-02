@@ -84,10 +84,10 @@ export default {
   },
   mounted() {
     this.lastScrollTop = window.pageYOffset;
-    document.addEventListener('scroll', this.onScroll);
+    window.document.addEventListener('scroll', this.onScroll);
   },
   unmounted() {
-    document.removeEventListener('scroll', this.onScroll);
+    window.document.removeEventListener('scroll', this.onScroll);
   },
   watch: {
     '$route'() {
@@ -126,7 +126,7 @@ export default {
       return this.$store.dispatch('BlogConfig/GET_BLOG_CONFIG')
       .then(data => {
         this.resStatus = 'ok';
-        document.title = data.title;
+        window.document.title = data.title;
       });
     },
     /** 모바일 메뉴 toggle */

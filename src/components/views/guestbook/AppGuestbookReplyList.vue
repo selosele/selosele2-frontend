@@ -120,10 +120,10 @@ export default {
     }
   },
   mounted() {
-    document.addEventListener('click', this.closeMenu);
+    window.document.addEventListener('click', this.closeMenu);
   },
   unmounted() {
-    document.removeEventListener('click', this.closeMenu);
+    window.document.removeEventListener('click', this.closeMenu);
   },
   methods: {
     /** 방명록 댓글 더보기 */

@@ -170,11 +170,11 @@ export default {
   },
   mounted() {
     window.addEventListener('scroll', this.onScroll);
-    document.addEventListener('click', this.closeMenu);
+    window.document.addEventListener('click', this.closeMenu);
   },
   unmounted() {
     window.removeEventListener('scroll', this.onScroll);
-    document.removeEventListener('click', this.closeMenu);
+    window.document.removeEventListener('click', this.closeMenu);
   },
   watch: {
     // 방명록이 수정되고 Modal이 close됐을 때 실행됨
@@ -252,7 +252,7 @@ export default {
     /** 방명록 무한 스크롤 */
     onScroll() {
       const { scrollY } = window;
-      const { clientHeight, scrollHeight } = document.documentElement;
+      const { clientHeight, scrollHeight } = window.document.documentElement;
       const bottomOfPage = (clientHeight + scrollY + 100) >= scrollHeight;
       
       if (bottomOfPage && !this.isScrolled) {
