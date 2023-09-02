@@ -61,6 +61,7 @@
 <script>
 import AppSaveCategory from '@/components/views/category/AppSaveCategory.vue';
 import { isNotEmpty } from '@/utils';
+import { isEmpty } from '../utils';
 
 export default {
   name: 'app-admin-category',
@@ -125,7 +126,7 @@ export default {
           nodes: childNodes.map((child, idx, self) => {
             if (0 === self.length) return {};
 
-            // 자식(포스트) node를 리턴
+            // 자식(포스트) node를 반환
             return {
               id: child.postId,
               label: child.post.title,
@@ -164,8 +165,16 @@ export default {
     async onNodeClick(node) {
       this.$store.commit('Splitter/TOGGLE', true);
 
+      // 포스트 node를 클릭하면
+      if (this.isPostNode(node.nodes)) {
+
+        // 해당 포스트 뷰 페이지로 이동한다.
+        this.$router.push(`/post/${node.id}`);
+        return;
+      }
+
       // 똑같은 node를 여러번 클릭해서 API가 호출되는 것을 막기 위해, node.id와 category.id가 다를 때만 API를 호출한다.
-      if (isNotEmpty(node.nodes) && node.id !== this.category?.id) {
+      if (!this.isPostNode(node.nodes) && node.id !== this.category?.id) {
         await this.getCategory(node);
       }
     },
@@ -192,6 +201,12 @@ export default {
     resetCategory() {
       this.category = {};
       this.category.id = null;
+    },
+    /** 포스트 node인지 확인 */
+    isPostNode(nodes) {
+      
+      // 자식 node들이 없으면 포스트 node이고 있으면 카테고리/태그 node이다.
+      return isEmpty(nodes);
     },
   },
 }
