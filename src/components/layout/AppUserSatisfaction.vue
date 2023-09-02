@@ -11,13 +11,12 @@
       <ui-hidden-field :name="'pageTitle'" :value="''" />
 
       <div class="satisfaction__field">
-        <ui-radio v-for="(item,i) in satisArr"
-                  :key="i"
-                  :id="`score${item.value}`"
+        <ui-radio v-for="(item,i) in $store.state.Satisfaction.code" :key="i"
+                  :id="`score${item.val}`"
                   :name="'score'"
-                  :label="item.text"
+                  :label="item.nm"
                   :rules="'required'"
-                  :value="item.value"
+                  :value="item.val"
                   v-model="defaultScore">
         </ui-radio>
       </div>
@@ -52,26 +51,26 @@ export default {
   name: 'app-user-satisfaction',
   data() {
     return {
-      satisArr: [],
+      /** 만족도조사 기본 점수 값 */
       defaultScore: '',
+      /** 만족도조사 의견 */
       comment: '',
     }
   },
   created() {
-    // 만족도조사 코드 세팅
-    this.$store.state.Code.data.map(d => {
-      if ('B01' === d.prefix) {
-        this.satisArr.push({
-          value: d.val,
-          text: d.nm,
-        });
-      }
-    });
+    this.setDefaultData('003');
   },
-  mounted() {
-    this.defaultScore = this.satisArr.find(d => d.value === '003').value;
+  watch: {
+    '$route'() {
+      this.setDefaultData('003');
+    }
   },
   methods: {
+    /** 만족도조사 초기 값 세팅 */
+    setDefaultData(score, comment = '') {
+      this.defaultScore = this.$store.state.Satisfaction.code.find(d => d.val === score).val;
+      this.comment = comment;
+    },
     /** 만족도조사 제출 */
     async onSubmit(values) {
       values.pagePath = decodeURIComponent(this.$route.path);

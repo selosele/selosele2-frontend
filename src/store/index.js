@@ -2,6 +2,7 @@ import { createStore } from 'vuex';
 import { Code } from '@/store/modules/Code';
 import { Breadcrumb } from '@/store/modules/Breadcrumb';
 import { Auth } from '@/store/modules/Auth';
+import { Satisfaction } from '@/store/modules/Satisfaction';
 import { Notification } from '@/store/modules/Notification';
 import { BlogConfig } from '@/store/modules/BlogConfig';
 import { Layout } from '@/store/modules/Layout';
@@ -18,6 +19,7 @@ export default createStore({
     Code,           // 공통코드
     Breadcrumb,     // Breadcrumb
     Auth,           // 인증
+    Satisfaction,   // 만족도조사
     Notification,   // 알림
     BlogConfig,     // 블로그 환경설정
     Layout,         // 레이아웃
