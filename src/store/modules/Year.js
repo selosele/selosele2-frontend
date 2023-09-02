@@ -29,7 +29,7 @@ export const Year = {
   actions: {
     GET_YEAR_POSTS({ commit, state }, values) {
 
-      // store에 저장된 연도별 포스트 목록 데이타가 있으면 store의 데이타를 리턴하고
+      // store에 저장된 연도별 포스트 목록 데이타가 있으면 store의 데이타를 반환하고
       if (isNotEmpty(state.data[values.year]) && 'new' === values.flag) {
         commit('SET_YEAR_POSTS', {
           year: values.year,
@@ -43,7 +43,7 @@ export const Year = {
         });
       }
 
-      // 없으면 HTTP 통신을 해서 받아온 데이타를 리턴한다.
+      // 없으면 HTTP 통신을 해서 받아온 데이타를 반환한다.
       return new Promise((resolve, reject) => {
         http.get(`/post/year/${values.year}`, { params: values.paginationDto })
         .then(res => {

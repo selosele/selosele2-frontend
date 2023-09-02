@@ -75,7 +75,7 @@ export default {
           nodes: parent.children.map((child, idx, self) => {
             if (0 === self.length) return {};
 
-            // 자식(포스트) node를 리턴
+            // 자식(포스트) node를 반환
             return {
               id: child.id,
               label: child.name,
