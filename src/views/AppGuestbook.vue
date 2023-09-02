@@ -146,7 +146,6 @@ export default {
   },
   data() {
     return {
-      pageTitle: '방명록',
       page: 1,
       pageSize: 6,
       listCnt: 0,
@@ -161,7 +160,7 @@ export default {
   },
   async created() {
     // 페이지 타이틀 세팅
-    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
+    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '방명록');
 
     this.nickNameCodeList = this.$store.state.Code.data.filter(d => d.prefix === 'F01');
     this.adminNickName = this.nickNameCodeList.find(d => d.id === 'F01001').nm;

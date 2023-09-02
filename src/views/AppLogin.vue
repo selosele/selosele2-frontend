@@ -52,14 +52,13 @@ export default {
   name: 'app-login',
   data() {
     return {
-      pageTitle: '로그인',
       userId: '',
       userPw: '',
     }
   },
   created() {
     // 페이지 타이틀 세팅
-    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
+    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '로그인');
   },
   methods: {
     /** 로그인 */

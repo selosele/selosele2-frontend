@@ -60,8 +60,7 @@
 
 <script>
 import AppSaveCategory from '@/components/views/category/AppSaveCategory.vue';
-import { isNotEmpty } from '@/utils';
-import { isEmpty } from '../utils';
+import { isEmpty } from '@/utils';
 
 export default {
   name: 'app-admin-category',
@@ -70,7 +69,6 @@ export default {
   },
   data() {
     return {
-      pageTitle: '카테고리/태그 관리',
       categoryTree: [],
       tagTree: [],
       category: {},
@@ -85,7 +83,7 @@ export default {
     /** 초기 세팅 */
     async init() {
       // 페이지 타이틀 세팅
-      this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
+      this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '카테고리/태그 관리');
 
       await Promise.all([
         this.listCategoryTreeAndPost(),

@@ -37,7 +37,6 @@ export default {
   },
   data() {
     return {
-      pageTitle: '',
       page: null,
       listCnt: null,
       postList: [],
@@ -48,7 +47,7 @@ export default {
   },
   async created() {
     // 페이지 타이틀 세팅
-    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
+    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '');
     this.page = isNotEmpty(this.$route.query.page) ? parseInt(this.$route.query.page) : 1;
 
     await this.listCategoryAndCount();

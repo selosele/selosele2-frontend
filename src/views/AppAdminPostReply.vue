@@ -35,7 +35,6 @@ export default {
   name: 'app-admin-post-reply',
   data() {
     return {
-      pageTitle: '포스트 댓글 관리',
       columnDefs: [
         { }, // 체크박스
         { headerName: '댓글 URL', field: 'link', width: 80 },
@@ -51,7 +50,7 @@ export default {
   },
   async created() {
     // 페이지 타이틀 세팅
-    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
+    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '포스트 댓글 관리');
 
     this.optionList = [
       { value: '', text: '전체' },  

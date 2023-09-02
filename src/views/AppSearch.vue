@@ -101,7 +101,6 @@ export default {
       q: this.$route.query['q'] || '',
       c: this.$route.query['c'] || 'N',
       tData: [],
-      pageTitle: '포스트 검색',
       page: 1,
       pageSize: 10,
       listCnt: null,
@@ -113,7 +112,7 @@ export default {
   },
   async created() {
     // 페이지 타이틀 세팅
-    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
+    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '포스트 검색');
 
     // 검색옵션 코드 세팅
     this.$store.state.Code.data.map((d,i) => {

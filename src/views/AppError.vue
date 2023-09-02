@@ -31,13 +31,12 @@ export default {
   name: 'app-error',
   data() {
     return {
-      pageTitle: '페이지를 찾을 수 없습니다.',
       postList: [],
     }
   },
   async created() {
     // 페이지 타이틀 세팅
-    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
+    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '페이지를 찾을 수 없습니다.');
 
     await this.listPostByLimit(3);
   },

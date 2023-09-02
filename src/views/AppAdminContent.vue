@@ -33,7 +33,6 @@ export default {
   name: 'app-admin-content',
   data() {
     return {
-      pageTitle: '콘텐츠 관리',
       columnDefs: [
         { }, // 체크박스
         { headerName: '콘텐츠 URL', field: 'link', width: 100 },
@@ -47,7 +46,7 @@ export default {
   },
   async created() {
     // 페이지 타이틀 세팅
-    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
+    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '콘텐츠 관리');
 
     await this.listContent();
   },

@@ -46,7 +46,6 @@ export default {
   },
   data() {
     return {
-      pageTitle: '공통코드 관리',
       columnDefs: [
         { pinned: 'left' }, // 체크박스
         { headerName: '코드 ID', field: 'id', width: 130 },
@@ -64,7 +63,7 @@ export default {
   },
   async created() {
     // 페이지 타이틀 세팅
-    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
+    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '공통코드 관리');
 
     await this.listCode();
   },

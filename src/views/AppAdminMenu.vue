@@ -37,7 +37,6 @@ export default {
   },
   data() {
     return {
-      pageTitle: '메뉴 관리',
       menuTree: [],
       menu: {},
       parentMenuList: [],
@@ -50,7 +49,7 @@ export default {
     /** 초기 세팅 */
     async init() {
       // 페이지 타이틀 세팅
-      this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
+      this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '메뉴 관리');
 
       await this.listMenuTree();
 

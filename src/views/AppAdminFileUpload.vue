@@ -19,13 +19,12 @@ export default {
   name: 'app-admin-file-upload',
   data() {
     return {
-      pageTitle: '이미지 업로드',
       fileList: [],
     }
   },
   async created() {
     // 페이지 타이틀 세팅
-    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
+    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '이미지 업로드');
 
     this.init();
   },

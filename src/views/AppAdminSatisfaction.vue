@@ -34,7 +34,6 @@ export default {
   name: 'app-admin-satisfaction',
   data() {
     return {
-      pageTitle: '만족도조사 관리',
       columnDefs: [
         { }, // rowNum
         { headerName: '페이지 URL', field: 'pagePath', width: 100 },
@@ -49,7 +48,7 @@ export default {
   },
   async created() {
     // 페이지 타이틀 세팅
-    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
+    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '만족도조사 관리');
 
     await this.listSatisfaction({
       isToday: 'N',

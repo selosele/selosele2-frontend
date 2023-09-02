@@ -306,8 +306,6 @@ export default {
   },
   data() {
     return {
-      /** 페이지 타이틀 */
-      pageTitle: '',
       /** 포스트 */
       post: null,
       /** 포스트 제목 */
@@ -354,10 +352,8 @@ export default {
     if (!confirm) return false;
   },
   created() {
-    this.pageTitle = this.getPageTitle();
-
     // 페이지 타이틀 세팅
-    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
+    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.getPageTitle());
 
     this.init();
   },
