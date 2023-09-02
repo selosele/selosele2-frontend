@@ -315,9 +315,6 @@ export default {
     next();
   },
   created() {
-    // 페이지 타이틀 세팅
-    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
-
     // 2023.08.20. 성능 이슈로 인해 환경설정 페이지에서만 데이타를 한 번 더 불러오도록 수정
     this.$store.dispatch('BlogConfig/GET_BLOG_CONFIG')
     .then(data => {
@@ -336,6 +333,9 @@ export default {
       } else {
         this.previewBlogConfig = Object.assign({}, this.$store.state.BlogConfig?.previewData);
       }
+
+      // 페이지 타이틀 세팅
+      this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
     });
   },
   watch: {

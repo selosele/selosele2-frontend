@@ -1,6 +1,3 @@
-import { isNotEmpty } from "@/utils";
-import store from "..";
-
 /** Breadcrumb Store */
 export const Breadcrumb = {
   namespaced: true,
@@ -15,12 +12,7 @@ export const Breadcrumb = {
   },
   actions: {
     FETCH_PAGE_TITLE({ commit }, pageTitle) {
-      if (isNotEmpty(pageTitle)) {
-        window.document.title = pageTitle;
-      } else {
-        window.document.title = store.state.BlogConfig.data?.title;
-      }
-
+      window.document.title = pageTitle;
       commit('SET_PAGE_TITLE', pageTitle);
     },
   },

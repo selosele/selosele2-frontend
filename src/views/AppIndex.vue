@@ -48,9 +48,9 @@ export default {
   async created() {
     /**
      * 페이지 타이틀 세팅
-     *   - 여기서 페이지타이틀을 빈 값으로 세팅하지 않으면, 메인페이지로 왔을 때 페이지타이틀 세팅이 되지 않음
+     *   - 여기서 페이지타이틀을 세팅하지 않으면, 메인페이지로 왔을 때 페이지타이틀 세팅이 되지 않음
      */
-    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '');
+    this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.$store.state.BlogConfig.data?.title);
     this.page = isNotEmpty(this.$route.query.page) ? parseInt(this.$route.query.page) : 1;
 
     await this.listCategoryAndCount();
