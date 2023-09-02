@@ -10,8 +10,7 @@
                   :shouldCancelStart="onShouldCancelStart"
                   @updateList="onUpdateList"
                   v-if="dataLoaded">
-      <ui-sort-item v-for="(widget,i) in storeSidebar.widget"
-        :key="widget.id"
+      <ui-sort-item v-for="(widget,i) in storeSidebar.widget" :key="widget.id"
         :index="i"
         :disabled="!widgetActive"
       >
@@ -20,6 +19,7 @@
           { 'sidebar__item-list--category': 1 === widget.id },
           { 'sidebar__item-list--tag': 2 === widget.id },
           { 'sidebar__item-list--active': widgetActive },
+          { 'sidebar__item-list--disable': isWidgetDisable(widget.id) },
         ]">
           <div class="widget widget__box">
             <h2 class="sidebar__item-title widget__title">
@@ -80,6 +80,7 @@ export default {
   data() {
     return {
       sidebar: {},
+      widgetState: [],
       widgetList: [],
       categoryList: [],
       tagList: [],
@@ -182,9 +183,11 @@ export default {
       if (e.target.classList.contains(className)) {
         e.target.classList.remove(className);
         e.target.title = '클릭하여 위젯을 \'미사용\' 상태로 변경';
+        this.widgetState = this.widgetState.filter(d => d !== id);
       } else {
         e.target.classList.add(className);
         e.target.title = '클릭하여 위젯을 \'사용\' 상태로 변경';
+        this.widgetState.push(id);
       }
     },
     /** 위젯 정렬 종료 시 */
@@ -239,6 +242,10 @@ export default {
       if (8 <= cnt) return 170;
       // 계산된 값
       return 25 * cnt;
+    },
+    /** 위젯 비활성화 여부 확인 */
+    isWidgetDisable(id) {
+      return -1 < this.widgetState.indexOf(id);
     },
     /** 데이타 로딩 */
     dataLoading() {

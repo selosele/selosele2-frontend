@@ -88,6 +88,10 @@
         }
       }
 
+      &--disable {
+        opacity: 0.5;
+      }
+
       .widget {
         position: relative;
         z-index: 1;
