@@ -68,7 +68,7 @@ export default {
   methods: {
     /** 만족도조사 초기 값 세팅 */
     setDefaultData(score, comment = '') {
-      this.defaultScore = this.$store.state.Satisfaction.code.find(d => d.val === score).val;
+      this.defaultScore = score;
       this.comment = comment;
     },
     /** 만족도조사 제출 */
