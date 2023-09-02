@@ -27,7 +27,7 @@ export const Breadcrumb = {
       }
 
       if (isNotEmpty(pageTitle)) {
-        window.document.title = `${pageTitle} - ${store.state.BlogConfig.data?.title}`;
+        window.document.title = pageTitle;
       } else {
         window.document.title = store.state.BlogConfig.data?.title;
       }
