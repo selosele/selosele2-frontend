@@ -62,6 +62,8 @@
 
             <button type="button"
                     class="widget__use"
+                    :ref="`widgetUse${widget.id}`"
+                    :title="'클릭하여 위젯을 \'미사용\' 상태로 변경'"
                     @click="onChangeUseYn($event, widget.id)"
                     v-if="widgetActive">
               <span class="sr-only">사용 여부 선택</span>
@@ -180,8 +182,10 @@ export default {
 
       if (e.target.classList.contains(className)) {
         e.target.classList.remove(className);
+        e.target.title = '클릭하여 위젯을 \'미사용\' 상태로 변경';
       } else {
         e.target.classList.add(className);
+        e.target.title = '클릭하여 위젯을 \'사용\' 상태로 변경';
       }
     },
     /** 위젯 정렬 종료 시 */
