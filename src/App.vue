@@ -135,7 +135,7 @@ export default {
         this.$store.dispatch('Breadcrumb/FETCH_IS_INITIAL_LOAD', false);
 
         if ('/' === this.$route.path) {
-          this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '');
+          this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', data?.title);
         }
       });
     },
