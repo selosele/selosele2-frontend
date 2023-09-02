@@ -27,7 +27,7 @@ export const BlogConfig = {
     },
     GET_BLOG_CONFIG({ commit }, values) {
       return new Promise((resolve, reject) => {
-        store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '로딩 중...');
+        store.dispatch('Breadcrumb/FETCH_INITIAL_PAGE_TITLE');
 
         http.get('/blogconfig')
         .then(res => {
