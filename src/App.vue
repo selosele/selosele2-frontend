@@ -133,7 +133,7 @@ export default {
       return this.$store.dispatch('BlogConfig/GET_BLOG_CONFIG')
       .then(data => {
         this.resStatus = 'ok';
-        this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '');
+        this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.$store.state.Breadcrumb.pageTitle);
         //window.document.title = data.title;
       });
     },
