@@ -63,7 +63,7 @@ export default {
   watch: {
     '$route'() {
       this.setDefaultData('003');
-    }
+    },
   },
   methods: {
     /** 만족도조사 초기 값 세팅 */
