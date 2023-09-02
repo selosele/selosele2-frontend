@@ -25,7 +25,7 @@ export const BlogConfig = {
     FETCH_PREVIEW_DATA({ commit }, values) {
       commit('SET_PREVIEW_DATA', values);
     },
-    GET_BLOG_CONFIG({ commit }, values) {
+    GET_BLOG_CONFIG({ commit }) {
       return new Promise((resolve, reject) => {
         store.dispatch('Breadcrumb/FETCH_INITIAL_PAGE_TITLE');
 
