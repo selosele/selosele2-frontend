@@ -133,7 +133,7 @@ export default {
       .then(data => {
         this.resStatus = 'ok';
         this.$store.dispatch('Breadcrumb/FETCH_IS_INITIAL_LOAD', false);
-        window.document.title = data.title;
+        //window.document.title = data.title;
       });
     },
     /** 모바일 메뉴 toggle */
