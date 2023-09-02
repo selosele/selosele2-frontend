@@ -19,7 +19,7 @@ http.interceptors.request.use(
       store.commit('Auth/SET_ACCESS_TOKEN', accessToken);
     }
 
-    if (store.state.Loading.useLoading) {
+    if (store.state.Loading.useLoading && !store.state.Loading.isInitialLoading) {
       store.commit('Loading/SET_IS_LOADING', false);
     }
 
@@ -34,7 +34,7 @@ let isRefreshing = false;
 
 http.interceptors.response.use(
   response => {
-    if (store.state.Loading.useLoading) {
+    if (store.state.Loading.useLoading && !store.state.Loading.isInitialLoading) {
       store.commit('Loading/SET_IS_LOADING', true);
     }
 
@@ -43,7 +43,9 @@ http.interceptors.response.use(
   async error => {
     const originalRequest = error.config;
 
-    store.commit('Loading/SET_IS_LOADING', true);
+    if (!store.state.Loading.isInitialLoading) {
+      store.commit('Loading/SET_IS_LOADING', true);
+    }
 
     if (isNotBlank(error?.response?.data?.type) && 'biz' === error?.response?.data?.type) {
       // 비즈니스 로직 예외 처리

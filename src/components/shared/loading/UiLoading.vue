@@ -3,7 +3,8 @@
            :can-cancel="cancel"
            :is-full-page="fullPage"
            :loader="loader"
-           :color="color">
+           :color="color"
+           :opacity="opacity">
   </loading>
 </template>
 
@@ -49,6 +50,11 @@ export default {
     color: {
       type: String,
       default: '#000',
+    },
+    /** 로딩 opacity */
+    opacity: {
+      type: Number,
+      default: 0.5,
     }
   }
 }

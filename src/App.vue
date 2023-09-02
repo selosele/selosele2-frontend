@@ -1,5 +1,6 @@
 <template>
   <ui-loading :activeModel="$store.state.Loading.useLoading && !$store.state.Loading.isLoading"
+              :opacity="$store.state.Loading.isInitialLoading ? 1 : 0.5"
               :fullPage="true"
               :color="'#538204'">
   </ui-loading>
@@ -70,6 +71,9 @@ export default {
     };
   },
   async created() {
+    // 애플리케이션 최초 로드 시, 화면 전체를 덮는 로딩을 일정 시간동안 실행
+    this.initLoading(2500);
+
     this.initJwt();
 
     // 2023.08.12. 성능 이슈로 인해 동시 실행되도록 처리
@@ -92,6 +96,13 @@ export default {
     },
   },
   methods: {
+    /** 로딩 세팅 */
+    initLoading(delay) {
+      setTimeout(() => {
+        this.$store.commit('Loading/SET_IS_LOADING', true);
+        this.$store.commit('Loading/SET_IS_INITIAL_LOADING', false);
+      }, delay);
+    },
     /** JWT 세팅 */
     initJwt() {
       const accessToken = window.localStorage.getItem('accessToken');
