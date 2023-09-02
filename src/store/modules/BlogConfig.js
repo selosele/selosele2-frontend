@@ -26,9 +26,9 @@ export const BlogConfig = {
       commit('SET_PREVIEW_DATA', values);
     },
     GET_BLOG_CONFIG({ commit }, values) {
-      store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '로딩 중...');
-
       return new Promise((resolve, reject) => {
+        store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '로딩 중...');
+
         http.get('/blogconfig')
         .then(res => {
           commit('SET_BLOG_CONFIG', res.data);
