@@ -1,5 +1,5 @@
 <template>
-  <app-content-wrapper :pageTitle="pageTitle">
+  <app-content-wrapper>
     <div class="d-flex flex--right gap--10 mb--15">
       <ui-select :name="'option'"
                  :id="'listPostReplyAllOption'"

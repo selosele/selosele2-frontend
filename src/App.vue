@@ -69,13 +69,13 @@ export default {
       lastScrollTop: 0,
     };
   },
-  created() {
+  async created() {
     this.initJwt();
 
     // 2023.08.12. 성능 이슈로 인해 동시 실행되도록 처리
-    Promise.all([
+    await Promise.all([
       this.listCode(),
-      this.getBlogConfig()
+      this.getBlogConfig(),
     ]);
   },
   mounted() {

@@ -1,5 +1,5 @@
 <template>
-  <app-content-wrapper :pageTitle="pageTitle">
+  <app-content-wrapper>
     <ui-form :name="'blogConfigForm'"
              :ref="'blogConfigForm'"
              :class="'blog-config__frm'"

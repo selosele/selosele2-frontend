@@ -1,5 +1,5 @@
 <template>
-  <app-content-wrapper :pageTitle="pageTitle">
+  <app-content-wrapper>
     <div class="year__wrapper">
       <template v-for="(item,i) in yearList" :key="i">
         <h2 class="year__list-title">
@@ -38,8 +38,6 @@
 </template>
 
 <script>
-import { messageUtil } from '@/utils';
-
 export default {
   name: 'app-year',
   data() {

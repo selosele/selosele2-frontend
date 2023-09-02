@@ -4,7 +4,7 @@
     $route.meta.pageType !== 'D01001' ? '' : 'sr-only'
     ]">
     <h1 class="page__title">
-      {{ $route.meta.pageType !== 'D01001' ? pageTitle : '최근 포스트' }}
+      {{ $route.meta.pageType !== 'D01001' ? $store.state.Breadcrumb.pageTitle : '최근 포스트' }}
     </h1>
   </header>
 
@@ -14,10 +14,6 @@
 <script>
 export default {
   name: 'app-content-wrapper',
-  props: {
-    /** 페이지 타이틀 */
-    pageTitle: String,
-  },
 }
 </script>
 

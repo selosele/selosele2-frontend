@@ -49,7 +49,7 @@ export function getFileSize(bytes, decimals = 2) {
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
 }
 
-/** form values -> JSON으로 가공 */
+/** form values -> JSON 변환 */
 export function getFormValues(form) {
   return Object.fromEntries(new FormData(form));
 }

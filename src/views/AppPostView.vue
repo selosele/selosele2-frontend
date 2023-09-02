@@ -1,5 +1,5 @@
 <template>
-  <app-content-wrapper :pageTitle="pageTitle">
+  <app-content-wrapper>
     <div class="post-view__wrapper">
       <template v-if="dataLoaded">
         <ui-form :name="'postForm'" @onsubmit="onSubmit">

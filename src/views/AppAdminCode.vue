@@ -1,5 +1,5 @@
 <template>
-  <app-content-wrapper :pageTitle="pageTitle">
+  <app-content-wrapper>
     <div class="d-flex flex--right gap--10 mb--15">
       <ui-button :color="'primary'"
                  @click="addCode">추가
@@ -135,7 +135,7 @@ export default {
       await this.listCode();
       this.$store.dispatch('Code/FETCH_CODE', this.rowData);
     },
-    /** 코드 사용 여부 가공 */
+    /** 코드 사용 여부 반환 */
     getUseYn(useYn) {
       switch (useYn) {
         case 'Y': return '사용';

@@ -1,5 +1,5 @@
 <template>
-  <app-content-wrapper :pageTitle="pageTitle">
+  <app-content-wrapper>
     <div class="guestbook__wrapper">
       <ui-form :class="'guestbook__write-frm'" :name="'addGuestbookForm'" @onsubmit="onSubmit">
         <div class="guestbook__write">

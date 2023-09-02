@@ -1,5 +1,5 @@
 <template>
-  <app-content-wrapper :pageTitle="pageTitle">
+  <app-content-wrapper>
     <template v-if="0 < fileList.length">
       <ui-file-upload-field @upload="onUpload">
       </ui-file-upload-field>

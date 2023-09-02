@@ -1,5 +1,5 @@
 <template>
-  <app-content-wrapper :pageTitle="pageTitle">
+  <app-content-wrapper>
     <app-post-list
       v-if="dataLoaded"
       :pageType="'D01001'"

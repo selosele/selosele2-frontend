@@ -1,5 +1,5 @@
 <template>
-  <app-content-wrapper :pageTitle="pageTitle">
+  <app-content-wrapper>
     <ui-split-pane>
       <ui-pane :isTransparent="true">
         <ui-tree :nodes="menuTree"

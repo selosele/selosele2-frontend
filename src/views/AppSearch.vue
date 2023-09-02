@@ -1,5 +1,5 @@
 <template>
-  <app-content-wrapper :pageTitle="pageTitle">
+  <app-content-wrapper>
     <div class="search__wrapper">
       <ui-form :class="'search__frm'" :name="'searchForm'" @onsubmit="onSubmit">
         <div class="search__field" ref="searchField">

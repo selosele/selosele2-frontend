@@ -1,5 +1,5 @@
 <template>
-  <app-content-wrapper :pageTitle="pageTitle">
+  <app-content-wrapper>
     <div class="login__wrapper">
       <div class="login__inner">
         <ui-form :autocomplete="'off'"

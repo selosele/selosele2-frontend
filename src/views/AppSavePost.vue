@@ -1,5 +1,5 @@
 <template>
-  <app-content-wrapper :pageTitle="pageTitle">
+  <app-content-wrapper>
     <div class="write__wrapper">
       <ui-form :name="'savePostForm'"
                :ref="'savePostForm'"
@@ -413,7 +413,7 @@ export default {
         ]);
       }
     },
-    /** 페이지 타이틀 가공 */
+    /** 페이지 타이틀 반환 */
     getPageTitle() {
       if (this.isPostPage) {
         return !this.isUpdatePostPage ? '포스트 작성' : '포스트 수정';

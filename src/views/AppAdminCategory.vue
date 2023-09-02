@@ -1,5 +1,5 @@
 <template>
-  <app-content-wrapper :pageTitle="pageTitle">
+  <app-content-wrapper>
     <ui-tabs @tabChanged="onTabChanged">
       <ui-tab :name="'카테고리'">
         <ui-split-pane>
@@ -149,7 +149,7 @@ export default {
         this.listTagTreeAndPost(),
       ]);
     },
-    /** 트리 label 가공 */
+    /** 트리 label 반환 */
     getTreeLabel(label, type) {
       return 'D01004' === type ? label : `#${label}`;
     },
@@ -205,7 +205,7 @@ export default {
     /** 포스트 node인지 확인 */
     isPostNode(nodes) {
       
-      // 자식 node들이 없으면 포스트 node이고 있으면 카테고리/태그 node이다.
+      // 자식 node들이 없으면 포스트 node이고, 있으면 카테고리/태그 node이다.
       return isEmpty(nodes);
     },
   },

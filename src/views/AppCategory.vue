@@ -1,5 +1,5 @@
 <template>
-  <app-content-wrapper :pageTitle="pageTitle">
+  <app-content-wrapper>
     <div class="category__wrapper">
       <ul>
         <template v-for="(post,i) in postList" :key="i">
@@ -70,7 +70,7 @@ export default {
       
       let category = {};
 
-      return this.$http.get(`/post/${this.getApiUri()}/${this.id}`, { params: paginationDto })
+      return this.$http.get(`${this.getApiUri()}/${this.id}`, { params: paginationDto })
       .then(res => {
         res.data[0].map(d => {
           category.type = isNotEmpty(d.postCategory) ? '카테고리' : '태그';
@@ -99,9 +99,9 @@ export default {
     /** 페이지 유형에 따른 API 호출 URI 얻기 */
     getApiUri() {
       if ('D01004' === this.pageType) {
-        return 'category';
+        return '/post/category';
       } else if ('D01005' === this.pageType) {
-        return 'tag';
+        return '/post/tag';
       }
 
       return '';
