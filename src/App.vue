@@ -124,11 +124,12 @@ export default {
     /** 블로그 환경설정 조회 */
     getBlogConfig() {
       this.$store.dispatch('Breadcrumb/FETCH_IS_INITIAL_LOAD', true);
-      this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '로딩 중..');
+      this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '로딩 중...');
       
       return this.$store.dispatch('BlogConfig/GET_BLOG_CONFIG')
       .then(data => {
         this.resStatus = 'ok';
+        this.$store.dispatch('Breadcrumb/FETCH_IS_INITIAL_LOAD', false);
         window.document.title = data.title;
       });
     },
