@@ -6,9 +6,12 @@
     content-class="modal-content"
     :name="name"
     >
-    <button class="modal__close" title="팝업 닫기" @click="close">
-      <i class="xi-close"></i>
-    </button>
+    <ui-icon-button :icon="'xi-close'"
+                    :text="'팝업 닫기'"
+                    title="팝업 닫기"
+                    class="modal__close"
+                    @click="close">
+    </ui-icon-button>
 
     <span class="modal__title">{{ title }}</span>
     
@@ -35,14 +38,37 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 :deep(.modal-container) {
   display: flex;
   justify-content: center;
   align-items: center;
   height: calc(100vh - 4rem);
   margin: auto;
+
+  .modal {
+    &__title {
+      display: block;
+      margin: 0 2rem 1rem 0;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    &__close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 2rem;
+      min-width: 0;
+      height: 2rem;
+      padding: 0;
+      background-color: transparent;
+      box-shadow: none;
+      text-shadow: none;
+    }
+  }
 }
+
 :deep(.modal-content) {
   overflow: auto;
   display: flex;
@@ -55,20 +81,7 @@ export default {
   border-radius: 0.25rem;
   background: #fff;
 }
-.modal__title {
-  display: block;
-  margin: 0 2rem 1rem 0;
-  font-size: 1.3rem;
-  font-weight: 700;
-}
-.modal__close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 2rem;
-  height: 2rem;
-  background-color: transparent;
-}
+
 .dark-mode div:deep(.modal-content) {
   border-color: #2d3748;
   background-color: #1a202c;

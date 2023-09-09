@@ -97,8 +97,12 @@
       top: 0;
       right: 0;
       width: 2rem;
+      min-width: 0;
       height: $search-field-height-responsive;
+      padding: 0;
       background-color: transparent;
+      box-shadow: none;
+      text-shadow: none;
       font-size: 1.6rem;
       color: $black05;
       justify-content: center;

@@ -21,10 +21,11 @@
                          v-model="q">
           </ui-text-field>
 
-          <button type="submit" class="search__btn">
-            <i class="xi-search" aria-hidden="true"></i>
-            <span class="sr-only">검색</span>
-          </button>
+          <ui-icon-button :type="'submit'"
+                          :icon="'xi-search'"
+                          :text="'검색'"
+                          class="search__btn">
+          </ui-icon-button>
         </div>
 
         <div class="search__detail">

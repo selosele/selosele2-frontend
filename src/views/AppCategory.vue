@@ -14,13 +14,12 @@
         </template>
       </ul>
 
-      <button type="button"
-              class="btn--more"
-              @click="onMore"
-              v-if="listCnt > pageSize && !isLastPage">
-        <i class="xi-ellipsis-h" aria-hidden="true"></i>
-        <span class="sr-only">더보기</span>
-      </button>
+      <ui-icon-button :icon="'xi-ellipsis-h'"
+                      :text="'더보기'"
+                      class="btn--more"
+                      @click="onMore"
+                      v-if="listCnt > pageSize && !isLastPage">
+      </ui-icon-button>
     </div>
   </app-content-wrapper>
 </template>
@@ -38,7 +37,7 @@ export default {
     return {
       pageTitle: '',
       page: 1,
-      pageSize: 20,
+      pageSize: 10, //20
       listCnt: 0,
       postList: [],
       isLastPage: false,
