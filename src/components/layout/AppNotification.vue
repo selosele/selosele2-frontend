@@ -2,11 +2,11 @@
   <div class="notice__wrapper" @click="$event.stopPropagation()">
     <div class="notice__util">
       <div class="notice__util__tabs">
-        <button type="button" :class="{ 'active': 0 === activeIndex }" @click="toggleTab(0, 'D02001')">포스트추천</button>
-        <button type="button" :class="{ 'active': 1 === activeIndex }" @click="toggleTab(1, 'D02002')">포스트댓글</button>
-        <button type="button" :class="{ 'active': 2 === activeIndex }" @click="toggleTab(2, 'D02003')">방명록</button>
-        <button type="button" :class="{ 'active': 3 === activeIndex }" @click="toggleTab(3, 'D02004')">방명록댓글</button>
-        <button type="button" :class="{ 'active': 4 === activeIndex }" @click="toggleTab(4, 'D02005')">만족도조사</button>
+        <ui-button :class="{ 'active': 0 === activeIndex }" @click="toggleTab(0, 'D02001')">포스트추천</ui-button>
+        <ui-button :class="{ 'active': 1 === activeIndex }" @click="toggleTab(1, 'D02002')">포스트댓글</ui-button>
+        <ui-button :class="{ 'active': 2 === activeIndex }" @click="toggleTab(2, 'D02003')">방명록</ui-button>
+        <ui-button :class="{ 'active': 3 === activeIndex }" @click="toggleTab(3, 'D02004')">방명록댓글</ui-button>
+        <ui-button :class="{ 'active': 4 === activeIndex }" @click="toggleTab(4, 'D02005')">만족도조사</ui-button>
       </div>
     
       <div class="notice__util__cont">
