@@ -60,11 +60,15 @@
   &--more {
     display: flex;
     width: 4rem;
+    min-width: 0;
     height: 2.5rem;
     margin: 0 auto;
-    padding-top: 0.5rem;
+    padding: 0;
     background-color: transparent;
+    box-shadow: none;
+    text-shadow: none;
     font-size: 1.8rem;
+    line-height: inherit;
     align-items: center;
     justify-content: center;
   

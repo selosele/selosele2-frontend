@@ -32,8 +32,7 @@
                      :block="true">로그인
           </ui-button>
 
-          <ui-button :type="'button'"
-                     :color="'secondary'"
+          <ui-button :color="'secondary'"
                      :class="'mt--15'"
                      :block="true"
                      @click="addUser"

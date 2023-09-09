@@ -5,8 +5,7 @@
                  @click="toggleList">위젯관리
       </ui-button>
 
-      <ui-button :type="'button'"
-                 :class="'widget__btn widget__btn--save'"
+      <ui-button :class="'widget__btn widget__btn--save'"
                  @click="updateWidget"
                  v-if="listActive">저장
       </ui-button>

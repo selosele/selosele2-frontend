@@ -3,15 +3,14 @@
     <div class="year__wrapper">
       <template v-for="(item,i) in yearList" :key="i">
         <h2 class="year__list-title">
-          <button type="button"
-                  :class="[
-                    'year__list-btn',
-                    { 'year__list-btn--active': i === activeIndex }
-                    ]"
-                  @click="toggleList(item.year, i)">
+          <ui-button :class="[
+                      'year__list-btn',
+                      { 'year__list-btn--active': i === activeIndex }
+                     ]"
+                     @click="toggleList(item.year, i)">
             <span class="year__list-name">{{ item.year }}</span>년에 작성된 포스트
             (<span class="sr-only">개수 : </span>{{ item.count }})
-          </button>
+          </ui-button>
         </h2>
 
         <ul class="year__list" v-if="i === activeIndex">
@@ -25,13 +24,12 @@
           </template>
         </ul>
 
-        <button type="button"
-                class="btn--more"
-                @click="onMore(item.year, i)"
-                v-if="i === activeIndex && (listCnt > pageSize) && !isLastPage">
-          <i class="xi-ellipsis-h" aria-hidden="true"></i>
-          <span class="sr-only">더보기</span>
-        </button>
+        <ui-icon-button class="btn--more"
+                        :icon="'xi-ellipsis-h'"
+                        :text="'더보기'"
+                        @click="onMore(item.year, i)"
+                        v-if="i === activeIndex && (listCnt > pageSize) && !isLastPage">
+        </ui-icon-button>
       </template>
     </div>
   </app-content-wrapper>
@@ -139,6 +137,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@/assets/scss/components/year.scss';
 </style>

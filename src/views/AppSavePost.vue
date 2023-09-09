@@ -8,8 +8,7 @@
                @onsubmit="onSubmit"
       >
         <div class="write__save-wrapper">
-          <ui-button :type="'button'"
-                     :color="'primary'"
+          <ui-button :color="'primary'"
                      :class="'write__btn--load'"
                      @click="listTmpPost">불러오기
           </ui-button>
@@ -268,8 +267,7 @@
           </tr>
 
           <template v-slot:btn>
-            <ui-button :type="'button'"
-                       :color="'success'"
+            <ui-button :color="'success'"
                        :class="'write__btn'"
                        @click="previewPost">미리보기
             </ui-button>

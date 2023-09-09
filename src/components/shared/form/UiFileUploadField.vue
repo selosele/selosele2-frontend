@@ -45,14 +45,12 @@
       </div>
 
       <div class="file-upload__btns">
-        <ui-button :type="'button'"
-                   :color="'secondary'"
+        <ui-button :color="'secondary'"
                    :class="'file-upload__btn file-upload__btn--reset'"
                    @click.stop="onReset">초기화
         </ui-button>
   
-        <ui-button :type="'button'"
-                   :color="'primary'"
+        <ui-button :color="'primary'"
                    :class="'file-upload__btn file-upload__btn--submit'"
                    @click.stop="onSubmit">업로드
         </ui-button>

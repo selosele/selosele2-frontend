@@ -14,8 +14,7 @@
       </div>
 
       <div>
-        <ui-button :type="'button'"
-                   :color="'secondary'"
+        <ui-button :color="'secondary'"
                    :routerLink="'/admin/post-reply'"
                    v-if="isLogin">댓글 관리
         </ui-button>

@@ -4,13 +4,17 @@
       display: block;
       position: relative;
       width: 100%;
+      height: auto;
       padding: 1.3rem 0.5rem;
       border-bottom: 0.2rem solid $grey08;
       background-color: transparent;
+      box-shadow: none;
+      text-shadow: none;
       font-style: italic;
       font-weight: 700;
       font-size: 0.9rem;
       letter-spacing: -0.03rem;
+      line-height: inherit;
       text-align: left;
 
       @media (min-width: $min-minimal-width) {
