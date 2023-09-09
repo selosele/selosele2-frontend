@@ -50,7 +50,7 @@ router.beforeEach((to, from, next) => {
   }
 
   // 로그인 중인데 로그인 페이지에 접근 시 리다이렉트
-  if (store.getters.isLogin && '/a/goto' === to.path) {
+  if (store.getters.isLogin && '/login' === to.path) {
     messageUtil.toastInfo('이미 로그인 중입니다.');
     next('/');
   }

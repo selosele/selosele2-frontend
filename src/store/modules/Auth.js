@@ -57,7 +57,7 @@ export const Auth = {
             },
           }, { root: true });
 
-          router.push('/a/goto');
+          router.push('/login');
         }).catch(err => {
           
           // 리프레시 토큰 오류로 인해 로그아웃이 불가한 경우, 액세스 토큰을 삭제한다.
@@ -65,7 +65,7 @@ export const Auth = {
             messageUtil.toastError('인증 오류가 발생했습니다.');
 
             commit('Auth/CLEAR_ACCESS_TOKEN', null, { root: true });
-            router.push('/a/goto');
+            router.push('/login');
           }
         });
       });

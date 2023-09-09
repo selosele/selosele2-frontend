@@ -12,7 +12,7 @@
            :style="styles">
         <div class="masthead__util-wrapper">
           <template v-if="!isLogin && isDevelopment">
-            <ui-icon-button :routerLink="'/a/goto'"
+            <ui-icon-button :routerLink="'/login'"
                             :icon="'xi-log-in'"
                             :text="'로그인'"
                             :class="'masthead__util'">
@@ -184,7 +184,7 @@ export default {
       const res = await this.$store.dispatch('Auth/LOGOUT');
 
       if ('ok' === res) {
-        this.$router.push('/a/goto');
+        this.$router.push('/login');
       }
     },
     /** 메뉴 toggle */
