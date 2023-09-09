@@ -124,12 +124,12 @@ export default {
     /** 블로그 환경설정 조회 */
     getBlogConfig() {
       return this.$store.dispatch('BlogConfig/GET_BLOG_CONFIG')
-      .then(data => {
+      .then(async data => {
         this.resStatus = 'ok';
 
-        // if ('/' === this.$route.path) {
-        //   this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', data?.title);
-        // }
+        if ('/' === this.$route.path) {
+          await this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', data?.title);
+        }
       });
     },
     /** 모바일 메뉴 toggle */
