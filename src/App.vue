@@ -127,9 +127,9 @@ export default {
       .then(data => {
         this.resStatus = 'ok';
 
-        if ('/' === this.$route.path) {
-          this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', data?.title);
-        }
+        // if ('/' === this.$route.path) {
+        //   this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', data?.title);
+        // }
       });
     },
     /** 모바일 메뉴 toggle */
