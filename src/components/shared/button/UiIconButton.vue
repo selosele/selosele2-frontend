@@ -4,7 +4,7 @@
           v-bind="$attrs"
           v-if="!routerLink && 'link' !== type">
     <i :class="icon" aria-hidden="true"></i>
-    <span class="sr-only" v-if="text">{{ text }}</span>
+    <span :class="{ 'sr-only': false === showText }" v-if="text">{{ text }}</span>
     <slot></slot>
   </button>
 
@@ -13,7 +13,7 @@
                v-bind="$attrs"
                v-if="routerLink && 'link' !== type">
     <i :class="icon" aria-hidden="true"></i>
-    <span class="sr-only" v-if="text">{{ text }}</span>
+    <span :class="{ 'sr-only': false === showText }" v-if="text">{{ text }}</span>
     <slot></slot>
   </router-link>
 
@@ -22,7 +22,7 @@
      v-bind="$attrs"
      v-if="!routerLink && 'link' === type">
     <i :class="icon" aria-hidden="true"></i>
-    <span class="sr-only" v-if="text">{{ text }}</span>
+    <span :class="{ 'sr-only': false === showText }" v-if="text">{{ text }}</span>
     <slot></slot>
   </a>
 </template>
@@ -38,6 +38,11 @@ export default {
     icon: String,
     /** text */
     text: String,
+    /** text 표출 여부 */
+    showText: {
+      type: Boolean,
+      default: false,
+    },
   },
 }
 </script>

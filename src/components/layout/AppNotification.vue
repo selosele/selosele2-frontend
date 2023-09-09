@@ -21,8 +21,7 @@
                          v-if="0 < postLikeList.length">
             </ui-checkbox>
   
-            <ui-icon-button :type="'button'"
-                            :color="'light'"
+            <ui-icon-button :color="'light'"
                             :icon="'xi-check'"
                             :class="'btn-notice-check'"
                             @click="updateCheckYn"
@@ -47,8 +46,7 @@
             </li>
           </ul>
   
-          <!-- <ui-icon-button :type="'button'"
-                          :icon="'xi-ellipsis-h'"
+          <!-- <ui-icon-button :icon="'xi-ellipsis-h'"
                           :text="'알림 더보기'"
                           :class="'btn-more'">
           </ui-icon-button> -->
@@ -65,8 +63,7 @@
                          v-if="0 < postReplyList.length">
             </ui-checkbox>
   
-            <ui-icon-button :type="'button'"
-                            :color="'light'"
+            <ui-icon-button :color="'light'"
                             :icon="'xi-check'"
                             :class="'btn-notice-check'"
                             @click="updateCheckYn"
@@ -91,8 +88,7 @@
             </li>
           </ul>
           
-          <!-- <ui-icon-button :type="'button'"
-                          :icon="'xi-ellipsis-h'"
+          <!-- <ui-icon-button :icon="'xi-ellipsis-h'"
                           :text="'알림 더보기'"
                           :class="'btn-more'">
           </ui-icon-button> -->
@@ -109,8 +105,7 @@
                          v-if="0 < guestbookList.length">
             </ui-checkbox>
   
-            <ui-icon-button :type="'button'"
-                            :color="'light'"
+            <ui-icon-button :color="'light'"
                             :icon="'xi-check'"
                             :class="'btn-notice-check'"
                             @click="updateCheckYn"
@@ -133,8 +128,7 @@
               <span class="info">{{ noti.regDate }}</span></li>
           </ul>
           
-          <!-- <ui-icon-button :type="'button'"
-                          :icon="'xi-ellipsis-h'"
+          <!-- <ui-icon-button :icon="'xi-ellipsis-h'"
                           :text="'알림 더보기'"
                           :class="'btn-more'">
           </ui-icon-button> -->
@@ -151,8 +145,7 @@
                          v-if="0 < guestbookReplyList.length">
             </ui-checkbox>
   
-            <ui-icon-button :type="'button'"
-                            :color="'light'"
+            <ui-icon-button :color="'light'"
                             :icon="'xi-check'"
                             :class="'btn-notice-check'"
                             @click="updateCheckYn"
@@ -175,8 +168,7 @@
               <span class="info">{{ noti.regDate }}</span></li>
           </ul>
           
-          <!-- <ui-icon-button :type="'button'"
-                          :icon="'xi-ellipsis-h'"
+          <!-- <ui-icon-button :icon="'xi-ellipsis-h'"
                           :text="'알림 더보기'"
                           :class="'btn-more'">
           </ui-icon-button> -->
@@ -192,8 +184,7 @@
                          v-if="0 < satisfactionList.length">
             </ui-checkbox>
   
-            <ui-icon-button :type="'button'"
-                            :color="'light'"
+            <ui-icon-button :color="'light'"
                             :icon="'xi-check'"
                             :class="'btn-notice-check'"
                             @click="updateCheckYn"
@@ -217,8 +208,7 @@
               <span class="info">{{ noti.regDate }}</span></li>
           </ul>
           
-          <!-- <ui-icon-button :type="'button'"
-                          :icon="'xi-ellipsis-h'"
+          <!-- <ui-icon-button :icon="'xi-ellipsis-h'"
                           :text="'알림 더보기'"
                           :class="'btn-more'">
           </ui-icon-button> -->

@@ -34,8 +34,7 @@
               </span>
             </span>
             
-            <ui-icon-button :type="'button'"
-                            :icon="'xi-close'"
+            <ui-icon-button :icon="'xi-close'"
                             :text="'이미지 삭제'"
                             :class="'file-upload--remove'"
                             @click="onRemove(i)">

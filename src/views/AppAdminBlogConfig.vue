@@ -88,8 +88,7 @@
                            :gap="10"
                            @onchange="onChangeAvatarImg">
 
-              <ui-file-button :type="'button'"
-                              :color="'secondary'"
+              <ui-file-button :color="'secondary'"
                               :listKey="'avatar'"
                               @listFile="onListFile"
                               @clickFile="onClickFile">Cloudinary
@@ -127,8 +126,7 @@
                            :gap="10"
                            @onchange="onChangeOgImg">
 
-              <ui-file-button :type="'button'"
-                              :color="'secondary'"
+              <ui-file-button :color="'secondary'"
                               :listKey="'og'"
                               @listFile="onListFile"
                               @clickFile="onClickFile">Cloudinary

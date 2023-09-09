@@ -74,8 +74,7 @@
           </div>
 
           <template v-if="0 < guestbook.guestbookReply.length">
-            <ui-icon-button :type="'button'"
-                            :icon="'xi-message'"
+            <ui-icon-button :icon="'xi-message'"
                             :class="'guestbook__btn guestbook__btn--reply-open'"
                             :title="`댓글 ${guestbook.guestbookReply.length}개 펼쳐보기`"
                             @click="toggleReplyList(i)">
@@ -96,8 +95,7 @@
           </app-add-guestbook-reply>
 
           <div class="guestbook__toggle">
-            <ui-icon-button :type="'button'"
-                            :icon="'xi-cog'"
+            <ui-icon-button :icon="'xi-cog'"
                             :text="'방명록 수정/삭제'"
                             :title="'방명록 수정/삭제'"
                             :class="'guestbook__btn--toggle'"

@@ -3,8 +3,7 @@
     <div class="d-flex-w flex--between mb--10">
       <div>
         <strong class="post__reply__count">댓글 <span>{{ realReplyList.length }}</span></strong>
-        <ui-icon-button :type="'button'"
-                        :color="'primary'"
+        <ui-icon-button :color="'primary'"
                         :icon="'xi-refresh'"
                         :text="'댓글 목록 새로고침'"
                         :title="'댓글 목록 새로고침'"
@@ -48,8 +47,7 @@
           </p>
     
           <div class="post__reply__info-inner" v-if="'N' === reply.delYn && 1 === reply.depth">
-            <ui-icon-button :type="'button'"
-                            :color="'secondary'"
+            <ui-icon-button :color="'secondary'"
                             :icon="'xi-pen'"
                             :text="'댓글 남기기'"
                             :title="'댓글 남기기'"
@@ -66,8 +64,7 @@
         </app-add-post-reply-depth>
     
         <div class="post__reply__toggle" v-if="'N' === reply.delYn">
-          <ui-icon-button :type="'button'"
-                          :icon="'xi-cog'"
+          <ui-icon-button :icon="'xi-cog'"
                           :text="'포스트 댓글 수정/삭제'"
                           :title="'포스트 댓글 수정/삭제'"
                           :class="'post__reply__btn--toggle'"
@@ -77,20 +74,22 @@
           <div class="post__reply__toggle-list" v-if="i === menuActiveIndex">
             <ul>
               <li>
-                <button type="button"
-                        class="post__reply__btn--edit"
-                        ref="postReplyMenuBtn"
-                        @click="openModal('E01003', reply, isLogin)">
-                  <i class="xi-pen-o" aria-hidden="true"></i> 댓글 수정
-                </button>
+                <ui-icon-button :icon="'xi-pen-o'"
+                                :text="'댓글 수정'"
+                                :showText="true"
+                                class="post__reply__btn--edit"
+                                ref="postReplyMenuBtn"
+                                @click="openModal('E01003', reply, isLogin)">
+                </ui-icon-button>
               </li>
               <li>
-                <button type="button"
-                        class="post__reply__btn--delete"
-                        ref="postReplyMenuBtn"
-                        @click="openModal('E01004', reply, isLogin)">
-                  <i class="xi-trash-o" aria-hidden="true"></i> 댓글 삭제
-                </button>
+                <ui-icon-button :icon="'xi-trash-o'"
+                                :text="'댓글 삭제'"
+                                :showText="true"
+                                class="post__reply__btn--delete"
+                                ref="postReplyMenuBtn"
+                                @click="openModal('E01004', reply, isLogin)">
+                </ui-icon-button>
               </li>
             </ul>
           </div>

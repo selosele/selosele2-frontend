@@ -15,8 +15,7 @@
     
           <ul class="write__save-list" v-if="0 < tmpPostList.length">
             <li v-for="(tmpPost,i) in tmpPostList" :key="i">
-              <ui-icon-button :type="'button'"
-                              :icon="'xi-close-min'"
+              <ui-icon-button :icon="'xi-close-min'"
                               :text="'삭제'"
                               :class="'write__save-list__delete'"
                               @click="removeTmpPost(tmpPost.id)">
@@ -86,8 +85,7 @@
             <th scope="row">
               <label for="savePostOgDesc">본문 요약</label>
 
-              <ui-icon-button :type="'button'"
-                              :icon="'xi-refresh'"
+              <ui-icon-button :icon="'xi-refresh'"
                               :text="'본문 요약 갱신'"
                               :class="'write__og-desc-refresh'"
                               @click="changeOgDesc">
@@ -121,8 +119,7 @@
                              :gap="10"
                              @onchange="onChangeOgImg">
                 
-                <ui-file-button :type="'button'"
-                                :color="'secondary'"
+                <ui-file-button :color="'secondary'"
                                 @clickFile="onClickFile">Cloudinary
                 </ui-file-button>
               </ui-file-field>

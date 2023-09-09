@@ -27,8 +27,7 @@
         </div>
   
         <div class="guestbook__reply__toggle">
-          <ui-icon-button :type="'button'"
-                          :icon="'xi-cog'"
+          <ui-icon-button :icon="'xi-cog'"
                           :text="'방명록 댓글 수정/삭제'"
                           :title="'방명록 댓글 수정/삭제'"
                           :class="'guestbook__reply__btn--toggle'"
@@ -59,8 +58,7 @@
       </li>
     </ul>
 
-    <ui-icon-button :type="'button'"
-                    :icon="'xi-ellipsis-h'"
+    <ui-icon-button :icon="'xi-ellipsis-h'"
                     :text="'댓글 더보기'"
                     :class="'guestbook__reply-more'"
                     @click="more"

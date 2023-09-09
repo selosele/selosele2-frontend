@@ -9,8 +9,7 @@
                  @onchange="listPostReplyAll">
       </ui-select>
 
-      <ui-button :type="'button'"
-                 :color="'primary'"
+      <ui-button :color="'primary'"
                  @click="restorePostReply"
                  v-if="'delYn' === option">복구
       </ui-button>
