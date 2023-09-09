@@ -55,6 +55,8 @@ export default {
 
     if (isNotBlank(pageTitle)) {
       this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', pageTitle);
+    } else {
+      this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '로딩 중...');
     }
     
     this.page = isNotEmpty(this.$route.query.page) ? parseInt(this.$route.query.page) : 1;
