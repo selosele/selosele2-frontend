@@ -128,6 +128,8 @@ export default {
         this.resStatus = 'ok';
 
         if ('/' === this.$route.path) {
+          
+          // await 키워드를 붙여서 비동기 방식으로 처리되도록 해줘야 값을 불러오는 동안 document.title = undefined가 되지 않는다.
           await this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', data?.title);
         }
       });
