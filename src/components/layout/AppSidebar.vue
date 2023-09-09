@@ -24,15 +24,15 @@
           <div class="widget widget__box">
             <h2 class="sidebar__item-title widget__title">
               <i :class="widget.icon + ' sidebar__item-title-icon'"
-                 :aria-hidden="!widgetActive">
+                  :aria-hidden="!widgetActive">
                 <span v-if="widgetActive">
                   <ui-text-field :type="'text'"
-                                 :name="'icon'"
-                                 :title="'아이콘 클래스명'"
-                                 :placeholder="'아이콘 클래스명'"
-                                 :autocomplete="'off'"
-                                 :value="widget.icon"
-                                 v-model="widget.icon">
+                                  :name="'icon'"
+                                  :title="'아이콘 클래스명'"
+                                  :placeholder="'아이콘 클래스명'"
+                                  :autocomplete="'off'"
+                                  :value="widget.icon"
+                                  v-model="widget.icon">
                   </ui-text-field>
                 </span>
               </i>
@@ -54,19 +54,19 @@
             <ul v-if="2 === widget.id">
               <li v-for="(tag,j) in tagList" :key="j">
                 <router-link :to="`/tag/${tag.id}`"
-                             :style="{ fontSize: `${getFontSize(tag.count)}%` }">{{ tag.nm }}
+                              :style="{ fontSize: `${getFontSize(tag.count)}%` }">{{ tag.nm }}
                   <span class="sidebar__item-count">{{ tag.count }}</span>
                 </router-link>
               </li>
             </ul>
 
-            <button type="button"
-                    class="widget__use"
-                    :title="'클릭하여 위젯을 \'미사용\' 상태로 변경'"
-                    @click="onChangeUseYn($event, widget.id)"
-                    v-if="widgetActive">
-              <span class="sr-only">사용 여부 선택</span>
-            </button>
+            <ui-icon-button :icon="'xi-check'"
+                            :text="'사용 여부 선택'"
+                            :title="'클릭하여 위젯을 \'미사용\' 상태로 변경'"
+                            class="widget__use"
+                            @click="onChangeUseYn($event, widget.id)"
+                            v-if="widgetActive">
+            </ui-icon-button>
           </div>
         </div>
       </ui-sort-item>
@@ -138,7 +138,7 @@ export default {
     },
   },
   methods: {
-    /** 정렬에 제외할 HTML 태그명 */
+    /** 정렬에 제외할 HTML 요소 */
     onShouldCancelStart(e) {
       const tag = [
         'input', 'textarea', 'select',
@@ -146,6 +146,7 @@ export default {
       ];
 
       const className = [
+        'widget__use',
         'sidebar__item-title-icon',
         'sidebar__item-title-text'
       ];

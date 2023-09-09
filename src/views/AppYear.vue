@@ -1,6 +1,6 @@
 <template>
   <app-content-wrapper>
-    <div class="year__wrapper">
+    <div class="year">
       <template v-for="(item,i) in yearList" :key="i">
         <h2 class="year__list-title">
           <ui-button :class="[
@@ -137,6 +137,6 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/components/year.scss';
 </style>
