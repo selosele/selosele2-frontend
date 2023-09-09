@@ -151,7 +151,7 @@ export default {
       if (!confirm) return;
 
       for (const file of this.fileList) {
-        //이미지 파일의 src 속성 값이 너무 길고 불필요하므로 삭제한다.
+        // 이미지 파일의 src 속성 값이 너무 길고 불필요하므로 삭제한다.
         delete file.src;
       }
 
