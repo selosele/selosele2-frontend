@@ -126,7 +126,7 @@ export default {
     /** 공통코드 등록 */
     addCode(values) {
       return this.$http.post('/code', values)
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('저장되었습니다.');
         this.$emit('saveCode');
       });
@@ -134,7 +134,7 @@ export default {
     /** 공통코드 수정 */
     updateCode(values) {
       return this.$http.put('/code', values)
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('저장되었습니다.');
         this.$emit('saveCode');
       });

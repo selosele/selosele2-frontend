@@ -44,7 +44,7 @@ export default {
       if (!confirm) return;
       
       this.$http.post('/postreply/remove', values)
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('삭제되었습니다.');
         
         this.$modal.hide(this.$options.name);

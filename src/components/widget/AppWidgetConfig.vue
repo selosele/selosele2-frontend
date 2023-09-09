@@ -79,8 +79,8 @@ export default {
       };
 
       return this.$http.get('/widget', { params: listWidgetDto })
-      .then(res => {
-        this.noUseWidgetList = [...res.data];
+      .then(resp => {
+        this.noUseWidgetList = [...resp.data];
       });
     },
     /** 위젯 목록 조회 및 store 업데이트 */
@@ -100,7 +100,7 @@ export default {
       if (!confirm) return;
 
       this.$http.put('/widget', this.widgetValue)
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('저장되었습니다.');
         this.init();
       });
@@ -118,7 +118,7 @@ export default {
       if (!confirm) return;
 
       this.$http.put('/widget/use', body)
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('저장되었습니다.');
         this.init();
       });

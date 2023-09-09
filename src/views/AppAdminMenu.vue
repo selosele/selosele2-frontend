@@ -58,8 +58,8 @@ export default {
     /** 메뉴 계층형 구조 조회 */
     listMenuTree() {
       return this.$http.get('/menu/list/tree')
-      .then(res => {
-        this.createTree(res.data);
+      .then(resp => {
+        this.createTree(resp.data);
         this.parentMenuList = this.listParentMenu(this.$store.state.Menu.data, []);
       });
     },
@@ -107,8 +107,8 @@ export default {
       this.$store.commit('Loading/SET_USE_LOADING', false);
 
       return this.$http.get(`/menu/${node.id}`)
-      .then(res => {
-        this.menu = { ...res.data };
+      .then(resp => {
+        this.menu = { ...resp.data };
         this.parentMenuList = this.listParentMenu(this.$store.state.Menu.data, [])
           .filter(d => d.value !== this.menu.id);
 

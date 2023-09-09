@@ -69,8 +69,8 @@ export default {
     /** 포스트의 연도 및 개수 조회 */
     listYearAndCount() {
       return this.$http.get('/post/year')
-      .then(res => {
-        res.data.map(d => {
+      .then(resp => {
+        resp.data.map(d => {
           this.yearList.push(d);
         });
       });

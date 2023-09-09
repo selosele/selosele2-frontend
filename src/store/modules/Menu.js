@@ -18,8 +18,8 @@ export const Menu = {
     },
     async LIST_MENU({ commit }, values) {
       return http.get('/menu/list/tree', { params: values.params })
-      .then(res => {
-        commit('SET_MENU', res.data);
+      .then(resp => {
+        commit('SET_MENU', resp.data);
       });
     },
   },

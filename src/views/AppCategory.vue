@@ -71,8 +71,8 @@ export default {
       let category = {};
 
       return this.$http.get(`${this.getApiUri()}/${this.id}`, { params: paginationDto })
-      .then(res => {
-        res.data[0].map(d => {
+      .then(resp => {
+        resp.data[0].map(d => {
           category.type = isNotEmpty(d.postCategory) ? '카테고리' : '태그';
           category.nm = isNotEmpty(d.postCategory) ? d.postCategory[0].category.nm : d.postTag[0].tag.nm;
           d.regDate = this.$moment(d.regDate).format('YYYY.MM.DD');
@@ -80,7 +80,7 @@ export default {
           this.postList.push(d);
         });
 
-        this.listCnt = res.data[1];
+        this.listCnt = resp.data[1];
 
         if (this.listCnt === this.postList.length) {
           this.isLastPage = true;

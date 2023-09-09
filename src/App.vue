@@ -114,8 +114,8 @@ export default {
     /** 공통코드 목록 조회 */
     listCode() {
       return this.$http.get('/code')
-      .then(res => {
-        const codeList = res.data.filter(d => d.useYn === 'Y');
+      .then(resp => {
+        const codeList = resp.data.filter(d => d.useYn === 'Y');
         
         this.$store.dispatch('Code/FETCH_CODE', codeList);
         this.$store.dispatch('Satisfaction/FETCH_CODE', codeList.filter(d => d.prefix === 'B01'));

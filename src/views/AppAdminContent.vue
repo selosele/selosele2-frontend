@@ -60,10 +60,10 @@ export default {
     /** 콘텐츠 목록 조회 */
     listContent() {
       return this.$http.get('/content')
-      .then(res => {
+      .then(resp => {
         this.rowData = [];
 
-        res.data[0].map(d => {
+        resp.data[0].map(d => {
           d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
 
           if (isNotEmpty(d.modDate)) {
@@ -94,7 +94,7 @@ export default {
       });
 
       this.$http.post('/content/remove', removeContentDto)
-      .then(res => {
+      .then(resp => {
         this.gridApi.removeSelectedRows();
         messageUtil.toastSuccess('삭제되었습니다.');
       });

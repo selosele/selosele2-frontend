@@ -134,7 +134,7 @@ export default {
       if (!confirm) return;
 
       this.$http.post('/post/remove', checkPostList)
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('삭제되었습니다.');
 
         this.$store.dispatch('Post/FETCH_MAIN_POSTLIST', {});
@@ -149,9 +149,9 @@ export default {
       if (!runValidate.valid) return;
 
       this.$http.get('/post', { params: { categoryId, pageType: 'D01001' } })
-      .then(res => {
+      .then(resp => {
         this.$store.dispatch('Post/FETCH_SELECTED_CATEGORY_ID', categoryId);
-        this.$emit('listPost', res.data);
+        this.$emit('listPost', resp.data);
       });
     },
     /** 포스트 전체 선택 */

@@ -64,10 +64,10 @@ export default {
     /** 만족도조사 목록 조회 */
     listSatisfaction(searchSatisfactiontDto) {
       return this.$http.get('/satisfaction', { params: searchSatisfactiontDto })
-      .then(res => {
+      .then(resp => {
         this.rowData = [];
 
-        res.data.map(d => {
+        resp.data.map(d => {
           d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
           d.score = this.$store.state.Code.data
             .filter(v => v.useYn === 'Y' && v.prefix === 'B01' && (v.val === d.score))

@@ -51,9 +51,9 @@ export const Layout = {
     LIST_WIDGET({ commit }, values) {
       return new Promise((resolve, reject) => {
         http.get('/widget', { params: values?.params })
-        .then(res => {
-          commit('SET_WIDGET', res.data);
-          resolve(res.data);
+        .then(resp => {
+          commit('SET_WIDGET', resp.data);
+          resolve(resp.data);
         });
       });
     },

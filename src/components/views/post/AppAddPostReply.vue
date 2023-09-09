@@ -99,7 +99,7 @@ export default {
       values.title = this.$store.state.Breadcrumb.pageTitle;
 
       this.$http.post('/postreply', values)
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('저장되었습니다.');
 
         this.listPostReply();
@@ -108,10 +108,10 @@ export default {
     /** 포스트 댓글 목록 조회 */
     listPostReply() {
       return this.$http.get(`/postreply/list/${this.id}`)
-      .then(res => {
+      .then(resp => {
         this.replyList = [];
 
-        res.data[0].map(d => {
+        resp.data[0].map(d => {
           this.setData(d);
           this.replyList.push(d);
         });

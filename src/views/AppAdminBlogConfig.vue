@@ -357,10 +357,10 @@ export default {
       const headers = { 'Content-Type': 'multipart/form-data' };
 
       this.$http.put('/blogconfig', values, { headers })
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('저장되었습니다.');
 
-        this.$store.dispatch('BlogConfig/FETCH_BLOG_CONFIG', res.data);
+        this.$store.dispatch('BlogConfig/FETCH_BLOG_CONFIG', resp.data);
         this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', null);
         this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
       });

@@ -158,7 +158,7 @@ export default {
       const headers = { 'Content-Type': 'multipart/form-data' };
 
       this.$http.post('/file', this.fileList, { headers })
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('전송되었습니다.');
 
         this.onReset();

@@ -80,7 +80,7 @@ export default {
       if (!confirm) return;
 
       this.$http.post('/satisfaction', values)
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('참여해주셔서 감사합니다.');
       });
     },

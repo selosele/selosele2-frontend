@@ -303,7 +303,7 @@ import { isNotEmpty, messageUtil } from '@/utils';
         }
 
         return this.$http.put('/notification', this.idList)
-        .then(res => {
+        .then(resp => {
           this.$emit('check');
         });
       },

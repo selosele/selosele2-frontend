@@ -74,12 +74,12 @@ export default {
       const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;
       
-      this.$http.put('/postReply', values)
-      .then(res => {
+      this.$http.put('/postreply', values)
+      .then(resp => {
         messageUtil.toastSuccess('저장되었습니다.');
 
         this.$modal.hide(this.$options.name);
-        this.$store.dispatch('Post/FETCH_UPDATED_POST_REPLY', res.data);
+        this.$store.dispatch('Post/FETCH_UPDATED_POST_REPLY', resp.data);
       });
     },
   },

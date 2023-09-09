@@ -44,8 +44,8 @@ export default {
     /** 개수별 포스트 조회 */
     listPostByLimit(limit) {
       return this.$http.get(`/post/limit/${limit}`)
-      .then(res => {
-        res.data.map(d => {
+      .then(resp => {
+        resp.data.map(d => {
           this.postList.push(d);
         });
       });

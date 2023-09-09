@@ -60,7 +60,7 @@ export default {
       if (!confirm) return;
 
       this.$http.delete(`${this.getApiUri(values)}/${values.id}`)
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('삭제되었습니다.');
         this.$emit('refreshCategory');
       });
@@ -68,7 +68,7 @@ export default {
     /** 카테고리 등록 */
     addCategory(values) {
       return this.$http.post(this.getApiUri(values), values)
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('저장되었습니다.');
         this.$emit('refreshCategory');
       });
@@ -76,7 +76,7 @@ export default {
     /** 카테고리 수정 */
     updateCategory(values) {
       return this.$http.put(this.getApiUri(values), values)
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('저장되었습니다.');
         this.$emit('refreshCategory');
       });

@@ -141,7 +141,7 @@ export default {
       if (!confirm) return;
 
       this.$http.delete(`/menu/${values.id}`)
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('삭제되었습니다.');
 
         this.listMenu();
@@ -151,10 +151,10 @@ export default {
     /** 메뉴 등록 */
     addMenu(values) {
       return this.$http.post('/menu', values)
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('저장되었습니다.');
 
-        this.$refs['menuId'].$el.value = res.data.id;
+        this.$refs['menuId'].$el.value = resp.data.id;
         this.$emit('refreshMenu');
       });
     },
@@ -169,10 +169,10 @@ export default {
     /** 메뉴 수정 */
     updateMenu(values) {
       return this.$http.put('/menu', values)
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('저장되었습니다.');
 
-        this.$refs['menuId'].$el.value = res.data.id;
+        this.$refs['menuId'].$el.value = resp.data.id;
         this.$emit('refreshMenu');
       });
     },
@@ -181,9 +181,9 @@ export default {
       this.$store.commit('Loading/SET_USE_LOADING', false);
 
       return this.$http.get('/auth/role')
-      .then(res => {
+      .then(resp => {
         this.roleList = [
-          ...res.data.map(d => {
+          ...resp.data.map(d => {
             return {
               value: d.roleId,
               text: d.roleNm,

@@ -30,9 +30,9 @@ export const BlogConfig = {
         store.dispatch('Breadcrumb/FETCH_INITIAL_PAGE_TITLE');
 
         http.get('/blogconfig')
-        .then(res => {
-          commit('SET_BLOG_CONFIG', res.data);
-          resolve(res.data);
+        .then(resp => {
+          commit('SET_BLOG_CONFIG', resp.data);
+          resolve(resp.data);
         });
       });
     },

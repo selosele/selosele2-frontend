@@ -76,8 +76,8 @@ export default {
       this.$store.commit('Loading/SET_USE_LOADING', false);
 
       this.$http.get(`/code/${params.data.id}`)
-      .then(res => {
-        this.code = { ...res.data };
+      .then(resp => {
+        this.code = { ...resp.data };
         this.$store.commit('Splitter/TOGGLE', true);
         this.$store.commit('Loading/SET_USE_LOADING', true);
       });
@@ -85,13 +85,13 @@ export default {
     /** 공통코드 목록 조회 */
     listCode() {
       return this.$http.get('/code')
-      .then(res => {
-        res.data.map(d => {
+      .then(resp => {
+        resp.data.map(d => {
           d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
           d.useYn = this.getUseYn(d.useYn);
         });
 
-        this.rowData = [...res.data];
+        this.rowData = [...resp.data];
       });
     },
     /** 공통코드 등록 */
@@ -121,7 +121,7 @@ export default {
       });
 
       this.$http.post('/code/remove', removeCodeDto)
-      .then(res => {
+      .then(resp => {
         this.gridApi.removeSelectedRows();
         messageUtil.toastSuccess('삭제되었습니다.');
 

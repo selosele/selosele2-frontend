@@ -95,15 +95,15 @@ export default {
     /** 카테고리-포스트 계층형 구조 조회 */
     listCategoryTreeAndPost() {
       return this.$http.get('/category/list/tree')
-      .then(res => {
-        this.createTree(res.data, 'D01004');
+      .then(resp => {
+        this.createTree(resp.data, 'D01004');
       });
     },
     /** 태그-포스트 계층형 구조 조회 */
     listTagTreeAndPost() {
       return this.$http.get('/tag/list/tree')
-      .then(res => {
-        this.createTree(res.data, 'D01005');
+      .then(resp => {
+        this.createTree(resp.data, 'D01005');
       });
     },
     /** 트리 생성 */
@@ -186,8 +186,8 @@ export default {
       if (1 === this.activeIndex) this.type = 'tag';
 
       return this.$http.get(`/${this.type}/${node.id}`)
-      .then(res => {
-        this.category = { ...res.data };
+      .then(resp => {
+        this.category = { ...resp.data };
         this.category.regDate = this.$moment(this.category.regDate).format('YYYY-MM-DD HH:mm:ss');
       });
     },

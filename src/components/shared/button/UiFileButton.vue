@@ -39,13 +39,13 @@ export default {
 
       await (() => {
         return this.$http.get('/file')
-        .then(res => {
-          if (0 === res.data.length) {
+        .then(resp => {
+          if (0 === resp.data.length) {
             messageUtil.toastWarning('파일이 존재하지 않습니다.');
             return;
           }
 
-          this.fileList = [...res.data];
+          this.fileList = [...resp.data];
 
           this.$emit('listFile', this.fileList, this.listKey);
         });

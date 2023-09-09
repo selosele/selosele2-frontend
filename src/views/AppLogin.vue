@@ -90,7 +90,7 @@ export default {
       if (!confirm) return;
 
       this.$http.post('/auth/user', addUserDto)
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('사용자가 생성되었습니다.');
       });
     },

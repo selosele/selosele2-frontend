@@ -215,8 +215,8 @@ export default {
     /** 카테고리 목록 및 개수 조회 */
     listCategoryAndCount() {
       return this.$http.get('/category/list/count')
-      .then(res => {
-        res.data.map(d => {
+      .then(resp => {
+        resp.data.map(d => {
           this.categoryList.push(d);
         });
 
@@ -226,8 +226,8 @@ export default {
     /** 태그 목록 및 개수 조회 */
     listTagAndCount() {
       return this.$http.get('/tag/list/count')
-      .then(res => {
-        res.data.map(d => {
+      .then(resp => {
+        resp.data.map(d => {
           this.tagList.push(d);
         });
         

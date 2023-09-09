@@ -185,12 +185,12 @@ export default {
     /** 포스트 검색 */
     listPostSearch(params, isMore = false) {
       return this.$http.get('/post/search', { params })
-        .then(async res => {
-          res.data[0].map(d => {
+        .then(async resp => {
+          resp.data[0].map(d => {
             this.postList.push(d);
           });
 
-          this.listCnt = res.data[1];
+          this.listCnt = resp.data[1];
 
           if (this.listCnt === this.postList.length) {
             this.isLastPage = true;

@@ -43,7 +43,7 @@ export const Auth = {
     LOGOUT({ commit, dispatch }) {
       return new Promise((resolve, reject) => {
         http.post('/auth/signout')
-        .then(res => {
+        .then(resp => {
           http.defaults.headers.common['Authorization'] = '';
           
           commit('Loading/SET_IS_LOADING', false, { root: true });

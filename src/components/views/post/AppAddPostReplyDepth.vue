@@ -82,7 +82,7 @@ export default {
       values.title = this.$store.state.Breadcrumb.pageTitle;
 
       this.$http.post('/postreply', values)
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('저장되었습니다.');
         this.$emit('refreshList');
       });

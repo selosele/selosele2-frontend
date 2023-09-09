@@ -77,10 +77,10 @@ export default {
       }
 
       return this.$http.get('/postreply', { params: listPostReplyDto })
-      .then(res => {
+      .then(resp => {
         this.rowData = [];
 
-        res.data.map(d => {
+        resp.data.map(d => {
           d.link = `/post/${d.parentId}`;
           d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
 
@@ -105,7 +105,7 @@ export default {
       if (!confirm) return;
 
       this.$http.put('/postreply/restore', rows)
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('복구되었습니다.');
         this.gridApi.removeSelectedRows();
       });

@@ -34,7 +34,7 @@ class MessageUtil {
 				title: title,
 				text: text,
 				icon: 'success',
-			}).then(result => resolve(result.isConfirmed));
+			}).then(res => resolve(res.isConfirmed));
 		});
   }
 
@@ -45,7 +45,7 @@ class MessageUtil {
 				title: title,
 				text: text,
 				icon: 'error',
-			}).then(result => resolve(result.isConfirmed));
+			}).then(res => resolve(res.isConfirmed));
 		});
   }
 
@@ -56,7 +56,7 @@ class MessageUtil {
 				title: title,
 				text: text,
 				icon: 'warning',
-			}).then(result => resolve(result.isConfirmed));
+			}).then(res => resolve(res.isConfirmed));
 		});
   }
 
@@ -67,7 +67,7 @@ class MessageUtil {
 				title: title,
 				text: text,
 				icon: 'info',
-			}).then(result => resolve(result.isConfirmed));
+			}).then(res => resolve(res.isConfirmed));
 		});
   }
 
@@ -78,7 +78,7 @@ class MessageUtil {
 				title: title,
 				text: text,
 				icon: 'question',
-			}).then(result => resolve(result.isConfirmed));
+			}).then(res => resolve(res.isConfirmed));
 		});
   }
 
@@ -89,7 +89,7 @@ class MessageUtil {
 				title: title,
 				text: text,
 				icon: 'success',
-			}).then(result => resolve(result.isConfirmed));
+			}).then(res => resolve(res.isConfirmed));
 		});
   }
 
@@ -100,7 +100,7 @@ class MessageUtil {
 				title: title,
 				text: text,
 				icon: 'error',
-			}).then(result => resolve(result.isConfirmed));
+			}).then(res => resolve(res.isConfirmed));
 		});
   }
 
@@ -111,7 +111,7 @@ class MessageUtil {
 				title: title,
 				text: text,
 				icon: 'warning',
-			}).then(result => resolve(result.isConfirmed));
+			}).then(res => resolve(res.isConfirmed));
 		});
   }
 
@@ -122,7 +122,7 @@ class MessageUtil {
 				title: title,
 				text: text,
 				icon: 'info',
-			}).then(result => resolve(result.isConfirmed));
+			}).then(res => resolve(res.isConfirmed));
 		});
   }
 
@@ -133,7 +133,7 @@ class MessageUtil {
 				title: title,
 				text: text,
 				icon: 'question',
-			}).then(result => resolve(result.isConfirmed));
+			}).then(res => resolve(res.isConfirmed));
 		});
   }
 

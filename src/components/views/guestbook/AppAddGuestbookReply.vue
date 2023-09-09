@@ -75,9 +75,9 @@ export default {
       if (!confirm) return;
 
       this.$http.post('/guestbookreply', values)
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('저장되었습니다.');
-        this.$emit('addReply', res.data);
+        this.$emit('addReply', resp.data);
       });
     },
   },

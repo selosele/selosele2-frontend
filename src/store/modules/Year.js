@@ -46,16 +46,16 @@ export const Year = {
       // 없으면 HTTP 통신을 해서 받아온 데이타를 반환한다.
       return new Promise((resolve, reject) => {
         http.get(`/post/year/${values.year}`, { params: values.paginationDto })
-        .then(res => {
+        .then(resp => {
           commit('SET_YEAR_POSTS', {
             year: values.year,
-            list: res.data,
+            list: resp.data,
             paginationDto: values.paginationDto,
             flag: values.flag,
           });
 
           resolve({
-            [values.year]: res.data,
+            [values.year]: resp.data,
           });
         });
       });

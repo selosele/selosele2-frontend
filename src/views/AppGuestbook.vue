@@ -210,13 +210,13 @@ export default {
       };
 
       return this.$http.get('/guestbook', { params: paginationDto })
-      .then(res => {
-        if (0 === res.data[0].length) {
+      .then(resp => {
+        if (0 === resp.data[0].length) {
           this.isScrolled = false;
           return;
         }
 
-        res.data[0].map(a => {
+        resp.data[0].map(a => {
           const guestbookData = this.setData(a);
           this.guestbookList.push(guestbookData);
 
@@ -225,7 +225,7 @@ export default {
           });
         });
 
-        this.listCnt = res.data[1];
+        this.listCnt = resp.data[1];
 
         if (this.listCnt === this.guestbookList.length) {
           this.isLastPage = true;
@@ -298,8 +298,8 @@ export default {
       if (!confirm) return;
 
       this.$http.post('/guestbook', values)
-      .then(res => {
-        const guestbook = { ...res.data };
+      .then(resp => {
+        const guestbook = { ...resp.data };
         
         guestbook.regDate = this.$moment(guestbook.regDate).format('YYYY-MM-DD HH:mm:ss');
         guestbook.guestbookReply = [];

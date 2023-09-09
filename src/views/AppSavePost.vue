@@ -478,8 +478,8 @@ export default {
       let url = this.isUpdatePostPage ? `/post/${id}` : `/content/${id}`;
 
       return this.$http.get(url)
-      .then(res => {
-        this.post = { ...res.data };
+      .then(resp => {
+        this.post = { ...resp.data };
         this.setData(this.post);
       });
     },
@@ -536,8 +536,8 @@ export default {
     /** 카테고리 목록 조회 */
     listCategory() {
       return this.$http.get('/category')
-      .then(res => {
-        res.data.map(d => {
+      .then(resp => {
+        resp.data.map(d => {
           this.categoryList.push({
             value: d.id,
             text: d.nm,
@@ -548,8 +548,8 @@ export default {
     /** 태그 목록 조회 */
     listTag() {
       return this.$http.get('/tag')
-      .then(res => {
-        res.data.map(d => {
+      .then(resp => {
+        resp.data.map(d => {
           this.tagList.push({
             value: d.id,
             text: d.nm,
@@ -595,11 +595,11 @@ export default {
       let url = this.isPostPage ? '/post/preview' : '/content/preview';
 
       return this.$http.post(url, body)
-      .then(res => {
+      .then(resp => {
         this.$modal.show({
           component: AppPreviewPostModal,
           bind: {
-            post: res.data,
+            post: resp.data,
           },
         });
       });
@@ -613,19 +613,20 @@ export default {
 
       const listPostDto = { tmpYn: 'Y' };
       let url = this.isPostPage ? '/post' : '/content';
+      let type = this.isPostPage ? '포스트' : '콘텐츠';
 
       return this.$http.get(url, { params: listPostDto })
-      .then(res => {
-        if (0 === res.data[0].length) {
-          messageUtil.toastWarning('임시저장된 포스트가 없습니다.');
+      .then(resp => {
+        if (0 === resp.data[0].length) {
+          messageUtil.toastWarning(`임시저장된 ${type}가 없습니다.`);
           return;
         }
 
-        res.data[0].map(d => {
+        resp.data[0].map(d => {
           d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
         });
 
-        this.tmpPostList = [...res.data[0]];
+        this.tmpPostList = [...resp.data[0]];
       });
     },
     /** 임시저장 포스트 적용 */
@@ -642,7 +643,7 @@ export default {
       if (!confirm) return;
 
       return this.$http.delete(`/post/${postId}`)
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('삭제되었습니다.');
         this.tmpPostList = this.tmpPostList.filter(d => d.id !== postId);
       });

@@ -136,8 +136,8 @@ export default {
       });
       
       return this.$http.get('/category/list/count')
-      .then(res => {
-        res.data.map(d => {
+      .then(resp => {
+        resp.data.map(d => {
           this.categoryList.push({
             value: d.id,
             text: d.nm,

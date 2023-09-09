@@ -22,9 +22,9 @@ export const Notification = {
     LIST_NOTIFICATION({ commit }) {
       return new Promise((resolve, reject) => {
         http.get('/notification')
-        .then(res => {
-          commit('SET_NOTIFICATION', res.data);
-          resolve(res.data);
+        .then(resp => {
+          commit('SET_NOTIFICATION', resp.data);
+          resolve(resp.data);
         });
       });
     },

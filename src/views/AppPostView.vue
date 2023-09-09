@@ -217,9 +217,9 @@ export default {
       let url = this.isPostPage ? `/post/${id}` : `/content/${id}`;
 
       return this.$http.get(url)
-      .then(res => {
+      .then(resp => {
         this.dataLoaded = true;
-        this.post = { ...res.data };
+        this.post = { ...resp.data };
         this.post.regDate = this.$moment(this.post.regDate).format('YYYY-MM-DD HH:mm:ss');
 
         if (isNotBlank(this.post.modDate)) {
@@ -234,8 +234,8 @@ export default {
     /** 이전/다음 포스트 조회 */
     listPrevAndNextPost(id) {
       return this.$http.get(`/post/prevnext/${id}`)
-      .then(res => {
-        const [prev, next] = res.data;
+      .then(resp => {
+        const [prev, next] = resp.data;
         this.prevPost = prev || null;
         this.nextPost = next || null;
       });
@@ -243,8 +243,8 @@ export default {
     /** 포스트 추천 정보 조회 */
     getPostLike(id) {
       return this.$http.get(`/postlike/${id}`)
-      .then(res => {
-        if (isNotEmpty(res.data)) {
+      .then(resp => {
+        if (isNotEmpty(resp.data)) {
           this.isPostLiked = true;
         } else {
           this.isPostLiked = false;
@@ -261,11 +261,11 @@ export default {
       this.$store.commit('Loading/SET_USE_LOADING', false);
 
       return this.$http.post('/postlike', savePostLikeDto)
-      .then(res => {
-        if (0 === this.postLikeCnt && -1 === res.data) return;
+      .then(resp => {
+        if (0 === this.postLikeCnt && -1 === resp.data) return;
 
         this.getPostLike(id);
-        this.postLikeCnt += res.data;
+        this.postLikeCnt += resp.data;
       });
     },
     /** 포스트 삭제 */
@@ -276,7 +276,7 @@ export default {
       let url = this.isPostPage ? `/post/${values.id}` : `/content/${values.id}`;
 
       this.$http.delete(url)
-      .then(res => {
+      .then(resp => {
         messageUtil.toastSuccess('삭제되었습니다.');
         this.goToList();
       });
