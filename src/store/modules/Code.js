@@ -2,7 +2,7 @@
 export const Code = {
   namespaced: true,
   state: () => ({
-    /** 공통코드 데이타 */
+    /** 공통코드 목록 */
     data: [],
   }),
   mutations: {

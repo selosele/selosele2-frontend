@@ -5,7 +5,7 @@ import store from "..";
 export const BlogConfig = {
   namespaced: true,
   state: () => ({
-    /** 블로그 환경설정 데이타 */
+    /** 블로그 환경설정 정보 */
     data: null,
     /** 블로그 환경설정 미리보기 데이타 */
     previewData: null,
