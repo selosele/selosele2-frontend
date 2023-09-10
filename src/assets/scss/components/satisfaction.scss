@@ -4,10 +4,6 @@
   padding-bottom: 1.2rem;
   font-size: 0.85rem;
 
-  @media (min-width: $min-big-width) {
-    width: calc(100% - #{$sidebar-width + 2});
-  }
-
   .satisfaction {
     $size: 0.7rem;
   
@@ -44,7 +40,7 @@
       padding: 0 $size;
   
       &:first-of-type {
-        gap: 0.4rem 1rem;
+        gap: 0 1rem;
   
         input[type='radio'] {
           + label {
@@ -55,17 +51,51 @@
   
       &__inner {
         display: flex;
-        width: 100%;
         flex-wrap: wrap;
         justify-content: space-between;
-        align-items: flex-end;
   
-        @media (min-width: $min-small-width) {
+        @media (min-width: $min-minimal-width) {
           justify-content: flex-start;
+        }
+
+        @media (min-width: $min-small-width) {
+          justify-content: start;
         }
 
         > .input-wrapper {
           width: calc(100% - 2rem);
+          height: auto;
+          margin-top: 0;
+
+          &:first-child {
+            width: 100%;
+            margin-bottom: 0.5rem;
+            
+            @media (min-width: $min-minimal-width) {
+              width: 10rem;
+              margin-bottom: 0;
+            }
+            
+            @media (min-width: $min-small-width) {
+              width: 15rem;
+            }
+            
+            @media (min-width: $min-medium-width) {
+              width: 20rem;
+            }
+          }
+
+          &:nth-child(2) {
+            width: calc(100% - 2.3rem);
+            
+            @media (min-width: $min-minimal-width) {
+              width: 10.4rem;
+            }
+
+            > select {
+              width: 100%;
+            }
+          }
 
           @media (min-width: $min-standard-width) {
             width: 30rem;
@@ -76,11 +106,9 @@
   
     &__comment {
       width: 100%;
-      height: 2rem;
       border: 0;
       border-bottom: 1px solid $grey06;
       background-color: transparent;
-      line-height: 2rem;
     }
   
     &__btn {
@@ -89,11 +117,11 @@
       width: 1.8rem;
       height: 1.8rem;
       padding: 0;
-      border-radius: 50%;
+      box-shadow: none;
+      text-shadow: none;
+      color: $sub-color03;
       font-size: 1.7rem;
       line-height: 1;
-      color: $sub-color03;
-      text-shadow: none;
       justify-content: center;
       align-items: center;
     }

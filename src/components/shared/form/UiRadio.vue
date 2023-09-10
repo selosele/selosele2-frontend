@@ -7,7 +7,8 @@
            :rules="rules"
            :value="value"
            v-bind="$attrs"
-           v-model="mv">
+           v-model="mv"
+           @change="onChange">
     </Field>
 
     <label :for="id"
@@ -53,7 +54,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    /** 에러메시지 tooltip 사용 여부 */
+    /** 오류 메시지 tooltip 사용 여부 */
     tooltip: {
       type: Boolean,
       default: false,
@@ -75,6 +76,11 @@ export default {
       },
       set(v) {}
     }
+  },
+  methods: {
+    onChange(e) {
+      this.$emit('onchange', e.target.value);
+    },
   },
 }
 </script>
