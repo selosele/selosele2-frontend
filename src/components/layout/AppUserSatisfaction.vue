@@ -11,7 +11,7 @@
       <ui-hidden-field :name="'pageTitle'" :value="''" />
 
       <div class="satisfaction__field">
-        <ui-radio v-for="(item,i) in $store.state.Satisfaction.code" :key="i"
+        <ui-radio v-for="(item,i) in $store.state.Satisfaction.code.filter(d => d.prefix === 'B01')" :key="i"
                   :id="`score${item.val}`"
                   :name="'score'"
                   :label="item.nm"
@@ -40,6 +40,7 @@
                        :title="'의견 선택'"
                        :defaultValue="'직접 입력'"
                        :data="commentList"
+                       v-model="commentTypeCd"
                        @onchange="setComment">
             </ui-select>
 
@@ -67,19 +68,17 @@ export default {
       comment: '',
       /** 만족도조사 의견 목록 */
       commentList: [],
-      /** 만족도조사 공통코드 목록 */
-      satisCodeList: [],
+      commentTypeCd: '',
     }
   },
   created() {
-    this.satisCodeList = this.$store.state.Code.data.filter(d => d.prefix === 'B02' || d.prefix === 'B03');
-
     this.setDefaultData('003');
     this.setCommentList('003');
   },
   watch: {
     '$route'() {
       this.setDefaultData('003');
+      this.setCommentList('003');
     },
   },
   methods: {
@@ -101,14 +100,15 @@ export default {
     },
     /** 만족도조사 의견 목록 세팅 */
     setCommentList(value) {
-      this.commentList = this.satisCodeList.filter(d => {
+      this.commentTypeCd = '';
+      this.commentList = this.$store.state.Satisfaction.code.filter(d => {
 
         // 점수 - 매우 불만족, 불만족
         if (('001' === value || '002' === value) && 'B02' === d.prefix) {
           return true;
         }
         // 점수 - 보통
-        else if ('003' === value) {
+        else if ('003' === value && ('B02' === d.prefix || 'B03' === d.prefix)) {
           return true;
         }
         // 점수 - 매우 만족, 만족

@@ -116,9 +116,9 @@ export default {
       return this.$http.get('/code')
       .then(resp => {
         const codeList = resp.data.filter(d => d.useYn === 'Y');
-        
+
         this.$store.dispatch('Code/FETCH_CODE', codeList);
-        this.$store.dispatch('Satisfaction/FETCH_CODE', codeList.filter(d => d.prefix === 'B01'));
+        this.$store.dispatch('Satisfaction/FETCH_CODE', codeList.filter(d => d.prefix === 'B01' || d.prefix === 'B02' || d.prefix === 'B03'));
       });
     },
     /** 블로그 환경설정 조회 */
