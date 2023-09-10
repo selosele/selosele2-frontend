@@ -59,7 +59,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    /** 에러메시지 tooltip 사용 여부 */
+    /** 오류 메시지 tooltip 사용 여부 */
     tooltip: {
       type: Boolean,
       default: false,

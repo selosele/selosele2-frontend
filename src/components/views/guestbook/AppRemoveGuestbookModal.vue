@@ -8,7 +8,7 @@
                        :name="'authorPw'"
                        :id="'removeGuestbookPw'"
                        :clazz="['guestbook__input']"
-                       :title="'비밀번호 입력'"
+                       :title="isLogin ? '관리자는 비밀번호 입력 없이 삭제' : '비밀번호 입력'"
                        :placeholder="'비밀번호 입력'"
                        :disabled="isLogin"
                        :rules="!isLogin ? 'required|min:8|max:15' : ''">

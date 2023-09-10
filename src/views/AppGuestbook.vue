@@ -75,8 +75,8 @@
 
           <template v-if="0 < guestbook.guestbookReply.length">
             <ui-icon-button :icon="'xi-message'"
-                            :class="'guestbook__btn guestbook__btn--reply-open'"
                             :title="`댓글 ${guestbook.guestbookReply.length}개 펼쳐보기`"
+                            :class="'guestbook__btn guestbook__btn--reply-open'"
                             @click="toggleReplyList(i)">
               <span class="reply-cnt">{{ 99 < guestbook.guestbookReply.length ? '99+' : guestbook.guestbookReply.length }}</span>
             </ui-icon-button>
@@ -105,20 +105,22 @@
             <div class="guestbook__toggle-list" v-if="i === activeIndex">
               <ul>
                 <li>
-                  <button type="button" 
-                          class="guestbook__btn--edit1" 
-                          ref="guestbookMenuBtn" 
-                          @click="openModal('E01003', guestbook, isLogin)">
-                    <i class="xi-pen-o" aria-hidden="true"></i> 방명록 수정
-                  </button>
+                  <ui-icon-button :icon="'xi-pen-o'"
+                                  :text="'방명록 수정'"
+                                  :showText="true"
+                                  :class="'guestbook__btn--edit1'" 
+                                  ref="guestbookMenuBtn" 
+                                  @click="openModal('E01003', guestbook, isLogin)">
+                  </ui-icon-button>
                 </li>
                 <li>
-                  <button type="button" 
-                          class="guestbook__btn--delete1"
-                          ref="guestbookMenuBtn" 
-                          @click="openModal('E01004', guestbook, isLogin)">
-                    <i class="xi-trash-o" aria-hidden="true"></i> 방명록 삭제
-                  </button>
+                  <ui-icon-button :icon="'xi-trash-o'"
+                                  :text="'방명록 삭제'"
+                                  :showText="true"
+                                  :class="'guestbook__btn--delete1'"
+                                  ref="guestbookMenuBtn" 
+                                  @click="openModal('E01004', guestbook, isLogin)">
+                  </ui-icon-button>
                 </li>
               </ul>
             </div>

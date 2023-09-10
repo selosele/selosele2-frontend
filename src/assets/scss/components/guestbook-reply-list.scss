@@ -98,8 +98,14 @@
         button {
           display: flex;
           width: 100%;
+          min-width: 0;
+          height: auto;
+          padding: 0;
           background-color: transparent;
+          box-shadow: none;
+          text-shadow: none;
           font-size: 0.75rem;
+          line-height: inherit;
           align-items: center;
           gap: 0.3rem;
         }

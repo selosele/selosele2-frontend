@@ -1,6 +1,6 @@
 <template>
   <app-content-wrapper>
-    <div class="year">
+    <div class="year__wrapper">
       <template v-for="(item,i) in yearList" :key="i">
         <h2 class="year__list-title">
           <ui-button :class="[
@@ -24,9 +24,9 @@
           </template>
         </ul>
 
-        <ui-icon-button class="btn--more"
-                        :icon="'xi-ellipsis-h'"
+        <ui-icon-button :icon="'xi-ellipsis-h'"
                         :text="'더보기'"
+                        :class="'btn--more'"
                         @click="onMore(item.year, i)"
                         v-if="i === activeIndex && (listCnt > pageSize) && !isLastPage">
         </ui-icon-button>

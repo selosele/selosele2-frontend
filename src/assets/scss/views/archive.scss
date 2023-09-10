@@ -1,11 +1,9 @@
-.category {
-  &__wrapper {
-    ul {
-      padding-left: 1.5rem;
+:deep(.category) {
+  &__list {
+    padding-left: 1.5rem;
 
-      @media (min-width: $min-minimal-width) {
-        padding-left: 2rem;
-      }
+    @media (min-width: $min-minimal-width) {
+      padding-left: 2rem;
     }
   }
 

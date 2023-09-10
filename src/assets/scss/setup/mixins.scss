@@ -1,4 +1,4 @@
-/* 레이아웃 */
+// 공통 레이아웃
 @mixin common-layout(
   $width: $layout-responsive-width, 
   $max-width: $layout-general-width, 
@@ -44,6 +44,7 @@
   }
 }
 
+// 메인 레이아웃
 @mixin main-layout($padding: 0) {
   padding: $padding $layout-margin / 2;
 

@@ -13,7 +13,7 @@ import { messageUtil, isEmpty } from '@/utils';
 
 const routes = [
   ...index,               // 메인
-  ...error,               // 에러
+  ...error,               // 오류
   ...auth,                // 권한
   ...post,                // 포스트
   ...content,             // 콘텐츠
@@ -62,7 +62,7 @@ router.beforeEach((to, from, next) => {
       next();
       return;
     }
-    // 안되어 있으면 에러 페이지로 리다이렉트
+    // 안되어 있으면 오류 페이지로 리다이렉트
     next('/error');
   } else {
     next();

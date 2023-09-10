@@ -63,7 +63,7 @@
             <ui-icon-button :icon="'xi-check'"
                             :text="'사용 여부 선택'"
                             :title="'클릭하여 위젯을 \'미사용\' 상태로 변경'"
-                            class="widget__use"
+                            :class="'widget__use'"
                             @click="onChangeUseYn($event, widget.id)"
                             v-if="widgetActive">
             </ui-icon-button>

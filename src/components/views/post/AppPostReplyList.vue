@@ -77,7 +77,7 @@
                 <ui-icon-button :icon="'xi-pen-o'"
                                 :text="'댓글 수정'"
                                 :showText="true"
-                                class="post__reply__btn--edit"
+                                :class="'post__reply__btn--edit'"
                                 ref="postReplyMenuBtn"
                                 @click="openModal('E01003', reply, isLogin)">
                 </ui-icon-button>
@@ -86,7 +86,7 @@
                 <ui-icon-button :icon="'xi-trash-o'"
                                 :text="'댓글 삭제'"
                                 :showText="true"
-                                class="post__reply__btn--delete"
+                                :class="'post__reply__btn--delete'"
                                 ref="postReplyMenuBtn"
                                 @click="openModal('E01004', reply, isLogin)">
                 </ui-icon-button>

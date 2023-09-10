@@ -37,20 +37,22 @@
           <div class="guestbook__reply__toggle-list" v-if="i === activeIndex">
             <ul>
               <li>
-                <button type="button"
-                        class="guestbook__btn--edit2"
-                        ref="guestbookMenuBtn"
-                        @click="openModal('E01003', reply, isLogin)">
-                  <i class="xi-pen-o" aria-hidden="true"></i> 댓글 수정
-                </button>
+                <ui-icon-button :icon="'xi-pen-o'"
+                                :text="'댓글 수정'"
+                                :showText="true"
+                                :class="'guestbook__btn--edit2'"
+                                ref="guestbookMenuBtn"
+                                @click="openModal('E01003', reply, isLogin)">
+                </ui-icon-button>
               </li>
               <li>
-                <button type="button"
-                        class="guestbook__btn--delete2" 
-                        ref="guestbookMenuBtn" 
-                        @click="openModal('E01004', reply, isLogin)">
-                  <i class="xi-trash-o" aria-hidden="true"></i> 댓글 삭제
-                </button>
+                <ui-icon-button :icon="'xi-trash-o'"
+                                :text="'댓글 삭제'"
+                                :showText="true"
+                                :class="'guestbook__btn--delete2'" 
+                                ref="guestbookMenuBtn" 
+                                @click="openModal('E01004', reply, isLogin)">
+                </ui-icon-button>
               </li>
             </ul>
           </div>

@@ -1,7 +1,7 @@
 <template>
   <app-content-wrapper>
     <div class="category__wrapper">
-      <ul>
+      <ul class="category__list">
         <template v-for="(post,i) in postList" :key="i">
           <li :class="[
             'category__item',
@@ -16,7 +16,7 @@
 
       <ui-icon-button :icon="'xi-ellipsis-h'"
                       :text="'더보기'"
-                      class="btn--more"
+                      :class="'btn--more'"
                       @click="onMore"
                       v-if="listCnt > pageSize && !isLastPage">
       </ui-icon-button>
@@ -37,7 +37,7 @@ export default {
     return {
       pageTitle: '',
       page: 1,
-      pageSize: 10, //20
+      pageSize: 20,
       listCnt: 0,
       postList: [],
       isLastPage: false,

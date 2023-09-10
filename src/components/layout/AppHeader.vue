@@ -8,8 +8,7 @@
                       @click="toggleMobileMenu">
       </ui-icon-button>
 
-      <div :class="clazz"
-           :style="styles">
+      <div :class="clazz" :style="styles">
         <div class="masthead__util-wrapper">
           <template v-if="!isLogin && isDevelopment">
             <ui-icon-button :routerLink="'/login'"
@@ -20,9 +19,9 @@
           </template>
 
           <template v-if="isLogin">
-            <ui-icon-button :class="'masthead__util'"
-                            :icon="'xi-power-off'"
+            <ui-icon-button :icon="'xi-power-off'"
                             :text="'로그아웃'"
+                            :class="'masthead__util'"
                             @click="logout">
             </ui-icon-button>
 

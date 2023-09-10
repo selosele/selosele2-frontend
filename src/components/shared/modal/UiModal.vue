@@ -9,7 +9,7 @@
     <ui-icon-button :icon="'xi-close'"
                     :text="'팝업 닫기'"
                     title="팝업 닫기"
-                    class="modal__close"
+                    :class="'modal__close'"
                     @click="close">
     </ui-icon-button>
 

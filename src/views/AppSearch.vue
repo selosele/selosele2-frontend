@@ -24,7 +24,7 @@
           <ui-icon-button :type="'submit'"
                           :icon="'xi-search'"
                           :text="'검색'"
-                          class="search__btn">
+                          :class="'search__btn'">
           </ui-icon-button>
         </div>
 

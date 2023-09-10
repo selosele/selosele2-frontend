@@ -55,7 +55,7 @@ http.interceptors.response.use(
       //messageUtil.toastError('오류가 발생했습니다.');
     }
 
-    // 권한 에러 및 JWT 만료 시
+    // 권한 오류 및 JWT 만료 시
     if (401 === error?.response?.status && !originalRequest._retry) {
       if (!isRefreshing) {
         originalRequest._retry = true;
@@ -84,7 +84,7 @@ http.interceptors.response.use(
       }
     }
 
-    // 404 에러
+    // 404 오류
     if (404 === error?.response?.status) {
       router.push('/error');
     }

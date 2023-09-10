@@ -41,7 +41,7 @@ export default {
     await this.listPostByLimit(3);
   },
   methods: {
-    /** 개수별 포스트 조회 */
+    /** 개수별 포스트 목록 조회 */
     listPostByLimit(limit) {
       return this.$http.get(`/post/limit/${limit}`)
       .then(resp => {

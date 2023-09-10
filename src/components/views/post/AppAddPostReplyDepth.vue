@@ -44,8 +44,8 @@
     
           <div class="post__reply__write__btns">
             <ui-button :type="'submit'"
-                      :color="'primary'"
-                      :class="'post__reply__btn--write post__reply__btn--write-depth'">저장
+                       :color="'primary'"
+                       :class="'post__reply__btn--write post__reply__btn--write-depth'">저장
             </ui-button>
           </div>
         </div>
