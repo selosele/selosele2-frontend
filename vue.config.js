@@ -1,5 +1,6 @@
 const { defineConfig } = require('@vue/cli-service');
 const path = require('path');
+const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = defineConfig({
@@ -8,6 +9,7 @@ module.exports = defineConfig({
   configureWebpack: {
     plugins: [
       new BundleAnalyzerPlugin(),
+      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /ko/),
     ],
     performance: {
       hints: 'production' === process.env.NODE_ENV ? 'warning' : false,
