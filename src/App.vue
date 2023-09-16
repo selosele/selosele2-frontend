@@ -113,14 +113,7 @@ export default {
     },
     /** 공통코드 목록 조회 */
     listCode() {
-      return this.$http.get('/code')
-      .then(resp => {
-        const codeList = resp.data.filter(d => d.useYn === 'Y');
-
-        this.$store.dispatch('Code/FETCH_CODE', codeList);
-        this.$store.dispatch('Satisfaction/FETCH_CODE', codeList.filter(d => d.prefix === 'B01' || d.prefix === 'B02' || d.prefix === 'B03'));
-        this.$store.dispatch('Notification/FETCH_CODE', codeList.filter(d => d.prefix === 'D02'));
-      });
+      return this.$store.dispatch('Code/LIST_CODE');
     },
     /** 블로그 환경설정 조회 */
     getBlogConfig() {

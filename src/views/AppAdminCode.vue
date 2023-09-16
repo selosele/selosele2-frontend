@@ -85,14 +85,14 @@ export default {
     },
     /** 공통코드 목록 조회 */
     listCode() {
-      return this.$http.get('/code')
-      .then(resp => {
-        resp.data.map(d => {
+      return this.$store.dispatch('Code/LIST_CODE')
+      .then(data => {
+        data.map(d => {
           d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
           d.useYn = this.getUseYn(d.useYn);
         });
 
-        this.rowData = [...resp.data];
+        this.rowData = [...data];
       });
     },
     /** 공통코드 등록 */
