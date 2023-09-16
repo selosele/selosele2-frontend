@@ -9,10 +9,12 @@ export const Layout = {
     pageTitle: '',
     /** 사이드바 */
     sidebar: {},
-    /** 위젯관리 활성화 여부 */
-    isActive: false,
+    /** 원본 사이드바 값 */
+    originalSidebar: {},
     /** 변경 위젯 값 */
     changeWidget: {},
+    /** 위젯관리 활성화 여부 */
+    isActive: false,
     /** 메뉴 표시 여부 */
     isMenuVisible: false,
     /** 메뉴 애니메이션 활성화 여부 */
@@ -24,6 +26,9 @@ export const Layout = {
     },
     SET_SIDEBAR(state, sidebar) {
       state.sidebar = sidebar;
+    },
+    SET_ORIGINAL_SIDEBAR(state, originalSidebar) {
+      state.originalSidebar = originalSidebar;
     },
     SET_WIDGET(state, widget) {
       state.sidebar.widget = widget;
@@ -47,6 +52,9 @@ export const Layout = {
     },
     FETCH_SIDEBAR({ commit }, values) {
       commit('SET_SIDEBAR', values);
+    },
+    FETCH_ORIGINAL_SIDEBAR({ commit }, values) {
+      commit('SET_ORIGINAL_SIDEBAR', values);
     },
     LIST_WIDGET({ commit }, values) {
       return new Promise((resolve, reject) => {

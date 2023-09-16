@@ -160,8 +160,16 @@ export default {
     /** 위젯관리 버튼 클릭 시 */
     toggleList() {
       this.listActive = !this.listActive;
+      
       this.$store.dispatch('Layout/FETCH_IS_ACTIVE', this.listActive);
       this.$store.dispatch('Layout/FETCH_CHANGE_WIDGET', this.$store.state.Layout.sidebar.widget);
+
+      if (!this.listActive) {
+
+        // 위젯관리 버튼을 다시 클릭할 경우, 저장하지 않은 변경사항 초기화
+        this.$store.dispatch('Layout/FETCH_SIDEBAR', JSON.parse(JSON.stringify(this.$store.state.Layout.originalSidebar)));
+        this.$store.dispatch('Layout/FETCH_CHANGE_WIDGET', {});
+      }
     },
   },
 };

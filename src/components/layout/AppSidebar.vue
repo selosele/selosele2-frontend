@@ -19,12 +19,11 @@
           { 'sidebar__item-list--category': 1 === widget.id },
           { 'sidebar__item-list--tag': 2 === widget.id },
           { 'sidebar__item-list--active': widgetActive },
-          { 'sidebar__item-list--disable': isWidgetDisable(widget.id) },
+          { 'sidebar__item-list--disable': 'N' === widget.useYn },
         ]">
           <div class="widget widget__box">
             <h2 class="sidebar__item-title widget__title">
-              <i :class="widget.icon + ' sidebar__item-title-icon'"
-                  :aria-hidden="!widgetActive">
+              <i :class="`${widget.icon} sidebar__item-title-icon`" :aria-hidden="!widgetActive">
                 <span v-if="widgetActive">
                   <ui-text-field :type="'text'"
                                   :name="'icon'"
@@ -54,7 +53,7 @@
             <ul v-if="2 === widget.id">
               <li v-for="(tag,j) in tagList" :key="j">
                 <router-link :to="`/tag/${tag.id}`"
-                              :style="{ fontSize: `${getFontSize(tag.count)}%` }">{{ tag.nm }}
+                             :style="{ fontSize: `${getFontSize(tag.count)}%` }">{{ tag.nm }}
                   <span class="sidebar__item-count">{{ tag.count }}</span>
                 </router-link>
               </li>
@@ -62,7 +61,7 @@
 
             <ui-icon-button :icon="'xi-check'"
                             :text="'사용 여부 선택'"
-                            :title="'클릭하여 위젯을 \'미사용\' 상태로 변경'"
+                            :title="`클릭하여 위젯을 '미사용' 상태로 변경`"
                             :class="'widget__use'"
                             @click="onChangeUseYn($event, widget.id)"
                             v-if="widgetActive">
@@ -80,7 +79,6 @@ export default {
   data() {
     return {
       sidebar: {},
-      widgetDisabled: [],
       widgetList: [],
       categoryList: [],
       tagList: [],
@@ -89,20 +87,7 @@ export default {
   },
   async created() {
     if (0 === Object.values(this.storeSidebar).length) {
-      
-      // 위젯 목록을 먼저 조회하고
-      await this.listWidget();
-
-      // 카테고리, 태그를 동시에 조회한다음
-      await Promise.all([
-        this.listCategoryAndCount(),
-        this.listTagAndCount(),
-      ]);
-
-      // 위젯 skeleton ui 표출 메서드를 실행한다.
-      this.dataLoading();
-
-      this.$store.dispatch('Layout/FETCH_SIDEBAR', this.sidebar);
+      await this.init();
       return;
     }
 
@@ -138,21 +123,41 @@ export default {
     },
   },
   methods: {
+    /** 초기 세팅 */
+    async init() {
+
+      // 위젯 목록을 먼저 조회하고
+      await this.listWidget();
+
+      // 카테고리, 태그를 동시에 조회한다음
+      await Promise.all([
+        this.listCategoryAndCount(),
+        this.listTagAndCount(),
+      ]);
+
+      // 위젯 skeleton ui 표출 메서드를 실행한다.
+      this.dataLoading();
+
+      this.$store.dispatch('Layout/FETCH_SIDEBAR', this.sidebar);
+
+      // store의 sidebar 값 변경 시, 객체라서 originalSidebar도 동시에 변경되므로 깊은 복사를 해줘야 함 
+      this.$store.dispatch('Layout/FETCH_ORIGINAL_SIDEBAR', JSON.parse(JSON.stringify(this.sidebar)));
+    },
     /** 정렬에 제외할 HTML 요소 */
     onShouldCancelStart(e) {
-      const tag = [
+      const tags = [
         'input', 'textarea', 'select',
         'option', 'button', 'a'
       ];
 
-      const className = [
+      const classNames = [
         'widget__use',
         'sidebar__item-title-icon',
         'sidebar__item-title-text'
       ];
 
-      return -1 !== tag.indexOf(e.target.tagName.toLowerCase())
-          || -1 !== className.indexOf(e.target.className);
+      return -1 !== tags.indexOf(e.target.tagName.toLowerCase())
+          || -1 !== classNames.indexOf(e.target.className);
     },
     /** 위젯 명 변경 시 */
     onChangeTitle(e, id) {
@@ -174,7 +179,7 @@ export default {
     onChangeUseYn(e, id) {
       this.storeSidebar.widget.map(d => {
         if (id === d.id) {
-          d.useYn = 'Y' === d.useYn ? 'N' : 'Y';
+          d.useYn = d.useYn === 'Y' ? 'N' : 'Y';
         }
         return d;
       });
@@ -183,12 +188,11 @@ export default {
 
       if (e.target.classList.contains(className)) {
         e.target.classList.remove(className);
-        e.target.title = '클릭하여 위젯을 \'미사용\' 상태로 변경';
-        this.widgetDisabled = this.widgetDisabled.filter(d => d !== id);
+        e.target.title = `클릭하여 위젯을 '미사용' 상태로 변경`;
       } else {
         e.target.classList.add(className);
-        e.target.title = '클릭하여 위젯을 \'사용\' 상태로 변경';
-        this.widgetDisabled.push(id);
+        e.target.title = `클릭하여 위젯을 '사용' 상태로 변경`;
+
       }
     },
     /** 위젯 정렬 종료 시 */
@@ -243,10 +247,6 @@ export default {
       if (8 <= cnt) return 170;
       // 계산된 값
       return 25 * cnt;
-    },
-    /** 위젯 비활성화 여부 확인 */
-    isWidgetDisable(id) {
-      return -1 < this.widgetDisabled.indexOf(id);
     },
     /** 데이타 로딩 */
     dataLoading() {
