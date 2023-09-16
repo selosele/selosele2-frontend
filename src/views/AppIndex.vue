@@ -15,7 +15,7 @@
                      :first="page"
                      :rows="storePageSize"
                      :size="10"
-                     :pinColumn="'pinYn'"
+                     :pin="true"
                      @page="onPage">
       </ui-pagination>
     </app-post-list>

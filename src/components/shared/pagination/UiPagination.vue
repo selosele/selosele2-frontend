@@ -77,10 +77,10 @@ export default {
       type: Number,
       default: 5,
     },
-    /** 고정글 컬럼명 */
-    pinColumn: {
-      type: String,
-      default: '',
+    /** 고정글 배치 여부 */
+    pin: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -99,7 +99,7 @@ export default {
     this.pinPostList = this.findPinPostList(this.value);
     this.noPinPostList = this.findNoPinPostList(this.value);
 
-    if (isNotBlank(this.pinColumn)) {
+    if (this.pin) {
       this.computedRows = this.rows - this.pinPostList.length;
     }
 
@@ -161,7 +161,7 @@ export default {
       this.page = i;
 
       // if (0 === this.page) {
-      //   if (isNotBlank(this.pinColumn)) {
+      //   if (this.pin) {
       //     this.computedRows = this.rows - this.pinPostList.length;
       //   }
       // } else {
@@ -187,15 +187,15 @@ export default {
     },
     /** 고정글 목록 가져오기 */
     findPinPostList(data) {
-      return isNotBlank(this.pinColumn) ? data.filter(d => d[this.pinColumn] === 'Y') : data;
+      return this.pin ? data.filter(d => d.pinYn === 'Y') : data;
     },
     /** 비고정글 목록 가져오기 */
     findNoPinPostList(data) {
-      return isNotBlank(this.pinColumn) ? data.filter(d => d[this.pinColumn] === 'N') : data;
+      return this.pin ? data.filter(d => d.pinYn === 'N') : data;
     },
     /** 고정글 목록과 비고정글 목록을 합친다. */
     collectPageData(data) {
-      if (isNotBlank(this.pinColumn)) {
+      if (this.pin) {
         return 0 < data.length ? [...this.pinPostList, ...data] : data;
       }
       return data;
