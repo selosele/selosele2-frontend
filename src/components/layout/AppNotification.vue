@@ -2,11 +2,25 @@
   <div class="notice__wrapper" @click="$event.stopPropagation()">
     <div class="notice__util">
       <div class="notice__util__tabs">
-        <ui-button :class="{ 'active': 0 === activeIndex }" @click="toggleTab(0, 'D02001')">포스트추천</ui-button>
-        <ui-button :class="{ 'active': 1 === activeIndex }" @click="toggleTab(1, 'D02002')">포스트댓글</ui-button>
-        <ui-button :class="{ 'active': 2 === activeIndex }" @click="toggleTab(2, 'D02003')">방명록</ui-button>
-        <ui-button :class="{ 'active': 3 === activeIndex }" @click="toggleTab(3, 'D02004')">방명록댓글</ui-button>
-        <ui-button :class="{ 'active': 4 === activeIndex }" @click="toggleTab(4, 'D02005')">만족도조사</ui-button>
+        <ui-button :class="{ 'active': 0 === activeIndex }" @click="toggleTab(0, 'D02001')">포스트추천
+          <app-notification-count :text="postLikeList.length" v-if="0 < postLikeList.length" />
+        </ui-button>
+
+        <ui-button :class="{ 'active': 1 === activeIndex }" @click="toggleTab(1, 'D02002')">포스트댓글
+          <app-notification-count :text="postReplyList.length" v-if="0 < postReplyList.length" />
+        </ui-button>
+        
+        <ui-button :class="{ 'active': 2 === activeIndex }" @click="toggleTab(2, 'D02003')">방명록
+          <app-notification-count :text="guestbookList.length" v-if="0 < guestbookList.length" />
+        </ui-button>
+
+        <ui-button :class="{ 'active': 3 === activeIndex }" @click="toggleTab(3, 'D02004')">방명록댓글
+          <app-notification-count :text="guestbookReplyList.length" v-if="0 < guestbookReplyList.length" />
+        </ui-button>
+
+        <ui-button :class="{ 'active': 4 === activeIndex }" @click="toggleTab(4, 'D02005')">만족도조사
+          <app-notification-count :text="satisfactionList.length" v-if="0 < satisfactionList.length" />
+        </ui-button>
       </div>
     
       <div class="notice__util__cont">
@@ -180,6 +194,7 @@
                          :id="'satisfactionCheckAll'"
                          :label="'모두 선택'"
                          :clazz="['notice-check-all']"
+                         :values="'Y,N'"
                          v-model="checkAll"
                          v-if="0 < satisfactionList.length">
             </ui-checkbox>
@@ -219,10 +234,14 @@
 </template>
 
 <script>
+import AppNotificationCount from './AppNotificationCount.vue';
 import { isNotEmpty, messageUtil } from '@/utils';
 
   export default {
     name: 'app-notification',
+    components: {
+      AppNotificationCount,
+    },
     props: {
       /** 알림 목록 */
       list: Array,
