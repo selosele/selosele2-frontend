@@ -1,7 +1,9 @@
 <template>
-  <span class="count">
-    {{ text }}
-  </span>
+  <p class="notice-count__wrapper">총
+    <strong class="notice-count">
+      {{ text }}
+    </strong>개의 읽지 않은 알림
+  </p>
 </template>
 
 <script>

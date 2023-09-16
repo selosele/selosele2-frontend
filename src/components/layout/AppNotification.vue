@@ -2,25 +2,14 @@
   <div class="notice__wrapper" @click="$event.stopPropagation()">
     <div class="notice__util">
       <div class="notice__util__tabs">
-        <ui-button :class="{ 'active': 0 === activeIndex }" @click="toggleTab(0, 'D02001')">포스트추천
-          <app-notification-count :text="postLikeList.length" v-if="0 < postLikeList.length" />
-        </ui-button>
-
-        <ui-button :class="{ 'active': 1 === activeIndex }" @click="toggleTab(1, 'D02002')">포스트댓글
-          <app-notification-count :text="postReplyList.length" v-if="0 < postReplyList.length" />
-        </ui-button>
-        
-        <ui-button :class="{ 'active': 2 === activeIndex }" @click="toggleTab(2, 'D02003')">방명록
-          <app-notification-count :text="guestbookList.length" v-if="0 < guestbookList.length" />
-        </ui-button>
-
-        <ui-button :class="{ 'active': 3 === activeIndex }" @click="toggleTab(3, 'D02004')">방명록댓글
-          <app-notification-count :text="guestbookReplyList.length" v-if="0 < guestbookReplyList.length" />
-        </ui-button>
-
-        <ui-button :class="{ 'active': 4 === activeIndex }" @click="toggleTab(4, 'D02005')">만족도조사
-          <app-notification-count :text="satisfactionList.length" v-if="0 < satisfactionList.length" />
-        </ui-button>
+        <app-notification-button
+          v-for="(cd,i) in $store.state.Notification.code" :key="i"
+          :idx="i"
+          :activeIndex="activeIndex"
+          :text="cd.nm"
+          :count="getNotiCount(cd.id)"
+          @click="toggleTab(i, cd.id)"
+        />
       </div>
     
       <div class="notice__util__cont">
@@ -42,7 +31,7 @@
                             v-if="0 < postLikeList.length">읽음
             </ui-icon-button>
   
-            <p class="notice-count__wrapper">총 <span class="notice-count">{{ postLikeList.length }}</span>개의 읽지 않은 알림</p>
+            <app-notification-count :text="postLikeList.length" />
           </div>
   
           <ul v-if="0 < postLikeList.length">
@@ -84,7 +73,7 @@
                             v-if="0 < postReplyList.length">읽음
             </ui-icon-button>
   
-            <p class="notice-count__wrapper">총 <span class="notice-count">{{ postReplyList.length }}</span>개의 읽지 않은 알림</p>
+            <app-notification-count :text="postReplyList.length" />
           </div>
 
           <ul v-if="0 < postReplyList.length">
@@ -126,7 +115,7 @@
                             v-if="0 < guestbookList.length">읽음
             </ui-icon-button>
   
-            <p class="notice-count__wrapper">총 <span class="notice-count">{{ guestbookList.length }}</span>개의 읽지 않은 알림</p>
+            <app-notification-count :text="guestbookList.length" />
           </div>
 
           <ul v-if="0 < guestbookList.length">
@@ -166,7 +155,7 @@
                             v-if="0 < guestbookReplyList.length">읽음
             </ui-icon-button>
   
-            <p class="notice-count__wrapper">총 <span class="notice-count">{{ guestbookReplyList.length }}</span>개의 읽지 않은 알림</p>
+            <app-notification-count :text="guestbookReplyList.length" />
           </div>
 
           <ul v-if="0 < guestbookReplyList.length">
@@ -206,7 +195,7 @@
                             v-if="0 < satisfactionList.length">읽음
             </ui-icon-button>
   
-            <p class="notice-count__wrapper">총 <span class="notice-count">{{ satisfactionList.length }}</span>개의 읽지 않은 알림</p>
+            <app-notification-count :text="satisfactionList.length" />
           </div>
 
           <ul v-if="0 < satisfactionList.length">
@@ -234,12 +223,14 @@
 </template>
 
 <script>
+import AppNotificationButton from './AppNotificationButton.vue';
 import AppNotificationCount from './AppNotificationCount.vue';
 import { isNotEmpty, messageUtil } from '@/utils';
 
   export default {
     name: 'app-notification',
     components: {
+      AppNotificationButton,
       AppNotificationCount,
     },
     props: {
@@ -321,6 +312,20 @@ import { isNotEmpty, messageUtil } from '@/utils';
         this.activeIndex = idx;
         this.activeTypeCd = typeCd;
         this.idList = [];
+      },
+      /** 알림 개수 반환 */
+      getNotiCount(codeId) {
+        if ('D02001' === codeId) {
+          return this.postLikeList.length;
+        } else if ('D02002' === codeId) {
+          return this.postReplyList.length;
+        } else if ('D02003' === codeId) {
+          return this.guestbookList.length;
+        } else if ('D02004' === codeId) {
+          return this.guestbookReplyList.length;
+        } else if ('D02005' === codeId) {
+          return this.satisfactionList.length;
+        }
       },
     },
   }

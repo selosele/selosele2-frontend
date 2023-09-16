@@ -8,11 +8,16 @@ export const Notification = {
     notiList: [],
     /** 알림 개수 */
     notiCnt: 0,
+    /** 알림 코드 목록 */
+    code: [],
   }),
   mutations: {
     SET_NOTIFICATION(state, data) {
       state.notiList = [...data[0]];
       state.notiCnt = data[1];
+    },
+    SET_CODE(state, code) {
+      state.code = code;
     },
   },
   actions: {
@@ -27,6 +32,9 @@ export const Notification = {
           resolve(resp.data);
         });
       });
+    },
+    FETCH_CODE({ commit }, values) {
+      commit('SET_CODE', values);
     },
   },
 };
