@@ -71,6 +71,7 @@ export default {
         let rootNode = {
           id: parent.id,
           label: parent.name,
+          sort: parent.sort,
           nodes: parent.children.map((child, idx, self) => {
             if (0 === self.length) return {};
 
@@ -78,6 +79,7 @@ export default {
             return {
               id: child.id,
               label: child.name,
+              sort: child.sort,
             };
           }),
         };

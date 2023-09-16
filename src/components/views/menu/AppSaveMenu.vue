@@ -55,17 +55,15 @@
     <ui-numeric-field :name="'sort'"
                       :id="'menuSort'"
                       :label="'메뉴 정렬 순서'"
-                      :rules="'required'"
+                      :rules="'required|numeric'"
                       :block="true"
-                      :value="menu.sort">
+                      :value="menu.sort || 1">
     </ui-numeric-field>
 
     <ui-select :name="'role'"
                :id="'menuRoles'"
                :title="'메뉴 권한'"
                :label="'메뉴 권한'"
-               :rules="'required'"
-               :defaultValue="'메뉴 권한 선택'"
                :block="true"
                :data="roleList"
                v-model="role">
@@ -96,7 +94,7 @@ import { messageUtil, isEmpty, isNotEmpty } from '@/utils';
 export default {
   name: 'app-save-menu',
   props: {
-    /** 메뉴 정보 */
+    /** 메뉴 */
     menu: Object,
     /** 부모 메뉴 목록 */
     parentMenuList: Array,
@@ -131,7 +129,7 @@ export default {
         await this.updateMenu(values);
       }
 
-      this.listMenu();
+      await this.listMenu();
     },
     /** 메뉴 삭제 */
     async onRemove(values) {
@@ -141,10 +139,10 @@ export default {
       if (!confirm) return;
 
       this.$http.delete(`/menu/${values.id}`)
-      .then(resp => {
+      .then(async resp => {
         messageUtil.toastSuccess('삭제되었습니다.');
 
-        this.listMenu();
+        await this.listMenu();
         this.$emit('refreshMenu');
       });
     },
@@ -160,7 +158,7 @@ export default {
     },
     /** 메뉴 목록 조회 */
     listMenu() {
-      this.$store.dispatch('Menu/LIST_MENU', {
+      return this.$store.dispatch('Menu/LIST_MENU', {
         params: {
           useYn: 'Y',
         },
