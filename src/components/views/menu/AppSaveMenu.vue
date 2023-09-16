@@ -191,7 +191,7 @@ export default {
           })
         ];
         
-        this.roleList.push({ value: '0', text: '모든 권한 허용' });
+        this.roleList.push({ value: '', text: '모든 권한 허용' });
         this.$store.commit('Loading/SET_USE_LOADING', true);
       });
     },
@@ -202,7 +202,7 @@ export default {
           return 0 < this.roleList.filter(r => r.value === m.roleId).length;
         });
 
-        return 1 < list.length ? '0' : list[0].roleId;
+        return 1 < list.length ? '' : list[0].roleId;
       }
 
       return '';

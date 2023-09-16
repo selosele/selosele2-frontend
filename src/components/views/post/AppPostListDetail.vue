@@ -13,7 +13,7 @@
                        :id="`checkPost${post.id}`"
                        :clazz="['post__checkbox']"
                        :label="'포스트 삭제'"
-                       :labelHidden="true"
+                       :hideLabel="true"
                        :value="post.id"
                        v-model="chkList"
                        @click="onClick($event)">

@@ -15,7 +15,7 @@
     <label :for="id"
            :class="'input-label'"
            v-if="label">
-      <span class="sr-only" v-if="labelHidden">{{ label }}</span>
+      <span class="sr-only" v-if="hideLabel">{{ label }}</span>
       <template v-else>{{ label }}</template>
     </label>
 
@@ -53,8 +53,8 @@ export default {
     checked: Boolean,
     /** checkbox label */
     label: String,
-    /** checkbox label hidden */
-    labelHidden: Boolean,
+    /** checkbox label 숨김 여부 */
+    hideLabel: Boolean,
     /** checkbox validation rules */
     rules: String,
     /** checkbox 숨김 여부 */

@@ -245,7 +245,7 @@
             <ui-checkbox :name="'showSatisYn'"
                          :id="'blogConfigShowSatisYn'"
                          :label="'페이지 만족도조사 표출'"
-                         :labelHidden="true"
+                         :hideLabel="true"
                          :values="'Y,N'"
                          v-model="showSatisYn">
             </ui-checkbox>
@@ -259,7 +259,7 @@
             <ui-checkbox :name="'kakaoMsgYn'"
                          :id="'blogConfigKakaoMsgYn'"
                          :label="'카카오톡 메시지 수신'"
-                         :labelHidden="true"
+                         :hideLabel="true"
                          :values="'Y,N'"
                          v-model="kakaoMsgYn">
             </ui-checkbox>

@@ -50,7 +50,7 @@
               <ui-checkbox :name="'checkYn'"
                            :id="`postLikeNoticeCheck${noti.id}`"
                            :label="'알림 선택'"
-                           :labelHidden="true"
+                           :hideLabel="true"
                            :value="noti.id"
                            v-model="idList">
               </ui-checkbox>
@@ -92,7 +92,7 @@
               <ui-checkbox :name="'checkYn'"
                            :id="`postReplyNoticeCheck${noti.id}`"
                            :label="'알림 선택'"
-                           :labelHidden="true"
+                           :hideLabel="true"
                            :value="noti.id"
                            v-model="idList">
               </ui-checkbox>
@@ -134,7 +134,7 @@
               <ui-checkbox :name="'checkYn'"
                            :id="`guestbookNoticeCheck${noti.id}`"
                            :label="'알림 선택'"
-                           :labelHidden="true"
+                           :hideLabel="true"
                            :value="noti.id"
                            v-model="idList">
               </ui-checkbox>{{ noti.senderNm }}님이 <router-link :to="noti.link">방명록을 남겼습니다.</router-link>
@@ -174,7 +174,7 @@
               <ui-checkbox :name="'checkYn'"
                            :id="`guestbookReplyNoticeCheck${noti.id}`"
                            :label="'알림 선택'"
-                           :labelHidden="true"
+                           :hideLabel="true"
                            :value="noti.id"
                            v-model="idList">
               </ui-checkbox>{{ noti.senderNm }}님이 <router-link :to="noti.link">방명록에 댓글을 남겼습니다.</router-link>
@@ -214,7 +214,7 @@
               <ui-checkbox :name="'checkYn'"
                            :id="`satisfactionNoticeCheck${noti.id}`"
                            :label="'알림 선택'"
-                           :labelHidden="true"
+                           :hideLabel="true"
                            :value="noti.id"
                            v-model="idList">
               </ui-checkbox>
