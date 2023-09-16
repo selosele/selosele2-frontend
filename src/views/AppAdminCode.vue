@@ -62,6 +62,7 @@ export default {
     }
   },
   async created() {
+    
     // 페이지 타이틀 세팅
     this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '공통코드 관리');
 

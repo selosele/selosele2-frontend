@@ -82,6 +82,7 @@ export default {
   methods: {
     /** 초기 세팅 */
     async init() {
+      
       // 페이지 타이틀 세팅
       this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '카테고리/태그 관리');
 
