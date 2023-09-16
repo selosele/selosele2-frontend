@@ -3,6 +3,12 @@ const path = require('path');
 
 module.exports = defineConfig({
   outputDir: path.resolve(__dirname, '../../backend/selosele2/client'),
+  productionSourceMap: false,
+  configureWebpack: {
+    performance: {
+      hints: 'production' === process.env.NODE_ENV ? 'warning' : false,
+    },
+  },
   devServer: {
     proxy: {
       '/api': {
