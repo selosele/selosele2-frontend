@@ -80,7 +80,7 @@ export default {
   data() {
     return {
       sidebar: {},
-      widgetState: [],
+      widgetDisabled: [],
       widgetList: [],
       categoryList: [],
       tagList: [],
@@ -184,11 +184,11 @@ export default {
       if (e.target.classList.contains(className)) {
         e.target.classList.remove(className);
         e.target.title = '클릭하여 위젯을 \'미사용\' 상태로 변경';
-        this.widgetState = this.widgetState.filter(d => d !== id);
+        this.widgetDisabled = this.widgetDisabled.filter(d => d !== id);
       } else {
         e.target.classList.add(className);
         e.target.title = '클릭하여 위젯을 \'사용\' 상태로 변경';
-        this.widgetState.push(id);
+        this.widgetDisabled.push(id);
       }
     },
     /** 위젯 정렬 종료 시 */
@@ -246,7 +246,7 @@ export default {
     },
     /** 위젯 비활성화 여부 확인 */
     isWidgetDisable(id) {
-      return -1 < this.widgetState.indexOf(id);
+      return -1 < this.widgetDisabled.indexOf(id);
     },
     /** 데이타 로딩 */
     dataLoading() {
