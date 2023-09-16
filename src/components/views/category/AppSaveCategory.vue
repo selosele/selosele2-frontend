@@ -46,10 +46,10 @@ export default {
 
       // 카테고리 ID 값이 없으면 등록 API를 타고
       if (isEmpty(values.id)) {
-        this.addCategory(values);
+        await this.addCategory(values);
       } else {
         // 있으면 수정 API를 탄다.
-        this.updateCategory(values);
+        await this.updateCategory(values);
       }
     },
     /** 카테고리 삭제 */

@@ -19,6 +19,8 @@ export const Layout = {
     isMenuVisible: false,
     /** 메뉴 애니메이션 활성화 여부 */
     isMenuAnimate: false,
+    /** 사이드바 로딩 완료 여부 */
+    isSidebarLoaded: false,
   }),
   mutations: {
     SET_PAGE_TITLE(state, pageTitle) {
@@ -44,6 +46,9 @@ export const Layout = {
     },
     SET_IS_MENU_ANIMATE(state, isMenuAnimate) {
       state.isMenuAnimate = isMenuAnimate;
+    },
+    SET_IS_SIDEBAR_LOADED(state, isSidebarLoaded) {
+      state.isSidebarLoaded = isSidebarLoaded;
     },
   },
   actions: {
@@ -87,6 +92,9 @@ export const Layout = {
     },
     FETCH_IS_MENU_ANIMATE({ commit }, values) {
       commit('SET_IS_MENU_ANIMATE', values);
+    },
+    FETCH_IS_SIDEBAR_LOADED({ commit }, values) {
+      commit('SET_IS_SIDEBAR_LOADED', values);
     },
   },
 };

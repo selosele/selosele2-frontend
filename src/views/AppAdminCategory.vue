@@ -82,7 +82,7 @@ export default {
   methods: {
     /** 초기 세팅 */
     async init() {
-      
+
       // 페이지 타이틀 세팅
       this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '카테고리/태그 관리');
 
@@ -142,6 +142,10 @@ export default {
       this.resetCategory();
       this.categoryTree = [];
       this.tagTree = [];
+
+      // 카테고리, 태그 저장 시, 사이드바를 다시 불러오기 위함
+      this.$store.dispatch('Layout/FETCH_SIDEBAR', {});
+      this.$store.dispatch('Layout/FETCH_IS_SIDEBAR_LOADED', false);
 
       await Promise.all([
         this.listCategoryTreeAndPost(),

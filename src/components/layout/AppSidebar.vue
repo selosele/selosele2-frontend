@@ -82,7 +82,6 @@ export default {
       widgetList: [],
       categoryList: [],
       tagList: [],
-      dataLoaded: false,
     }
   },
   async created() {
@@ -91,7 +90,8 @@ export default {
       return;
     }
 
-    this.dataLoaded = true;
+    this.$store.dispatch('Layout/FETCH_IS_SIDEBAR_LOADED', true);
+
     this.widgetList = [...this.storeSidebar.widget];
     this.categoryList = [...this.storeSidebar.category];
     this.tagList = [...this.storeSidebar.tag];
@@ -112,6 +112,12 @@ export default {
     widgetActive: {
       get() {
         return this.$store.state.Layout.isActive;
+      },
+      set(v) {}
+    },
+    dataLoaded: {
+      get() {
+        return this.$store.state.Layout.isSidebarLoaded;
       },
       set(v) {}
     },
@@ -250,10 +256,8 @@ export default {
     },
     /** 데이타 로딩 */
     dataLoading() {
-      if (0 < this.storeSidebar?.widget?.length 
-        && 0 < this.categoryList?.length 
-        && 0 < this.tagList?.length) {
-        this.dataLoaded = true;
+      if (0 < this.storeSidebar?.widget?.length && 0 < this.categoryList?.length && 0 < this.tagList?.length) {
+        this.$store.dispatch('Layout/FETCH_IS_SIDEBAR_LOADED', true);
       }
     },
   },
