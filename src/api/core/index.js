@@ -12,6 +12,8 @@ const http = axios.create({
 
 http.interceptors.request.use(
   config => {
+
+    /** 액세스 토큰 */
     const accessToken = window.localStorage.getItem('accessToken');
 
     if (isNotEmpty(accessToken)) {
@@ -51,7 +53,7 @@ http.interceptors.response.use(
       // 비즈니스 로직 예외 처리
       messageUtil.toastError(error.response.data?.message);
     } else {
-      // JWT 만료 시 오류가 발생했다고 뜨면 사용자 입장에서 '조용한 갱신'이라고 느껴지지 않음
+      // JWT 만료 시 오류 발생 메시지는 사용자 입장에서 '조용한 갱신'이라고 느껴지지 않음
       //messageUtil.toastError('오류가 발생했습니다.');
     }
 
