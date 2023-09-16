@@ -1,10 +1,14 @@
 const { defineConfig } = require('@vue/cli-service');
 const path = require('path');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = defineConfig({
   outputDir: path.resolve(__dirname, '../../backend/selosele2/client'),
   productionSourceMap: false,
   configureWebpack: {
+    plugins: [
+      new BundleAnalyzerPlugin(),
+    ],
     performance: {
       hints: 'production' === process.env.NODE_ENV ? 'warning' : false,
     },
