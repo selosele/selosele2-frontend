@@ -102,7 +102,7 @@ export default {
     // columnDefs 정렬 기능
     Object.values(this.columnDefs)
       .filter(v => v.align)
-      .map(v => {
+      .forEach(v => {
         switch (v.align) {
           case 'left':
             v.cellClass = 'grid-cell-left';
@@ -163,11 +163,11 @@ export default {
     },
     /** columnDefs 세팅 */
     setColumnDefs() {
-      this.columnDefs.map((c,i) => {
+      this.columnDefs.forEach((c,i) => {
         if (null !== this.rowNumIndex && i === this.rowNumIndex) {
           c.field = 'No';
           c.width = c.width || 15;
-          this.rowData.map((r,j) => r.No = j+1);
+          this.rowData.forEach((r,j) => r.No = j+1);
         }
         
         if (null !== this.checkboxIndex && i === this.checkboxIndex) {

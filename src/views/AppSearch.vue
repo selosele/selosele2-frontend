@@ -117,7 +117,7 @@ export default {
     this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '포스트 검색');
 
     // 검색옵션 코드 세팅
-    this.$store.state.Code.data.map((d,i) => {
+    this.$store.state.Post.code.forEach((d,i) => {
       if ('A01' === d.prefix) {
         let obj = {
           value: d.val,
@@ -188,7 +188,7 @@ export default {
     listPostSearch(params, isMore = false) {
       return this.$http.get('/post/search', { params })
         .then(async resp => {
-          resp.data[0].map(d => {
+          resp.data[0].forEach(d => {
             this.postList.push(d);
           });
 

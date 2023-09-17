@@ -272,8 +272,8 @@ import { isNotEmpty, messageUtil } from '@/utils';
         set(v) {
           this.idList = [];
 
-          if ('Y' === v) {
-            this.list.filter(d => d.typeCd === this.activeTypeCd).map(d => {
+          if (v === 'Y') {
+            this.list.filter(d => d.typeCd === this.activeTypeCd).forEach(d => {
               this.idList.push(d.id);
             });
           }
@@ -285,7 +285,7 @@ import { isNotEmpty, messageUtil } from '@/utils';
       setData() {
         this.activeTypeCd = 'D02001';
 
-        this.list.map(d => {
+        this.list.forEach(d => {
           d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
         });
 

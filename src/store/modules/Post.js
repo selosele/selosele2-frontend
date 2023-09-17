@@ -14,6 +14,8 @@ export const Post = {
     updatedPostReply: {},
     /** 삭제된 포스트 댓글 */
     removedPostReply: {},
+    /** 포스트 코드 목록 */
+    code: [],
   }),
   mutations: {
     SET_MAIN_POSTLIST(state, mainPostList) {
@@ -34,6 +36,9 @@ export const Post = {
     SET_REMOVED_POST_REPLY(state, removedPostReply) {
       state.removedPostReply = removedPostReply;
     },
+    SET_CODE(state, code) {
+      state.code = code;
+    },
   },
   actions: {
     FETCH_MAIN_POSTLIST({ commit }, values) {
@@ -53,6 +58,9 @@ export const Post = {
     },
     FETCH_REMOVED_POST_REPLY({ commit }, values) {
       commit('SET_REMOVED_POST_REPLY', values);
+    },
+    FETCH_CODE({ commit }, values) {
+      commit('SET_CODE', values);
     },
   },
 };

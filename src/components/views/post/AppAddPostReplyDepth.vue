@@ -65,13 +65,11 @@ export default {
   },
   data() {
     return {
-      nickNameCodeList: [],
       adminNickName: '',
     }
   },
   created() {
-    this.nickNameCodeList = this.$store.state.Code.data.filter(d => d.prefix === 'F01');
-    this.adminNickName = this.nickNameCodeList.find(d => d.id === 'F01001').nm;
+    this.adminNickName = this.$store.state.Post.code.find(d => d.id === 'F01001').nm;
   },
   methods: {
     /** 포스트 댓글 저장 */

@@ -1,7 +1,4 @@
-// 2023.09.16. :deep(.sidebar)로 변경 시, .sidebar에 스타일 적용되지 않음. 추후 리팩토링
-.sidebar {
-  min-height: 20rem;
-
+:deep(.sidebar) {
   &__item {
     &-title {
       display: flex;

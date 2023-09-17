@@ -22,9 +22,11 @@ export const Code = {
         .then(resp => {
           const codeList = resp.data.filter(d => d.useYn === 'Y');
 
-          dispatch('Code/FETCH_CODE', codeList,  { root: true });
+          dispatch('Code/FETCH_CODE',         codeList, { root: true });
+          dispatch('Post/FETCH_CODE',         codeList.filter(d => d.prefix === 'A01' || d.prefix === 'F01'),  { root: true });
           dispatch('Satisfaction/FETCH_CODE', codeList.filter(d => d.prefix === 'B01' || d.prefix === 'B02' || d.prefix === 'B03'),  { root: true });
           dispatch('Notification/FETCH_CODE', codeList.filter(d => d.prefix === 'D02'),  { root: true });
+          dispatch('Guestbook/FETCH_CODE',    codeList.filter(d => d.prefix === 'F01'),  { root: true });
 
           commit('SET_CODE', resp.data);
           resolve(resp.data);

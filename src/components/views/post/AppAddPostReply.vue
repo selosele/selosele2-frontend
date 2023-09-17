@@ -80,13 +80,11 @@ export default {
     return {
       /** 포스트 댓글 목록 */
       replyList: [],
-      nickNameCodeList: [],
       adminNickName: '',
     }
   },
   created() {
-    this.nickNameCodeList = this.$store.state.Code.data.filter(d => d.prefix === 'F01');
-    this.adminNickName = this.nickNameCodeList.find(d => d.id === 'F01001').nm;
+    this.adminNickName = this.$store.state.Post.code.find(d => d.id === 'F01001').nm;
 
     this.listPostReply();
   },
@@ -111,7 +109,7 @@ export default {
       .then(resp => {
         this.replyList = [];
 
-        resp.data[0].map(d => {
+        resp.data[0].forEach(d => {
           this.setData(d);
           this.replyList.push(d);
         });
@@ -121,7 +119,7 @@ export default {
     onUpdateReply(reply) {
       const { id, author, cont, modDate } = reply;
 
-      this.replyList.map(d => {
+      this.replyList.forEach(d => {
         if (d.id === id) {
           d.author = author;
           d.cont = cont;

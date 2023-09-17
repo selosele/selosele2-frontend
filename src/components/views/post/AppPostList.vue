@@ -94,8 +94,8 @@ export default {
       set(v) {
         let checkList = [];
 
-        if ('Y' === v) {
-          this.postList.map(d => {
+        if (v === 'Y') {
+          this.postList.forEach(d => {
             checkList.push(d.id);
           });
         }

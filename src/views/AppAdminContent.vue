@@ -64,7 +64,7 @@ export default {
       .then(resp => {
         this.rowData = [];
 
-        resp.data[0].map(d => {
+        resp.data[0].forEach(d => {
           d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
 
           if (isNotEmpty(d.modDate)) {

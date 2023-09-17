@@ -23,7 +23,7 @@ export default {
         return this.activeModel;
       },
       set(v) {}
-    }
+    },
   },
   props: {
     /** 로딩 상태 변수 */
@@ -55,8 +55,8 @@ export default {
     opacity: {
       type: Number,
       default: 0.5,
-    }
-  }
+    },
+  },
 }
 </script>
 

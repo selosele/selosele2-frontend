@@ -14,11 +14,11 @@ export function initDefineRule() {
   configure({
     generateMessage: localize('ko', {
       messages: {
-        required: '필수 입력 항목입니다.',
-        min: '0:{length}자 이상 입력하세요.',
-        max: '0:{length}자 이하로 입력하세요.',
-        between: '0:{min} ~ 1:{max} 사이로 입력하세요.',
-        numeric: '정수만 입력 가능합니다.',
+        required: '필수 입력 항목입니다',
+        min: '최소 0:{length}글자 이상이어야 합니다',
+        max: '최대 0:{length}글자 이하여야 합니다',
+        between: '0:{min}에서 1:{max} 사이여야 합니다',
+        numeric: '숫자만 입력 가능합니다',
       },
     }),
   });

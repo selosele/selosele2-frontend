@@ -87,7 +87,7 @@ export default {
     listCode() {
       return this.$store.dispatch('Code/LIST_CODE')
       .then(data => {
-        data.map(d => {
+        data.forEach(d => {
           d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
           d.useYn = this.getUseYn(d.useYn);
         });

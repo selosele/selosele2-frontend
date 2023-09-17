@@ -10,6 +10,8 @@ export const Guestbook = {
     removedGuestbook: {},
     /** 삭제된 방명록 댓글 */
     removedGuestbookReply: {},
+    /** 방명록 코드 목록 */
+    code: [],
   }),
   mutations: {
     SET_UPDATED_GUESTBOOK(state, updatedGuestbook) {
@@ -24,6 +26,9 @@ export const Guestbook = {
     SET_REMOVED_GUESTBOOK_REPLY(state, removedGuestbookReply) {
       state.removedGuestbookReply = removedGuestbookReply;
     },
+    SET_CODE(state, code) {
+      state.code = code;
+    },
   },
   actions: {
     FETCH_UPDATED_GUESTBOOK({ commit }, values) {
@@ -37,6 +42,9 @@ export const Guestbook = {
     },
     FETCH_REMOVED_GUESTBOOK_REPLY({ commit }, values) {
       commit('SET_REMOVED_GUESTBOOK_REPLY', values);
+    },
+    FETCH_CODE({ commit }, values) {
+      commit('SET_CODE', values);
     },
   },
 };

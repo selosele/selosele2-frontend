@@ -69,7 +69,7 @@ export default {
     listYearAndCount() {
       return this.$http.get('/post/year')
       .then(resp => {
-        resp.data.map(d => {
+        resp.data.forEach(d => {
           this.yearList.push(d);
         });
       });
@@ -99,7 +99,7 @@ export default {
       const data = await this.$store.dispatch('Year/GET_YEAR_POSTS', { year, paginationDto, flag });
       const currentData = data[year][0];
       
-      currentData.map(d => {
+      currentData.forEach(d => {
         const date = new Date(d.regDate);
         d.regDate = this.$moment(date).format('YYYY.MM.DD');
       });

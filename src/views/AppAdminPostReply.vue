@@ -80,7 +80,7 @@ export default {
       .then(resp => {
         this.rowData = [];
 
-        resp.data.map(d => {
+        resp.data.forEach(d => {
           d.link = `/post/${d.parentId}`;
           d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
 

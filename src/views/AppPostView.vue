@@ -162,7 +162,6 @@ export default {
       postUrl: '',
       postLikeCnt: 0,
       isPostLiked: false,
-      snsCodeList: [],
       dataLoaded: false,
     }
   },
@@ -209,8 +208,6 @@ export default {
       } else if (this.isContentPage) {
         await this.getPost(id);
       }
-
-      this.snsCodeList = this.$store.state.Code.data.filter(d => d.prefix === 'C01');
     },
     /** 포스트 조회 */
     getPost(id) {

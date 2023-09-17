@@ -60,13 +60,11 @@ export default {
   },
   data() {
     return {
-      nickNameCodeList: [],
       adminNickName: '',
     }
   },
   created() {
-    this.nickNameCodeList = this.$store.state.Code.data.filter(d => d.prefix === 'F01');
-    this.adminNickName = this.nickNameCodeList.find(d => d.id === 'F01001').nm;
+    this.adminNickName = this.$store.state.Guestbook.code.find(d => d.id === 'F01001').nm;
   },
   methods: {
     /** 방명록 댓글 등록 */

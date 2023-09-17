@@ -533,7 +533,7 @@ export default {
     listCategory() {
       return this.$http.get('/category')
       .then(resp => {
-        resp.data.map(d => {
+        resp.data.forEach(d => {
           this.categoryList.push({
             value: d.id,
             text: d.nm,
@@ -545,7 +545,7 @@ export default {
     listTag() {
       return this.$http.get('/tag')
       .then(resp => {
-        resp.data.map(d => {
+        resp.data.forEach(d => {
           this.tagList.push({
             value: d.id,
             text: d.nm,
@@ -618,7 +618,7 @@ export default {
           return;
         }
 
-        resp.data[0].map(d => {
+        resp.data[0].forEach(d => {
           d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
         });
 

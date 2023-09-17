@@ -154,7 +154,6 @@ export default {
       replyActiveIndex: -1,
       isScrolled: false,
       isLastPage: false,
-      nickNameCodeList: [],
       adminNickName: '',
     }
   },
@@ -163,8 +162,7 @@ export default {
     // 페이지 타이틀 세팅
     this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '방명록');
 
-    this.nickNameCodeList = this.$store.state.Code.data.filter(d => d.prefix === 'F01');
-    this.adminNickName = this.nickNameCodeList.find(d => d.id === 'F01001').nm;
+    this.adminNickName = this.$store.state.Guestbook.code.find(d => d.id === 'F01001').nm;
 
     await this.listGuestbook();
   },
@@ -217,11 +215,11 @@ export default {
           return;
         }
 
-        resp.data[0].map(a => {
+        resp.data[0].forEach(a => {
           const guestbookData = this.setData(a);
           this.guestbookList.push(guestbookData);
 
-          a.guestbookReply.map(b => {
+          a.guestbookReply.forEach(b => {
             this.setData(b);
           });
         });
@@ -312,14 +310,12 @@ export default {
       });
     },
     /** 방명록 댓글 등록 시 */
-    async onAddReply(value) {
-      this.guestbookList = this.guestbookList.map(guestbook => {
+    onAddReply(value) {
+      this.guestbookList.forEach(guestbook => {
         if (guestbook.id === value.parentId) {
           const data = this.setData(value);
           guestbook.guestbookReply.push(data);
         }
-
-        return guestbook;
       });
     },
     /** 방명록 댓글 수정 시 */

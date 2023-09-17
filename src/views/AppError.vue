@@ -14,6 +14,7 @@
                   <img :src="post.ogImgUrl" alt="" v-if="post.ogImgUrl">
                   <span class="popular-post__list__no-image" v-else>{{ post.title.substring(0,1) }}</span>
                 </p>
+                
                 <p class="popular-post__list__title">
                   <span>{{ post.title }}</span>
                 </p>
@@ -46,7 +47,7 @@ export default {
     listPostByLimit(limit) {
       return this.$http.get(`/post/limit/${limit}`)
       .then(resp => {
-        resp.data.map(d => {
+        resp.data.forEach(d => {
           this.postList.push(d);
         });
       });

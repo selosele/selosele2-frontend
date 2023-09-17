@@ -3,7 +3,8 @@
     <ui-loading :activeModel="!dataLoaded"
                 :fullPage="false"
                 :loader="'bars'"
-                :color="'#538204'">
+                :color="'#538204'"
+                style="min-height: 20rem;">
     </ui-loading>
 
     <ui-sort-list v-model:list="storeSidebar.widget"
@@ -167,27 +168,24 @@ export default {
     },
     /** 위젯 명 변경 시 */
     onChangeTitle(e, id) {
-      this.storeSidebar.widget.map(d => {
+      this.storeSidebar.widget.forEach(d => {
         if (id === d.id) {
           d.title = e.target.textContent;
         }
-        return d;
       });
 
-      this.changeWidget.map(d => {
+      this.changeWidget.forEach(d => {
         if (id === d.id) {
           d.title = e.target.textContent;
         }
-        return d;
       });
     },
     /** 위젯 사용 여부 변경 시 */
     onChangeUseYn(e, id) {
-      this.storeSidebar.widget.map(d => {
+      this.storeSidebar.widget.forEach(d => {
         if (id === d.id) {
           d.useYn = d.useYn === 'Y' ? 'N' : 'Y';
         }
-        return d;
       });
 
       let className = 'widget__use--disabled';
@@ -216,7 +214,7 @@ export default {
           useYn: 'Y',
         },
       }).then(data => {
-        data.map(d => {
+        data.forEach(d => {
           this.widgetList.push(d);
         });
 
@@ -227,7 +225,7 @@ export default {
     listCategoryAndCount() {
       return this.$http.get('/category/list/count')
       .then(resp => {
-        resp.data.map(d => {
+        resp.data.forEach(d => {
           this.categoryList.push(d);
         });
 
@@ -238,7 +236,7 @@ export default {
     listTagAndCount() {
       return this.$http.get('/tag/list/count')
       .then(resp => {
-        resp.data.map(d => {
+        resp.data.forEach(d => {
           this.tagList.push(d);
         });
         

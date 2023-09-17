@@ -102,7 +102,7 @@ export default {
       const listPostDto = { pageType: 'D01001' };
       const { data } = await this.$http.get('/post', { params: listPostDto });
 
-      data[0].map(d => {
+      data[0].forEach(d => {
         this.postList.push(d);
       });
       
@@ -141,7 +141,7 @@ export default {
       
       return this.$http.get('/category/list/count')
       .then(resp => {
-        resp.data.map(d => {
+        resp.data.forEach(d => {
           this.categoryList.push({
             value: d.id,
             text: d.nm,
