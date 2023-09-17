@@ -14,11 +14,12 @@ module.exports = defineConfig({
       new BundleAnalyzerPlugin(),
       new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /ko/),
     ],
-    resolve: {
-      alias: {
-        moment: 'moment/src/moment',
-      },
-    },
+    // 2023.09.17. 해당 부분 추가 후 운영환경 로딩이 느려져서 임시 주석처리
+    // resolve: {
+    //   alias: {
+    //     moment: 'moment/src/moment',
+    //   },
+    // },
   },
   devServer: {
     proxy: {
