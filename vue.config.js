@@ -7,12 +7,17 @@ module.exports = defineConfig({
   outputDir: path.resolve(__dirname, '../../backend/selosele2/client'),
   productionSourceMap: false,
   configureWebpack: {
+    performance: {
+      hints: 'production' === process.env.NODE_ENV ? 'warning' : false,
+    },
     plugins: [
       new BundleAnalyzerPlugin(),
       new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /ko/),
     ],
-    performance: {
-      hints: 'production' === process.env.NODE_ENV ? 'warning' : false,
+    resolve: {
+      alias: {
+        moment: 'moment/src/moment',
+      },
     },
   },
   devServer: {
