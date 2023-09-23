@@ -62,6 +62,11 @@ export default {
     await this.listCategoryAndCount();
     await this.init();
   },
+  watch: {
+    async '$store.state.Category.categoryList'(categoryList) {
+      await this.listCategoryAndCount();
+    },
+  },
   computed: {
     storePageSize() {
       return this.$store.state.BlogConfig.data?.pageSize;
@@ -132,21 +137,24 @@ export default {
       
       this.dataLoading();
     },
-    /** 카테고리 목록 및 개수 조회 */
-    listCategoryAndCount() {
-      this.categoryList.push({
+    /** 카테고리 목록 및 개수 세팅 */
+    async setCategoryAndCount(data) {
+      this.categoryList = [
+      {
         value: '0',
         text: '전체',
-      });
-      
-      return this.$http.get('/category/list/count')
-      .then(resp => {
-        resp.data.forEach(d => {
-          this.categoryList.push({
-            value: d.id,
-            text: d.nm,
-          });
-        });
+      },
+      ...data[0].map((d,i) => ({
+          value: d.id,
+          text: d.nm,
+        }))
+      ];
+    },
+    /** 카테고리, 태그 목록 및 개수 조회 */
+    listCategoryAndCount() {
+      return this.$store.dispatch('Category/LIST_CATEGORY')
+      .then(async data => {
+        await this.setCategoryAndCount(data);
       });
     },
     /** 데이타 로딩 */

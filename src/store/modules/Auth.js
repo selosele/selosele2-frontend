@@ -26,6 +26,8 @@ export const Auth = {
     LOGIN({ commit, dispatch }, values) {
       return new Promise((resolve, reject) => {
         commit('Auth/SET_ACCESS_TOKEN', values, { root: true });
+        commit('Category/SET_CATEGORY_LIST', [], { root: true });
+        commit('Category/SET_TAG_LIST', [], { root: true });
         commit('Post/SET_MAIN_POSTLIST', {}, { root: true });
         commit('Year/SET_YEAR_POSTS', { flag: 'reset' }, { root: true });
         commit('Layout/SET_SIDEBAR', {}, { root: true });
@@ -48,6 +50,8 @@ export const Auth = {
           
           commit('Loading/SET_IS_LOADING', false, { root: true });
           commit('Auth/CLEAR_ACCESS_TOKEN', null, { root: true });
+          commit('Category/SET_CATEGORY_LIST', [], { root: true });
+          commit('Category/SET_TAG_LIST', [], { root: true });
           commit('Post/SET_MAIN_POSTLIST', {}, { root: true });
           commit('Year/SET_YEAR_POSTS', { flag: 'reset' }, { root: true });
           commit('Layout/SET_SIDEBAR', {}, { root: true });

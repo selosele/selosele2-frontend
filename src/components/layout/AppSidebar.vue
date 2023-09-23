@@ -7,11 +7,11 @@
                 style="min-height: 20rem;">
     </ui-loading>
 
-    <ui-sort-list v-model:list="storeSidebar.widget"
+    <ui-sort-list v-model:list="storeWidget"
                   :shouldCancelStart="onShouldCancelStart"
                   @updateList="onUpdateList"
                   v-if="dataLoaded">
-      <ui-sort-item v-for="(widget,i) in storeSidebar.widget" :key="widget.id"
+      <ui-sort-item v-for="(widget,i) in storeWidget" :key="widget.id"
         :index="i"
         :disabled="!widgetActive"
       >
@@ -104,6 +104,12 @@ export default {
       },
       set(v) {}
     },
+    storeWidget: {
+      get() {
+        return this.$store.state.Layout.sidebar.widget ?? [];
+      },
+      set(v) {}
+    },
     changeWidget: {
       get() {
         return this.$store.state.Layout.changeWidget;
@@ -136,11 +142,8 @@ export default {
       // 위젯 목록을 먼저 조회하고
       await this.listWidget();
 
-      // 카테고리, 태그를 동시에 조회한다음
-      await Promise.all([
-        this.listCategoryAndCount(),
-        this.listTagAndCount(),
-      ]);
+      // 카테고리, 태그 목록을 조회한다음
+      await this.listCategoryAndCount();
 
       // 위젯 skeleton ui 표출 메서드를 실행한다.
       this.dataLoading();
@@ -221,26 +224,12 @@ export default {
         this.sidebar.widget = data;
       });
     },
-    /** 카테고리 목록 및 개수 조회 */
+    /** 카테고리, 태그 목록 및 개수 조회 */
     listCategoryAndCount() {
-      return this.$http.get('/category/list/count')
-      .then(resp => {
-        resp.data.forEach(d => {
-          this.categoryList.push(d);
-        });
-
-        this.sidebar.category = this.categoryList;
-      });
-    },
-    /** 태그 목록 및 개수 조회 */
-    listTagAndCount() {
-      return this.$http.get('/tag/list/count')
-      .then(resp => {
-        resp.data.forEach(d => {
-          this.tagList.push(d);
-        });
-        
-        this.sidebar.tag = this.tagList;
+      return this.$store.dispatch('Category/LIST_CATEGORY')
+      .then(data => {
+        this.sidebar.category = data[0];
+        this.sidebar.tag = data[1];
       });
     },
     /** font-size 구하기 */

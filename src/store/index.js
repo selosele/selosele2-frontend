@@ -6,6 +6,7 @@ import { Satisfaction } from '@/store/modules/Satisfaction';
 import { Notification } from '@/store/modules/Notification';
 import { BlogConfig } from '@/store/modules/BlogConfig';
 import { Layout } from '@/store/modules/Layout';
+import { Category } from '@/store/modules/Category';
 import { Post } from '@/store/modules/Post';
 import { Guestbook } from '@/store/modules/Guestbook';
 import { Menu } from '@/store/modules/Menu';
@@ -23,6 +24,7 @@ export default createStore({
     Notification,   // 알림
     BlogConfig,     // 블로그 환경설정
     Layout,         // 레이아웃
+    Category,       // 카테고리, 태그
     Post,           // 포스트
     Guestbook,      // 방명록
     Menu,           // 메뉴

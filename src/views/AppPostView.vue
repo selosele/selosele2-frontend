@@ -228,7 +228,7 @@ export default {
         }
 
         // 이전/다음 포스트 목록 조회
-        const [prev, next] = this.post.prevAndNext;
+        const [prev, next] = this.post?.prevAndNext;
         this.prevPost = prev || null;
         this.nextPost = next || null;
 
