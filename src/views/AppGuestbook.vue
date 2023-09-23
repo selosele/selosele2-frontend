@@ -161,8 +161,7 @@ export default {
     // 페이지 타이틀 세팅
     this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '방명록');
 
-    this.adminNickName = this.$store.state.Guestbook.code.find(d => d.id === 'F01001').nm;
-
+    await this.setCode();
     await this.listGuestbook();
   },
   mounted() {
@@ -332,6 +331,10 @@ export default {
       }
 
       return data;
+    },
+    /** 공통코드 세팅 */
+    async setCode() {
+      this.adminNickName = this.$store.state.Guestbook.code.find(d => d.id === 'F01001')?.nm;
     },
   },
 };

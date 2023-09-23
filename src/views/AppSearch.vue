@@ -116,15 +116,7 @@ export default {
     this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '포스트 검색');
 
     // 검색옵션 코드 세팅
-    this.$store.state.Post.code.forEach((d,i) => {
-      if ('A01' === d.prefix) {
-        let obj = {
-          value: d.val,
-          text: d.nm,
-        };
-        this.tData.push(obj);
-      }
-    });
+    await this.setCode();
 
     // 검색키워드 파라미터 값이 있으면 검색 메소드 실행
     if (this.$route.query['q']) {
@@ -241,6 +233,17 @@ export default {
       window.scrollTo(0, st);
       this.$refs['q'].focus();
     },
+    /** 공통코드 세팅 */
+    async setCode() {
+      this.$store.state.Post.code.forEach((d,i) => {
+        if ('A01' === d.prefix) {
+          this.tData.push({
+            value: d.val,
+            text: d.nm,
+          });
+        }
+      });
+    }
   }
 };
 </script>
