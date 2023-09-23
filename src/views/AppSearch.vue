@@ -8,7 +8,7 @@
                      :title="'검색 옵션'"
                      :clazz="['search__option']"
                      :data="tData"
-                     :selectedValue="this.$route.query['t']"
+                     :selectedValue="$route.query['t']"
                      v-model="t">
           </ui-select>
 
@@ -44,7 +44,7 @@
           </template>
           
           <template v-if="postList !== null && postList.length > 0">
-            <strong class="search__info__txt">{{ this.$route.query['q'] }}</strong>에 대한 검색 결과는
+            <strong class="search__info__txt">{{ $route.query['q'] }}</strong>에 대한 검색 결과는
             <strong class="search__info__txt">{{ listCnt }}개</strong>입니다.
 
             <ui-icon-button :type="'link'"
@@ -77,7 +77,7 @@
                         :text="'검색 필드 바로가기'"
                         :class="[
                           'search__to-input',
-                          { 'search__to-input--active': this.toInputActive }
+                          { 'search__to-input--active': toInputActive }
                         ]"
                         @click="toInput"
         >
