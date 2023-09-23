@@ -235,14 +235,12 @@ export default {
     },
     /** 공통코드 세팅 */
     async setCode() {
-      this.$store.state.Post.code
+      this.tData = this.$store.state.Post.code
         .filter(d => d.prefix === 'A01')
-        .forEach(d => {
-          this.tData.push({
-            value: d.val,
-            text: d.nm,
-          });
-        });
+        .map(d => ({
+          value: d.val,
+          text: d.nm,
+        }));
     }
   }
 };
