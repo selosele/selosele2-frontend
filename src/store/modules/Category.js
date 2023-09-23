@@ -25,22 +25,20 @@ export const Category = {
       commit('SET_TAG_LIST', values);
     },
     LIST_CATEGORY({ commit, dispatch, state }) {
-      return new Promise((resolve, reject) => {
-        if (0 === state.categoryList.length) {
-          http.get('/category/list/count')
-          .then(resp => {
-            commit('SET_CATEGORY_LIST', [...resp.data[0]]);
-            commit('SET_TAG_LIST', [...resp.data[1]]);
-  
-            resolve(resp.data);
-          });
-        } else {
-          resolve([
-            state.categoryList,
-            state.tagList,
-          ]);
-        }
-      });
+      if (0 === state.categoryList.length) {
+        http.get('/category/list/count')
+        .then(resp => {
+          commit('SET_CATEGORY_LIST', resp.data[0]);
+          commit('SET_TAG_LIST', resp.data[1]);
+
+          return Promise.resolve(resp.data);
+        });
+      } else {
+        return Promise.resolve([
+          state.categoryList,
+          state.tagList,
+        ]);
+      }
     },
   },
 };

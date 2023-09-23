@@ -42,7 +42,10 @@ export default {
       listCnt: null,
       postList: [],
       pagingPostList: [],
-      categoryList: [],
+      categoryList: [{
+        value: '0',
+        text: '전체',
+      }],
       dataLoaded: false,
     }
   },
@@ -59,13 +62,7 @@ export default {
     
     this.page = isNotEmpty(this.$route.query.page) ? parseInt(this.$route.query.page) : 1;
 
-    await this.listCategoryAndCount();
     await this.init();
-  },
-  watch: {
-    async '$store.state.Category.categoryList'(categoryList) {
-      await this.listCategoryAndCount();
-    },
   },
   computed: {
     storePageSize() {
@@ -94,6 +91,7 @@ export default {
     async init() {
       if (!this.hasStorePostList) {
         await this.listPost();
+        await this.setCategoryAndCount();
         this.dataLoading();
         return;
       }
@@ -138,24 +136,15 @@ export default {
       this.dataLoading();
     },
     /** 카테고리 목록 및 개수 세팅 */
-    async setCategoryAndCount(data) {
+    async setCategoryAndCount() {
+      const storeCategoryList = await this.$store.dispatch('Category/LIST_CATEGORY');
+
       this.categoryList = [
-      {
-        value: '0',
-        text: '전체',
-      },
-      ...data[0].map((d,i) => ({
+        ...storeCategoryList[0].map((d,i) => ({
           value: d.id,
           text: d.nm,
         }))
       ];
-    },
-    /** 카테고리, 태그 목록 및 개수 조회 */
-    listCategoryAndCount() {
-      return this.$store.dispatch('Category/LIST_CATEGORY')
-      .then(async data => {
-        await this.setCategoryAndCount(data);
-      });
     },
     /** 데이타 로딩 */
     dataLoading() {

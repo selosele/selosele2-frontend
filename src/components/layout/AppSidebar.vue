@@ -225,12 +225,9 @@ export default {
       });
     },
     /** 카테고리, 태그 목록 및 개수 조회 */
-    listCategoryAndCount() {
-      return this.$store.dispatch('Category/LIST_CATEGORY')
-      .then(data => {
-        this.sidebar.category = data[0];
-        this.sidebar.tag = data[1];
-      });
+    async listCategoryAndCount() {
+      this.sidebar.category = this.$store.state.Category.categoryList;
+      this.sidebar.tag = this.$store.state.Category.tagList;
     },
     /** font-size 구하기 */
     getFontSize(cnt) {

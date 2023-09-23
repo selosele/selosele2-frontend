@@ -80,6 +80,7 @@ export default {
     await Promise.all([
       this.listCode(),
       this.getBlogConfig(),
+      this.listCategoryAndCount(),
     ]);
   },
   mounted() {
@@ -127,6 +128,10 @@ export default {
           await this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', data?.title);
         }
       });
+    },
+    /** 카테고리, 태그 목록 및 개수 조회 */
+    listCategoryAndCount() {
+      return this.$store.dispatch('Category/LIST_CATEGORY');
     },
     /** 모바일 메뉴 toggle */
     toggleMobileMenu(e) {
