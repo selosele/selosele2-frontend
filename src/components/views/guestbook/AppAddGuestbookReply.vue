@@ -51,7 +51,7 @@
 import { messageUtil } from '@/utils';
 
 export default {
-  name: 'app-add-guestbook-reply',
+  name: 'AppAddGuestbookReply',
   props: {
     /** 방명록 index */
     idx: Number,

@@ -71,7 +71,7 @@
 import { isBlank, isEmpty, messageUtil } from '@/utils';
 
 export default {
-  name: 'app-save-code',
+  name: 'AppSaveCode',
   props: {
     /** 코드 정보 */
     code: {

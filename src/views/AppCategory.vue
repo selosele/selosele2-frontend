@@ -28,7 +28,7 @@
 import { isNotEmpty } from '@/utils';
 
 export default {
-  name: 'app-category',
+  name: 'AppCategory',
   props: {
     pageType: String,
     id: String,

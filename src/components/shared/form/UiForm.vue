@@ -18,7 +18,7 @@ import { getFormValues, isEmpty } from '@/utils';
 import { Form } from 'vee-validate';
 
 export default {
-  name: 'ui-form',
+  name: 'UiForm',
   components: {
     Form,
   },

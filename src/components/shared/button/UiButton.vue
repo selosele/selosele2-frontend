@@ -25,7 +25,7 @@
 import { isNotEmpty } from '@/utils';
 
 export default {
-  name: 'ui-button',
+  name: 'UiButton',
   props: {
     /** button type */
     type: {

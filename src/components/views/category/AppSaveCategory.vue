@@ -31,7 +31,7 @@
 import { messageUtil, isEmpty } from '@/utils';
 
 export default {
-  name: 'app-save-category',
+  name: 'AppSaveCategory',
   props: {
     /** 카테고리 정보 */
     category: Object,

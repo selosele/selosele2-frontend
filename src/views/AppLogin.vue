@@ -48,7 +48,7 @@
 import { messageUtil } from '@/utils';
 
 export default {
-  name: 'app-login',
+  name: 'AppLogin',
   data() {
     return {
       userId: '',

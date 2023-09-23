@@ -18,22 +18,22 @@ import UiFileList from '@/components/shared/file/UiFileList';
 
 export const uiModule = {
   install: (app, options) => {
-    app.component('ui-loading', UiLoading);
-    app.component('ui-skeletor', UiSkeletor);
-    app.component('ui-button', UiButton);
-    app.component('ui-file-button', UiFileButton);
-    app.component('ui-icon-button', UiIconButton);
-    app.component('ui-modal', UiModal);
-    app.component('ui-grid', UiGrid);
-    app.component('ui-pane', UiPane);
-    app.component('ui-split-pane', UiSplitPane);
-    app.component('ui-pagination', UiPagination);
-    app.component('ui-tree', UiTree);
-    app.component('ui-tabs', UiTabs);
-    app.component('ui-tab', UiTab);
-    app.component('ui-sort-list', UiSortList);
-    app.component('ui-sort-item', UiSortItem);
-    app.component('ui-write-table', UiWriteTable);
-    app.component('ui-file-list', UiFileList);
+    app.component('UiLoading', UiLoading);
+    app.component('UiSkeletor', UiSkeletor);
+    app.component('UiButton', UiButton);
+    app.component('UiFileButton', UiFileButton);
+    app.component('UiIconButton', UiIconButton);
+    app.component('UiModal', UiModal);
+    app.component('UiGrid', UiGrid);
+    app.component('UiPane', UiPane);
+    app.component('UiSplitPane', UiSplitPane);
+    app.component('UiPagination', UiPagination);
+    app.component('UiTree', UiTree);
+    app.component('UiTabs', UiTabs);
+    app.component('UiTab', UiTab);
+    app.component('UiSortList', UiSortList);
+    app.component('UiSortItem', UiSortItem);
+    app.component('UiWriteTable', UiWriteTable);
+    app.component('UiFileList', UiFileList);
   }
 };

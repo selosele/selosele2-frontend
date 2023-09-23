@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'app-admin-file-upload',
+  name: 'AppAdminFileUpload',
   data() {
     return {
       fileList: [],

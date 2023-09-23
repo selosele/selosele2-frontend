@@ -71,7 +71,7 @@
 
 <script>
 export default {
-  name: 'app-post-list-detail',
+  name: 'AppPostListDetail',
   props: {
     // main: 메인, search: 검색
     pageType: String,

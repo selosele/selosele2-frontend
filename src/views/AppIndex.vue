@@ -31,7 +31,7 @@ import { isNotEmpty } from '@/utils';
 import { isNotBlank } from '../utils';
 
 export default {
-  name: 'app-index',
+  name: 'AppIndex',
   components: {
     AppPostList,
     AppWidgetConfig,

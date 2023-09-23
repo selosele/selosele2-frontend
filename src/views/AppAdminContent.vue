@@ -30,7 +30,7 @@
 import { isNotEmpty, messageUtil } from '@/utils';
 
 export default {
-  name: 'app-admin-content',
+  name: 'AppAdminContent',
   data() {
     return {
       columnDefs: [

@@ -284,7 +284,7 @@
 import { messageUtil, isNotEmpty, isEmpty } from '@/utils';
 
 export default {
-  name: 'app-admin-blog-config',
+  name: 'AppAdminBlogConfig',
   data() {
     return {
       pageTitle: '블로그 환경설정',

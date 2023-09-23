@@ -34,7 +34,7 @@ import { isBlank } from '@/utils';
 import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
-  name: 'ui-checkbox',
+  name: 'UiCheckbox',
   components: {
     Field,
     ErrorMessage,

@@ -40,7 +40,7 @@ import AppSaveCode from '@/components/views/code/AppSaveCode.vue';
 import { messageUtil } from '@/utils';
 
 export default {
-  name: 'app-admin-code',
+  name: 'AppAdminCode',
   components: {
     AppSaveCode,
   },

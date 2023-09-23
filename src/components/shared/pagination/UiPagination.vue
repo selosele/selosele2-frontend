@@ -53,10 +53,8 @@
 </template>
 
 <script>
-import { isNotBlank } from '@/utils';
-
 export default {
-  name: 'ui-pagination',
+  name: 'UiPagination',
   props: {
     /** Pagination 데이타 */
     value: Array,

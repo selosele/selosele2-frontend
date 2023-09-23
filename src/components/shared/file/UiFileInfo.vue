@@ -12,7 +12,7 @@
 import { getFileSize } from '@/utils';
 
 export default {
-  name: 'ui-file-info',
+  name: 'UiFileInfo',
   props: {
     /** 이미지명 */
     imgName: String,

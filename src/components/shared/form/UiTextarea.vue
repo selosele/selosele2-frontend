@@ -43,7 +43,7 @@ import { Field, ErrorMessage, useField } from 'vee-validate';
 import { isNotEmpty } from '@/utils';
 
 export default {
-  name: 'ui-textarea',
+  name: 'UiTextarea',
   components: {
     Field,
     ErrorMessage,

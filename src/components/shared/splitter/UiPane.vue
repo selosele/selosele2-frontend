@@ -11,7 +11,7 @@ import { Pane } from 'splitpanes';
 import 'splitpanes/dist/splitpanes.css';
 
 export default {
-  name: 'ui-split-pane',
+  name: 'UiSplitPane',
   components: {
     Pane,
   },

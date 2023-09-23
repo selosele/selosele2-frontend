@@ -31,7 +31,7 @@ import { isNotEmpty } from '@/utils';
 import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
-  name: 'ui-file-field',
+  name: 'UiFileField',
   components: {
     Field,
     ErrorMessage,

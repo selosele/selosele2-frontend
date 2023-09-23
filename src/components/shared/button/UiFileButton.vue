@@ -17,7 +17,7 @@ import UiButton from './UiButton.vue';
 import { messageUtil } from '@/utils';
 
 export default {
-  name: 'ui-file-button',
+  name: 'UiFileButton',
   extends: UiButton,
   props: {
     /** 버튼 여러 개 있을 경우 파일 목록 구분을 위한 key */

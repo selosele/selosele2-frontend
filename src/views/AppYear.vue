@@ -37,7 +37,7 @@
 
 <script>
 export default {
-  name: 'app-year',
+  name: 'AppYear',
   data() {
     return {
       page: 1,

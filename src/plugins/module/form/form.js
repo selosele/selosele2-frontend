@@ -16,20 +16,20 @@ import UiFileInfo from '@/components/shared/file/UiFileInfo.vue';
 
 export const formModule = {
   install: (app, options) => {
-    app.component('ui-form', UiForm);
-    app.component('ui-split-form', UiSplitForm);
-    app.component('ui-hidden-field', UiHiddenField);
-    app.component('ui-text-field', UiTextField);
-    app.component('ui-numeric-field', UiNumericField);
-    app.component('ui-textarea', UiTextarea);
-    app.component('ui-select', UiSelect);
-    app.component('ui-radio', UiRadio);
-    app.component('ui-radio-group', UiRadioGroup);
-    app.component('ui-checkbox', UiCheckbox);
-    app.component('ui-checkbox-group', UiCheckboxGroup);
-    app.component('ui-datepicker', UiDatepicker);
-    app.component('ui-file-field', UiFileField);
-    app.component('ui-file-upload-field', UiFileUploadField);
-    app.component('ui-file-info', UiFileInfo);
+    app.component('UiForm', UiForm);
+    app.component('UiSplitForm', UiSplitForm);
+    app.component('UiHiddenField', UiHiddenField);
+    app.component('UiTextField', UiTextField);
+    app.component('UiNumericField', UiNumericField);
+    app.component('UiTextarea', UiTextarea);
+    app.component('UiSelect', UiSelect);
+    app.component('UiRadio', UiRadio);
+    app.component('UiRadioGroup', UiRadioGroup);
+    app.component('UiCheckbox', UiCheckbox);
+    app.component('UiCheckboxGroup', UiCheckboxGroup);
+    app.component('UiDatepicker', UiDatepicker);
+    app.component('UiFileField', UiFileField);
+    app.component('UiFileUploadField', UiFileUploadField);
+    app.component('UiFileInfo', UiFileInfo);
   }
 };

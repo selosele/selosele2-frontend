@@ -31,7 +31,7 @@
 import AppSaveMenu from '@/components/views/menu/AppSaveMenu.vue';
 
 export default {
-  name: 'app-admin-menu',
+  name: 'AppAdminMenu',
   components: {
     AppSaveMenu,
   },

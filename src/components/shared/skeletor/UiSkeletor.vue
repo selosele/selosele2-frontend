@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'ui-skeletor',
+  name: 'UiSkeletor',
   props: {
     /** margin-top */
     marginTop: String,

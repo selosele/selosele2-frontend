@@ -76,7 +76,7 @@
 
 <script>
 export default {
-  name: 'app-sidebar',
+  name: 'AppSidebar',
   data() {
     return {
       sidebar: {},

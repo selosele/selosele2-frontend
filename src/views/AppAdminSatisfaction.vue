@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: 'app-admin-satisfaction',
+  name: 'AppAdminSatisfaction',
   data() {
     return {
       columnDefs: [

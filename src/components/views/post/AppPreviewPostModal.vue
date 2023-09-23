@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'app-preview-post-modal',
+  name: 'AppPreviewPostModal',
   props: {
     /** 포스트 */
     post: Object,

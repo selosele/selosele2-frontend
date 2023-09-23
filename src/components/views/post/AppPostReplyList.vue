@@ -106,7 +106,7 @@ import AppRemovePostReplyModal from './AppRemovePostReplyModal.vue';
 import AppAddPostReplyDepth from './AppAddPostReplyDepth.vue';
 
 export default {
-  name: 'app-post-reply-list',
+  name: 'AppPostReplyList',
   components: {
     AppUpdatePostReplyModal,
     AppRemovePostReplyModal,

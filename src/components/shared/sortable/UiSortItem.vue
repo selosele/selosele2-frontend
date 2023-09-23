@@ -8,7 +8,7 @@
 import { SlickItem } from 'vue-slicksort';
 
 export default {
-  name: 'ui-sort-item',
+  name: 'UiSortItem',
   components: {
     SlickItem,
   },

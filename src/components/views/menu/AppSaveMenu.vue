@@ -92,7 +92,7 @@
 import { messageUtil, isEmpty, isNotEmpty } from '@/utils';
 
 export default {
-  name: 'app-save-menu',
+  name: 'AppSaveMenu',
   props: {
     /** 메뉴 */
     menu: Object,

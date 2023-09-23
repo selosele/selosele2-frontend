@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  name: 'app-save-post-tag',
+  name: 'AppSavePostTag',
   props: {
     /** 추가한 태그 */
     tag: Object,

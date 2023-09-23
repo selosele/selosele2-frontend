@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'app-notification-count',
+  name: 'AppNotificationCount',
   props: {
     /** 알림 건수 */
     text: [String, Number],

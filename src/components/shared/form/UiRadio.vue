@@ -30,7 +30,7 @@
 import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
-  name: 'ui-radio',
+  name: 'UiRadio',
   components: {
     Field,
     ErrorMessage,

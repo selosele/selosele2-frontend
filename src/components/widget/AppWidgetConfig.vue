@@ -36,7 +36,7 @@
 import { messageUtil, isNotEmpty, isArray, isBlank } from '@/utils';
 
 export default {
-  name: 'app-widget-config',
+  name: 'AppWidgetConfig',
   data() {
     return {
       /** 미사용 위젯 목록 */

@@ -75,7 +75,7 @@ import AppRemoveGuestbookReplyModal from '@/components/views/guestbook/AppRemove
 import { isNotEmpty, messageUtil } from '@/utils';
 
 export default {
-  name: 'app-guestbook-reply-list',
+  name: 'AppGuestbookReplyList',
   components: {
     AppUpdateGuestbookReplyModal,
     AppRemoveGuestbookReplyModal,

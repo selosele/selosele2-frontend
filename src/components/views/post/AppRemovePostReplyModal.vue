@@ -32,7 +32,7 @@
 import { messageUtil } from '@/utils';
 
 export default {
-  name: 'app-remove-post-reply-modal',
+  name: 'AppRemovePostReplyModal',
   props: {
     /** 포스트 댓글 */
     reply: Object,

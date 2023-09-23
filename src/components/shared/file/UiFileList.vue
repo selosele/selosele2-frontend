@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: 'ui-file-list',
+  name: 'UiFileList',
   props: {
     /** 파일 목록 */
     value: Array,

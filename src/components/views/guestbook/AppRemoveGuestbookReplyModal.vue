@@ -29,7 +29,7 @@
 import { messageUtil } from '@/utils';
 
 export default {
-  name: 'app-remove-guestbook-reply-modal',
+  name: 'AppRemoveGuestbookReplyModal',
   props: {
     /** 방명록 댓글 ID */
     id: String,

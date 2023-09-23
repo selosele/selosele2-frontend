@@ -62,7 +62,7 @@
 import { messageUtil } from '@/utils';
 
 export default {
-  name: 'ui-file-upload-field',
+  name: 'UiFileUploadField',
   data() {
     return {
       /** 파일 목록 */

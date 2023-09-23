@@ -11,7 +11,7 @@
 import { Tabs } from 'vue3-tabs-component';
 
 export default {
-  name: 'ui-tabs',
+  name: 'UiTabs',
   components: {
     Tabs,
   },

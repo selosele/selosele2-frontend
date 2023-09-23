@@ -92,7 +92,7 @@ import AppPostListDetail from '@/components/views/post/AppPostListDetail.vue';
 import { messageUtil, isBlank } from '@/utils';
 
 export default {
-  name: 'app-search',
+  name: 'AppSearch',
   components: {
     AppPostListDetail,
   },

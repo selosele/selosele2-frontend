@@ -13,7 +13,7 @@
 import { SlickList } from 'vue-slicksort';
 
 export default {
-  name: 'ui-sort-list',
+  name: 'UiSortList',
   components: {
     SlickList,
   },

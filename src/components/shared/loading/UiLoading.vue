@@ -13,7 +13,7 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
 
 export default {
-  name: 'ui-loading',
+  name: 'UiLoading',
   components: {
     Loading,
   },

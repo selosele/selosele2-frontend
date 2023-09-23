@@ -31,7 +31,7 @@
 import { isNotBlank, isNotEmpty, messageUtil } from '@/utils';
 
 export default {
-  name: 'app-admin-post-reply',
+  name: 'AppAdminPostReply',
   data() {
     return {
       columnDefs: [

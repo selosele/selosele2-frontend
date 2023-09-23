@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'app-content-wrapper',
+  name: 'AppContentWrapper',
 }
 </script>
 

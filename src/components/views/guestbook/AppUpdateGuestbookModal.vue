@@ -53,7 +53,7 @@
 import { messageUtil } from '@/utils';
 
 export default {
-  name: 'app-update-guestbook-modal',
+  name: 'AppUpdateGuestbookModal',
   props: {
     /** 방명록 */
     guestbook: Object,

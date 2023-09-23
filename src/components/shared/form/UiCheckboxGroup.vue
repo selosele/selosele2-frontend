@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'ui-checkbox-group',
+  name: 'UiCheckboxGroup',
   props: {
     /** checkbox id */
     id: String,

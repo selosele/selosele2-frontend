@@ -43,7 +43,7 @@ import { defineComponent } from 'vue';
 import UiTextField from './UiTextField.vue';
 
 export default defineComponent({
-  name: 'ui-numeric-field',
+  name: 'UiNumericField',
   extends: UiTextField,
   setup: UiTextField.setup,
   components: {

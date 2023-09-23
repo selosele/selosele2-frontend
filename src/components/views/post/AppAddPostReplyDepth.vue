@@ -58,7 +58,7 @@
 import { messageUtil } from '@/utils';
 
 export default {
-  name: 'app-add-post-reply-depth',
+  name: 'AppAddPostReplyDepth',
   props: {
     /** 포스트 댓글 */
     reply: Object,

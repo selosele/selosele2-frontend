@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'app-notification-button',
+  name: 'AppNotificationButton',
   props: {
     /** 버튼 텍스트 */
     text: String,

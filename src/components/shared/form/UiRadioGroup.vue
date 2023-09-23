@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'ui-radio-group',
+  name: 'UiRadioGroup',
   props: {
     /** radio id */
     id: String,

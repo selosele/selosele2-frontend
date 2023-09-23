@@ -139,7 +139,7 @@ import AppUpdateGuestbookModal from '@/components/views/guestbook/AppUpdateGuest
 import AppRemoveGuestbookModal from '@/components/views/guestbook/AppRemoveGuestbookModal.vue';
 
 export default {
-  name: 'app-guestbook',
+  name: 'AppGuestbook',
   components: {
     AppAddGuestbookReply,
     AppGuestbookReplyList,

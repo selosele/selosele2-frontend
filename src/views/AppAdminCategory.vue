@@ -63,7 +63,7 @@ import AppSaveCategory from '@/components/views/category/AppSaveCategory.vue';
 import { isEmpty } from '@/utils';
 
 export default {
-  name: 'app-admin-category',
+  name: 'AppAdminCategory',
   components: {
     AppSaveCategory
   },

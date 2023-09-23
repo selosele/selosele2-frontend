@@ -25,7 +25,7 @@
 import { VueFinalModal } from 'vue-final-modal';
 
 export default {
-  name: 'ui-modal',
+  name: 'UiModal',
   props: {
     /** Modal title */
     title: String,

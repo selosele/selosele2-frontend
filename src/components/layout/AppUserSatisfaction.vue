@@ -59,7 +59,7 @@
 import { isBlank, messageUtil } from '@/utils';
 
 export default {
-  name: 'app-user-satisfaction',
+  name: 'AppUserSatisfaction',
   data() {
     return {
       /** 만족도조사 점수 값 */
@@ -68,6 +68,7 @@ export default {
       comment: '',
       /** 만족도조사 의견 목록 */
       commentList: [],
+      /** 만족도 의견 유형 코드 */
       commentTypeCd: '',
     }
   },

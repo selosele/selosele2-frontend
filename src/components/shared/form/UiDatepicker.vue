@@ -13,7 +13,7 @@
 import Datepicker from '@vuepic/vue-datepicker';
 
 export default {
-  name: 'ui-datepicker',
+  name: 'UiDatepicker',
   components: {
     Datepicker,
   },

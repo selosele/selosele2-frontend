@@ -39,7 +39,7 @@
 import { isNotEmpty } from '@/utils';
 
 export default {
-  name: 'app-menu',
+  name: 'AppMenu',
   data() {
     return {
       activeIndex: -1,

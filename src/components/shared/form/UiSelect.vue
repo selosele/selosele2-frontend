@@ -45,7 +45,7 @@ import { isNotEmpty } from '@/utils';
 import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
-  name: 'ui-select',
+  name: 'UiSelect',
   components: {
     Field,
     ErrorMessage,

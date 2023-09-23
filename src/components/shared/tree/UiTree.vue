@@ -29,7 +29,7 @@ import Tree from 'vue3-tree';
 import 'vue3-tree/dist/style.css';
 
 export default {
-  name: 'ui-tree',
+  name: 'UiTree',
   components: {
     Tree,
   },

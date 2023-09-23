@@ -31,7 +31,7 @@
 import UiButton from './UiButton.vue';
 
 export default {
-  name: 'ui-icon-button',
+  name: 'UiIconButton',
   extends: UiButton,
   props: {
     /** icon */

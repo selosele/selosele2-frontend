@@ -13,7 +13,7 @@
 import { Field } from 'vee-validate';
 
 export default {
-  name: 'ui-hidden-field',
+  name: 'UiHiddenField',
   components: {
     Field,
   },

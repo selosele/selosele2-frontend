@@ -30,7 +30,7 @@ import { getFormValues } from '@/utils';
 import UiForm from './UiForm.vue';
 
 export default {
-  name: 'ui-split-form',
+  name: 'UiSplitForm',
   extends: UiForm,
   props: {
     /** form name */

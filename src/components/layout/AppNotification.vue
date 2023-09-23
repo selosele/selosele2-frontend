@@ -228,7 +228,7 @@ import AppNotificationCount from './AppNotificationCount.vue';
 import { isNotEmpty, messageUtil } from '@/utils';
 
   export default {
-    name: 'app-notification',
+    name: 'AppNotification',
     components: {
       AppNotificationButton,
       AppNotificationCount,

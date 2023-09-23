@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: 'ui-write-table',
+  name: 'UiWriteTable',
   props: {
     /** 테이블 이름 */
     name: String,

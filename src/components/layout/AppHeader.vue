@@ -77,7 +77,7 @@ import { isBlank, isNotEmpty, messageUtil } from '@/utils';
 import AppNotification from '@/components/layout/AppNotification.vue';
 
 export default {
-  name: 'app-header',
+  name: 'AppHeader',
   components: {
     AppNotification,
   },

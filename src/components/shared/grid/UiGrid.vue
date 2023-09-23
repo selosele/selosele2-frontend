@@ -22,7 +22,7 @@
 import { AgGridVue } from 'ag-grid-vue3';
 
 export default {
-  name: 'ui-grid',
+  name: 'UiGrid',
   components: {
     AgGridVue,
   },

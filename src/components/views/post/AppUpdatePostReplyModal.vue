@@ -54,7 +54,7 @@
 import { messageUtil } from '@/utils';
 
 export default {
-  name: 'app-update-post-reply-modal',
+  name: 'AppUpdatePostReplyModal',
   props: {
     /** 포스트 댓글 */
     reply: Object,

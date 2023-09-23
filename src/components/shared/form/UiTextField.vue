@@ -46,7 +46,7 @@ import { Field, ErrorMessage, useField } from 'vee-validate';
 import { isNotEmpty } from '@/utils';
 
 export default {
-  name: 'ui-text-field',
+  name: 'UiTextField',
   components: {
     Field,
     ErrorMessage,

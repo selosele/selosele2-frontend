@@ -68,7 +68,7 @@ import { isNotEmpty, messageUtil } from '@/utils';
 import AppPostReplyList from './AppPostReplyList.vue';
 
 export default {
-  name: 'app-add-post-reply',
+  name: 'AppAddPostReply',
   components: {
     AppPostReplyList,
   },
