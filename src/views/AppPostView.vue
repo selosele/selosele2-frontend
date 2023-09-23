@@ -128,6 +128,7 @@
           </nav>
     
           <app-add-post-reply :id="post?.id"
+                              :list="post.postReply"
                               v-if="isPostPage">
           </app-add-post-reply>
         </ui-form>
@@ -148,7 +149,7 @@ import AppAddPostReply from '@/components/views/post/AppAddPostReply.vue';
 import 'highlight.js/styles/stackoverflow-dark.css';
 
 export default {
-  name: 'app-post-view',
+  name: 'AppPostView',
   components: {
     AppAddPostReply,
   },
@@ -198,11 +199,7 @@ export default {
       this.postUrl = window.location.href;
 
       if (this.isPostPage) {
-        await Promise.all([
-          this.getPost(id),
-          this.getPostLike(id),
-          this.listPrevAndNextPost(id),
-        ]);
+        await this.getPost(id),
 
         this.postLikeCnt = this.post.postLike.length;
       } else if (this.isContentPage) {
@@ -223,22 +220,38 @@ export default {
           this.post.modDate = this.$moment(this.post.modDate).format('YYYY-MM-DD HH:mm:ss');
         }
 
+        // 사용자 포스트 추천 정보 조회
+        if (isNotEmpty(this.post.userPostLike)) {
+          this.isPostLiked = true;
+        } else {
+          this.isPostLiked = false;
+        }
+
+        // 이전/다음 포스트 목록 조회
+        const [prev, next] = this.post.prevAndNext;
+        this.prevPost = prev || null;
+        this.nextPost = next || null;
+
+        // 댓글 데이타 가공
+        if (0 < this.post.postReply.length) {
+          this.post.postReply.forEach(d => {
+            d.cont = d.cont.replace(/\r\n|\n/g, '<br>');
+            d.cont = d.cont.replaceAll('\\r\\n', '<br>'); // AS-IS 데이타의 경우 \r\n 문자가 DB에 직접 들어감
+            d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
+  
+            if (isNotEmpty(d.modDate)) {
+              d.modDate = this.$moment(d.modDate).format('YYYY-MM-DD HH:mm:ss');
+            }
+          });
+        }
+
         this.pageTitle = this.post.title;
         
         // 페이지 타이틀 세팅
         this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
       });
     },
-    /** 이전/다음 포스트 조회 */
-    listPrevAndNextPost(id) {
-      return this.$http.get(`/post/prevnext/${id}`)
-      .then(resp => {
-        const [prev, next] = resp.data;
-        this.prevPost = prev || null;
-        this.nextPost = next || null;
-      });
-    },
-    /** 포스트 추천 정보 조회 */
+    /** 사용자 포스트 추천 정보 조회 */
     getPostLike(id) {
       return this.$http.get(`/postlike/${id}`)
       .then(resp => {

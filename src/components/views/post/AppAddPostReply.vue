@@ -75,18 +75,17 @@ export default {
   props: {
     /** 포스트 ID */
     id: Number,
+    /** 포스트 댓글 목록 */
+    list: Array,
   },
   data() {
     return {
-      /** 포스트 댓글 목록 */
-      replyList: [],
+      replyList: this.list,
       adminNickName: '',
     }
   },
   created() {
     this.adminNickName = this.$store.state.Post.code.find(d => d.id === 'F01001').nm;
-
-    this.listPostReply();
   },
   methods: {
     /** 포스트 댓글 저장 */
@@ -109,7 +108,7 @@ export default {
       .then(resp => {
         this.replyList = [];
 
-        resp.data[0].forEach(d => {
+        resp.data.forEach(d => {
           this.setData(d);
           this.replyList.push(d);
         });
