@@ -131,7 +131,7 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     // 페이지 전환 시 검색키워드 파라미터가 없으면 검색결과를 초기화
-    if (!to.query.q) {
+    if (!to.query['q']) {
       this.postList = null;
     }
     next();
@@ -178,31 +178,31 @@ export default {
     /** 포스트 검색 */
     listPostSearch(params, isMore = false) {
       return this.$http.get('/post/search', { params })
-        .then(async resp => {
-          resp.data[0].forEach(d => {
-            this.postList.push(d);
-          });
-
-          this.listCnt = resp.data[1];
-
-          if (this.listCnt === this.postList.length) {
-            this.isLastPage = true;
-          }
-
-          this.googleSearchUrl = encodeURI(`https://www.google.com/search?q=${this.q}`);
-
-          // 더보기 버튼 클릭 시, 스크롤 위치가 최상단으로 세팅되는 현상때문에 검색 페이지에서는 페이지 전환이 안되도록 수정
-          if (!isMore) {
-            await this.$router.push({
-              path: '/search', 
-              query: {
-                q: params.q, 
-                t: params.t, 
-                c: params.c,
-              },
-            });
-          }
+      .then(async resp => {
+        resp.data[0].forEach(d => {
+          this.postList.push(d);
         });
+
+        this.listCnt = resp.data[1];
+
+        if (this.listCnt === this.postList.length) {
+          this.isLastPage = true;
+        }
+
+        this.googleSearchUrl = encodeURI(`https://www.google.com/search?q=${this.q}`);
+
+        // 더보기 버튼 클릭 시, 스크롤 위치가 최상단으로 세팅되는 현상때문에 검색 페이지에서는 페이지 전환이 안되도록 수정
+        if (!isMore) {
+          await this.$router.push({
+            path: '/search', 
+            query: {
+              q: params['q'], 
+              t: params['t'], 
+              c: params['c'],
+            },
+          });
+        }
+      });
     },
     /** 검색결과 더보기 */
     more() {
@@ -235,14 +235,14 @@ export default {
     },
     /** 공통코드 세팅 */
     async setCode() {
-      this.$store.state.Post.code.forEach((d,i) => {
-        if ('A01' === d.prefix) {
+      this.$store.state.Post.code
+        .filter(d => d.prefix === 'A01')
+        .forEach(d => {
           this.tData.push({
             value: d.val,
             text: d.nm,
           });
-        }
-      });
+        });
     }
   }
 };
