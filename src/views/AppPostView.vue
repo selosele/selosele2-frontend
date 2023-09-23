@@ -223,8 +223,9 @@ export default {
           this.post.modDate = this.$moment(this.post.modDate).format('YYYY-MM-DD HH:mm:ss');
         }
 
-        // 페이지 타이틀 세팅
         this.pageTitle = this.post.title;
+        
+        // 페이지 타이틀 세팅
         this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
       });
     },

@@ -47,7 +47,6 @@ export default {
     }
   },
   async created() {
-    
     // 페이지 타이틀 세팅
     this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '만족도조사 관리');
 

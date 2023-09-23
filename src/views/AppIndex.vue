@@ -47,13 +47,13 @@ export default {
     }
   },
   async created() {
-    /**
-     * 페이지 타이틀 세팅
-     *   - 여기서 페이지타이틀을 세팅하지 않으면, 메인페이지로 왔을 때 페이지타이틀 세팅이 되지 않음
-     */
     const pageTitle = this.$store.state.BlogConfig.data?.title;
-
+    
     if (isNotBlank(pageTitle)) {
+      /**
+       * 페이지 타이틀 세팅
+       *   - 여기서 페이지타이틀을 세팅하지 않으면, 메인페이지로 왔을 때 페이지타이틀 세팅이 되지 않음
+       */
       this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', pageTitle);
     }
     
