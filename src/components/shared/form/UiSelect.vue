@@ -21,7 +21,7 @@
       </option>
       
       <template v-if="data && 0 < data.length">
-        <option v-for="d,i in data"
+        <option v-for="(d,i) in data"
                 :key="i"
                 :value="d.value"
                 :selected="d.value == selectedValue"
