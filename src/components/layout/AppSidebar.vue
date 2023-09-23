@@ -75,6 +75,8 @@
 </template>
 
 <script>
+import { isNotEmpty } from '@/utils';
+
 export default {
   name: 'AppSidebar',
   data() {
@@ -228,8 +230,8 @@ export default {
     async listCategoryAndCount() {
       const storeCategoryList = await this.$store.dispatch('Category/LIST_CATEGORY');
 
-      this.sidebar.category = storeCategoryList[0];
-      this.sidebar.tag = storeCategoryList[1];
+      this.sidebar.category = isNotEmpty(storeCategoryList) ? storeCategoryList[0] : [];
+      this.sidebar.tag = isNotEmpty(storeCategoryList) ? storeCategoryList[1] : [];
     },
     /** font-size 구하기 */
     getFontSize(cnt) {
