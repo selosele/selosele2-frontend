@@ -226,8 +226,10 @@ export default {
     },
     /** 카테고리, 태그 목록 및 개수 조회 */
     async listCategoryAndCount() {
-      this.sidebar.category = this.$store.state.Category.categoryList;
-      this.sidebar.tag = this.$store.state.Category.tagList;
+      const storeCategoryList = await this.$store.dispatch('Category/LIST_CATEGORY');
+
+      this.sidebar.category = storeCategoryList[0];
+      this.sidebar.tag = storeCategoryList[1];
     },
     /** font-size 구하기 */
     getFontSize(cnt) {
