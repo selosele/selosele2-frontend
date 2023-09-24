@@ -5,7 +5,7 @@
       :pageType="'D01001'"
       :page="page"
       :postList="pagingPostList"
-      :categoryList="categoryList"
+      :categoryList="$store.state.Category.selectCategoryList"
       @listPost="listPostByCategory"
       @removePost="refreshPostList">
     
@@ -42,10 +42,6 @@ export default {
       listCnt: null,
       postList: [],
       pagingPostList: [],
-      categoryList: [{
-        value: '0',
-        text: '전체',
-      }],
       dataLoaded: false,
     }
   },
@@ -91,7 +87,6 @@ export default {
     async init() {
       if (!this.hasStorePostList) {
         await this.listPost();
-        await this.setCategoryAndCount();
         this.dataLoading();
         return;
       }
@@ -134,17 +129,6 @@ export default {
       })();
       
       this.dataLoading();
-    },
-    /** 카테고리 목록 및 개수 세팅 */
-    async setCategoryAndCount() {
-      const storeCategoryList = await this.$store.dispatch('Category/LIST_CATEGORY');
-
-      this.categoryList = [
-        ...storeCategoryList[0].map((d,i) => ({
-          value: d.id,
-          text: d.nm,
-        }))
-      ];
     },
     /** 데이타 로딩 */
     dataLoading() {
