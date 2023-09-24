@@ -31,7 +31,7 @@ export const Auth = {
         commit('Layout/SET_SIDEBAR', {}, { root: true });
         commit('Category/SET_TAG_LIST', [], { root: true });
         commit('Category/SET_CATEGORY_LIST', [], { root: true });
-        commit('Category/SET_SELECT_CATEGORY_LIST', [], { root: true });
+        commit('Category/SET_CATEGORY_SELECT_LIST', [], { root: true });
         dispatch('Category/LIST_CATEGORY', [], { root: true });
         dispatch('Menu/LIST_MENU', {
           params: {
@@ -57,7 +57,7 @@ export const Auth = {
           commit('Layout/SET_SIDEBAR', {}, { root: true });
           commit('Category/SET_TAG_LIST', [], { root: true });
           commit('Category/SET_CATEGORY_LIST', [], { root: true });
-          commit('Category/SET_SELECT_CATEGORY_LIST', [], { root: true });
+          commit('Category/SET_CATEGORY_SELECT_LIST', [], { root: true });
           dispatch('Category/LIST_CATEGORY', [], { root: true });
           dispatch('Menu/LIST_MENU', {
             params: {

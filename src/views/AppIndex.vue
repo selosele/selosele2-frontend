@@ -5,7 +5,7 @@
       :pageType="'D01001'"
       :page="page"
       :postList="pagingPostList"
-      :categoryList="$store.state.Category.selectCategoryList"
+      :categoryList="$store.state.Category.categorySelectList"
       @listPost="listPostByCategory"
       @removePost="refreshPostList">
     
@@ -20,7 +20,7 @@
       </ui-pagination>
     </app-post-list>
 
-    <app-widget-config v-if="isLogin"></app-widget-config>
+    <app-widget-config v-if="isLogin" />
   </app-content-wrapper>
 </template>
 

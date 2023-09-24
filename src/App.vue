@@ -5,37 +5,36 @@
               :color="'#538204'">
   </ui-loading>
 
-  <app-skip-links></app-skip-links>
+  <app-skip-links />
 
   <div id="body" :class="{ 'scroll-down': !scrollDown }">
     <app-header :resStatus="resStatus"
-                @toggleMobileMenu="toggleMobileMenu($event)">
-    </app-header>
+                @toggleMobileMenu="toggleMobileMenu($event)"
+    />
 
     <app-menu ref="menu"
-              @click.self="closeMobileMenuByWindow($event)">
-    </app-menu>
+              @click.self="closeMobileMenuByWindow($event)"
+    />
 
     <app-main ref="mainWrapper">
       <div class="page__body">
         <div class="page__body--left" v-if="$route.meta.showSidebar">
-          <router-view></router-view>
+          <router-view />
         </div>
-        <router-view v-else></router-view>
+        <router-view v-else />
 
         <div class="page__body--right" v-if="$route.meta.showSidebar">
-          <app-sidebar :key="$store.state.Layout.sidebar"></app-sidebar>
+          <app-sidebar :key="$store.state.Layout.sidebar" />
         </div>
       </div>
 
-      <app-user-satisfaction v-if="($route.meta.showSatis && 'Y' === $store.state.BlogConfig.data?.showSatisYn)">
-      </app-user-satisfaction>
+      <app-user-satisfaction v-if="($route.meta.showSatis && 'Y' === $store.state.BlogConfig.data?.showSatisYn)" />
     </app-main>
 
-    <app-footer></app-footer>
+    <app-footer />
   </div>
 
-  <modals-container></modals-container>
+  <modals-container />
 </template>
 
 <script>

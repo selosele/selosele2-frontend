@@ -96,8 +96,8 @@ export default {
     this.$store.dispatch('Layout/FETCH_IS_SIDEBAR_LOADED', true);
 
     this.widgetList = [...this.storeSidebar.widget];
-    this.categoryList = [...this.storeSidebar.category];
-    this.tagList = [...this.storeSidebar.tag];
+    this.categoryList = this.storeSidebar.category;
+    this.tagList = this.storeSidebar.tag;
   },
   computed: {
     storeSidebar: {
