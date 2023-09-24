@@ -1,39 +1,44 @@
 <template>
   <div :class="['input-wrapper', inlineInput]" v-show="!hidden">
-    <label :for="id"
-           :class="'input-label'"
-           v-if="label">{{ label }}
+    <label
+      :for="id"
+      :class="'input-label'"
+      v-if="label">{{ label }}
     </label>
 
-    <Field :type="'number'"
-           :name="name"
-           :value="`${value}`"
-           :rules="rules"
-           v-slot="{ field }">
+    <Field
+      :type="'number'"
+      :name="name"
+      :value="`${value}`"
+      :rules="rules"
+      v-slot="{ field }"
+    >
 
-      <input :type="'number'"
-             :id="id"
-             :class="['input-field--numeric', blockInput, ...clazz]"
-             :ref="(el) => { inputEl = el }"
-             :name="name"
-             :value="`${value}`"
-             v-bind="{ ...field, ...$attrs }"
-             @input="onInput($event)"
+      <input
+        :type="'number'"
+        :id="id"
+        :class="['input-field--numeric', blockInput, ...clazz]"
+        :ref="(el) => { inputEl = el }"
+        :name="name"
+        :value="`${value}`"
+        v-bind="{ ...field, ...$attrs }"
+        @input="onInput($event)"
       >
     </Field>
 
-    <span v-if="text"
-          v-text="text"
-          :class="'input-field-text'">
-    </span>
+    <span
+      v-if="text"
+      v-text="text"
+      :class="'input-field-text'"
+    />
 
     <ErrorMessage
       :class="{
         'form-field-error': true,
         'form-field-error--tooltip': tooltip,
       }"
-      :name="name">
-    </ErrorMessage>
+      :name="name"
+    />
   </div>
 </template>
 

@@ -1,31 +1,38 @@
 <template>
   <div class="widget__wrapper">
     <div class="widget__config">
-      <ui-button :class="'widget__btn widget__btn--config'"
-                 @click="toggleList">위젯관리
-      </ui-button>
+      <ui-button
+        :text="'위젯관리'"
+        :class="'widget__btn widget__btn--config'"
+        @click="toggleList"
+      />
 
-      <ui-button :class="'widget__btn widget__btn--save'"
-                 @click="updateWidget"
-                 v-if="listActive">저장
-      </ui-button>
+      <ui-button
+        :text="'저장'"
+        :class="'widget__btn widget__btn--save'"
+        @click="updateWidget"
+        v-if="listActive"
+      />
   
       <div class="widget__list" v-if="listActive && 0 < noUseWidgetList.length">
         <h2>미사용 위젯</h2>
 
         <ui-form :name="'updateWidgetUseYnForm'" @onsubmit="updateWidgetUseYn">
-          <ui-checkbox v-for="(widget,i) in noUseWidgetList" :key="i"
-                       :name="'id'"
-                       :id="`id${i}`"
-                       :label="widget.title"
-                       :value="widget.id">
-          </ui-checkbox>
+          <ui-checkbox
+            v-for="(widget,i) in noUseWidgetList" :key="i"
+            :name="'id'"
+            :id="`id${i}`"
+            :label="widget.title"
+            :value="widget.id"
+          />
 
-          <ui-button :type="'submit'"
-                     :color="'primary'"
-                     :block="true"
-                     :class="'mt--5'">사용 여부 저장
-          </ui-button>
+          <ui-button
+            :type="'submit'"
+            :color="'primary'"
+            :text="'사용 여부 저장'"
+            :block="true"
+            :class="'mt--5'"
+          />
         </ui-form>
       </div>
     </div>

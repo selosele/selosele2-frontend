@@ -1,7 +1,7 @@
 <template>
   <main id="main" class="main" ref="mainWrapper">
     <section class="main__contents">
-      <slot></slot>
+      <slot />
     </section>
   </main>
 </template>

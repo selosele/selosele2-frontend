@@ -6,17 +6,18 @@
     content-class="modal-content"
     :name="name"
     >
-    <ui-icon-button :icon="'xi-close'"
-                    :text="'팝업 닫기'"
-                    title="팝업 닫기"
-                    :class="'modal__close'"
-                    @click="close">
-    </ui-icon-button>
+    <ui-icon-button
+      :icon="'xi-close'"
+      :text="'팝업 닫기'"
+      title="팝업 닫기"
+      :class="'modal__close'"
+      @click="close"
+    />
 
     <span class="modal__title">{{ title }}</span>
     
     <div class="modal__content">
-      <slot></slot>
+      <slot />
     </div>
   </vue-final-modal>
 </template>

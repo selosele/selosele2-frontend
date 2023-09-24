@@ -1,20 +1,23 @@
 <template>
   <div :class="['checkbox-wrapper', ...clazz]" v-show="!hidden">
-    <Field type="checkbox"
-           :name="name"
-           :id="id"
-           :ref="id"
-           :rules="rules"
-           :value="value || getValueByIdx(0)"
-           :unchecked-value="getValueByIdx(1)"
-           v-bind="$attrs"
-           v-model="mv"
-           @change="onChange($event)">
-    </Field>
+    <Field
+      type="checkbox"
+      :name="name"
+      :id="id"
+      :ref="id"
+      :rules="rules"
+      :value="value || getValueByIdx(0)"
+      :unchecked-value="getValueByIdx(1)"
+      v-bind="$attrs"
+      v-model="mv"
+      @change="onChange($event)"
+    />
 
-    <label :for="id"
-           :class="'input-label'"
-           v-if="label">
+    <label
+      :for="id"
+      :class="'input-label'"
+      v-if="label"
+    >
       <span class="sr-only" v-if="hideLabel">{{ label }}</span>
       <template v-else>{{ label }}</template>
     </label>
@@ -24,8 +27,8 @@
         'form-field-error': true,
         'form-field-error--tooltip': tooltip,
       }"
-      :name="name">
-    </ErrorMessage>
+      :name="name"
+    />
   </div>
 </template>
 

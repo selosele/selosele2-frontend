@@ -2,67 +2,74 @@
   <ui-split-form :name="'saveCodeForm'" @onsubmit="onSubmit">
     <ui-hidden-field :name="'originId'" :value="code.id" />
 
-    <ui-text-field :type="'text'"
-                   :name="'id'"
-                   :id="'codeId'"
-                   :label="'코드 ID'"
-                   :rules="'required|max:6'"
-                   :readonly="true"
-                   :block="true"
-                   v-model="id">
-    </ui-text-field>
+    <ui-text-field
+      :type="'text'"
+      :name="'id'"
+      :id="'codeId'"
+      :label="'코드 ID'"
+      :rules="'required|max:6'"
+      :readonly="true"
+      :block="true"
+      v-model="id"
+    />
 
-    <ui-text-field :type="'text'"
-                   :name="'prefix'"
-                   :id="'codePrefix'"
-                   :label="'코드 접두어'"
-                   :rules="'required|max:3'"
-                   :block="true"
-                   v-model="prefix">
-    </ui-text-field>
+    <ui-text-field
+      :type="'text'"
+      :name="'prefix'"
+      :id="'codePrefix'"
+      :label="'코드 접두어'"
+      :rules="'required|max:3'"
+      :block="true"
+      v-model="prefix"
+    />
 
-    <ui-text-field :type="'text'"
-                   :name="'val'"
-                   :id="'codeVal'"
-                   :label="'코드 값'"
-                   :rules="'required|max:3'"
-                   :block="true"
-                   v-model="val">
-    </ui-text-field>
+    <ui-text-field
+      :type="'text'"
+      :name="'val'"
+      :id="'codeVal'"
+      :label="'코드 값'"
+      :rules="'required|max:3'"
+      :block="true"
+      v-model="val"
+    />
 
-    <ui-text-field :type="'text'"
-                   :name="'nm'"
-                   :id="'codeNm'"
-                   :label="'코드 명'"
-                   :rules="'required|max:30'"
-                   :block="true"
-                   :value="code.nm">
-    </ui-text-field>
+    <ui-text-field
+      :type="'text'"
+      :name="'nm'"
+      :id="'codeNm'"
+      :label="'코드 명'"
+      :rules="'required|max:30'"
+      :block="true"
+      :value="code.nm"
+    />
 
-    <ui-textarea :type="'text'"
-                 :name="'desc'"
-                 :id="'codeDesc'"
-                 :resize="'vertical'"
-                 :label="'코드 설명'"
-                 :rules="'required|max:30'"
-                 :value="code.desc">
-    </ui-textarea>
+    <ui-textarea
+      :type="'text'"
+      :name="'desc'"
+      :id="'codeDesc'"
+      :resize="'vertical'"
+      :label="'코드 설명'"
+      :rules="'required|max:30'"
+      :value="code.desc"
+    />
 
     <ui-radio-group :label="'코드 사용 여부'">
-      <ui-radio :id="'codeUseYn1'"
-                :name="'useYn'"
-                :label="'사용'"
-                :value="'Y'"
-                :rules="'required'"
-                v-model="useYn">
-      </ui-radio>
-      <ui-radio :id="'codeUseYn2'"
-                :name="'useYn'"
-                :label="'미사용'"
-                :value="'N'"
-                :rules="'required'"
-                v-model="useYn">
-      </ui-radio>
+      <ui-radio
+        :id="'codeUseYn1'"
+        :name="'useYn'"
+        :label="'사용'"
+        :value="'Y'"
+        :rules="'required'"
+        v-model="useYn"
+      />
+      <ui-radio
+        :id="'codeUseYn2'"
+        :name="'useYn'"
+        :label="'미사용'"
+        :value="'N'"
+        :rules="'required'"
+        v-model="useYn"
+      />
     </ui-radio-group>
   </ui-split-form>
 </template>

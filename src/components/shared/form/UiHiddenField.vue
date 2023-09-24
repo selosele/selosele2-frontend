@@ -1,12 +1,12 @@
 <template>
-  <Field type="hidden"
-         :id="id"
-         :ref="id"
-         :name="name"
-         :value="value"
-         v-bind="$attrs"
-  >
-  </Field>
+  <Field
+    type="hidden"
+    :id="id"
+    :ref="id"
+    :name="name"
+    :value="value"
+    v-bind="$attrs"
+  />
 </template>
 
 <script>

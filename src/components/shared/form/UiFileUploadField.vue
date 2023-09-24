@@ -1,12 +1,13 @@
 <template>
   <div class="file-upload__wrapper">
-    <ui-file-field :name="'uploadFiles'"
-                   :id="'uploadFiles'"
-                   :title="'이미지 파일 선택'"
-                   :accept="'image/*'" multiple
-                   :hidden="true"
-                   @onchange="onChange">
-    </ui-file-field>
+    <ui-file-field
+      :name="'uploadFiles'"
+      :id="'uploadFiles'"
+      :title="'이미지 파일 선택'"
+      :accept="'image/*'" multiple
+      :hidden="true"
+      @onchange="onChange"
+    />
 
     <div :class="{
       'file-upload__list': true,
@@ -34,25 +35,30 @@
               </span>
             </span>
             
-            <ui-icon-button :icon="'xi-close'"
-                            :text="'이미지 삭제'"
-                            :class="'file-upload--remove'"
-                            @click="onRemove(i)">
-            </ui-icon-button>
+            <ui-icon-button
+              :icon="'xi-close'"
+              :text="'이미지 삭제'"
+              :class="'file-upload--remove'"
+              @click="onRemove(i)"
+            />
           </li>
         </ul>
       </div>
 
       <div class="file-upload__btns">
-        <ui-button :color="'secondary'"
-                   :class="'file-upload__btn file-upload__btn--reset'"
-                   @click.stop="onReset">초기화
-        </ui-button>
+        <ui-button
+          :color="'secondary'"
+          :text="'초기화'"
+          :class="'file-upload__btn file-upload__btn--reset'"
+          @click.stop="onReset"
+        />
   
-        <ui-button :color="'primary'"
-                   :class="'file-upload__btn file-upload__btn--submit'"
-                   @click.stop="onSubmit">업로드
-        </ui-button>
+        <ui-button
+          :color="'primary'"
+          :text="'업로드'"
+          :class="'file-upload__btn file-upload__btn--submit'"
+          @click.stop="onSubmit"
+        />
       </div>
     </div>
   </div>

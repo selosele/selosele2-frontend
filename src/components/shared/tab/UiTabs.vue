@@ -1,9 +1,10 @@
 <template>
-  <tabs :options="options"
-        @clicked="onTabClicked"
-        @changed="onTabChanged"
+  <tabs
+    :options="options"
+    @clicked="onTabClicked"
+    @changed="onTabChanged"
   >
-    <slot></slot>
+    <slot />
   </tabs>
 </template>
 

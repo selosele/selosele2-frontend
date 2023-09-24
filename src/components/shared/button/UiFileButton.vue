@@ -4,7 +4,7 @@
           v-bind="$attrs"
           @click="listFile">
     <span v-if="text">{{ text }}</span>
-    <slot></slot>
+    <slot />
   </button>
 
   <ui-file-list :value="fileList"

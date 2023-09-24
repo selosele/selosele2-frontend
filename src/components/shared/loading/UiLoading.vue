@@ -1,11 +1,12 @@
 <template>
-  <loading v-model:active="active"
-           :can-cancel="cancel"
-           :is-full-page="fullPage"
-           :loader="loader"
-           :color="color"
-           :opacity="opacity">
-  </loading>
+  <loading
+    v-model:active="active"
+    :can-cancel="cancel"
+    :is-full-page="fullPage"
+    :loader="loader"
+    :color="color"
+    :opacity="opacity"
+  />
 </template>
 
 <script>

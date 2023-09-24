@@ -1,27 +1,29 @@
 <template>
   <div class="mb--15 d-flex gap--10">
-    <ui-text-field :clazz="['tree-filter-field']"
-                   :placeholder="placeholder"
-                   :inline="true"
-                   :name="'menuSearch'"
-                   v-model="searchText"
-                   v-if="filter">
-    </ui-text-field>
+    <ui-text-field
+      :clazz="['tree-filter-field']"
+      :placeholder="placeholder"
+      :inline="true"
+      :name="'menuSearch'"
+      v-model="searchText"
+      v-if="filter"
+    />
   
     <slot name="btn"></slot>
   </div>
 
-  <Tree :nodes="nodes"
-        :search-text="searchText"
-        :placeholder="placeholder"
-        :use-checkbox="useCheckbox"
-        :use-icon="useIcon"
-        :use-row-delete="useRowDelete"
-        :show-child-count="showChildCount"
-        @nodeExpanded="onNodeExpanded"
-        @update:nodes="onUpdate"
-        @nodeClick="onNodeClick">
-  </Tree>
+  <Tree
+    :nodes="nodes"
+    :search-text="searchText"
+    :placeholder="placeholder"
+    :use-checkbox="useCheckbox"
+    :use-icon="useIcon"
+    :use-row-delete="useRowDelete"
+    :show-child-count="showChildCount"
+    @nodeExpanded="onNodeExpanded"
+    @update:nodes="onUpdate"
+    @nodeClick="onNodeClick"
+  />
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
   <splitpanes class="default-theme" :style="{ height }" vertical>
-    <slot></slot>
+    <slot />
   </splitpanes>
 </template>
 

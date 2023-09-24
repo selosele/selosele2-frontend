@@ -4,7 +4,7 @@
           v-bind="$attrs"
           v-if="!routerLink && 'link' !== type">
     <span v-if="text">{{ text }}</span>
-    <slot></slot>
+    <slot />
   </button>
 
   <router-link :to="routerLink"
@@ -12,7 +12,7 @@
                v-bind="$attrs"
                v-if="routerLink && 'link' !== type">
     <span v-if="text">{{ text }}</span>
-    <slot></slot>
+    <slot />
   </router-link>
 
   <a :href="href"
@@ -20,7 +20,7 @@
      v-bind="$attrs"
      v-if="!routerLink && 'link' === type">
      <span v-if="text">{{ text }}</span>
-    <slot></slot>
+    <slot />
   </a>
 </template>
 

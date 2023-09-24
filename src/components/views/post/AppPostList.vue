@@ -48,7 +48,7 @@
       </app-post-list-detail>
     </ui-form>
 
-    <slot></slot>
+    <slot />
   </div>
 </template>
 

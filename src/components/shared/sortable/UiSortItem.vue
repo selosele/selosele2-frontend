@@ -1,6 +1,6 @@
 <template>
   <SlickItem :index="index" :disabled="disabled">
-    <slot></slot>
+    <slot />
   </SlickItem>
 </template>
 

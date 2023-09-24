@@ -1,30 +1,32 @@
 <template>
   <div :class="['input-wrapper', inlineInput]" v-show="!hidden">
-    <label :for="id"
-           :class="'input-label'"
-           v-if="label">{{ label }}
+    <label
+      :for="id"
+      :class="'input-label'"
+      v-if="label">{{ label }}
     </label>
 
-    <Field :name="name"
-           :value="value"
-           :rules="rules"
-           v-slot="{ field }"
+    <Field
+      :name="name"
+      :value="value"
+      :rules="rules"
+      v-slot="{ field }"
     >
 
-      <textarea :id="id"
-                :ref="(el) => { inputEl = el }"
-                :class="[blockTextarea, resizeClass, ...clazz]"
-                :name="name"
-                :cols="cols"
-                :rows="rows"
-                :readonly="readonly"
-                :value="value"
-                v-bind="{ ...field, ...$attrs }"
-                @input="onInput($event)"
-                @change="onChange($event)"
-                @keyup.enter="onEnter($event)"
-      >
-      </textarea>
+      <textarea
+        :id="id"
+        :ref="(el) => { inputEl = el }"
+        :class="[blockTextarea, resizeClass, ...clazz]"
+        :name="name"
+        :cols="cols"
+        :rows="rows"
+        :readonly="readonly"
+        :value="value"
+        v-bind="{ ...field, ...$attrs }"
+        @input="onInput($event)"
+        @change="onChange($event)"
+        @keyup.enter="onEnter($event)"
+      />
     </Field>
 
     <ErrorMessage
@@ -32,8 +34,8 @@
         'form-field-error': true,
         'form-field-error--tooltip': tooltip,
       }"
-      :name="name">
-    </ErrorMessage>
+      :name="name"
+    />
   </div>
 </template>
 

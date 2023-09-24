@@ -1,11 +1,12 @@
 <template>
-  <SlickList :axis="axis"
-             :pressDelay="pressDelay"
-             :shouldCancelStart="shouldCancelStart"
-             v-model:list="mv"
-             @sort-start="onSortStart"
-             @update:list="onUpdateList">
-    <slot></slot>
+  <SlickList
+    :axis="axis"
+    :pressDelay="pressDelay"
+    :shouldCancelStart="shouldCancelStart"
+    v-model:list="mv"
+    @sort-start="onSortStart"
+    @update:list="onUpdateList">
+    <slot />
   </SlickList>
 </template>
 

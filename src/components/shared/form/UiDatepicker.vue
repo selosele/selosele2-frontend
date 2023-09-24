@@ -5,8 +5,7 @@
     :modelValue="dateValue"
     @cleared="$emit('clear')"
     @update:modelValue="$emit('update:modelValue', dateValue)"
-  >
-  </Datepicker>
+  />
 </template>
 
 <script>

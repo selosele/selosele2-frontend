@@ -1,7 +1,7 @@
 <template>
   <pane :class="{ 'is--transparent': isTransparent }">
     <div class="pane__content-wrapper">
-      <slot></slot>
+      <slot />
     </div>
   </pane>
 </template>

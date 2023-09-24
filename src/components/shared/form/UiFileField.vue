@@ -1,17 +1,18 @@
 <template>
   <div :class="['input-wrapper', gapClass, inlineInput]" v-show="!hidden">
-    <Field type="file"
-           :name="name"
-           :id="id"
-           :ref="id"
-           :rules="rules"
-           v-bind="$attrs"
-           @change="onChange"
-           @blur="onBlur">
-    </Field>
+    <Field
+      type="file"
+      :name="name"
+      :id="id"
+      :ref="id"
+      :rules="rules"
+      v-bind="$attrs"
+      @change="onChange"
+      @blur="onBlur"
+    />
 
-    <label :for="id"
-           :class="'input-label btn btn--dark'">{{ label }}
+    <label :for="id" :class="'input-label btn btn--dark'">
+      {{ label }}
     </label>
 
     <ErrorMessage
@@ -19,10 +20,10 @@
         'form-field-error': true,
         'form-field-error--tooltip': tooltip,
       }"
-      :name="name">
-    </ErrorMessage>
+      :name="name"
+    />
 
-    <slot></slot>
+    <slot />
   </div>
 </template>
 

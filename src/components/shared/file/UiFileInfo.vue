@@ -4,7 +4,7 @@
       {{ imgName }} (용량 : {{ getFileSize(imgSize) }})
     </span>
 
-    <slot></slot>
+    <slot />
   </div>
 </template>
 

@@ -1,29 +1,32 @@
 <template>
-  <ui-split-form :name="'saveCategoryForm'"
-                 :btnRemove="true"
-                 @onsubmit="onSubmit"
-                 @remove="onRemove"
+  <ui-split-form
+    :name="'saveCategoryForm'"
+    :btnRemove="true"
+    @onsubmit="onSubmit"
+    @remove="onRemove"
   >
     <ui-hidden-field :name="'id'" :value="category.id" />
     <ui-hidden-field :name="'type'" :value="type" />
 
-    <ui-text-field :type="'text'"
-                   :name="'nm'"
-                   :id="'categoryNm'"
-                   :label="'카테고리 명'"
-                   :rules="'required|max:50'"
-                   :block="true"
-                   :value="category.nm">
-    </ui-text-field>
+    <ui-text-field
+      :type="'text'"
+      :name="'nm'"
+      :id="'categoryNm'"
+      :label="'카테고리 명'"
+      :rules="'required|max:50'"
+      :block="true"
+      :value="category.nm"
+    />
 
-    <ui-text-field :type="'text'"
-                   :name="'regDate'"
-                   :id="'categoryRegDate'"
-                   :label="'카테고리 등록일시'"
-                   :readonly="true"
-                   :block="true"
-                   :value="category.regDate">
-    </ui-text-field>
+    <ui-text-field
+      :type="'text'"
+      :name="'regDate'"
+      :id="'categoryRegDate'"
+      :label="'카테고리 등록일시'"
+      :readonly="true"
+      :block="true"
+      :value="category.regDate"
+    />
   </ui-split-form>
 </template>
 

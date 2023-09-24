@@ -1,32 +1,38 @@
 <template>
   <div :class="['input-wrapper', selectInline]" v-show="!hidden">
-    <label :for="id"
-           :class="'input-label'"
-           v-if="label">{{ label }}
+    <label
+      :for="id"
+      :class="'input-label'"
+      v-if="label">{{ label }}
     </label>
     
-    <Field as="select"
-           :id="id"
-           :ref="id"
-           :name="name"
-           :class="['input-field', selectBlock, selectDisabled, ...clazz]"
-           :rules="rules"
-           v-bind="$attrs"
-           v-model="mv"
-           @change="onChange">
+    <Field
+      as="select"
+      :id="id"
+      :ref="id"
+      :name="name"
+      :class="['input-field', selectBlock, selectDisabled, ...clazz]"
+      :rules="rules"
+      v-bind="$attrs"
+      v-model="mv"
+      @change="onChange"
+    >
 
-      <option value=""
+      <option
+        value=""
         :disabled="defaultValueDisabled"
         selected v-if="defaultValue">{{ defaultValue }}
       </option>
       
       <template v-if="data && 0 < data.length">
-        <option v-for="(d,i) in data"
-                :key="i"
-                :value="d.value"
-                :selected="d.value == selectedValue"
-                :readonly="readonly"
-                :disabled="disabled">{{ d.text }}</option>
+        <option
+          v-for="(d,i) in data"
+          :key="i"
+          :value="d.value"
+          :selected="d.value == selectedValue"
+          :readonly="readonly"
+          :disabled="disabled">{{ d.text }}
+        </option>
       </template>
     </Field>
 
@@ -35,8 +41,8 @@
         'form-field-error': true,
         'form-field-error--tooltip': tooltip,
       }"
-      :name="name">
-    </ErrorMessage>
+      :name="name"
+    />
   </div>
 </template>
 

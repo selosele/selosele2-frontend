@@ -1,15 +1,17 @@
 <template>
-  <Form :name="name"
-        :ref="name"
-        :id="name"
-        :autocomplete="autocomplete"
-        @submit="onSubmit"
-        @reset="onReset"
-        @keydown.enter="onEnter"
+  <Form
+    :name="name"
+    :ref="name"
+    :id="name"
+    :autocomplete="autocomplete"
+    @submit="onSubmit"
+    @reset="onReset"
+    @keydown.enter="onEnter"
   >
-    <slot :validateAll="validateAll"
-          :validateField="validateField">
-    </slot>
+    <slot
+      :validateAll="validateAll"
+      :validateField="validateField"
+    />
   </Form>
 </template>
 

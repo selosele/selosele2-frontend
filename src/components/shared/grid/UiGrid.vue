@@ -14,8 +14,7 @@
     @cellClicked="onCellClicked"
     @cellDoubleClicked="onCellDoubleClicked"
     @rowDataUpdated="onRowDataUpdated"
-  >
-  </ag-grid-vue>
+  />
 </template>
 
 <script>

@@ -1,8 +1,6 @@
 <template>
-  <tab :name="name"
-       :id="id"
-  >
-    <slot></slot>
+  <tab :name="name" :id="id">
+    <slot />
   </tab>
 </template>
 

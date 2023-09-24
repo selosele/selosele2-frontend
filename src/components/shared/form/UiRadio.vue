@@ -1,19 +1,21 @@
 <template>
   <div :class="['radio-wrapper', ...clazz]" v-show="!hidden">
-    <Field type="radio"
-           :name="name"
-           :id="id"
-           :ref="id"
-           :rules="rules"
-           :value="value"
-           v-bind="$attrs"
-           v-model="mv"
-           @change="onChange">
-    </Field>
+    <Field
+      type="radio"
+      :name="name"
+      :id="id"
+      :ref="id"
+      :rules="rules"
+      :value="value"
+      v-bind="$attrs"
+      v-model="mv"
+      @change="onChange"
+    />
 
-    <label :for="id"
-           :class="'input-label'"
-           v-if="label">{{ label }}
+    <label
+      :for="id"
+      :class="'input-label'"
+      v-if="label">{{ label }}
     </label>
 
     <ErrorMessage
@@ -21,8 +23,8 @@
         'form-field-error': true,
         'form-field-error--tooltip': tooltip,
       }"
-      :name="name">
-    </ErrorMessage>
+      :name="name"
+    />
   </div>
 </template>
 

@@ -1,10 +1,11 @@
 <template>
-  <label :for="id"
-         :class="'input-label'"
-         v-if="label">{{ label }}
+  <label
+    :for="id"
+    :class="'input-label'"
+    v-if="label">{{ label }}
   </label>
 
-  <slot></slot>
+  <slot />
 </template>
 
 <script>

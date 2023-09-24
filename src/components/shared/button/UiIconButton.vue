@@ -5,7 +5,7 @@
           v-if="!routerLink && 'link' !== type">
     <i :class="icon" aria-hidden="true"></i>
     <span :class="{ 'sr-only': false === showText }" v-if="text">{{ text }}</span>
-    <slot></slot>
+    <slot />
   </button>
 
   <router-link :to="routerLink"
@@ -14,7 +14,7 @@
                v-if="routerLink && 'link' !== type">
     <i :class="icon" aria-hidden="true"></i>
     <span :class="{ 'sr-only': false === showText }" v-if="text">{{ text }}</span>
-    <slot></slot>
+    <slot />
   </router-link>
 
   <a :href="href"
@@ -23,7 +23,7 @@
      v-if="!routerLink && 'link' === type">
     <i :class="icon" aria-hidden="true"></i>
     <span :class="{ 'sr-only': false === showText }" v-if="text">{{ text }}</span>
-    <slot></slot>
+    <slot />
   </a>
 </template>
 

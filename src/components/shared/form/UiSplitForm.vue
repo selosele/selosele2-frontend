@@ -1,26 +1,34 @@
 <template>
-  <ui-form :name="name"
-           :ref="name"
-           :autocomplete="autocomplete"
-           v-slot="{ validateAll, validateField }"
+  <ui-form
+    :name="name"
+    :ref="name"
+    :autocomplete="autocomplete"
+    v-slot="{ validateAll, validateField }"
   >
-    <slot :validateAll="validateAll"
-          :validateField="validateField">
-    </slot>
+    <slot
+      :validateAll="validateAll"
+      :validateField="validateField"
+    />
 
     <div class="d-flex gap--10 mt--15">
-      <ui-button :type="'submit'"
-                 :color="'primary'">저장
-      </ui-button>
+      <ui-button
+        :type="'submit'"
+        :color="'primary'"
+        :text="'저장'"
+      />
 
-      <ui-button :color="'dark'"
-                 @click="onRemove"
-                 v-if="btnRemove">삭제
-      </ui-button>
+      <ui-button
+        :color="'dark'"
+        :text="'삭제'"
+        @click="onRemove"
+        v-if="btnRemove"
+      />
 
-      <ui-button :color="'secondary'"
-                 @click="onClose">닫기
-      </ui-button>
+      <ui-button
+        :color="'secondary'"
+        :text="'닫기'"
+        @click="onClose"
+      />
     </div>
   </ui-form>
 </template>
