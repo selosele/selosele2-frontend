@@ -3,38 +3,42 @@
     <div class="search__wrapper">
       <ui-form :class="'search__frm'" :name="'searchForm'" @onsubmit="onSubmit">
         <div class="search__field" ref="searchField">
-          <ui-select :name="'t'"
-                     :id="'t'"
-                     :title="'검색 옵션'"
-                     :clazz="['search__option']"
-                     :data="tData"
-                     :selectedValue="$route.query['t']"
-                     v-model="t">
-          </ui-select>
+          <ui-select
+            :name="'t'"
+            :id="'t'"
+            :title="'검색 옵션'"
+            :clazz="['search__option']"
+            :data="$store.state.Post.optionSelectList"
+            :selectedValue="$route.query['t']"
+            v-model="t"
+          />
 
-          <ui-text-field :type="'search'"
-                         :name="'q'"
-                         :id="'q'"
-                         :ref="'q'"
-                         :title="'포스트 검색'"
-                         :placeholder="'검색어를 입력하세요.'"
-                         v-model="q">
-          </ui-text-field>
+          <ui-text-field
+            :type="'search'"
+            :name="'q'"
+            :id="'q'"
+            :ref="'q'"
+            :title="'포스트 검색'"
+            :placeholder="'검색어를 입력하세요.'"
+            v-model="q"
+          />
 
-          <ui-icon-button :type="'submit'"
-                          :icon="'xi-search'"
-                          :text="'검색'"
-                          :class="'search__btn'">
-          </ui-icon-button>
+          <ui-icon-button
+            :type="'submit'"
+            :icon="'xi-search'"
+            :text="'검색'"
+            :class="'search__btn'"
+          />
         </div>
 
         <div class="search__detail">
-          <ui-checkbox :name="'c'"
-                       :id="'c'"
-                       :label="'대소문자 구분'"
-                       :values="'Y,N'"
-                       v-model="c">
-          </ui-checkbox>
+          <ui-checkbox
+            :name="'c'"
+            :id="'c'"
+            :label="'대소문자 구분'"
+            :values="'Y,N'"
+            v-model="c"
+          />
         </div>
       </ui-form>
 
@@ -47,41 +51,48 @@
             <strong class="search__info__txt">{{ $route.query['q'] }}</strong>에 대한 검색 결과는
             <strong class="search__info__txt">{{ listCnt }}개</strong>입니다.
 
-            <ui-icon-button :type="'link'"
-                            :color="'dark'"
-                            :icon="'xi-google'"
-                            :class="'search__google'"
-                            :href="googleSearchUrl"
-                            :target="'_blank'"
-                            :title="'새창'"
-                            :rel="'noopener noreferrer nofollow'">Google에서 검색
-            </ui-icon-button>
+            <ui-icon-button
+              :type="'link'"
+              :color="'dark'"
+              :icon="'xi-google'"
+              :text="'Google에서 검색'"
+              :showText="true"
+              :class="'search__google'"
+              :href="googleSearchUrl"
+              :target="'_blank'"
+              :title="'새창'"
+              :rel="'noopener noreferrer nofollow'"
+            />
           </template>
         </p>
 
       <div class="search__results__wrapper" ref="resultsWrapper">
-        <app-post-list-detail :type="'D01006'"
-                              :postList="postList">
-        </app-post-list-detail>
+        <app-post-list-detail
+          :type="'D01006'"
+          :postList="postList"
+        />
 
         <div class="search__more__wrapper"
              @click="more"
              v-if="listCnt > pageSize && !isLastPage">
 
-          <ui-icon-button :icon="'xi-plus-circle'"
-                          :class="'search__more'">더보기
-          </ui-icon-button>
+          <ui-icon-button
+            :icon="'xi-plus-circle'"
+            :class="'search__more'"
+            :text="'더보기'"
+            :showText="true"
+          />
         </div>
 
-        <ui-icon-button :icon="'xi-search'"
-                        :text="'검색 필드 바로가기'"
-                        :class="[
-                          'search__to-input',
-                          { 'search__to-input--active': toInputActive }
-                        ]"
-                        @click="toInput"
-        >
-        </ui-icon-button>
+        <ui-icon-button
+          :icon="'xi-search'"
+          :text="'검색 필드 바로가기'"
+          :class="[
+            'search__to-input',
+            { 'search__to-input--active': toInputActive }
+          ]"
+          @click="toInput"
+        />
       </div>
     </div>
   </app-content-wrapper>
@@ -101,7 +112,6 @@ export default {
       t: this.$route.query['t'] || '001',
       q: this.$route.query['q'] || '',
       c: this.$route.query['c'] || 'N',
-      tData: [],
       page: 1,
       pageSize: 10,
       listCnt: null,
@@ -114,9 +124,6 @@ export default {
   async created() {
     // 페이지 타이틀 세팅
     this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '포스트 검색');
-
-    // 검색옵션 코드 세팅
-    await this.setCode();
 
     // 검색키워드 파라미터 값이 있으면 검색 메소드 실행
     if (this.$route.query['q']) {
@@ -233,15 +240,6 @@ export default {
       window.scrollTo(0, st);
       this.$refs['q'].focus();
     },
-    /** 공통코드 세팅 */
-    async setCode() {
-      this.tData = this.$store.state.Post.code
-        .filter(d => d.prefix === 'A01')
-        .map(d => ({
-          value: d.val,
-          text: d.nm,
-        }));
-    }
   }
 };
 </script>
