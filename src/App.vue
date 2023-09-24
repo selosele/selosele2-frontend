@@ -1,19 +1,22 @@
 <template>
-  <ui-loading :activeModel="$store.state.Loading.useLoading && !$store.state.Loading.isLoading"
-              :opacity="$store.state.Loading.isInitialLoading ? 1 : 0.5"
-              :fullPage="true"
-              :color="'#538204'">
-  </ui-loading>
+  <ui-loading
+    :activeModel="$store.state.Loading.useLoading && !$store.state.Loading.isLoading"
+    :opacity="$store.state.Loading.isInitialLoading ? 1 : 0.5"
+    :fullPage="true"
+    :color="'#538204'"
+  />
 
   <app-skip-links />
 
   <div id="body" :class="{ 'scroll-down': !scrollDown }">
-    <app-header :resStatus="resStatus"
-                @toggleMobileMenu="toggleMobileMenu($event)"
+    <app-header
+      :resStatus="resStatus"
+      @toggleMobileMenu="toggleMobileMenu($event)"
     />
 
-    <app-menu ref="menu"
-              @click.self="closeMobileMenuByWindow($event)"
+    <app-menu
+      ref="menu"
+      @click.self="closeMobileMenuByWindow($event)"
     />
 
     <app-main ref="mainWrapper">
@@ -28,7 +31,9 @@
         </div>
       </div>
 
-      <app-user-satisfaction v-if="($route.meta.showSatis && 'Y' === $store.state.BlogConfig.data?.showSatisYn)" />
+      <app-user-satisfaction
+        v-if="($route.meta.showSatis && 'Y' === $store.state.BlogConfig.data?.showSatisYn)"
+      />
     </app-main>
 
     <app-footer />

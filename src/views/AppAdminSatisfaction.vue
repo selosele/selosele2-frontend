@@ -5,16 +5,19 @@
         v-model="regDate"
         @clear="onClear"
         @update:modelValue="listByRegDate"
-      >
-      </ui-datepicker>
+      />
 
-      <ui-button :color="'secondary'"
-                 @click="listByAllDate">전체
-      </ui-button>
+      <ui-button
+        :color="'secondary'"
+        :text="'전체'"
+        @click="listByAllDate"
+      />
 
-      <ui-button :color="'dark'"
-                 @click="listByNowDate">Today
-      </ui-button>
+      <ui-button 
+        :color="'dark'"
+        :text="'Today'"
+        @click="listByNowDate"
+      />
     </div>
 
     <ui-grid
@@ -24,8 +27,7 @@
       :pagination="true"
       @gridready="onGridReady"
       @celldoubleclicked="onCellDoubleClicked"
-    >
-    </ui-grid>
+    />
   </app-content-wrapper>
 </template>
 

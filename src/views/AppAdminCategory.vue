@@ -4,26 +4,30 @@
       <ui-tab :name="'카테고리'">
         <ui-split-pane>
           <ui-pane :isTransparent="true">
-            <ui-tree :nodes="categoryTree"
-                     :useCheckbox="false"
-                     :filter="true"
-                     :placeholder="'카테고리/포스트 제목 입력'"
-                     @nodeClick="onNodeClick">
+            <ui-tree
+              :nodes="categoryTree"
+              :useCheckbox="false"
+              :filter="true"
+              :placeholder="'카테고리/포스트 제목 입력'"
+              @nodeClick="onNodeClick">
 
               <template v-slot:btn>
-                <ui-button :color="'primary'"
-                           @click="addCategory">추가
-                </ui-button>
+                <ui-button
+                  :color="'primary'"
+                  :text="'추가'"
+                  @click="addCategory"
+                />
               </template>
             </ui-tree>
           </ui-pane>
 
           <ui-pane v-if="isSplitterActive">
-            <app-save-category :category="category"
-                               :type="'D01004'"
-                               :key="type + category.id"
-                               @refreshCategory="refreshTree">
-            </app-save-category>
+            <app-save-category
+              :category="category"
+              :type="'D01004'"
+              :key="type + category.id"
+              @refreshCategory="refreshTree"
+            />
           </ui-pane>
         </ui-split-pane>
       </ui-tab>
@@ -31,26 +35,30 @@
       <ui-tab :name="'태그'">
         <ui-split-pane>
           <ui-pane :isTransparent="true">
-            <ui-tree :nodes="tagTree"
-                      :useCheckbox="false"
-                      :filter="true"
-                      :placeholder="'태그/포스트 제목 입력'"
-                      @nodeClick="onNodeClick">
+            <ui-tree
+              :nodes="tagTree"
+              :useCheckbox="false"
+              :filter="true"
+              :placeholder="'태그/포스트 제목 입력'"
+              @nodeClick="onNodeClick">
 
               <template v-slot:btn>
-                <ui-button :color="'primary'"
-                           @click="addCategory">추가
-                </ui-button>
+                <ui-button
+                  :color="'primary'"
+                  :text="'추가'"
+                  @click="addCategory"
+                />
               </template>
             </ui-tree>
           </ui-pane>
 
           <ui-pane v-if="isSplitterActive">
-            <app-save-category :category="category"
-                               :type="'D01005'"
-                               :key="type + category.id"
-                               @refreshCategory="refreshTree">
-            </app-save-category>
+            <app-save-category
+              :category="category"
+              :type="'D01005'"
+              :key="type + category.id"
+              @refreshCategory="refreshTree"
+            />
           </ui-pane>
         </ui-split-pane>
       </ui-tab>

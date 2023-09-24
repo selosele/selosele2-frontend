@@ -3,11 +3,13 @@
     <div class="year__wrapper">
       <template v-for="(item,i) in yearList" :key="i">
         <h2 class="year__list-title">
-          <ui-button :class="[
-                      'year__list-btn',
-                      { 'year__list-btn--active': i === activeIndex }
-                     ]"
-                     @click="toggleList(item.year, i)">
+          <ui-button
+            :class="[
+              'year__list-btn',
+              { 'year__list-btn--active': i === activeIndex }
+            ]"
+            @click="toggleList(item.year, i)">
+            
             <span class="year__list-name">{{ item.year }}</span>년에 작성된 포스트
             (<span class="sr-only">개수 : </span>{{ item.count }})
           </ui-button>
@@ -24,12 +26,13 @@
           </template>
         </ul>
 
-        <ui-icon-button :icon="'xi-ellipsis-h'"
-                        :text="'더보기'"
-                        :class="'btn--more'"
-                        @click="onMore(item.year, i)"
-                        v-if="i === activeIndex && (listCnt > pageSize) && !isLastPage">
-        </ui-icon-button>
+        <ui-icon-button
+          :icon="'xi-ellipsis-h'"
+          :text="'더보기'"
+          :class="'btn--more'"
+          @click="onMore(item.year, i)"
+          v-if="i === activeIndex && (listCnt > pageSize) && !isLastPage"
+        />
       </template>
     </div>
   </app-content-wrapper>

@@ -1,14 +1,21 @@
 <template>
   <app-content-wrapper>
-    <ui-form :name="'blogConfigForm'"
-             :ref="'blogConfigForm'"
-             :class="'blog-config__frm'"
-             @onsubmit="onSubmit"
+    <ui-form
+      :name="'blogConfigForm'"
+      :ref="'blogConfigForm'"
+      :class="'blog-config__frm'"
+      @onsubmit="onSubmit"
       >
-      <ui-hidden-field :name="'id'" :id="'blogConfigId'" :value="$store.state.BlogConfig.data?.id" />
 
-      <ui-write-table :name="'블로그 환경설정 작성 폼'"
-                      :colWidth="['20%', '80%']"
+      <ui-hidden-field
+        :name="'id'"
+        :id="'blogConfigId'"
+        :value="$store.state.BlogConfig.data?.id"
+      />
+
+      <ui-write-table
+        :name="'블로그 환경설정 작성 폼'"
+        :colWidth="['20%', '80%']"
       >
         <tr>
           <th scope="row">
@@ -19,15 +26,16 @@
             </label>
           </th>
           <td>
-            <ui-text-field :type="'text'"
-                           :name="'title'"
-                           :id="'blogConfigTitle'"
-                           :clazz="['blog-config__title']"
-                           :block="true"
-                           :rules="'required|max:100'"
-                           :value="$store.state.BlogConfig.data?.title"
-                           v-model="previewBlogConfig.title">
-            </ui-text-field>
+            <ui-text-field
+              :type="'text'"
+              :name="'title'"
+              :id="'blogConfigTitle'"
+              :clazz="['blog-config__title']"
+              :block="true"
+              :rules="'required|max:100'"
+              :value="$store.state.BlogConfig.data?.title"
+              v-model="previewBlogConfig.title"
+            />
           </td>
         </tr>
         <tr>
@@ -39,15 +47,16 @@
             </label>
           </th>
           <td>
-            <ui-text-field :type="'text'"
-                           :name="'author'"
-                           :id="'blogConfigAuthor'"
-                           :clazz="['blog-config__author']"
-                           :block="true"
-                           :rules="'required|max:30'"
-                           :value="$store.state.BlogConfig.data?.author"
-                           v-model="previewBlogConfig.author">
-            </ui-text-field>
+            <ui-text-field
+              :type="'text'"
+              :name="'author'"
+              :id="'blogConfigAuthor'"
+              :clazz="['blog-config__author']"
+              :block="true"
+              :rules="'required|max:30'"
+              :value="$store.state.BlogConfig.data?.author"
+              v-model="previewBlogConfig.author"
+            />
           </td>
         </tr>
         <tr>
@@ -55,15 +64,16 @@
             <label for="blogConfigDesc">블로그 소개(100자 이내)</label>
           </th>
           <td>
-            <ui-textarea :name="'desc'"
-                         :id="'blogConfigDesc'"
-                         :cols="'30'"
-                         :rows="'10'"
-                         :resize="'vertical'"
-                         :rules="'required|max:100'"
-                         :value="$store.state.BlogConfig.data?.desc"
-                         v-model="previewBlogConfig.desc">
-            </ui-textarea>
+            <ui-textarea
+              :name="'desc'"
+              :id="'blogConfigDesc'"
+              :cols="'30'"
+              :rows="'10'"
+              :resize="'vertical'"
+              :rules="'required|max:100'"
+              :value="$store.state.BlogConfig.data?.desc"
+              v-model="previewBlogConfig.desc"
+            />
           </td>
         </tr>
         <tr>
@@ -71,39 +81,52 @@
             <label for="blogConfigAvatarImgFile">아바타 이미지</label>
           </th>
           <td>
-            <ui-hidden-field :name="'avatarImg'" :id="'blogConfigAvatarImg'" :value="$store.state.BlogConfig.data?.avatarImg" />
-            <ui-hidden-field :name="'avatarImgUrl'"
-                             :id="'blogConfigAvatarImgUrl'"
-                             :value="$store.state.BlogConfig.data?.avatarImgUrl"
-                             v-model="previewBlogConfig.avatarImgUrl"
-            />
-            <ui-hidden-field :name="'avatarImgSize'"
-                             :id="'blogConfigAvatarImgSize'"
-                             :value="$store.state.BlogConfig.data?.avatarImgSize"
+            <ui-hidden-field
+              :name="'avatarImg'"
+              :id="'blogConfigAvatarImg'"
+              :value="$store.state.BlogConfig.data?.avatarImg"
             />
 
-            <ui-file-field :name="'avatarImgFile'"
-                           :id="'blogConfigAvatarImgFile'"
-                           :accept="'image/*'"
-                           :gap="10"
-                           @onchange="onChangeAvatarImg">
+            <ui-hidden-field
+              :name="'avatarImgUrl'"
+              :id="'blogConfigAvatarImgUrl'"
+              :value="$store.state.BlogConfig.data?.avatarImgUrl"
+              v-model="previewBlogConfig.avatarImgUrl"
+            />
 
-              <ui-file-button :color="'secondary'"
-                              :listKey="'avatar'"
-                              @listFile="onListFile"
-                              @clickFile="onClickFile">Cloudinary
-              </ui-file-button>
+            <ui-hidden-field
+              :name="'avatarImgSize'"
+              :id="'blogConfigAvatarImgSize'"
+              :value="$store.state.BlogConfig.data?.avatarImgSize"
+            />
+
+            <ui-file-field
+              :name="'avatarImgFile'"
+              :id="'blogConfigAvatarImgFile'"
+              :accept="'image/*'"
+              :gap="10"
+              @onchange="onChangeAvatarImg">
+
+              <ui-file-button
+                :color="'secondary'"
+                :text="'Cloudinary'"
+                :listKey="'avatar'"
+                @listFile="onListFile"
+                @clickFile="onClickFile"
+              />
             </ui-file-field>
 
-            <ui-file-info :imgName="avatarImg"
-                          :imgSize="avatarImgSize"
-                          v-if="$store.state.BlogConfig.data?.avatarImg"
+            <ui-file-info
+              :imgName="avatarImg"
+              :imgSize="avatarImgSize"
+              v-if="$store.state.BlogConfig.data?.avatarImg"
             >
-              <ui-checkbox :name="'delAvatarImg'"
-                           :id="'blogConfigDelAvatarImg'"
-                           :label="'삭제'"
-                           :values="'Y,N'">
-              </ui-checkbox>
+              <ui-checkbox
+                :name="'delAvatarImg'"
+                :id="'blogConfigDelAvatarImg'"
+                :label="'삭제'"
+                :values="'Y,N'"
+              />
             </ui-file-info>
           </td>
         </tr>
@@ -112,36 +135,52 @@
             <label for="blogConfigOgImgFile">대표 이미지</label>
           </th>
           <td>
-            <ui-hidden-field :name="'ogImg'" :id="'blogConfigOgImg'" :value="$store.state.BlogConfig.data?.ogImg" />
-            <ui-hidden-field :name="'ogImgUrl'"
-                             :id="'blogConfigOgImgUrl'"
-                             :value="$store.state.BlogConfig.data?.ogImgUrl"
-                             v-model="previewBlogConfig.ogImgUrl"
+            <ui-hidden-field
+              :name="'ogImg'"
+              :id="'blogConfigOgImg'"
+              :value="$store.state.BlogConfig.data?.ogImg"
             />
-            <ui-hidden-field :name="'ogImgSize'" :id="'blogConfigOgImgSize'" :value="$store.state.BlogConfig.data?.ogImgSize" />
 
-            <ui-file-field :name="'ogImgFile'"
-                           :id="'blogConfigOgImgFile'"
-                           :accept="'image/*'"
-                           :gap="10"
-                           @onchange="onChangeOgImg">
+            <ui-hidden-field
+              :name="'ogImgUrl'"
+              :id="'blogConfigOgImgUrl'"
+              :value="$store.state.BlogConfig.data?.ogImgUrl"
+              v-model="previewBlogConfig.ogImgUrl"
+            />
 
-              <ui-file-button :color="'secondary'"
-                              :listKey="'og'"
-                              @listFile="onListFile"
-                              @clickFile="onClickFile">Cloudinary
-              </ui-file-button>
+            <ui-hidden-field
+              :name="'ogImgSize'"
+              :id="'blogConfigOgImgSize'"
+              :value="$store.state.BlogConfig.data?.ogImgSize"
+            />
+
+            <ui-file-field
+              :name="'ogImgFile'"
+              :id="'blogConfigOgImgFile'"
+              :accept="'image/*'"
+              :gap="10"
+              @onchange="onChangeOgImg">
+
+              <ui-file-button
+                :color="'secondary'"
+                :text="'Cloudinary'"
+                :listKey="'og'"
+                @listFile="onListFile"
+                @clickFile="onClickFile"
+              />
             </ui-file-field>
 
-            <ui-file-info :imgName="ogImg"
-                          :imgSize="ogImgSize"
-                          v-if="$store.state.BlogConfig.data?.ogImg"
+            <ui-file-info
+              :imgName="ogImg"
+              :imgSize="ogImgSize"
+              v-if="$store.state.BlogConfig.data?.ogImg"
             >
-              <ui-checkbox :name="'delOgImg'"
-                           :id="'blogConfigDelOgImg'"
-                           :label="'삭제'"
-                           :values="'Y,N'">
-              </ui-checkbox>
+              <ui-checkbox
+                :name="'delOgImg'"
+                :id="'blogConfigDelOgImg'"
+                :label="'삭제'"
+                :values="'Y,N'"
+              />
             </ui-file-info>
           </td>
         </tr>
@@ -150,16 +189,17 @@
             <label for="blogConfigOgImgContrast">대표 이미지 밝기</label>
           </th>
           <td>
-            <ui-numeric-field :name="'ogImgContrast'"
-                              :id="'blogConfigOgImgContrast'"
-                              :step="'0.01'"
-                              :min="'0'"
-                              :max="'1.1'"
-                              :rules="'between:0,1.1'"
-                              :text="'0.1 ~ 1 이하 (초기화 0)'"
-                              :value="$store.state.BlogConfig.data?.ogImgContrast"
-                              v-model="previewBlogConfig.ogImgContrast">
-            </ui-numeric-field>
+            <ui-numeric-field
+              :name="'ogImgContrast'"
+              :id="'blogConfigOgImgContrast'"
+              :step="'0.01'"
+              :min="'0'"
+              :max="'1.1'"
+              :rules="'between:0,1.1'"
+              :text="'0.1 ~ 1 이하 (초기화 0)'"
+              :value="$store.state.BlogConfig.data?.ogImgContrast"
+              v-model="previewBlogConfig.ogImgContrast"
+            />
           </td>
         </tr>
         <tr>
@@ -167,58 +207,63 @@
             <label for="blogConfigOgImgBlur">대표 이미지 흐림</label>
           </th>
           <td>
-            <ui-numeric-field :name="'ogImgBlur'"
-                              :id="'blogConfigOgImgBlur'"
-                              :step="'0.01'"
-                              :min="'0'"
-                              :max="'9.9'"
-                              :rules="'between:0,9.9'"
-                              :text="'0.1 ~ 10 미만 (초기화 0)'"
-                              :value="$store.state.BlogConfig.data?.ogImgBlur"
-                              v-model="previewBlogConfig.ogImgBlur">
-            </ui-numeric-field>
+            <ui-numeric-field
+              :name="'ogImgBlur'"
+              :id="'blogConfigOgImgBlur'"
+              :step="'0.01'"
+              :min="'0'"
+              :max="'9.9'"
+              :rules="'between:0,9.9'"
+              :text="'0.1 ~ 10 미만 (초기화 0)'"
+              :value="$store.state.BlogConfig.data?.ogImgBlur"
+              v-model="previewBlogConfig.ogImgBlur"
+            />
           </td>
         </tr>
         <tr class="blog-config__og-image-wrapper blog-config__og-image-wrapper--active">
           <th scope="row">대표 이미지 위치값</th>
           <td>
-            <ui-numeric-field :name="'ogImgPosX'"
-                              :id="'blogConfigOgImgPosX'"
-                              :min="'0'"
-                              :max="'100'"
-                              :rules="'between:0,100'"
-                              :text="'가로 0 ~ 100 (기본 50)'"
-                              :title="'대표 이미지 가로 위치값'"
-                              :value="$store.state.BlogConfig.data?.ogImgPosX"
-                              v-model="previewBlogConfig.ogImgPosX">
-            </ui-numeric-field>
+            <ui-numeric-field
+              :name="'ogImgPosX'"
+              :id="'blogConfigOgImgPosX'"
+              :min="'0'"
+              :max="'100'"
+              :rules="'between:0,100'"
+              :text="'가로 0 ~ 100 (기본 50)'"
+              :title="'대표 이미지 가로 위치값'"
+              :value="$store.state.BlogConfig.data?.ogImgPosX"
+              v-model="previewBlogConfig.ogImgPosX"
+            />
 
-            <ui-numeric-field :name="'ogImgPosY'"
-                              :id="'blogConfigOgImgPosY'"
-                              :min="'0'"
-                              :max="'100'"
-                              :rules="'between:0,100'"
-                              :text="'세로 0 ~ 100 (기본 50)'"
-                              :title="'대표 이미지 세로 위치값'"
-                              :value="$store.state.BlogConfig.data?.ogImgPosY"
-                              v-model="previewBlogConfig.ogImgPosY">
-            </ui-numeric-field>
+            <ui-numeric-field
+              :name="'ogImgPosY'"
+              :id="'blogConfigOgImgPosY'"
+              :min="'0'"
+              :max="'100'"
+              :rules="'between:0,100'"
+              :text="'세로 0 ~ 100 (기본 50)'"
+              :title="'대표 이미지 세로 위치값'"
+              :value="$store.state.BlogConfig.data?.ogImgPosY"
+              v-model="previewBlogConfig.ogImgPosY"
+            />
 
-            <ui-radio :id="'blogConfigOgImgCoverY'"
-                      :name="'ogImgCoverYn'"
-                      :label="'이미지 채우기'"
-                      :rules="'required'"
-                      :value="'Y'"
-                      v-model="previewBlogConfig.ogImgCoverYn">
-            </ui-radio>
+            <ui-radio
+              :id="'blogConfigOgImgCoverY'"
+              :name="'ogImgCoverYn'"
+              :label="'이미지 채우기'"
+              :rules="'required'"
+              :value="'Y'"
+              v-model="previewBlogConfig.ogImgCoverYn"
+            />
 
-            <ui-radio :id="'blogConfigOgImgCoverN'"
-                      :name="'ogImgCoverYn'"
-                      :label="'이미지 비율 유지'"
-                      :rules="'required'"
-                      :value="'N'"
-                      v-model="previewBlogConfig.ogImgCoverYn">
-            </ui-radio>
+            <ui-radio
+              :id="'blogConfigOgImgCoverN'"
+              :name="'ogImgCoverYn'"
+              :label="'이미지 비율 유지'"
+              :rules="'required'"
+              :value="'N'"
+              v-model="previewBlogConfig.ogImgCoverYn"
+            />
           </td>
         </tr>
         <tr>
@@ -226,15 +271,16 @@
             <label for="blogConfigPageSize">메인 포스트 출력 개수</label>
           </th>
           <td>
-            <ui-numeric-field :name="'pageSize'"
-                              :id="'blogConfigPageSize'"
-                              :min="'2'"
-                              :max="'10'"
-                              :rules="'between:2,10'"
-                              :text="'2 ~ 10 (기본 6)'"
-                              :value="$store.state.BlogConfig.data?.pageSize"
-                              v-model="pageSize">
-            </ui-numeric-field>
+            <ui-numeric-field
+              :name="'pageSize'"
+              :id="'blogConfigPageSize'"
+              :min="'2'"
+              :max="'10'"
+              :rules="'between:2,10'"
+              :text="'2 ~ 10 (기본 6)'"
+              :value="$store.state.BlogConfig.data?.pageSize"
+              v-model="pageSize"
+            />
           </td>
         </tr>
         <tr>
@@ -242,13 +288,14 @@
             <label for="blogConfigShowSatisYn">페이지 만족도조사 표출</label>
           </th>
           <td>
-            <ui-checkbox :name="'showSatisYn'"
-                         :id="'blogConfigShowSatisYn'"
-                         :label="'페이지 만족도조사 표출'"
-                         :hideLabel="true"
-                         :values="'Y,N'"
-                         v-model="showSatisYn">
-            </ui-checkbox>
+            <ui-checkbox
+              :name="'showSatisYn'"
+              :id="'blogConfigShowSatisYn'"
+              :label="'페이지 만족도조사 표출'"
+              :hideLabel="true"
+              :values="'Y,N'"
+              v-model="showSatisYn"
+            />
           </td>
         </tr>
         <tr>
@@ -256,24 +303,29 @@
             <label for="blogConfigKakaoMsgYn">카카오톡 메시지 수신</label>
           </th>
           <td>
-            <ui-checkbox :name="'kakaoMsgYn'"
-                         :id="'blogConfigKakaoMsgYn'"
-                         :label="'카카오톡 메시지 수신'"
-                         :hideLabel="true"
-                         :values="'Y,N'"
-                         v-model="kakaoMsgYn">
-            </ui-checkbox>
+            <ui-checkbox
+              :name="'kakaoMsgYn'"
+              :id="'blogConfigKakaoMsgYn'"
+              :label="'카카오톡 메시지 수신'"
+              :hideLabel="true"
+              :values="'Y,N'"
+              v-model="kakaoMsgYn"
+            />
           </td>
         </tr>
 
         <template v-slot:btn>
-          <ui-button :type="'reset'"
-                     :color="'secondary'">다시작성
-          </ui-button>
+          <ui-button
+            :type="'reset'"
+            :color="'secondary'"
+            :text="'다시작성'"
+          />
 
-          <ui-button :type="'submit'"
-                     :color="'primary'">저장
-          </ui-button>
+          <ui-button
+            :type="'submit'"
+            :color="'primary'"
+            :text="'저장'"
+          />
         </template>
       </ui-write-table>
     </ui-form>

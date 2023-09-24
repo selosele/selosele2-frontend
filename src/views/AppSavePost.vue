@@ -1,28 +1,37 @@
 <template>
   <app-content-wrapper>
     <div class="write__wrapper">
-      <ui-form :name="'savePostForm'"
-               :ref="'savePostForm'"
-               :class="'write__frm'"
-               :preventEnter="true"
-               @onsubmit="onSubmit"
+      <ui-form
+        :name="'savePostForm'"
+        :ref="'savePostForm'"
+        :class="'write__frm'"
+        :preventEnter="true"
+        @onsubmit="onSubmit"
       >
         <div class="write__save-wrapper">
-          <ui-button :color="'primary'"
-                     :class="'write__btn--load'"
-                     @click="listTmpPost">불러오기
-          </ui-button>
+          <ui-button
+            :color="'primary'"
+            :class="'write__btn--load'"
+            :text="'불러오기'"
+            @click="listTmpPost"
+          />
     
           <ul class="write__save-list" v-if="0 < tmpPostList.length">
             <li v-for="(tmpPost,i) in tmpPostList" :key="i">
-              <ui-icon-button :icon="'xi-close-min'"
-                              :text="'삭제'"
-                              :class="'write__save-list__delete'"
-                              @click="removeTmpPost(tmpPost.id)">
-              </ui-icon-button>
+              <ui-icon-button
+                :icon="'xi-close-min'"
+                :text="'삭제'"
+                :class="'write__save-list__delete'"
+                @click="removeTmpPost(tmpPost.id)"
+              />
 
-              <a href="javascript:;" class="link" @click.prevent="applyTmpPost(tmpPost)">{{ tmpPost.title }}</a>
-              <span class="write__save-list__date">{{ tmpPost.regDate }}</span>
+              <a href="javascript:;" class="link" @click.prevent="applyTmpPost(tmpPost)">
+                {{ tmpPost.title }}
+              </a>
+
+              <span class="write__save-list__date">
+                {{ tmpPost.regDate }}
+              </span>
             </li>
           </ul>
         </div>
@@ -37,27 +46,29 @@
             </th>
             <td>
               <div class="write__title">
-                <ui-select :name="'categoryId'"
-                           :id="'savePostCategory'"
-                           :clazz="['write__select-category']"
-                           :title="'카테고리 선택'"
-                           :defaultValue="'카테고리 선택'"
-                           :rules="isPostPage ? 'required' : ''"
-                           :tooltip="true"
-                           :disabled="isContentPage"
-                           :data="categoryList"
-                           v-model="categoryId">
-                </ui-select>
+                <ui-select
+                  :name="'categoryId'"
+                  :id="'savePostCategory'"
+                  :clazz="['write__select-category']"
+                  :title="'카테고리 선택'"
+                  :defaultValue="'카테고리 선택'"
+                  :rules="isPostPage ? 'required' : ''"
+                  :tooltip="true"
+                  :disabled="isContentPage"
+                  :data="categoryList"
+                  v-model="categoryId"
+                />
   
-                <ui-text-field :type="'text'"
-                               :name="'title'"
-                               :id="'savePostTitle'"
-                               :rules="'required|max:200'"
-                               :tooltip="true"
-                               :block="true"
-                               :value="title"
-                               v-model="title">
-                </ui-text-field>
+                <ui-text-field
+                  :type="'text'"
+                  :name="'title'"
+                  :id="'savePostTitle'"
+                  :rules="'required|max:200'"
+                  :tooltip="true"
+                  :block="true"
+                  :value="title"
+                  v-model="title"
+                />
               </div>
             </td>
           </tr>
@@ -66,42 +77,46 @@
               <label for="savePostCont">내용</label>
             </th>
             <td>
-              <ui-textarea :name="'cont'"
-                           :id="'savePostCont'"
-                           :cols="'80'"
-                           :rows="'18'"
-                           :rules="'required|max:4500'"
-                           :hidden="true"
-                           v-model="cont">
-              </ui-textarea>
+              <ui-textarea
+                :name="'cont'"
+                :id="'savePostCont'"
+                :cols="'80'"
+                :rows="'18'"
+                :rules="'required|max:4500'"
+                :hidden="true"
+                v-model="cont"
+              />
 
-              <md-editor :language="'en-US'"
-                         :preview="false"
-                         v-model="cont">
-              </md-editor>
+              <md-editor
+                :language="'en-US'"
+                :preview="false"
+                v-model="cont"
+              />
             </td>
           </tr>
           <tr>
             <th scope="row">
               <label for="savePostOgDesc">본문 요약</label>
 
-              <ui-icon-button :icon="'xi-refresh'"
-                              :text="'본문 요약 갱신'"
-                              :class="'write__og-desc-refresh'"
-                              @click="changeOgDesc">
-              </ui-icon-button>
+              <ui-icon-button
+                :icon="'xi-refresh'"
+                :text="'본문 요약 갱신'"
+                :class="'write__og-desc-refresh'"
+                @click="changeOgDesc"
+              />
             </th>
             <td>
-              <ui-text-field :type="'text'"
-                             :name="'ogDesc'"
-                             :id="'savePostOgDesc'"
-                             :clazz="['write__og-desc']"
-                             :placeholder="'50자 이내(생략 시, 제목이 들어감)'"
-                             :block="true"
-                             :rules="'max:200'"
-                             :value="ogDesc"
-                             v-model="ogDesc">
-              </ui-text-field>
+              <ui-text-field
+                :type="'text'"
+                :name="'ogDesc'"
+                :id="'savePostOgDesc'"
+                :clazz="['write__og-desc']"
+                :placeholder="'50자 이내(생략 시, 제목이 들어감)'"
+                :block="true"
+                :rules="'max:200'"
+                :value="ogDesc"
+                v-model="ogDesc"
+              />
             </td>
           </tr>
           <tr>
@@ -113,27 +128,32 @@
               <ui-hidden-field :name="'ogImgUrl'" :id="'savePostOgImgUrl'" :value="post?.ogImgUrl" />
               <ui-hidden-field :name="'ogImgSize'" :id="'savePostOgImgSize'" :value="post?.ogImgSize" />
 
-              <ui-file-field :name="'ogImgFile'"
-                             :id="'savePostOgImgFile'"
-                             :accept="'image/*'"
-                             :gap="10"
-                             @onchange="onChangeOgImg">
+              <ui-file-field
+                :name="'ogImgFile'"
+                :id="'savePostOgImgFile'"
+                :accept="'image/*'"
+                :gap="10"
+                @onchange="onChangeOgImg">
                 
-                <ui-file-button :color="'secondary'"
-                                @clickFile="onClickFile">Cloudinary
-                </ui-file-button>
+                <ui-file-button
+                  :color="'secondary'"
+                  :text="'Cloudinary'"
+                  @clickFile="onClickFile"
+                />
               </ui-file-field>
 
-              <ui-file-info :imgName="ogImg"
-                            :imgSize="ogImgSize"
-                            v-if="post?.ogImg"
+              <ui-file-info
+                :imgName="ogImg"
+                :imgSize="ogImgSize"
+                v-if="post?.ogImg"
               >
-                <ui-checkbox :name="'delOgImg'"
-                             :id="'savePostDelOgImg'"
-                             :clazz="['ml--10']"
-                             :label="'삭제'"
-                             :values="'Y,N'">
-                </ui-checkbox>
+                <ui-checkbox
+                  :name="'delOgImg'"
+                  :id="'savePostDelOgImg'"
+                  :clazz="['ml--10']"
+                  :label="'삭제'"
+                  :values="'Y,N'"
+                />
               </ui-file-info>
             </td>
           </tr>
@@ -142,15 +162,16 @@
               <label for="saveContentLink">콘텐츠 링크</label>
             </th>
             <td>
-              <ui-text-field :type="'text'"
-                             :name="'link'"
-                             :id="'saveContentLink'"
-                             :placeholder="'예) /page명'"
-                             :rules="'required|max:50'"
-                             :readonly="isUpdateContentPage"
-                             :block="true"
-                             v-model="contentLink">
-              </ui-text-field>
+              <ui-text-field
+                :type="'text'"
+                :name="'link'"
+                :id="'saveContentLink'"
+                :placeholder="'예) /page명'"
+                :rules="'required|max:50'"
+                :readonly="isUpdateContentPage"
+                :block="true"
+                v-model="contentLink"
+              />
             </td>
           </tr>
           <tr v-if="isUpdateContentPage">
@@ -158,21 +179,23 @@
               <label for="saveContentUpdateMenuNameY">연결메뉴명 수정</label>
             </th>
             <td>
-              <ui-radio :id="'saveContentUpdateMenuNameN'"
-                        :name="'updateMenuNameYn'"
-                        :label="'아니오'"
-                        :rules="'required'"
-                        :value="'N'"
-                        v-model="updateMenuNameYn">
-              </ui-radio>
+              <ui-radio
+                :id="'saveContentUpdateMenuNameN'"
+                :name="'updateMenuNameYn'"
+                :label="'아니오'"
+                :rules="'required'"
+                :value="'N'"
+                v-model="updateMenuNameYn"
+              />
 
-              <ui-radio :id="'saveContentUpdateMenuNameY'"
-                        :name="'updateMenuNameYn'"
-                        :label="'예'"
-                        :rules="'required'"
-                        :value="'Y'"
-                        v-model="updateMenuNameYn">
-              </ui-radio>
+              <ui-radio
+                :id="'saveContentUpdateMenuNameY'"
+                :name="'updateMenuNameYn'"
+                :label="'예'"
+                :rules="'required'"
+                :value="'Y'"
+                v-model="updateMenuNameYn"
+              />
             </td>
           </tr>
           <tr v-if="isPostPage">
@@ -183,101 +206,115 @@
               <ui-hidden-field :name="'saveTagList'" :id="'saveTagList'" />
             
               <div class="write__tag__wrapper">
-                <ui-text-field :type="'text'"
-                               :name="'addTag'"
-                               :id="'savePostAddTag'"
-                               :clazz="['write__tag']"
-                               :placeholder="'태그 입력 (쉼표로 구분, 5개까지 입력 가능)'"
-                               v-model="tagStr">
-                </ui-text-field>
+                <ui-text-field
+                  :type="'text'"
+                  :name="'addTag'"
+                  :id="'savePostAddTag'"
+                  :clazz="['write__tag']"
+                  :placeholder="'태그 입력 (쉼표로 구분, 5개까지 입력 가능)'"
+                  v-model="tagStr"
+                />
 
-                <ui-select :name="'tag'"
-                           :id="'savePostTag'"
-                           :clazz="['write__select-tag']"
-                           :title="'태그 선택'"
-                           :defaultValue="'나의 태그'"
-                           :data="tagList"
-                           @onchange="onChangeTag">
-                </ui-select>
+                <ui-select
+                  :name="'tag'"
+                  :id="'savePostTag'"
+                  :clazz="['write__select-tag']"
+                  :title="'태그 선택'"
+                  :defaultValue="'나의 태그'"
+                  :data="tagList"
+                  @onchange="onChangeTag"
+                />
               </div>
             </td>
           </tr>
           <tr v-if="isPostPage">
             <th scope="row">공개</th>
             <td>
-              <ui-radio :id="'savePostSecretN'"
-                        :name="'secretYn'"
-                        :label="'예'"
-                        :rules="'required'"
-                        :value="'N'"
-                        v-model="secretYn">
-              </ui-radio>
+              <ui-radio
+                :id="'savePostSecretN'"
+                :name="'secretYn'"
+                :label="'예'"
+                :rules="'required'"
+                :value="'N'"
+                v-model="secretYn"
+              />
           
-              <ui-radio :id="'savePostSecretY'"
-                        :name="'secretYn'"
-                        :label="'아니오'"
-                        :rules="'required'"
-                        :value="'Y'"
-                        v-model="secretYn">
-              </ui-radio>
+              <ui-radio
+                :id="'savePostSecretY'"
+                :name="'secretYn'"
+                :label="'아니오'"
+                :rules="'required'"
+                :value="'Y'"
+                v-model="secretYn"
+              />
             </td>
           </tr>
           <tr v-if="isPostPage">
             <th scope="row">상단고정</th>
             <td>
-              <ui-radio :id="'savePostPinN'"
-                        :name="'pinYn'"
-                        :label="'아니오'"
-                        :rules="'required'"
-                        :value="'N'"
-                        v-model="pinYn">
-              </ui-radio>
+              <ui-radio
+                :id="'savePostPinN'"
+                :name="'pinYn'"
+                :label="'아니오'"
+                :rules="'required'"
+                :value="'N'"
+                v-model="pinYn"
+              />
 
-              <ui-radio :id="'savePostPinY'"
-                        :name="'pinYn'"
-                        :label="'예'"
-                        :rules="'required'"
-                        :value="'Y'"
-                        v-model="pinYn">
-              </ui-radio>
+              <ui-radio
+                :id="'savePostPinY'"
+                :name="'pinYn'"
+                :label="'예'"
+                :rules="'required'"
+                :value="'Y'"
+                v-model="pinYn"
+              />
             </td>
           </tr>
           <tr>
             <th scope="row">임시저장</th>
             <td>
-              <ui-radio :id="'savePostTmpN'"
-                        :name="'tmpYn'"
-                        :label="'아니오'"
-                        :rules="'required'"
-                        :value="'N'"
-                        v-model="tmpYn">
-              </ui-radio>
+              <ui-radio
+                :id="'savePostTmpN'"
+                :name="'tmpYn'"
+                :label="'아니오'"
+                :rules="'required'"
+                :value="'N'"
+                v-model="tmpYn"
+              />
 
-              <ui-radio :id="'savePostTmpY'"
-                        :name="'tmpYn'"
-                        :label="'예'"
-                        :rules="'required'"
-                        :value="'Y'"
-                        v-model="tmpYn">
-              </ui-radio>
+              <ui-radio
+                :id="'savePostTmpY'"
+                :name="'tmpYn'"
+                :label="'예'"
+                :rules="'required'"
+                :value="'Y'"
+                v-model="tmpYn"
+              />
             </td>
           </tr>
 
           <template v-slot:btn>
-            <ui-button :color="'success'"
-                       :class="'write__btn'"
-                       @click="previewPost">미리보기
-            </ui-button>
+            <ui-button
+              :color="'success'"
+              :class="'write__btn'"
+              :text="'미리보기'"
+              @click="previewPost"
+            />
 
-            <ui-button :type="'reset'"
-                       :color="'secondary'"
-                       :class="'write__btn'">다시작성
-            </ui-button>
+            <ui-button
+              :type="'reset'"
+              :color="'secondary'"
+              :text="'다시작성'"
+              :class="'write__btn'"
+            />
 
-            <ui-button :type="'submit'"
-                       :color="'primary'"
-                       :class="'write__btn'">저장
-            </ui-button>
+            <ui-button
+              :type="'submit'"
+              :color="'primary'"
+              :text="'저장'"
+              :class="'write__btn'"
+            />
           </template>
         </ui-write-table>
       </ui-form>

@@ -9,15 +9,16 @@
       @listPost="listPostByCategory"
       @removePost="refreshPostList">
     
-      <ui-pagination :value="postList"
-                     :key="postList"
-                     :total="listCnt"
-                     :first="page"
-                     :rows="storePageSize"
-                     :size="10"
-                     :pin="true"
-                     @page="onPage">
-      </ui-pagination>
+      <ui-pagination
+        :value="postList"
+        :key="postList"
+        :total="listCnt"
+        :first="page"
+        :rows="storePageSize"
+        :size="10"
+        :pin="true"
+        @page="onPage"
+      />
     </app-post-list>
 
     <app-widget-config v-if="isLogin" />

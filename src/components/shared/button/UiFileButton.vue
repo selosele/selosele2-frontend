@@ -3,6 +3,7 @@
           :class="`btn ${btnColor}${btnBlock}`"
           v-bind="$attrs"
           @click="listFile">
+    <span v-if="text">{{ text }}</span>
     <slot></slot>
   </button>
 

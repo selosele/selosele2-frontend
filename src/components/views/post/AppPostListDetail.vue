@@ -26,7 +26,7 @@
               {{ post.title }}
             </router-link>
   
-            <router-link :to="`/post/${post.id}`" @click="saveToStorage" v-else>{{ post.title }}</router-link>
+            <router-link :to="`/post/${post.id}`" v-else>{{ post.title }}</router-link>
           </h2>
   
           <p class="post__og-image" v-if="post.ogImgUrl">

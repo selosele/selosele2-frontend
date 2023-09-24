@@ -2,42 +2,49 @@
   <app-content-wrapper>
     <div class="login__wrapper">
       <div class="login__inner">
-        <ui-form :autocomplete="'off'"
-                 :class="'login__frm'"
-                 :name="'loginForm'"
-                 :ref="'loginForm'"
-                 @onsubmit="onSubmit"
-                 @copy.prevent
-                 @paste.prevent
+        <ui-form
+          :autocomplete="'off'"
+          :class="'login__frm'"
+          :name="'loginForm'"
+          :ref="'loginForm'"
+          @onsubmit="onSubmit"
+          @copy.prevent
+          @paste.prevent
         >
-          <ui-text-field :type="'text'"
-                         :name="'userId'"
-                         :title="'아이디 입력'"
-                         :placeholder="'아이디'"
-                         :rules="'required|max:10'"
-                         v-model="userId">
-          </ui-text-field>
+          <ui-text-field
+            :type="'text'"
+            :name="'userId'"
+            :title="'아이디 입력'"
+            :placeholder="'아이디'"
+            :rules="'required|max:10'"
+            v-model="userId"
+          />
           
-          <ui-text-field :type="'password'"
-                         :name="'userPw'"
-                         :title="'비밀번호 입력'"
-                         :placeholder="'비밀번호'"
-                         :rules="'required|min:8|max:15'"
-                         v-model="userPw">
-          </ui-text-field>
+          <ui-text-field
+            :type="'password'"
+            :name="'userPw'"
+            :title="'비밀번호 입력'"
+            :placeholder="'비밀번호'"
+            :rules="'required|min:8|max:15'"
+            v-model="userPw"
+          />
           
-          <ui-button :type="'submit'"
-                     :color="'primary'"
-                     :class="'mt--15'"
-                     :block="true">로그인
-          </ui-button>
+          <ui-button
+            :type="'submit'"
+            :color="'primary'"
+            :text="'로그인'"
+            :block="true"
+            :class="'mt--15'"
+          />
 
-          <ui-button :color="'secondary'"
-                     :class="'mt--15'"
-                     :block="true"
-                     @click="addUser"
-                     v-if="isDevelopment">사용자 생성
-          </ui-button>
+          <ui-button
+            :color="'secondary'"
+            :class="'mt--15'"
+            :text="'사용자 생성'"
+            :block="true"
+            @click="addUser"
+            v-if="isDevelopment"
+          />
         </ui-form>
       </div>
     </div>

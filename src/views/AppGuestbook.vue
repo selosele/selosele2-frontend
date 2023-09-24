@@ -3,44 +3,49 @@
     <div class="guestbook__wrapper">
       <ui-form :class="'guestbook__write-frm'" :name="'addGuestbookForm'" @onsubmit="onSubmit">
         <div class="guestbook__write">
-          <ui-textarea :name="'cont'"
-                       :id="'addGuestbookCont'"
-                       :clazz="['guestbook__textarea']"
-                       :title="'방명록 내용 입력'"
-                       :placeholder="'하고싶은 말을 남겨주세요.'"
-                       :cols="'30'"
-                       :rows="'4'"
-                       :rules="'required|max:1000'">
-          </ui-textarea>
+          <ui-textarea
+            :name="'cont'"
+            :id="'addGuestbookCont'"
+            :clazz="['guestbook__textarea']"
+            :title="'방명록 내용 입력'"
+            :placeholder="'하고싶은 말을 남겨주세요.'"
+            :cols="'30'"
+            :rows="'4'"
+            :rules="'required|max:1000'"
+          />
 
           <div class="guestbook__write__inputs">
             <div class="guestbook__write__input-box">
               <label for="addGuestbookAuthor" class="guestbook__write__label">닉네임</label>
-              <ui-text-field :type="'text'"
-                             :name="'author'"
-                             :id="'addGuestbookAuthor'"
-                             :clazz="['guestbook__input']"
-                             :rules="'required|max:20'"
-                             :readonly="isLogin"
-                             :value="isLogin ? adminNickName : ''">
-              </ui-text-field>
+              <ui-text-field
+                :type="'text'"
+                :name="'author'"
+                :id="'addGuestbookAuthor'"
+                :clazz="['guestbook__input']"
+                :rules="'required|max:20'"
+                :readonly="isLogin"
+                :value="isLogin ? adminNickName : ''"
+              />
             </div>
 
             <div class="guestbook__write__input-box">
               <label for="addGuestbookPw" class="guestbook__write__label">비밀번호</label>
-              <ui-text-field :type="'password'"
-                             :name="'authorPw'"
-                             :id="'addGuestbookPw'"
-                             :clazz="['guestbook__input']"
-                             :rules="'required|min:8|max:15'">
-              </ui-text-field>
+              <ui-text-field
+                :type="'password'"
+                :name="'authorPw'"
+                :id="'addGuestbookPw'"
+                :clazz="['guestbook__input']"
+                :rules="'required|min:8|max:15'"
+              />
             </div>
 
             <div class="guestbook__write__btns">
-              <ui-button :type="'submit'"
-                         :color="'primary'"
-                         :class="'guestbook__btn guestbook__btn--write'">저장
-              </ui-button>
+              <ui-button
+                :type="'submit'"
+                :color="'primary'"
+                :text="'저장'"
+                :class="'guestbook__btn guestbook__btn--write'"
+              />
             </div>
           </div>
         </div>
@@ -74,53 +79,62 @@
           </div>
 
           <template v-if="0 < guestbook.guestbookReply.length">
-            <ui-icon-button :icon="'xi-message'"
-                            :title="`댓글 ${guestbook.guestbookReply.length}개 펼쳐보기`"
-                            :class="'guestbook__btn guestbook__btn--reply-open'"
-                            @click="toggleReplyList(i)">
-              <span class="reply-cnt">{{ 99 < guestbook.guestbookReply.length ? '99+' : guestbook.guestbookReply.length }}</span>
+            <ui-icon-button
+              :icon="'xi-message'"
+              :title="`댓글 ${guestbook.guestbookReply.length}개 펼쳐보기`"
+              :class="'guestbook__btn guestbook__btn--reply-open'"
+              @click="toggleReplyList(i)">
+
+              <span class="reply-cnt">
+                {{ 99 < guestbook.guestbookReply.length ? '99+' : guestbook.guestbookReply.length }}
+              </span>
             </ui-icon-button>
   
-            <app-guestbook-reply-list v-if="i === replyActiveIndex"
-                                      :key="guestbook.guestbookReply"
-                                      :list="guestbook.guestbookReply"
-                                      :parentId="guestbook.id"
-                                      @updateReply="onUpdateReply">
-            </app-guestbook-reply-list>
+            <app-guestbook-reply-list
+              v-if="i === replyActiveIndex"
+              :key="guestbook.guestbookReply"
+              :list="guestbook.guestbookReply"
+              :parentId="guestbook.id"
+              @updateReply="onUpdateReply"
+            />
           </template>
 
-          <app-add-guestbook-reply :idx="i"
-                                   :parentId="guestbook.id"
-                                   @addReply="onAddReply">
-          </app-add-guestbook-reply>
+          <app-add-guestbook-reply
+            :idx="i"
+            :parentId="guestbook.id"
+            @addReply="onAddReply"
+          />
 
           <div class="guestbook__toggle">
-            <ui-icon-button :icon="'xi-cog'"
-                            :text="'방명록 수정/삭제'"
-                            :title="'방명록 수정/삭제'"
-                            :class="'guestbook__btn--toggle'"
-                            @click.stop="toggleMenu(i)">
-            </ui-icon-button>
+            <ui-icon-button
+              :icon="'xi-cog'"
+              :text="'방명록 수정/삭제'"
+              :title="'방명록 수정/삭제'"
+              :class="'guestbook__btn--toggle'"
+              @click.stop="toggleMenu(i)"
+            />
 
             <div class="guestbook__toggle-list" v-if="i === activeIndex">
               <ul>
                 <li>
-                  <ui-icon-button :icon="'xi-pen-o'"
-                                  :text="'방명록 수정'"
-                                  :showText="true"
-                                  :class="'guestbook__btn--edit1'" 
-                                  ref="guestbookMenuBtn" 
-                                  @click="openModal('E01003', guestbook, isLogin)">
-                  </ui-icon-button>
+                  <ui-icon-button
+                    :icon="'xi-pen-o'"
+                    :text="'방명록 수정'"
+                    :showText="true"
+                    :class="'guestbook__btn--edit1'" 
+                    ref="guestbookMenuBtn" 
+                    @click="openModal('E01003', guestbook, isLogin)"
+                  />
                 </li>
                 <li>
-                  <ui-icon-button :icon="'xi-trash-o'"
-                                  :text="'방명록 삭제'"
-                                  :showText="true"
-                                  :class="'guestbook__btn--delete1'"
-                                  ref="guestbookMenuBtn" 
-                                  @click="openModal('E01004', guestbook, isLogin)">
-                  </ui-icon-button>
+                  <ui-icon-button
+                    :icon="'xi-trash-o'"
+                    :text="'방명록 삭제'"
+                    :showText="true"
+                    :class="'guestbook__btn--delete1'"
+                    ref="guestbookMenuBtn" 
+                    @click="openModal('E01004', guestbook, isLogin)"
+                  />
                 </li>
               </ul>
             </div>

@@ -9,19 +9,22 @@
                  @nodeClick="onNodeClick">
 
           <template v-slot:btn>
-            <ui-button :color="'primary'"
-                       @click="addMenu">추가
-            </ui-button>
+            <ui-button
+              :color="'primary'"
+              :text="'추가'"
+              @click="addMenu"
+            />
           </template>
         </ui-tree>
       </ui-pane>
 
       <ui-pane v-if="isSplitterActive">
-        <app-save-menu :menu="menu"
-                       :parentMenuList="parentMenuList"
-                       :key="menu.id"
-                       @refreshMenu="refreshTree">
-        </app-save-menu>
+        <app-save-menu
+          :menu="menu"
+          :parentMenuList="parentMenuList"
+          :key="menu.id"
+          @refreshMenu="refreshTree"
+        />
       </ui-pane>
     </ui-split-pane>
   </app-content-wrapper>

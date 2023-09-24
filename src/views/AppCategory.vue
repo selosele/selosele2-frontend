@@ -14,12 +14,13 @@
         </template>
       </ul>
 
-      <ui-icon-button :icon="'xi-ellipsis-h'"
-                      :text="'더보기'"
-                      :class="'btn--more'"
-                      @click="onMore"
-                      v-if="listCnt > pageSize && !isLastPage">
-      </ui-icon-button>
+      <ui-icon-button
+        :icon="'xi-ellipsis-h'"
+        :text="'더보기'"
+        :class="'btn--more'"
+        @click="onMore"
+        v-if="listCnt > pageSize && !isLastPage"
+      />
     </div>
   </app-content-wrapper>
 </template>

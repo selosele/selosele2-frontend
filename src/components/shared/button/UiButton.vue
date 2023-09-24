@@ -3,6 +3,7 @@
           :class="`btn ${btnColor}${btnBlock}`"
           v-bind="$attrs"
           v-if="!routerLink && 'link' !== type">
+    <span v-if="text">{{ text }}</span>
     <slot></slot>
   </button>
 
@@ -10,6 +11,7 @@
                :class="`btn ${btnColor}${btnBlock}`"
                v-bind="$attrs"
                v-if="routerLink && 'link' !== type">
+    <span v-if="text">{{ text }}</span>
     <slot></slot>
   </router-link>
 
@@ -17,6 +19,7 @@
      :class="`btn ${btnColor}${btnBlock}`"
      v-bind="$attrs"
      v-if="!routerLink && 'link' === type">
+     <span v-if="text">{{ text }}</span>
     <slot></slot>
   </a>
 </template>
@@ -32,12 +35,14 @@ export default {
       type: String,
       default: 'button', // a 태그 사용하려면 link type
     },
-    /** button color */
+    /** text */
+    text: String,
+    /** color */
     color: {
       type: String,
       default: '',
     },
-    /** block button */
+    /** block 스타일 여부 */
     block: {
       type: Boolean,
       default: false,

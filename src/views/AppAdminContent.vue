@@ -1,17 +1,23 @@
 <template>
   <app-content-wrapper>
     <div class="d-flex flex--right gap--10 mb--15">
-      <ui-icon-button :routerLink="'/add-content'"
-                      :color="'primary'"
-                      :icon="'xi-pen'"
-                      :class="'content__create'">콘텐츠 생성
-      </ui-icon-button>
+      <ui-icon-button
+        :routerLink="'/add-content'"
+        :color="'primary'"
+        :icon="'xi-pen'"
+        :text="'콘텐츠 생성'"
+        :showText="true"
+        :class="'content__create'"
+      />
 
-      <ui-icon-button :color="'dark'"
-                      :icon="'xi-trash'"
-                      :class="'content__delete'"
-                      @click="removeContent">콘텐츠 삭제
-      </ui-icon-button>
+      <ui-icon-button
+        :color="'dark'"
+        :icon="'xi-trash'"
+        :text="'콘텐츠 삭제'"
+        :showText="true"
+        :class="'content__delete'"
+        @click="removeContent"
+      />
     </div>
 
     <ui-grid
@@ -21,8 +27,7 @@
       :pagination="true"
       @gridready="onGridReady"
       @celldoubleclicked="onCellDoubleClicked"
-    >
-    </ui-grid>
+    />
   </app-content-wrapper>
 </template>
 

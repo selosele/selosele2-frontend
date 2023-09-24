@@ -6,9 +6,11 @@
         <p class="error__text">페이지의 주소가 잘못 입력되었거나, 변경 혹은 삭제되어 페이지를 찾을 수 없습니다.</p>
       </div>
 
-      <ui-button :routerLink="'/'"
-                 :color="'primary'">홈으로 이동
-      </ui-button>
+      <ui-button
+        :routerLink="'/'"
+        :color="'primary'"
+        :text="'홈으로 이동'"
+      />
     </div>
   </app-content-wrapper>
 </template>

@@ -1,18 +1,21 @@
 <template>
   <app-content-wrapper>
     <div class="d-flex flex--right gap--10 mb--15">
-      <ui-select :name="'option'"
-                 :id="'listPostReplyAllOption'"
-                 :title="'댓글 조회 옵션 선택'"
-                 :data="optionList"
-                 v-model="option"
-                 @onchange="listPostReplyAll">
-      </ui-select>
+      <ui-select
+        :name="'option'"
+        :id="'listPostReplyAllOption'"
+        :title="'댓글 조회 옵션 선택'"
+        :data="optionList"
+        v-model="option"
+        @onchange="listPostReplyAll"
+      />
 
-      <ui-button :color="'primary'"
-                 @click="restorePostReply"
-                 v-if="'delYn' === option">복구
-      </ui-button>
+      <ui-button
+        :color="'primary'"
+        :text="'복구'"
+        @click="restorePostReply"
+        v-if="'delYn' === option"
+      />
     </div>
 
     <ui-grid
@@ -22,8 +25,7 @@
       :pagination="true"
       @gridready="onGridReady"
       @celldoubleclicked="onCellDoubleClicked"
-    >
-    </ui-grid>
+    />
   </app-content-wrapper>
 </template>
 

@@ -1,13 +1,17 @@
 <template>
   <app-content-wrapper>
     <div class="d-flex flex--right gap--10 mb--15">
-      <ui-button :color="'primary'"
-                 @click="addCode">추가
-      </ui-button>
+      <ui-button
+        :color="'primary'"
+        :text="'추가'"
+        @click="addCode"
+      />
 
-      <ui-button :color="'dark'"
-                 @click="removeCode">삭제
-      </ui-button>
+      <ui-button
+        :color="'dark'"
+        :text="'삭제'"
+        @click="removeCode"
+      />
     </div>
 
     <ui-split-pane>
@@ -19,8 +23,7 @@
           :pagination="true"
           @gridready="onGridReady"
           @cellclicked="onCellClicked"
-        >
-        </ui-grid>
+        />
       </ui-pane>
       
       <ui-pane v-if="isSplitterActive">
@@ -28,8 +31,7 @@
           :code="code"
           :key="code.id"
           @saveCode="onSaveCode"
-        >
-        </app-save-code>
+        />
       </ui-pane>
     </ui-split-pane>
   </app-content-wrapper>

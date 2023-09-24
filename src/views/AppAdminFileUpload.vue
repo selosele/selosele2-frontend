@@ -1,15 +1,15 @@
 <template>
   <app-content-wrapper>
     <template v-if="0 < fileList.length">
-      <ui-file-upload-field @upload="onUpload">
-      </ui-file-upload-field>
+      <ui-file-upload-field @upload="onUpload" />
 
-      <ui-file-list :value="fileList"
-                    :key="fileList"
-                    :float="false"
-                    :height="'26rem'"
-                    @clickFile="onClickFile">
-      </ui-file-list>
+      <ui-file-list
+        :value="fileList"
+        :key="fileList"
+        :float="false"
+        :height="'26rem'"
+        @clickFile="onClickFile"
+      />
     </template>
   </app-content-wrapper>
 </template>

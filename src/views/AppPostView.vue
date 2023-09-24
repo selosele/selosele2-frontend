@@ -10,11 +10,13 @@
           <!-- END : 내용 영역 -->
     
           <div class="post__contents__like-wrapper" v-if="isPostPage">
-            <ui-icon-button :icon="isPostLiked ? 'xi-heart' : 'xi-heart-o'"
-                            :text="'추천수'"
-                            :class="'post__contents__like-btn'"
-                            :title="isPostLiked ? '포스트 추천 해제하기' : '포스트 추천하기'"
-                            @click="savePostLike(post?.id)">
+            <ui-icon-button
+              :icon="isPostLiked ? 'xi-heart' : 'xi-heart-o'"
+              :text="'추천수'"
+              :class="'post__contents__like-btn'"
+              :title="isPostLiked ? '포스트 추천 해제하기' : '포스트 추천하기'"
+              @click="savePostLike(post?.id)">
+
               <span class="post__contents__like-cnt">{{ postLikeCnt }}</span>
             </ui-icon-button>
           </div>
@@ -30,107 +32,127 @@
     
           <div class="post__contents__info-wrapper" v-if="isPostPage">
             <template v-if="0 < post?.postCategory.length">
-              <ui-icon-button v-for="(category,i) in post?.postCategory" :key="i"
-                              :routerLink="`/category/${category.category.id}`"
-                              :icon="'xi-folder-open'"
-                              :text="'카테고리'"
-                              :class="'post__contents__info post__contents__info--category'">{{ category.category.nm }}
+              <ui-icon-button
+                v-for="(category,i) in post?.postCategory" :key="i"
+                :routerLink="`/category/${category.category.id}`"
+                :icon="'xi-folder-open'"
+                :text="'카테고리'"
+                :class="'post__contents__info post__contents__info--category'">{{ category.category.nm }}
               </ui-icon-button>
             </template>
             
             <template v-if="0 < post?.postTag.length">
-              <ui-icon-button v-for="(tag,i) in post?.postTag" :key="i"
-                              :routerLink="`/tag/${tag.tag.id}`"
-                              :icon="'xi-tags'"
-                              :text="'태그'"
-                              :class="'post__contents__info post__contents__info--tag'">{{ tag.tag.nm }}
+              <ui-icon-button
+                v-for="(tag,i) in post?.postTag" :key="i"
+                :routerLink="`/tag/${tag.tag.id}`"
+                :icon="'xi-tags'"
+                :text="'태그'"
+                :class="'post__contents__info post__contents__info--tag'">{{ tag.tag.nm }}
               </ui-icon-button>
             </template>
           </div>
     
           <div class="post__contents__btns">
-            <ui-icon-button :icon="'xi-backspace'"
-                            :color="'secondary'"
-                            :text="'목록으로'"
-                            :class="'post__contents__btn post__contents__btn--list'"
-                            @click="goToList"
-                            v-if="isPostPage">
-            </ui-icon-button>
+            <ui-icon-button
+              :icon="'xi-backspace'"
+              :color="'secondary'"
+              :text="'목록으로'"
+              :class="'post__contents__btn post__contents__btn--list'"
+              @click="goToList"
+              v-if="isPostPage"
+            />
     
-            <ui-icon-button :icon="'xi-link'"
-                            :color="'dark'"
-                            :text="'URL 복사'"
-                            :class="'post__contents__btn post__contents__btn--copy'"
-                            @click="copyPostUrl">
-            </ui-icon-button>
+            <ui-icon-button
+              :icon="'xi-link'"
+              :color="'dark'"
+              :text="'URL 복사'"
+              :class="'post__contents__btn post__contents__btn--copy'"
+              @click="copyPostUrl"
+            />
             
-            <ui-icon-button :href="`https://twitter.com/intent/tweet?text=${encodeURI(post?.title)}%20${encodeURI(postUrl)}`"
-                            :target="'_blank'"
-                            :title="'새창'"
-                            :rel="'noopener noreferrer nofollow'"
-                            :type="'link'"
-                            :color="'twitter'"
-                            :icon="'xi-twitter'"
-                            :text="'트위터 공유'"
-                            :class="'post__contents__sns'">
-            </ui-icon-button>
+            <ui-icon-button
+              :href="`https://twitter.com/intent/tweet?text=${encodeURI(post?.title)}%20${encodeURI(postUrl)}`"
+              :target="'_blank'"
+              :title="'새창'"
+              :rel="'noopener noreferrer nofollow'"
+              :type="'link'"
+              :color="'twitter'"
+              :icon="'xi-twitter'"
+              :text="'트위터 공유'"
+              :class="'post__contents__sns'"
+            />
     
-            <ui-icon-button :href="`https://www.facebook.com/sharer/sharer.php?u=${encodeURI(postUrl)}`"
-                            :target="'_blank'"
-                            :title="'새창'"
-                            :rel="'noopener noreferrer nofollow'"
-                            :type="'link'"
-                            :color="'facebook'"
-                            :icon="'xi-facebook-official'"
-                            :text="'페이스북 공유'"
-                            :class="'post__contents__sns'">
-            </ui-icon-button>
+            <ui-icon-button
+              :href="`https://www.facebook.com/sharer/sharer.php?u=${encodeURI(postUrl)}`"
+              :target="'_blank'"
+              :title="'새창'"
+              :rel="'noopener noreferrer nofollow'"
+              :type="'link'"
+              :color="'facebook'"
+              :icon="'xi-facebook-official'"
+              :text="'페이스북 공유'"
+              :class="'post__contents__sns'"
+            />
     
             <template v-if="isLogin">
-              <ui-icon-button :routerLink="isPostPage ? '/add-post' : '/add-content'"
-                              :color="'primary'"
-                              :icon="'xi-pen'"
-                              :class="'post__contents__btn'">{{ isPostPage ? '포스트' : '콘텐츠' }} 작성
-              </ui-icon-button>
+              <ui-icon-button
+                :routerLink="isPostPage ? '/add-post' : '/add-content'"
+                :color="'primary'"
+                :icon="'xi-pen'"
+                :text="`${isPostPage ? '포스트 ' : '콘텐츠 '} 작성`"
+                :showText="true"
+                :class="'post__contents__btn'"
+              />
     
-              <ui-icon-button :routerLink="isPostPage ? `/edit-post/${post?.id}` : `/edit-content${post?.link}`"
-                              :color="'success'"
-                              :icon="'xi-pen'"
-                              :class="'post__contents__btn'">{{ isPostPage ? '포스트' : '콘텐츠' }} 수정
-              </ui-icon-button>
+              <ui-icon-button
+                :routerLink="isPostPage ? `/edit-post/${post?.id}` : `/edit-content${post?.link}`"
+                :color="'success'"
+                :icon="'xi-pen'"
+                :text="`${isPostPage ? '포스트 ' : '콘텐츠 '} 수정`"
+                :showText="true"
+                :class="'post__contents__btn'"
+              />
     
-              <ui-icon-button :type="'submit'"
-                              :color="'dark'"
-                              :icon="'xi-trash'"
-                              :class="'post__contents__btn'">{{ isPostPage ? '포스트' : '콘텐츠' }} 삭제
-              </ui-icon-button>
+              <ui-icon-button
+                :type="'submit'"
+                :color="'dark'"
+                :icon="'xi-trash'"
+                :text="`${isPostPage ? '포스트 ' : '콘텐츠 '} 삭제`"
+                :showText="true"
+                :class="'post__contents__btn'"
+              />
             </template>
           </div>
     
           <nav class="post__contents__paginations" v-if="isPostPage">
             <h2 class="sr-only">이전/다음 포스트</h2>
     
-            <router-link v-if="null !== prevPost"
-                        :to="`/post/${prevPost.id}`" 
-                        rel="prev"
-                        title="이전 포스트"
-                        class="post__contents__pagination post__contents__pagination--prev">
+            <router-link
+              v-if="null !== prevPost"
+              :to="`/post/${prevPost.id}`" 
+              rel="prev"
+              title="이전 포스트"
+              class="post__contents__pagination post__contents__pagination--prev">
+
               <strong>{{ prevPost.title }}</strong>
             </router-link>
     
-            <router-link v-if="null !== nextPost"
-                        :to="`/post/${nextPost.id}`" 
-                        rel="next"
-                        title="다음 포스트"
-                        class="post__contents__pagination post__contents__pagination--next">
+            <router-link
+              v-if="null !== nextPost"
+              :to="`/post/${nextPost.id}`" 
+              rel="next"
+              title="다음 포스트"
+              class="post__contents__pagination post__contents__pagination--next">
+
               <strong>{{ nextPost.title }}</strong>
             </router-link>
           </nav>
     
-          <app-add-post-reply :id="post?.id"
-                              :list="post.postReply"
-                              v-if="isPostPage">
-          </app-add-post-reply>
+          <app-add-post-reply
+            :id="post?.id"
+            :list="post.postReply"
+            v-if="isPostPage"
+          />
         </ui-form>
       </template>
     </div>
@@ -228,12 +250,13 @@ export default {
         }
 
         // 이전/다음 포스트 목록 조회
-        const [prev, next] = this.post?.prevAndNext;
-        this.prevPost = prev || null;
-        this.nextPost = next || null;
+        if (this.isPostPage) {
+          this.prevPost = this.post?.prevAndNext[0] || null;
+          this.nextPost = this.post?.prevAndNext[1] || null;
+        }
 
         // 댓글 데이타 가공
-        if (0 < this.post.postReply.length) {
+        if (this.isPostPage && 0 < this.post.postReply.length) {
           this.post.postReply.forEach(d => {
             d.cont = d.cont.replace(/\r\n|\n/g, '<br>');
             d.cont = d.cont.replaceAll('\\r\\n', '<br>'); // AS-IS 데이타의 경우 \r\n 문자가 DB에 직접 들어감
