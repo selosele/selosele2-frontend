@@ -71,7 +71,7 @@ export default {
     AppPostListDetail,
   },
   props: {
-    /** main: 메인, search: 검색 */
+    /** D01001: 메인, D01006: 검색 */
     pageType: String,
     /** 현재 페이지 번호 */
     page: Number,
