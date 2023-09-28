@@ -1,89 +1,97 @@
 <template>
-  <ui-split-form :name="'saveMenuForm'" ref="saveMenuForm"
-                 :btnRemove="true"
-                 @onsubmit="onSubmit"
-                 @remove="onRemove"
+  <ui-split-form
+    :name="'saveMenuForm'" ref="saveMenuForm"
+    :btnRemove="true"
+    @onsubmit="onSubmit"
+    @remove="onRemove"
   >
-    <ui-hidden-field :name="'id'"
-                     :ref="'menuId'"
-                     :value="menu.id"
+    <ui-hidden-field
+      :name="'id'"
+      :ref="'menuId'"
+      :value="menu.id"
     />
 
-    <ui-hidden-field :name="'depth'"
-                     :ref="'menuDepth'"
-                     :value="menu.depth || 1"
+    <ui-hidden-field
+      :name="'depth'"
+      :ref="'menuDepth'"
+      :value="menu.depth || 1"
     />
 
-    <ui-select :name="'parentId'"
-               :id="'menuParentId'"
-               :title="'부모 메뉴'"
-               :label="'부모 메뉴'"
-               :defaultValue="'부모 메뉴 선택'"
-               :data="parentMenuList"
-               :block="true"
-               v-model="parentId"
-               @onchange="updateDepth">
-    </ui-select>
+    <ui-select
+      :name="'parentId'"
+      :id="'menuParentId'"
+      :title="'부모 메뉴'"
+      :label="'부모 메뉴'"
+      :defaultValue="'부모 메뉴 선택'"
+      :data="parentMenuList"
+      :block="true"
+      v-model="parentId"
+      @onchange="updateDepth"
+    />
 
-    <ui-text-field :type="'text'"
-                   :name="'name'"
-                   :id="'menuName'"
-                   :label="'메뉴 명'"
-                   :rules="'required|max:50'"
-                   :block="true"
-                   :value="menu.name">
-    </ui-text-field>
+    <ui-text-field
+      :name="'name'"
+      :id="'menuName'"
+      :label="'메뉴 명'"
+      :rules="'required|max:50'"
+      :block="true"
+      :value="menu.name"
+    />
 
-    <ui-text-field :type="'text'"
-                   :name="'link'"
-                   :id="'menuLink'"
-                   :label="'메뉴 링크'"
-                   :rules="'required|max:255'"
-                   :block="true"
-                   :value="menu.link">
-    </ui-text-field>
+    <ui-text-field
+      :name="'link'"
+      :id="'menuLink'"
+      :label="'메뉴 링크'"
+      :rules="'required|max:255'"
+      :block="true"
+      :value="menu.link"
+    />
 
-    <ui-text-field :type="'text'"
-                   :name="'regDate'"
-                   :id="'menuRegDate'"
-                   :label="'메뉴 등록일시'"
-                   :readonly="true"
-                   :block="true"
-                   :value="menu.regDate">
-    </ui-text-field>
+    <ui-text-field
+      :name="'regDate'"
+      :id="'menuRegDate'"
+      :label="'메뉴 등록일시'"
+      :readonly="true"
+      :block="true"
+      :value="menu.regDate"
+    />
 
-    <ui-numeric-field :name="'sort'"
-                      :id="'menuSort'"
-                      :label="'메뉴 정렬 순서'"
-                      :rules="'required|numeric'"
-                      :block="true"
-                      :value="menu.sort || 1">
-    </ui-numeric-field>
+    <ui-numeric-field
+      :name="'sort'"
+      :id="'menuSort'"
+      :label="'메뉴 정렬 순서'"
+      :rules="'required|numeric'"
+      :block="true"
+      :value="menu.sort || 1"
+    />
 
-    <ui-select :name="'role'"
-               :id="'menuRoles'"
-               :title="'메뉴 권한'"
-               :label="'메뉴 권한'"
-               :block="true"
-               :data="roleList"
-               v-model="role">
-    </ui-select>
+    <ui-select
+      :name="'role'"
+      :id="'menuRoles'"
+      :title="'메뉴 권한'"
+      :label="'메뉴 권한'"
+      :block="true"
+      :data="roleList"
+      v-model="role"
+    />
 
     <ui-radio-group :label="'메뉴 사용 여부'">
-      <ui-radio :id="'menuUseYn1'"
-                :name="'useYn'"
-                :label="'사용'"
-                :value="'Y'"
-                :rules="'required'"
-                v-model="useYn">
-      </ui-radio>
-      <ui-radio :id="'menuUseYn2'"
-                :name="'useYn'"
-                :label="'미사용'"
-                :value="'N'"
-                :rules="'required'"
-                v-model="useYn">
-      </ui-radio>
+      <ui-radio
+        :id="'menuUseYn1'"
+        :name="'useYn'"
+        :label="'사용'"
+        :value="'Y'"
+        :rules="'required'"
+        v-model="useYn"
+      />
+      <ui-radio
+        :id="'menuUseYn2'"
+        :name="'useYn'"
+        :label="'미사용'"
+        :value="'N'"
+        :rules="'required'"
+        v-model="useYn"
+      />
     </ui-radio-group>
   </ui-split-form>
 </template>

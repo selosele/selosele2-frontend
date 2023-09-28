@@ -3,49 +3,58 @@
     <ui-form :name="'postListForm'" @onsubmit="removePost">
       <ui-form :name="'postCategoryForm'" :ref="'postCategoryForm'" @onsubmit="listPostByCategory">
         <div class="post__category-filter d-flex-w gap--10 mb--15">
-          <ui-select :name="'categoryId'"
-                     :id="'categoryId'"
-                     :clazz="['post__category-filter-select']"
-                     :title="'카테고리 선택'"
-                     :defaultValue="'카테고리 선택'"
-                     :data="categoryList"
-                     v-model="selectedCategoryId"
-                     @onchange="listPostByCategory">
-          </ui-select>
+          <ui-select
+            :name="'categoryId'"
+            :id="'categoryId'"
+            :clazz="['post__category-filter-select']"
+            :title="'카테고리 선택'"
+            :defaultValue="'카테고리 선택'"
+            :data="categoryList"
+            v-model="selectedCategoryId"
+            @onchange="listPostByCategory"
+          />
         </div>
       </ui-form>
 
       <div class="post__btn-wrapper mt--15" v-if="isLogin && 'D01001' === pageType">
-        <ui-icon-button :routerLink="'/add-post'"
-                        :color="'primary'"
-                        :icon="'xi-pen'"
-                        :class="'post__btn'">포스트 작성
-        </ui-icon-button>
+        <ui-icon-button
+          :routerLink="'/add-post'"
+          :color="'primary'"
+          :icon="'xi-pen'"
+          :text="'포스트 작성'"
+          :showText="true"
+          :class="'post__btn'"
+        />
 
-        <ui-icon-button :type="'submit'"
-                        :color="'dark'"
-                        :icon="'xi-trash'"
-                        :class="'post__btn'">포스트 삭제
-        </ui-icon-button>
+        <ui-icon-button
+          :type="'submit'"
+          :color="'dark'"
+          :icon="'xi-trash'"
+          :text="'포스트 삭제'"
+          :showText="true"
+          :class="'post__btn'"
+        />
 
         <span class="post__check-all">
-          <ui-checkbox :name="'checkAll'"
-                       :id="'checkAll'"
-                       :label="'포스트 전체 선택'"
-                       :values="'Y,N'"
-                       v-model="checkAll"
-                       @click.self="onClick">
-          </ui-checkbox>
+          <ui-checkbox
+            :name="'checkAll'"
+            :id="'checkAll'"
+            :label="'포스트 전체 선택'"
+            :values="'Y,N'"
+            v-model="checkAll"
+            @click.self="onClick"
+          />
         </span>
       </div>
 
-      <app-post-list-detail :pageType="pageType"
-                            :page="page"
-                            :key="postList"
-                            :postList="postList"
-                            :checkList="checkList"
-                            :checkAll="isCheckAll">
-      </app-post-list-detail>
+      <app-post-list-detail
+        :pageType="pageType"
+        :page="page"
+        :key="postList"
+        :postList="postList"
+        :checkList="checkList"
+        :checkAll="isCheckAll"
+      />
     </ui-form>
 
     <slot />

@@ -12,7 +12,6 @@
           @paste.prevent
         >
           <ui-text-field
-            :type="'text'"
             :name="'userId'"
             :title="'아이디 입력'"
             :placeholder="'아이디'"

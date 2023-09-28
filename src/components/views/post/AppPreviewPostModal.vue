@@ -1,9 +1,10 @@
 <template>
-  <ui-modal :title="post?.title"
-            :name="this.$options.name"
+  <ui-modal
+    :title="post?.title"
+    :name="this.$options.name"
   >
     <div class="post-view__wrapper">
-      <div class="post__contents__body line-numbers" v-html="post?.cont"></div>
+      <div class="post__contents__body line-numbers" v-html="post?.cont" />
     </div>
   </ui-modal>
 </template>

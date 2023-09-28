@@ -9,7 +9,6 @@
     <ui-hidden-field :name="'type'" :value="type" />
 
     <ui-text-field
-      :type="'text'"
       :name="'nm'"
       :id="'categoryNm'"
       :label="'카테고리 명'"
@@ -19,7 +18,6 @@
     />
 
     <ui-text-field
-      :type="'text'"
       :name="'regDate'"
       :id="'categoryRegDate'"
       :label="'카테고리 등록일시'"

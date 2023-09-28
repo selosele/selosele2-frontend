@@ -18,7 +18,6 @@
             <div class="guestbook__write__input-box">
               <label for="addGuestbookAuthor" class="guestbook__write__label">닉네임</label>
               <ui-text-field
-                :type="'text'"
                 :name="'author'"
                 :id="'addGuestbookAuthor'"
                 :clazz="['guestbook__input']"

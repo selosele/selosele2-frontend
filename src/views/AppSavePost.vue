@@ -60,7 +60,6 @@
                 />
   
                 <ui-text-field
-                  :type="'text'"
                   :name="'title'"
                   :id="'savePostTitle'"
                   :rules="'required|max:200'"
@@ -107,7 +106,6 @@
             </th>
             <td>
               <ui-text-field
-                :type="'text'"
                 :name="'ogDesc'"
                 :id="'savePostOgDesc'"
                 :clazz="['write__og-desc']"
@@ -163,7 +161,6 @@
             </th>
             <td>
               <ui-text-field
-                :type="'text'"
                 :name="'link'"
                 :id="'saveContentLink'"
                 :placeholder="'예) /page명'"
@@ -207,7 +204,6 @@
             
               <div class="write__tag__wrapper">
                 <ui-text-field
-                  :type="'text'"
                   :name="'addTag'"
                   :id="'savePostAddTag'"
                   :clazz="['write__tag']"

@@ -3,20 +3,23 @@
     <div class="d-flex-w flex--between mb--10">
       <div>
         <strong class="post__reply__count">댓글 <span>{{ realReplyList.length }}</span></strong>
-        <ui-icon-button :color="'primary'"
-                        :icon="'xi-refresh'"
-                        :text="'댓글 목록 새로고침'"
-                        :title="'댓글 목록 새로고침'"
-                        :class="'post__reply__btn--refresh'"
-                        @click="refreshList">
-        </ui-icon-button>
+        <ui-icon-button
+          :color="'primary'"
+          :icon="'xi-refresh'"
+          :text="'댓글 목록 새로고침'"
+          :title="'댓글 목록 새로고침'"
+          :class="'post__reply__btn--refresh'"
+          @click="refreshList"
+        />
       </div>
 
       <div>
-        <ui-button :color="'secondary'"
-                   :routerLink="'/admin/post-reply'"
-                   v-if="isLogin">댓글 관리
-        </ui-button>
+        <ui-button
+          :color="'secondary'"
+          :text="'댓글 관리'"
+          :routerLink="'/admin/post-reply'"
+          v-if="isLogin"
+        />
       </div>
     </div>
   
@@ -47,49 +50,54 @@
           </p>
     
           <div class="post__reply__info-inner" v-if="'N' === reply.delYn && 1 === reply.depth">
-            <ui-icon-button :color="'secondary'"
-                            :icon="'xi-pen'"
-                            :text="'댓글 남기기'"
-                            :title="'댓글 남기기'"
-                            :class="'post__reply__btn--show'"
-                            @click="toggleDepth(i)">
-            </ui-icon-button>
+            <ui-icon-button
+              :color="'secondary'"
+              :icon="'xi-pen'"
+              :text="'댓글 남기기'"
+              :title="'댓글 남기기'"
+              :class="'post__reply__btn--show'"
+              @click="toggleDepth(i)"
+            />
           </div>
         </div>
     
-        <app-add-post-reply-depth :key="reply"
-                                  :reply="reply"
-                                  @refreshList="refreshList"
-                                  v-if="i === depthActiveIndex">
-        </app-add-post-reply-depth>
+        <app-add-post-reply-depth
+          :key="reply"
+          :reply="reply"
+          @refreshList="refreshList"
+          v-if="i === depthActiveIndex"
+        />
     
         <div class="post__reply__toggle" v-if="'N' === reply.delYn">
-          <ui-icon-button :icon="'xi-cog'"
-                          :text="'포스트 댓글 수정/삭제'"
-                          :title="'포스트 댓글 수정/삭제'"
-                          :class="'post__reply__btn--toggle'"
-                          @click.stop="toggleMenu(i)">
-          </ui-icon-button>
+          <ui-icon-button
+            :icon="'xi-cog'"
+            :text="'포스트 댓글 수정/삭제'"
+            :title="'포스트 댓글 수정/삭제'"
+            :class="'post__reply__btn--toggle'"
+            @click.stop="toggleMenu(i)"
+          />
     
           <div class="post__reply__toggle-list" v-if="i === menuActiveIndex">
             <ul>
               <li>
-                <ui-icon-button :icon="'xi-pen-o'"
-                                :text="'댓글 수정'"
-                                :showText="true"
-                                :class="'post__reply__btn--edit'"
-                                ref="postReplyMenuBtn"
-                                @click="openModal('E01003', reply, isLogin)">
-                </ui-icon-button>
+                <ui-icon-button
+                  :icon="'xi-pen-o'"
+                  :text="'댓글 수정'"
+                  :showText="true"
+                  :class="'post__reply__btn--edit'"
+                  ref="postReplyMenuBtn"
+                  @click="openModal('E01003', reply, isLogin)"
+                />
               </li>
               <li>
-                <ui-icon-button :icon="'xi-trash-o'"
-                                :text="'댓글 삭제'"
-                                :showText="true"
-                                :class="'post__reply__btn--delete'"
-                                ref="postReplyMenuBtn"
-                                @click="openModal('E01004', reply, isLogin)">
-                </ui-icon-button>
+                <ui-icon-button
+                  :icon="'xi-trash-o'"
+                  :text="'댓글 삭제'"
+                  :showText="true"
+                  :class="'post__reply__btn--delete'"
+                  ref="postReplyMenuBtn"
+                  @click="openModal('E01004', reply, isLogin)"
+                />
               </li>
             </ul>
           </div>

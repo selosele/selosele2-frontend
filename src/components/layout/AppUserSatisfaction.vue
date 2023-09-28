@@ -11,44 +11,47 @@
       <ui-hidden-field :name="'pageTitle'" :value="''" />
 
       <div class="satisfaction__field">
-        <ui-radio v-for="(item,i) in $store.state.Satisfaction.code.filter(d => d.prefix === 'B01')" :key="i"
-                  :id="`score${item.val}`"
-                  :name="'score'"
-                  :label="item.nm"
-                  :rules="'required'"
-                  :value="item.val"
-                  v-model="score"
-                  @onchange="setCommentList">
-        </ui-radio>
+        <ui-radio
+          v-for="(item,i) in $store.state.Satisfaction.code.filter(d => d.prefix === 'B01')" :key="i"
+          :id="`score${item.val}`"
+          :name="'score'"
+          :label="item.nm"
+          :rules="'required'"
+          :value="item.val"
+          v-model="score"
+          @onchange="setCommentList"
+        />
       </div>
 
       <div class="satisfaction__field">
         <div class="satisfaction__field__inner">
-          <ui-text-field :type="'text'"
-                         :name="'comment'"
-                         :id="'comment'"
-                         :clazz="['satisfaction__comment']"
-                         :title="'의견'"
-                         :placeholder="'의견을 입력하세요.'"
-                         :rules="'max:1000'"
-                         v-model="comment">
-            </ui-text-field>
+          <ui-text-field
+            :name="'comment'"
+            :id="'comment'"
+            :clazz="['satisfaction__comment']"
+            :title="'의견'"
+            :placeholder="'의견을 입력하세요.'"
+            :rules="'max:1000'"
+            v-model="comment"
+          />
   
-            <ui-select :name="'commentTypeCd'"
-                       :id="'commentTypeCd'"
-                       :clazz="['satisfaction__comment-type-cd']"
-                       :title="'의견 선택'"
-                       :defaultValue="'직접 입력'"
-                       :data="commentList"
-                       v-model="commentTypeCd"
-                       @onchange="setComment">
-            </ui-select>
+          <ui-select
+            :name="'commentTypeCd'"
+            :id="'commentTypeCd'"
+            :clazz="['satisfaction__comment-type-cd']"
+            :title="'의견 선택'"
+            :defaultValue="'직접 입력'"
+            :data="commentList"
+            v-model="commentTypeCd"
+            @onchange="setComment"
+          />
 
-            <ui-icon-button :type="'submit'"
-                            :icon="'xi-check-min'"
-                            :text="'제출'"
-                            :class="'satisfaction__btn'">
-            </ui-icon-button>
+          <ui-icon-button
+            :type="'submit'"
+            :icon="'xi-check-min'"
+            :text="'제출'"
+            :class="'satisfaction__btn'"
+          />
         </div>
       </div>
     </ui-form>

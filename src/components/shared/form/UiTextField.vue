@@ -57,7 +57,10 @@ export default {
   },
   props: {
     /** input type */
-    type: String,
+    type: {
+      type: String,
+      default: 'text',
+    },
     /** input id */
     id: String,
     /** input class */

@@ -7,21 +7,24 @@
       <ui-hidden-field :name="'crudType'" id="removePostReplyCrudType" :value="'E01004'" />
 
       <div class="post-reply__write__input-box no-width">
-        <ui-text-field :type="'password'"
-                       :name="'authorPw'"
-                       :id="'removePostReplyPw'"
-                       :clazz="['post-reply__input']"
-                       :title="'비밀번호 입력'"
-                       :placeholder="'비밀번호 입력'"
-                       :disabled="isLogin"
-                       :rules="!isLogin ? 'required|min:8|max:15' : ''">
-        </ui-text-field>
+        <ui-text-field
+          :type="'password'"
+          :name="'authorPw'"
+          :id="'removePostReplyPw'"
+          :clazz="['post-reply__input']"
+          :title="'비밀번호 입력'"
+          :placeholder="'비밀번호 입력'"
+          :disabled="isLogin"
+          :rules="!isLogin ? 'required|min:8|max:15' : ''"
+        />
 
         <div class="post-reply__write__btns">
-          <ui-button :type="'submit'"
-                     :color="'primary'"
-                     :class="'post-reply__btn post-reply__btn--write'">삭제
-          </ui-button>
+          <ui-button
+            :type="'submit'"
+            :color="'primary'"
+            :text="'삭제'"
+            :class="'post-reply__btn post-reply__btn--write'"
+          />
         </div>
       </div>
     </ui-form>

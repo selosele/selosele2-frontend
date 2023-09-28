@@ -4,21 +4,24 @@
       <ui-hidden-field :name="'id'" :value="id" />
 
       <div class="guestbook__write__input-box no-width">
-        <ui-text-field :type="'password'"
-                       :name="'authorPw'"
-                       :id="'removeGuestbookPw'"
-                       :clazz="['guestbook__input']"
-                       :title="isLogin ? '관리자는 비밀번호 입력 없이 삭제' : '비밀번호 입력'"
-                       :placeholder="'비밀번호 입력'"
-                       :disabled="isLogin"
-                       :rules="!isLogin ? 'required|min:8|max:15' : ''">
-        </ui-text-field>
+        <ui-text-field
+          :type="'password'"
+          :name="'authorPw'"
+          :id="'removeGuestbookPw'"
+          :clazz="['guestbook__input']"
+          :title="isLogin ? '관리자는 비밀번호 입력 없이 삭제' : '비밀번호 입력'"
+          :placeholder="'비밀번호 입력'"
+          :disabled="isLogin"
+          :rules="!isLogin ? 'required|min:8|max:15' : ''"
+        />
 
         <div class="guestbook__write__btns">
-          <ui-button :type="'submit'"
-                     :color="'primary'"
-                     :class="'guestbook__btn guestbook__btn--write'">삭제
-          </ui-button>
+          <ui-button
+            :type="'submit'"
+            :color="'primary'"
+            :text="'삭제'"
+            :class="'guestbook__btn guestbook__btn--write'"
+          />
         </div>
       </div>
     </ui-form>

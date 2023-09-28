@@ -9,15 +9,16 @@
                   { 'post__wrapper__list__item--new': isNewPost(post.regDate) },
         ]">
         <span class="post__check only-input" v-if="isLogin && 'D01001' === pageType">
-          <ui-checkbox :name="'checkPost'"
-                       :id="`checkPost${post.id}`"
-                       :clazz="['post__checkbox']"
-                       :label="'포스트 삭제'"
-                       :hideLabel="true"
-                       :value="post.id"
-                       v-model="chkList"
-                       @click="onClick($event)">
-          </ui-checkbox>
+          <ui-checkbox
+            :name="'checkPost'"
+            :id="`checkPost${post.id}`"
+            :clazz="['post__checkbox']"
+            :label="'포스트 삭제'"
+            :hideLabel="true"
+            :value="post.id"
+            v-model="chkList"
+            @click="onClick($event)"
+          />
         </span>
   
         <article :aria-labelledby="`title${post.id}`" :aria-describedby="`cont${post.id}`" class="post__box">

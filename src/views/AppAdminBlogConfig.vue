@@ -27,7 +27,6 @@
           </th>
           <td>
             <ui-text-field
-              :type="'text'"
               :name="'title'"
               :id="'blogConfigTitle'"
               :clazz="['blog-config__title']"
@@ -48,7 +47,6 @@
           </th>
           <td>
             <ui-text-field
-              :type="'text'"
               :name="'author'"
               :id="'blogConfigAuthor'"
               :clazz="['blog-config__author']"

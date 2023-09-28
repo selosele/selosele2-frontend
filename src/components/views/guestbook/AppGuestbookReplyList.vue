@@ -27,32 +27,35 @@
         </div>
   
         <div class="guestbook__reply__toggle">
-          <ui-icon-button :icon="'xi-cog'"
-                          :text="'방명록 댓글 수정/삭제'"
-                          :title="'방명록 댓글 수정/삭제'"
-                          :class="'guestbook__reply__btn--toggle'"
-                          @click.stop="toggleMenu(i)">
-          </ui-icon-button>
+          <ui-icon-button
+            :icon="'xi-cog'"
+            :text="'방명록 댓글 수정/삭제'"
+            :title="'방명록 댓글 수정/삭제'"
+            :class="'guestbook__reply__btn--toggle'"
+            @click.stop="toggleMenu(i)"
+          />
   
           <div class="guestbook__reply__toggle-list" v-if="i === activeIndex">
             <ul>
               <li>
-                <ui-icon-button :icon="'xi-pen-o'"
-                                :text="'댓글 수정'"
-                                :showText="true"
-                                :class="'guestbook__btn--edit2'"
-                                ref="guestbookMenuBtn"
-                                @click="openModal('E01003', reply, isLogin)">
-                </ui-icon-button>
+                <ui-icon-button
+                  :icon="'xi-pen-o'"
+                  :text="'댓글 수정'"
+                  :showText="true"
+                  :class="'guestbook__btn--edit2'"
+                  ref="guestbookMenuBtn"
+                  @click="openModal('E01003', reply, isLogin)"
+                />
               </li>
               <li>
-                <ui-icon-button :icon="'xi-trash-o'"
-                                :text="'댓글 삭제'"
-                                :showText="true"
-                                :class="'guestbook__btn--delete2'" 
-                                ref="guestbookMenuBtn" 
-                                @click="openModal('E01004', reply, isLogin)">
-                </ui-icon-button>
+                <ui-icon-button
+                  :icon="'xi-trash-o'"
+                  :text="'댓글 삭제'"
+                  :showText="true"
+                  :class="'guestbook__btn--delete2'" 
+                  ref="guestbookMenuBtn" 
+                  @click="openModal('E01004', reply, isLogin)"
+                />
               </li>
             </ul>
           </div>
@@ -60,12 +63,13 @@
       </li>
     </ul>
 
-    <ui-icon-button :icon="'xi-ellipsis-h'"
-                    :text="'댓글 더보기'"
-                    :class="'guestbook__reply-more'"
-                    @click="more"
-                    v-if="list.length > pageSize">
-    </ui-icon-button>
+    <ui-icon-button
+      :icon="'xi-ellipsis-h'"
+      :text="'댓글 더보기'"
+      :class="'guestbook__reply-more'"
+      @click="more"
+      v-if="list.length > pageSize"
+    />
   </div>
 </template>
 

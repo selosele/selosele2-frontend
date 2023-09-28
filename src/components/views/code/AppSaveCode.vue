@@ -3,7 +3,6 @@
     <ui-hidden-field :name="'originId'" :value="code.id" />
 
     <ui-text-field
-      :type="'text'"
       :name="'id'"
       :id="'codeId'"
       :label="'코드 ID'"
@@ -14,7 +13,6 @@
     />
 
     <ui-text-field
-      :type="'text'"
       :name="'prefix'"
       :id="'codePrefix'"
       :label="'코드 접두어'"
@@ -24,7 +22,6 @@
     />
 
     <ui-text-field
-      :type="'text'"
       :name="'val'"
       :id="'codeVal'"
       :label="'코드 값'"
@@ -34,7 +31,6 @@
     />
 
     <ui-text-field
-      :type="'text'"
       :name="'nm'"
       :id="'codeNm'"
       :label="'코드 명'"
@@ -44,7 +40,6 @@
     />
 
     <ui-textarea
-      :type="'text'"
       :name="'desc'"
       :id="'codeDesc'"
       :resize="'vertical'"

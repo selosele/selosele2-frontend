@@ -1,16 +1,19 @@
 <template>
-  <button :type="type"
-          :class="`btn ${btnColor}${btnBlock}`"
-          v-bind="$attrs"
-          @click="listFile">
+  <button
+    :type="type"
+    :class="`btn ${btnColor}${btnBlock}`"
+    v-bind="$attrs"
+    @click="listFile"
+  >
     <span v-if="text">{{ text }}</span>
     <slot />
   </button>
 
-  <ui-file-list :value="fileList"
-                @clickFile="onClickFile"
-                v-if="0 < fileList.length">
-  </ui-file-list>
+  <ui-file-list
+    :value="fileList"
+    @clickFile="onClickFile"
+    v-if="0 < fileList.length"
+  />
 </template>
 
 <script>

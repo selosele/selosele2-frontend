@@ -9,7 +9,7 @@
       v-if="filter"
     />
   
-    <slot name="btn"></slot>
+    <slot name="btn" />
   </div>
 
   <Tree

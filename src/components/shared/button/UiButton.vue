@@ -1,25 +1,31 @@
 <template>
-  <button :type="type"
-          :class="`btn ${btnColor}${btnBlock}`"
-          v-bind="$attrs"
-          v-if="!routerLink && 'link' !== type">
+  <button
+    :type="type"
+    :class="`btn ${btnColor}${btnBlock}`"
+    v-bind="$attrs"
+    v-if="!routerLink && 'link' !== type"
+  >
     <span v-if="text">{{ text }}</span>
     <slot />
   </button>
 
-  <router-link :to="routerLink"
-               :class="`btn ${btnColor}${btnBlock}`"
-               v-bind="$attrs"
-               v-if="routerLink && 'link' !== type">
+  <router-link
+    :to="routerLink"
+    :class="`btn ${btnColor}${btnBlock}`"
+    v-bind="$attrs"
+    v-if="routerLink && 'link' !== type"
+  >
     <span v-if="text">{{ text }}</span>
     <slot />
   </router-link>
 
-  <a :href="href"
-     :class="`btn ${btnColor}${btnBlock}`"
-     v-bind="$attrs"
-     v-if="!routerLink && 'link' === type">
-     <span v-if="text">{{ text }}</span>
+  <a
+    :href="href"
+    :class="`btn ${btnColor}${btnBlock}`"
+    v-bind="$attrs"
+    v-if="!routerLink && 'link' === type"
+  >
+    <span v-if="text">{{ text }}</span>
     <slot />
   </a>
 </template>

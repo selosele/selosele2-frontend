@@ -1,16 +1,19 @@
 <template>
   <aside class="sidebar">
-    <ui-loading :activeModel="!dataLoaded"
-                :fullPage="false"
-                :loader="'bars'"
-                :color="'#538204'"
-                style="min-height: 20rem;">
-    </ui-loading>
+    <ui-loading
+      :activeModel="!dataLoaded"
+      :fullPage="false"
+      :loader="'bars'"
+      :color="'#538204'"
+      style="min-height: 20rem;"
+    />
 
-    <ui-sort-list v-model:list="storeWidget"
-                  :shouldCancelStart="onShouldCancelStart"
-                  @updateList="onUpdateList"
-                  v-if="dataLoaded">
+    <ui-sort-list
+      v-model:list="storeWidget"
+      :shouldCancelStart="onShouldCancelStart"
+      @updateList="onUpdateList"
+      v-if="dataLoaded"
+    >
       <ui-sort-item v-for="(widget,i) in storeWidget" :key="widget.id"
         :index="i"
         :disabled="!widgetActive"
@@ -26,20 +29,21 @@
             <h2 class="sidebar__item-title widget__title">
               <i :class="`${widget.icon} sidebar__item-title-icon`" :aria-hidden="!widgetActive">
                 <span v-if="widgetActive">
-                  <ui-text-field :type="'text'"
-                                  :name="'icon'"
-                                  :title="'아이콘 클래스명'"
-                                  :placeholder="'아이콘 클래스명'"
-                                  :autocomplete="'off'"
-                                  :value="widget.icon"
-                                  v-model="widget.icon">
-                  </ui-text-field>
+                  <ui-text-field
+                    :name="'icon'"
+                    :title="'아이콘 클래스명'"
+                    :placeholder="'아이콘 클래스명'"
+                    :autocomplete="'off'"
+                    :value="widget.icon"
+                    v-model="widget.icon"
+                  />
                 </span>
               </i>
 
-              <em :contenteditable="widgetActive"
-                  class="sidebar__item-title-text"
-                  @input="onChangeTitle($event, widget.id)">{{ widget.title }}
+              <em
+                :contenteditable="widgetActive"
+                class="sidebar__item-title-text"
+                @input="onChangeTitle($event, widget.id)">{{ widget.title }}
               </em>
             </h2>
 
@@ -53,20 +57,23 @@
 
             <ul v-if="2 === widget.id">
               <li v-for="(tag,j) in tagList" :key="j">
-                <router-link :to="`/tag/${tag.id}`"
-                             :style="{ fontSize: `${getFontSize(tag.count)}%` }">{{ tag.nm }}
+                <router-link
+                  :to="`/tag/${tag.id}`"
+                  :style="{ fontSize: `${getFontSize(tag.count)}%` }">{{ tag.nm }}
+
                   <span class="sidebar__item-count">{{ tag.count }}</span>
                 </router-link>
               </li>
             </ul>
 
-            <ui-icon-button :icon="'xi-check'"
-                            :text="'사용 여부 선택'"
-                            :title="`클릭하여 위젯을 '미사용' 상태로 변경`"
-                            :class="'widget__use'"
-                            @click="onChangeUseYn($event, widget.id)"
-                            v-if="widgetActive">
-            </ui-icon-button>
+            <ui-icon-button
+              :icon="'xi-check'"
+              :text="'사용 여부 선택'"
+              :title="`클릭하여 위젯을 '미사용' 상태로 변경`"
+              :class="'widget__use'"
+              @click="onChangeUseYn($event, widget.id)"
+              v-if="widgetActive"
+            />
           </div>
         </div>
       </ui-sort-item>

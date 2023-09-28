@@ -3,46 +3,50 @@
     <ui-form :name="'removeGuestbookForm'" @onsubmit="onSubmit">
       <ui-hidden-field :name="'id'" :value="guestbook.id" />
 
-      <ui-textarea :name="'cont'"
-                   :id="'updateGuestbookCont'"
-                   :clazz="['guestbook__textarea']"
-                   :title="'방명록 내용 입력'"
-                   :placeholder="'하고싶은 말을 남겨주세요.'"
-                   :cols="'30'"
-                   :rows="'4'"
-                   :resize="'vertical'"
-                   :rules="'required|max:1000'"
-                   :value="replacedCont">
-      </ui-textarea>
+      <ui-textarea
+        :name="'cont'"
+        :id="'updateGuestbookCont'"
+        :clazz="['guestbook__textarea']"
+        :title="'방명록 내용 입력'"
+        :placeholder="'하고싶은 말을 남겨주세요.'"
+        :cols="'30'"
+        :rows="'4'"
+        :resize="'vertical'"
+        :rules="'required|max:1000'"
+        :value="replacedCont"
+      />
 
       <div class="guestbook__write__inputs">
         <div class="guestbook__write__input-box">
           <label for="updateGuestbookAuthor" class="guestbook__write__label">닉네임</label>
-          <ui-text-field :type="'text'"
-                         :name="'author'"
-                         :id="'updateGuestbookAuthor'"
-                         :clazz="['guestbook__input']"
-                         :rules="'required|max:20'"
-                         :readonly="'Y' === guestbook.adminYn"
-                         :value="guestbook.author">
-          </ui-text-field>
+          <ui-text-field
+            :name="'author'"
+            :id="'updateGuestbookAuthor'"
+            :clazz="['guestbook__input']"
+            :rules="'required|max:20'"
+            :readonly="'Y' === guestbook.adminYn"
+            :value="guestbook.author"
+          />
         </div>
 
         <div class="guestbook__write__input-box">
           <label for="updateGuestbookPw" class="guestbook__write__label">비밀번호</label>
-          <ui-text-field :type="'password'"
-                         :name="'authorPw'"
-                         :id="'updateGuestbookPw'"
-                         :clazz="['guestbook__input']"
-                         :rules="'required|min:8|max:15'">
-          </ui-text-field>
+          <ui-text-field
+            :type="'password'"
+            :name="'authorPw'"
+            :id="'updateGuestbookPw'"
+            :clazz="['guestbook__input']"
+            :rules="'required|min:8|max:15'"
+          />
         </div>
 
         <div class="guestbook__write__btns">
-          <ui-button :type="'submit'"
-                     :color="'primary'"
-                     :class="'guestbook__btn guestbook__btn--write'">저장
-          </ui-button>
+          <ui-button
+            :type="'submit'"
+            :color="'primary'"
+            :text="'저장'"
+            :class="'guestbook__btn guestbook__btn--write'"
+          />
         </div>
       </div>
     </ui-form>

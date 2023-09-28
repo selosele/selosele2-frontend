@@ -4,15 +4,15 @@
       <ui-hidden-field :name="'id'" :value="tag.id" />
       <ui-hidden-field :name="'addTagYn'" :value="tag.addTagYn" />
   
-      <ui-text-field :type="'text'"
-                     :name="'tag' + tag.id"
-                     :clazz="['write__tag']"
-                     :title="'태그명 입력(50자 이내)'"
-                     :placeholder="'태그명 입력(50자 이내)'"
-                     :rules="'max:50'"
-                     :value="tag.name"
-                     @update:modelValue="onChange">
-      </ui-text-field>
+      <ui-text-field
+        :name="`tag${tag.id}`"
+        :clazz="['write__tag']"
+        :title="'태그명 입력(50자 이내)'"
+        :placeholder="'태그명 입력(50자 이내)'"
+        :rules="'max:50'"
+        :value="tag.name"
+        @update:modelValue="onChange"
+      />
     </span>
   </span>
 </template>

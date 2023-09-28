@@ -1,59 +1,68 @@
 <template>
   <div class="masthead__wrapper">
     <div id="masthead" class="masthead">
-      <ui-icon-button ref="btnMenu"
-                      :icon="'xi-bars'"
-                      :text="'메뉴'"
-                      :class="'masthead__menu-open'"
-                      @click="toggleMobileMenu">
-      </ui-icon-button>
+      <ui-icon-button
+        ref="btnMenu"
+        :icon="'xi-bars'"
+        :text="'메뉴'"
+        :class="'masthead__menu-open'"
+        @click="toggleMobileMenu"
+      />
 
       <div :class="clazz" :style="styles">
         <div class="masthead__util-wrapper">
           <template v-if="!isLogin && isDevelopment">
-            <ui-icon-button :routerLink="'/login'"
-                            :icon="'xi-log-in'"
-                            :text="'로그인'"
-                            :class="'masthead__util'">
-            </ui-icon-button>
+            <ui-icon-button
+              :routerLink="'/login'"
+              :icon="'xi-log-in'"
+              :text="'로그인'"
+              :class="'masthead__util'"
+            />
           </template>
 
           <template v-if="isLogin">
-            <ui-icon-button :icon="'xi-power-off'"
-                            :text="'로그아웃'"
-                            :class="'masthead__util'"
-                            @click="logout">
-            </ui-icon-button>
+            <ui-icon-button
+              :icon="'xi-power-off'"
+              :text="'로그아웃'"
+              :class="'masthead__util'"
+              @click="logout"
+            />
 
-            <ui-icon-button :routerLink="'/admin/blog-config'"
-                            :icon="'xi-cog'"
-                            :text="'환경설정'"
-                            :class="'masthead__util'">
-            </ui-icon-button>
+            <ui-icon-button
+              :routerLink="'/admin/blog-config'"
+              :icon="'xi-cog'"
+              :text="'환경설정'"
+              :class="'masthead__util'"
+            />
 
-            <ui-icon-button :icon="'xi-message'"
-                            :text="'알림 확인'"
-                            :class="'masthead__util masthead__util--notice'"
-                            ref="notiBtn"
-                            @click.stop="toggleNotiLayer">
+            <ui-icon-button
+              :icon="'xi-message'"
+              :text="'알림 확인'"
+              :class="'masthead__util masthead__util--notice'"
+              ref="notiBtn"
+              @click.stop="toggleNotiLayer"
+            >
 
               <span class="masthead__util--notice-count" v-if="0 < $store.state.Notification.notiCnt">
                 {{ 10 <= $store.state.Notification.notiCnt ? '9+' : $store.state.Notification.notiCnt }}
               </span>
             </ui-icon-button>
 
-            <app-notification ref="notiLayer"
-                              :key="$store.state.Notification.notiList"
-                              :list="$store.state.Notification.notiList"
-                              @check="onCheckNotification"
-                              v-if="notiToggle">
-            </app-notification>
+            <app-notification
+              ref="notiLayer"
+              :key="$store.state.Notification.notiList"
+              :list="$store.state.Notification.notiList"
+              @check="onCheckNotification"
+              v-if="notiToggle"
+            />
           </template>
         </div>
 
         <div class="masthead__inner">
           <div class="masthead__info">
-            <router-link to="/" class="site-title">{{ $store.state.BlogConfig.data?.title }}</router-link>
+            <router-link to="/" class="site-title">
+              {{ $store.state.BlogConfig.data?.title }}
+            </router-link>
 
             <div class="masthead__author">
               <p class="masthead__author-avatar" v-if="$store.state.BlogConfig.data?.avatarImgUrl">
@@ -63,7 +72,9 @@
                     :alt=$store.state.BlogConfig.data?.author />
               </p>
 
-              <p class="masthead__author-name">{{ $store.state.BlogConfig.data?.author }}</p>
+              <p class="masthead__author-name">
+                {{ $store.state.BlogConfig.data?.author }}
+              </p>
             </div>
           </div>
         </div>
