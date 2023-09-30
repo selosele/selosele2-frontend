@@ -12,7 +12,7 @@ export const Breadcrumb = {
   },
   actions: {
     FETCH_PAGE_TITLE({ commit }, pageTitle) {
-      window.document.title = pageTitle;
+      document.title = pageTitle;
       commit('SET_PAGE_TITLE', pageTitle);
     },
   },

@@ -107,10 +107,10 @@ export default {
     }
   },
   mounted() {
-    window.document.addEventListener('click', this.closeNotiLayer);
+    document.addEventListener('click', this.closeNotiLayer);
   },
   unmounted() {
-    window.document.removeEventListener('click', this.closeNotiLayer);
+    document.removeEventListener('click', this.closeNotiLayer);
   },
   watch: {
     'resStatus'() {

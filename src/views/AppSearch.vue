@@ -144,10 +144,10 @@ export default {
     next();
   },
   mounted() {
-    window.document.addEventListener('scroll', this.onScroll);
+    document.addEventListener('scroll', this.onScroll);
   },
   unmounted() {
-    window.document.removeEventListener('scroll', this.onScroll);
+    document.removeEventListener('scroll', this.onScroll);
   },
   methods: {
     /** 초기 세팅 */

@@ -124,10 +124,10 @@ export default {
     }
   },
   mounted() {
-    window.document.addEventListener('click', this.closeMenu);
+    document.addEventListener('click', this.closeMenu);
   },
   unmounted() {
-    window.document.removeEventListener('click', this.closeMenu);
+    document.removeEventListener('click', this.closeMenu);
   },
   methods: {
     /** 방명록 댓글 더보기 */
