@@ -9,7 +9,8 @@
               :useCheckbox="false"
               :filter="true"
               :placeholder="'카테고리/포스트 제목 입력'"
-              @nodeClick="onNodeClick">
+              @nodeClick="onNodeClick"
+            >
 
               <template v-slot:btn>
                 <ui-button
@@ -40,7 +41,8 @@
               :useCheckbox="false"
               :filter="true"
               :placeholder="'태그/포스트 제목 입력'"
-              @nodeClick="onNodeClick">
+              @nodeClick="onNodeClick"
+            >
 
               <template v-slot:btn>
                 <ui-button
