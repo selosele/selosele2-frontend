@@ -15,10 +15,13 @@
          }
          
          &__body {
-            min-height: 25rem;
             margin-bottom: 4rem;
             font-size: 0.95rem;
             line-height: 1.9;
+            
+            @media (min-width: $min-big-width) {
+               min-height: 25rem;
+            }
    
             a {
                @include link();
