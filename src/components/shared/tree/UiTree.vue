@@ -114,7 +114,7 @@ export default {
 }
 
 .tree-row-txt {
-  font-family: $default-font03;
+  font-family: $default-font;
   font-size: 0.9rem;
 }
 

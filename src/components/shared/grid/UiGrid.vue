@@ -186,6 +186,6 @@ export default {
 @import 'ag-grid-community/styles//ag-theme-alpine.css';
 
 .ag-theme-alpine {
-  --ag-font-family: $default-font03;
+  --ag-font-family: $default-font;
 }
 </style>
