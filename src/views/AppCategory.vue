@@ -1,17 +1,22 @@
 <template>
   <app-content-wrapper>
     <div class="category__wrapper">
+      <div class="category__desc" v-if="'' != desc && null != desc">
+        <p>{{ desc }}</p>
+      </div>
+
       <ul class="category__list">
-        <template v-for="(post,i) in postList" :key="i">
-          <li :class="[
-            'category__item',
-            'Y' === post.secretYn && 'category__item--secret']">
-            <router-link :to="`/post/${post.id}`">
-              <strong class="category__title">{{ post.title }}</strong>
-              <span class="category__date">{{ post.regDate }}</span>
-            </router-link>
-          </li>
-        </template>
+        <li v-for="(post,i) in postList" :key="i"
+            :class="[
+              'category__item',
+              'Y' === post.secretYn && 'category__item--secret'
+            ]"
+        >
+          <router-link :to="`/post/${post.id}`">
+            <strong class="category__title">{{ post.title }}</strong>
+            <span class="category__date">{{ post.regDate }}</span>
+          </router-link>
+        </li>
       </ul>
 
       <ui-icon-button
@@ -40,6 +45,7 @@ export default {
       page: 1,
       pageSize: 20,
       listCnt: 0,
+      desc: '',
       postList: [],
       isLastPage: false,
     }
@@ -56,8 +62,9 @@ export default {
     /** 초기 세팅 */
     async init() {
       this.page = 1;
-      this.isLastPage = false;
+      this.desc = '';
       this.postList = [];
+      this.isLastPage = false;
 
       await this.listPostByCategory();
     },
@@ -70,9 +77,13 @@ export default {
       
       let category = {};
 
-      return this.$http.get(`${this.getApiUri()}/${this.id}`, { params: paginationDto })
+      return this.$http.get(this.getApiUri(), { params: paginationDto })
       .then(resp => {
-        resp.data[0].forEach(d => {
+        resp.data[0].forEach((d,i) => {
+          if (0 === i && isNotEmpty(d.postCategory)) {
+            this.desc = d.postCategory[0].category.desc;
+          }
+
           category.type = isNotEmpty(d.postCategory) ? '카테고리' : '태그';
           category.nm = isNotEmpty(d.postCategory) ? d.postCategory[0].category.nm : d.postTag[0].tag.nm;
           d.regDate = this.$moment(d.regDate).format('YYYY.MM.DD');
@@ -97,12 +108,12 @@ export default {
       this.page++;
       this.listPostByCategory();
     },
-    /** 페이지 유형에 따른 API 호출 URI 얻기 */
+    /** 페이지 유형에 따른 API 호출 URI 반환 */
     getApiUri() {
       if ('D01004' === this.pageType) {
-        return '/post/category';
+        return `/post/category/${this.id}`;
       } else if ('D01005' === this.pageType) {
-        return '/post/tag';
+        return `/post/tag/${this.id}`;
       }
 
       return '';

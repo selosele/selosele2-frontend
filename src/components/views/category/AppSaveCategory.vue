@@ -18,6 +18,15 @@
     />
 
     <ui-text-field
+      :name="'desc'"
+      :id="'categoryDesc'"
+      :label="'카테고리 설명'"
+      :rules="'max:100'"
+      :block="true"
+      :value="category.desc"
+    />
+
+    <ui-text-field
       :name="'regDate'"
       :id="'categoryRegDate'"
       :label="'카테고리 등록일시'"
@@ -36,7 +45,7 @@ export default {
   props: {
     /** 카테고리 정보 */
     category: Object,
-    /** type: category(카테고리), tag(태그) */
+    /** type: D01004(카테고리), D01005(태그) */
     type: String,
   },
   methods: {
