@@ -117,7 +117,9 @@ export default {
       get() {
         return this.$store.state.Layout.sidebar.widget ?? [];
       },
-      set(v) {}
+      set(v) {
+        this.$store.state.Layout.sidebar.widget = v;
+      }
     },
     changeWidget: {
       get() {
@@ -218,6 +220,8 @@ export default {
       values.forEach((item, idx) => {
         item.sort = idx + 1;
       });
+
+      this.storeWidget = [...values]; // set을 해주지 않으면 순서변경사항이 시각적으로 표출되지 않음
     },
     /** 위젯 목록 조회 */
     listWidget() {
