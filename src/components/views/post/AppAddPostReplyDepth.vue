@@ -27,8 +27,8 @@
               :clazz="['post__reply__input']"
               :rules="'required|max:20'"
               :tooltip="true"
-              :readonly="isLogin"
-              :value="isLogin ? adminNickName : ''"
+              :readonly="isAdmin"
+              :value="isAdmin ? adminNickName : ''"
             />
           </div>
 

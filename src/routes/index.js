@@ -14,7 +14,7 @@ import { messageUtil, isEmpty } from '@/utils';
 const routes = [
   ...index,               // 메인
   ...error,               // 오류
-  ...auth,                // 권한
+  ...auth,                // 인증
   ...post,                // 포스트
   ...content,             // 콘텐츠
   ...search,              // 검색
@@ -50,14 +50,14 @@ router.beforeEach((to, from, next) => {
   }
 
   // 로그인 중인데 로그인 페이지에 접근 시 리다이렉트
-  if (store.getters.isLogin && '/login' === to.path) {
+  if (store.getters.isAdmin && '/login' === to.path) {
     messageUtil.toastInfo('이미 로그인 중입니다.');
     next('/');
   }
 
   // 로그인이 필요한 페이지
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (store.getters.isLogin) {
+    if (store.getters.isAdmin) {
       // 로그인이 되어 있으면 가던 길을 가고
       next();
       return;

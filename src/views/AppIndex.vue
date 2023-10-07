@@ -21,7 +21,7 @@
       />
     </app-post-list>
 
-    <app-widget-config v-if="isLogin" />
+    <app-widget-config v-if="isAdmin" />
   </app-content-wrapper>
 </template>
 

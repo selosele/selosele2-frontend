@@ -46,6 +46,10 @@ export default createStore({
       // 페이지 새로고침 시, 상태가 초기화되므로 localStorage에 저장된 accessToken의 존재 유무도 확인해야 정상적인 값을 반환한다.
       return isNotBlank(state.Auth.accessToken) || isNotBlank(window.localStorage.getItem('accessToken'));
     },
+    /** 관리자 여부 */
+    isAdmin(state) {
+      return state.Auth.isAdmin;
+    },
     /** Splitter 활성화 여부 */
     isSplitterActive(state) {
       return state.Splitter.isActive;

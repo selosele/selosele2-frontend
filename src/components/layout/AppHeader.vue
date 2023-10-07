@@ -11,7 +11,7 @@
 
       <div :class="clazz" :style="styles">
         <div class="masthead__util-wrapper">
-          <template v-if="!isLogin && isDevelopment">
+          <template v-if="!isAdmin">
             <ui-icon-button
               :routerLink="'/login'"
               :icon="'xi-log-in'"
@@ -20,7 +20,7 @@
             />
           </template>
 
-          <template v-if="isLogin">
+          <template v-if="isAdmin">
             <ui-icon-button
               :icon="'xi-power-off'"
               :text="'로그아웃'"
@@ -101,8 +101,12 @@ export default {
       dataLoaded: false,
     }
   },
-  created() {
-    if (this.$store.getters.isLogin) {
+  async created() {
+    // TODO: 2023.10.07. $store.getters.isAdmin(this.isAdmin)을 접근하면 관리자 권한이 있어도 false 반환
+    // 임시로 관리자 권한 검증 로직을 실행하는 것으로 처리
+    // 추후 리팩토링
+    const isAdmin = await this.$store.dispatch('Auth/HAS_ROLE', 'ROLE_ADMIN');
+    if (isAdmin) {
       this.listNotification();
     }
   },
@@ -115,13 +119,19 @@ export default {
   watch: {
     'resStatus'() {
       // 데이타를 받아오는 동안에도 실행되므로, props값의 변경을 감지해줘야 한다.
-      this.dataLoading(this.resStatus);
+      this.dataLoading(this.rs);
     },
     '$route'() {
       this.notiToggle = false;
     },
   },
   computed: {
+    rs: {
+      get() {
+        return this.resStatus;
+      },
+      set(v) {}
+    },
     clazz: {
       get() {
         return [

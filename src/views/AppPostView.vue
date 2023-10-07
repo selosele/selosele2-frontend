@@ -94,7 +94,7 @@
               :class="'post__contents__sns'"
             />
     
-            <template v-if="isLogin">
+            <template v-if="isAdmin">
               <ui-icon-button
                 :routerLink="isPostPage ? '/add-post' : '/add-content'"
                 :color="'primary'"

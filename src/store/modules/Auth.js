@@ -10,6 +10,8 @@ export const Auth = {
   state: () => ({
     /** 액세스 토큰 */
     accessToken: null,
+    /** 관리자 여부 */
+    isAdmin: false,
   }),
   mutations: {
     SET_ACCESS_TOKEN(state, accessToken) {
@@ -20,12 +22,16 @@ export const Auth = {
       window.localStorage.removeItem('accessToken');
       state.accessToken = null;
     },
+    SET_IS_ADMIN(state, isAdmin) {
+      state.isAdmin = isAdmin;
+    },
   },
   actions: {
     /** 로그인 */
     LOGIN({ commit, dispatch }, values) {
       return new Promise((resolve, reject) => {
         commit('Auth/SET_ACCESS_TOKEN', values, { root: true });
+        dispatch('Auth/FETCH_IS_ADMIN', 'ROLE_ADMIN', { root: true });
         commit('Post/SET_MAIN_POSTLIST', {}, { root: true });
         commit('Year/SET_YEAR_POSTS', { flag: 'reset' }, { root: true });
         commit('Layout/SET_SIDEBAR', {}, { root: true });
@@ -52,6 +58,7 @@ export const Auth = {
           
           commit('Loading/SET_IS_LOADING', false, { root: true });
           commit('Auth/CLEAR_ACCESS_TOKEN', null, { root: true });
+          dispatch('Auth/FETCH_IS_ADMIN', 'ROLE_ADMIN', { root: true });
           commit('Post/SET_MAIN_POSTLIST', {}, { root: true });
           commit('Year/SET_YEAR_POSTS', { flag: 'reset' }, { root: true });
           commit('Layout/SET_SIDEBAR', {}, { root: true });
@@ -89,8 +96,8 @@ export const Auth = {
       return jwtDecode(accessToken);
     },
     /** 1개의 권한 확인 */
-    HAS_ROLE({ commit, dispatch }, role) {
-      const user = this.GET_USER();
+    async HAS_ROLE({ commit, dispatch }, role) {
+      const user = await dispatch('Auth/GET_USER', null, { root: true });
     
       if (!user) return false;
 
@@ -103,20 +110,25 @@ export const Auth = {
       return false;
     },
     /** 모든 권한이 있는지 확인 */
-    HAS_ROLE_ALL({ commit, dispatch }, ...roles) {
-      const user = this.GET_USER();
+    async HAS_ROLE_ALL({ commit, dispatch }, ...roles) {
+      const user = await dispatch('Auth/GET_USER', null, { root: true });
 
       if (!user) return false;
 
       return roles.every(v => user.userRole.filter(r => r.roleId === v).length > 0);
     },
     /** 권한이 1개라도 있는지 확인 */
-    HAS_ROLE_OR({ commit, dispatch }, ...roles) {
-      const user = this.GET_USER();
+    async HAS_ROLE_OR({ commit, dispatch }, ...roles) {
+      const user = await dispatch('Auth/GET_USER', null, { root: true });
 
       if (!user) return false;
 
       return roles.some(v => user.userRole.filter(r => r.roleId === v).length > 0);
+    },
+    async FETCH_IS_ADMIN({ commit, dispatch }, values) {
+      const isAdmin = await dispatch('Auth/HAS_ROLE', values, { root: true });
+
+      commit('SET_IS_ADMIN', isAdmin);
     },
   },
 };

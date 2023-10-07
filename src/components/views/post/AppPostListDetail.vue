@@ -2,13 +2,13 @@
   <ul :class="['post__wrapper', { 'search__results': 'D01006' === pageType }]">
     <li class="post__wrapper__list" v-for="(post,i) in postList" :key="i">
       <div :class="['post__wrapper__list__item', 
-                  { 'post__wrapper__list__item--logined': isLogin && 'D01001' === pageType },
+                  { 'post__wrapper__list__item--logined': isAdmin && 'D01001' === pageType },
                   { 'post__wrapper__list__item--pin': 'Y' === post.pinYn && 'D01001' === pageType },
                   { 'post__wrapper__list__item--tmp': 'Y' === post.tmpYn && 'D01001' === pageType },
                   { 'post__wrapper__list__item--secret': 'Y' === post.secretYn },
                   { 'post__wrapper__list__item--new': isNewPost(post.regDate) },
         ]">
-        <span class="post__check only-input" v-if="isLogin && 'D01001' === pageType">
+        <span class="post__check only-input" v-if="isAdmin && 'D01001' === pageType">
           <ui-checkbox
             :name="'checkPost'"
             :id="`checkPost${post.id}`"

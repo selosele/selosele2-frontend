@@ -16,7 +16,7 @@
         </div>
       </ui-form>
 
-      <div class="post__btn-wrapper mt--15" v-if="isLogin && 'D01001' === pageType">
+      <div class="post__btn-wrapper mt--15" v-if="isAdmin && 'D01001' === pageType">
         <ui-icon-button
           :routerLink="'/add-post'"
           :color="'primary'"

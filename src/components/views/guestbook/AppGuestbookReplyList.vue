@@ -44,7 +44,7 @@
                   :showText="true"
                   :class="'guestbook__btn--edit2'"
                   ref="guestbookMenuBtn"
-                  @click="openModal('E01003', reply, isLogin)"
+                  @click="openModal('E01003', reply, isAdmin)"
                 />
               </li>
               <li>
@@ -54,7 +54,7 @@
                   :showText="true"
                   :class="'guestbook__btn--delete2'" 
                   ref="guestbookMenuBtn" 
-                  @click="openModal('E01004', reply, isLogin)"
+                  @click="openModal('E01004', reply, isAdmin)"
                 />
               </li>
             </ul>
@@ -149,8 +149,8 @@ export default {
       }
     },
     /** 방명록 댓글 수정/삭제 Modal */
-    openModal(crudType, guestbookReply, isLogin) {
-      if (!isLogin && 'Y' === guestbookReply.adminYn) {
+    openModal(crudType, guestbookReply, isAdmin) {
+      if (!isAdmin && 'Y' === guestbookReply.adminYn) {
         messageUtil.toastError('수정/삭제 권한이 없습니다.');
         return;
       }

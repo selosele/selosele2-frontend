@@ -2,7 +2,6 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from '@/routes';
 import store from '@/store';
-import { commonComputed } from '@/store/helper';
 import moment from 'moment';
 import { initDefineRule } from '@/utils';
 import { formModule, layoutModule, uiModule } from './plugins/module';
@@ -10,6 +9,7 @@ import { $vfm } from 'vue-final-modal';
 import { vfmPlugin } from 'vue-final-modal';
 import VueCookies from 'vue-cookies';
 import { http } from '@/api';
+import { common } from './mixins/common/common';
 
 import '@/assets/scss/style.scss';
 
@@ -17,14 +17,14 @@ initDefineRule();
 
 moment.locale('ko');
 
+store.dispatch('Auth/FETCH_IS_ADMIN', 'ROLE_ADMIN');
+
 const app = createApp({
   extends: App,
 });
 
 app.mixin({
-  computed: {
-    ...commonComputed
-  },
+  ...common,
 });
 
 app.config.globalProperties.$http = http;

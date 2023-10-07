@@ -18,7 +18,7 @@
           :color="'secondary'"
           :text="'댓글 관리'"
           :routerLink="'/admin/post-reply'"
-          v-if="isLogin"
+          v-if="isAdmin"
         />
       </div>
     </div>
@@ -86,7 +86,7 @@
                   :showText="true"
                   :class="'post__reply__btn--edit'"
                   ref="postReplyMenuBtn"
-                  @click="openModal('E01003', reply, isLogin)"
+                  @click="openModal('E01003', reply, isAdmin)"
                 />
               </li>
               <li>
@@ -96,7 +96,7 @@
                   :showText="true"
                   :class="'post__reply__btn--delete'"
                   ref="postReplyMenuBtn"
-                  @click="openModal('E01004', reply, isLogin)"
+                  @click="openModal('E01004', reply, isAdmin)"
                 />
               </li>
             </ul>
@@ -192,8 +192,8 @@ export default {
       }
     },
     /** 포스트 댓글 수정/삭제 Modal */
-    openModal(crudType, reply, isLogin) {
-      if (!isLogin && 'Y' === reply.adminYn) {
+    openModal(crudType, reply, isAdmin) {
+      if (!isAdmin && 'Y' === reply.adminYn) {
         messageUtil.toastError('수정/삭제 권한이 없습니다.');
         return;
       }

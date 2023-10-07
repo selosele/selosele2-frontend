@@ -22,8 +22,8 @@
                 :id="'addGuestbookAuthor'"
                 :clazz="['guestbook__input']"
                 :rules="'required|max:20'"
-                :readonly="isLogin"
-                :value="isLogin ? adminNickName : ''"
+                :readonly="isAdmin"
+                :value="isAdmin ? adminNickName : ''"
               />
             </div>
 
@@ -122,7 +122,7 @@
                     :showText="true"
                     :class="'guestbook__btn--edit1'" 
                     ref="guestbookMenuBtn" 
-                    @click="openModal('E01003', guestbook, isLogin)"
+                    @click="openModal('E01003', guestbook, isAdmin)"
                   />
                 </li>
                 <li>
@@ -132,7 +132,7 @@
                     :showText="true"
                     :class="'guestbook__btn--delete1'"
                     ref="guestbookMenuBtn" 
-                    @click="openModal('E01004', guestbook, isLogin)"
+                    @click="openModal('E01004', guestbook, isAdmin)"
                   />
                 </li>
               </ul>
@@ -275,8 +275,8 @@ export default {
       }
     },
     /** 방명록 수정/삭제 Modal */
-    openModal(crudType, guestbook, isLogin) {
-      if (!isLogin && 'Y' === guestbook.adminYn) {
+    openModal(crudType, guestbook, isAdmin) {
+      if (!isAdmin && 'Y' === guestbook.adminYn) {
         messageUtil.toastError('수정/삭제 권한이 없습니다.');
         return;
       }

@@ -14,8 +14,8 @@
           :clazz="['post-reply__input']"
           :title="'비밀번호 입력'"
           :placeholder="'비밀번호 입력'"
-          :disabled="isLogin"
-          :rules="!isLogin ? 'required|min:8|max:15' : ''"
+          :disabled="isAdmin"
+          :rules="!isAdmin ? 'required|min:8|max:15' : ''"
         />
 
         <div class="post-reply__write__btns">
