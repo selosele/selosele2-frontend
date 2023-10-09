@@ -9,6 +9,7 @@
 - `NestJS` - 9.0.0
 - `Vue.js` - 3.2.13
 - `MariaDB` - 10.6.7
+- `Redis` - 3.0.504
 - `TypeORM` - 0.3.10
 
 ## etc.
