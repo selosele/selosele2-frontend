@@ -13,6 +13,6 @@
 
 ## etc.
 
-- 구동 명령어: ```npm start```
-- 빌드 명령어: ```npm run build```
+- 구동 명령: `npm start`
+- 빌드 명령: `npm run build`
 - [Backend 저장소](https://github.com/selosele/selosele2-backend)
