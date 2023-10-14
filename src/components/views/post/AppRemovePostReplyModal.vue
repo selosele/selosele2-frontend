@@ -46,6 +46,14 @@ export default {
       const confirm = await messageUtil.confirmSuccess('삭제하시겠습니까?');
       if (!confirm) return;
       
+      // TODO: 2023.10.07. $store.getters.isAdmin(this.isAdmin)을 접근하면 관리자 권한이 있어도 false 반환
+      // 임시로 관리자 권한 검증 로직을 실행하는 것으로 처리
+      // 추후 리팩토링
+      const isAdmin = await this.$store.dispatch('Auth/HAS_ROLE', 'ROLE_ADMIN');
+      if (isAdmin) {
+        delete values.authorPw; // 관리자의 경우는 비밀번호를 넘기지 않는다.
+      }
+      
       this.$http.post('/postreply/remove', values)
       .then(resp => {
         messageUtil.toastSuccess('삭제되었습니다.');
