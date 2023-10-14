@@ -95,6 +95,13 @@ export default {
         params: {
           useYn: 'Y',
         },
+      }).then(data => {
+        /**
+         * 2023.10.14.
+         * 위젯 변경사항 저장 후, 위젯관리 버튼을 두번 클릭하면 변경사항이 저장되지 않은 상태의 위젯이 표출되는 현상 수정
+         * 위젯 목록을 조회한다음 store의 원본 사이드바에 현재 사이드바를 저장한다.
+         */
+        this.$store.dispatch('Layout/FETCH_ORIGINAL_SIDEBAR', this.$store.state.Layout.sidebar);
       });
     },
     /** 저장 버튼 클릭 시 */
