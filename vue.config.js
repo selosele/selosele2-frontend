@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = defineConfig({
-  outputDir: path.resolve(__dirname, '../../backend/selosele2/public'),
+  outputDir: path.resolve(__dirname, '../../backend/selosele2/client'),
   productionSourceMap: false,
   configureWebpack: {
     performance: {
