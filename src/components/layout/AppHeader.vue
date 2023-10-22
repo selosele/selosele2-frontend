@@ -203,7 +203,7 @@ export default {
 
       const res = await this.$store.dispatch('Auth/LOGOUT');
 
-      if ('ok' === res) {
+      if ('OK' === res) {
         this.$router.push('/login');
       }
     },
@@ -234,7 +234,7 @@ export default {
     dataLoading(resStatus) {
       return Promise.resolve(
         setTimeout(() => {
-          if ('ok' === resStatus) {
+          if ('OK' === resStatus) {
             this.dataLoaded = true;
           }
         }, 500)

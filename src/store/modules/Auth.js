@@ -46,7 +46,7 @@ export const Auth = {
         }, { root: true });
         dispatch('Notification/LIST_NOTIFICATION', {}, { root: true });
 
-        resolve(isNotBlank(values) ? 'ok' : 'no');
+        resolve(isNotBlank(values) ? 'OK' : 'NO');
       });
     },
     /** 로그아웃 */

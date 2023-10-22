@@ -75,7 +75,7 @@ export default {
         this.$http.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
         const loginRes = await this.$store.dispatch('Auth/LOGIN', accessToken);
         
-        if ('ok' === loginRes) {
+        if ('OK' === loginRes) {
           this.$router.push('/');
         }
       }

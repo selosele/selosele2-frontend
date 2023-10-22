@@ -1,7 +1,7 @@
 import { commonComputed } from '@/store/helper';
 
 /** 전역 mixin */
-export const common = {
+export default {
   computed: {
     ...commonComputed,
   },

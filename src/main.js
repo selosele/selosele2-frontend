@@ -9,7 +9,7 @@ import { $vfm } from 'vue-final-modal';
 import { vfmPlugin } from 'vue-final-modal';
 import VueCookies from 'vue-cookies';
 import { http } from '@/api';
-import { common } from './mixins/common/common';
+import commonMixin from './mixins/common';
 
 import '@/assets/scss/style.scss';
 
@@ -24,7 +24,7 @@ const app = createApp({
 });
 
 app.mixin({
-  ...common,
+  ...commonMixin,
 });
 
 app.config.globalProperties.$http = http;

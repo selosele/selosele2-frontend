@@ -123,7 +123,7 @@ export default {
     getBlogConfig() {
       return this.$store.dispatch('BlogConfig/GET_BLOG_CONFIG')
       .then(async data => {
-        this.resStatus = 'ok';
+        this.resStatus = 'OK';
 
         if ('/' === this.$route.path) {
           
