@@ -9,7 +9,7 @@ import { $vfm } from 'vue-final-modal';
 import { vfmPlugin } from 'vue-final-modal';
 import VueCookies from 'vue-cookies';
 import { http } from '@/api';
-import commonMixin from './mixins/common';
+import commonMixin from './mixins/common/common';
 
 import '@/assets/scss/style.scss';
 
