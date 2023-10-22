@@ -15,6 +15,9 @@
 
 ## etc.
 
-- 구동 명령: `npm start`
-- 빌드 명령: `npm run build`
+- 구동 명령 순서
+  1. `redis-server` (Redis 구동)
+  2. `nvm use 16.14.2` (Node.js 버전 스위칭)
+  3. `npm run start:dev` (백엔드 구동)
+  4. `npm start` (프론트엔드 구동)
 - [Backend 저장소](https://github.com/selosele/selosele2-backend)
