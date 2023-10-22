@@ -1,6 +1,6 @@
 <template>
   <div class="satisfaction__wrapper">
-    <h2 class="sr-only">만족도조사</h2>
+    <h2 class="sr-only">만족도 조사</h2>
 
     <p class="satisfaction__title">
       <i class="xi-message" aria-hidden="true"></i> 이 페이지에서 제공하는 정보가 유익하셨나요?
