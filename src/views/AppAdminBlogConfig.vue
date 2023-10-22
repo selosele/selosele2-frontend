@@ -5,7 +5,7 @@
       :ref="'blogConfigForm'"
       :class="'blog-config__frm'"
       @onsubmit="onSubmit"
-      >
+    >
 
       <ui-hidden-field
         :name="'id'"
