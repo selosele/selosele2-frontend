@@ -80,8 +80,14 @@ export default {
       return this.$http.get(this.getApiUri(), { params: paginationDto })
       .then(resp => {
         resp.data[0].forEach((d,i) => {
-          if (0 === i && isNotEmpty(d.postCategory)) {
-            this.desc = d.postCategory[0].category.desc;
+          if (0 === i) {
+            if (isNotEmpty(d.postCategory)) {
+              this.desc = d.postCategory[0].category.desc;
+            }
+
+            if (isNotEmpty(d.postTag)) {
+              this.desc = d.postTag[0].tag.desc;
+            }
           }
 
           category.type = isNotEmpty(d.postCategory) ? '카테고리' : '태그';
