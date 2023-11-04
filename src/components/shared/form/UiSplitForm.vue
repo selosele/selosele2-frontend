@@ -15,6 +15,7 @@
         :type="'submit'"
         :color="'primary'"
         :text="'저장'"
+        v-if="btnSave"
       />
 
       <ui-button
@@ -45,6 +46,11 @@ export default {
     name: String,
     /** form autocomplete */
     autocomplete: String,
+    /** 저장 버튼 사용 여부 */
+    btnSave: {
+      type: Boolean,
+      default: true,
+    },
     /** 삭제 버튼 사용 여부 */
     btnRemove: {
       type: Boolean,

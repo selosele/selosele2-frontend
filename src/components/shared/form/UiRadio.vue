@@ -6,6 +6,8 @@
       :id="id"
       :ref="id"
       :rules="rules"
+      :readonly="readonly"
+      :disabled="disabled"
       :value="value"
       v-bind="$attrs"
       v-model="mv"
@@ -51,6 +53,10 @@ export default {
     label: String,
     /** radio validation rules */
     rules: String,
+    /** radio readonly */
+    readonly: Boolean,
+    /** radio disabled */
+    disabled: Boolean,
     /** radio 숨김 여부 */
     hidden: {
       type: Boolean,

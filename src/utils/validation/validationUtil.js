@@ -2,7 +2,7 @@ import { defineRule, configure } from 'vee-validate';
 import { required, min, max, between, numeric } from '@vee-validate/rules';
 import { localize } from '@vee-validate/i18n';
 
-/** 입력 필드 유효성 검사 세팅 */
+/** 입력 필드 유효성 검사 설정 */
 export function initDefineRule() {
   
   defineRule('required', required);

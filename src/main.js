@@ -13,10 +13,13 @@ import commonMixin from './mixins/common/common';
 
 import '@/assets/scss/style.scss';
 
+// 입력 필드 유효성 검사 설정
 initDefineRule();
 
+// moment locale 설정
 moment.locale('ko');
 
+// 관리자 권한 여부 검증을 위한 설정
 store.dispatch('Auth/FETCH_IS_ADMIN', 'ROLE_ADMIN');
 
 const app = createApp({

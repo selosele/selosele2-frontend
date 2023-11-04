@@ -6,6 +6,8 @@
       :id="id"
       :ref="id"
       :rules="rules"
+      :readonly="readonly"
+      :disabled="disabled"
       :value="value || getValueByIdx(0)"
       :unchecked-value="getValueByIdx(1)"
       v-bind="$attrs"
@@ -60,6 +62,10 @@ export default {
     hideLabel: Boolean,
     /** checkbox validation rules */
     rules: String,
+    /** checkbox readonly */
+    readonly: Boolean,
+    /** checkbox disabled */
+    disabled: Boolean,
     /** checkbox 숨김 여부 */
     hidden: {
       type: Boolean,

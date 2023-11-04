@@ -1,25 +1,11 @@
 <template>
   <app-content-wrapper>
-    <div class="d-flex flex--right gap--10 mb--15">
-      <ui-button
-        :color="'primary'"
-        :text="'추가'"
-        @click="addCode"
-      />
-
-      <ui-button
-        :color="'dark'"
-        :text="'삭제'"
-        @click="removeCode"
-      />
-    </div>
-
     <ui-split-pane>
       <ui-pane>
         <ui-grid
           :columnDefs="columnDefs"
           :rowData="rowData"
-          :checkboxIndex="0"
+          :rowNumIndex="0"
           :pagination="true"
           @gridready="onGridReady"
           @cellclicked="onCellClicked"
@@ -30,7 +16,6 @@
         <app-save-code
           :code="code"
           :key="code.id"
-          @saveCode="onSaveCode"
         />
       </ui-pane>
     </ui-split-pane>
@@ -39,7 +24,6 @@
 
 <script>
 import AppSaveCode from '@/components/views/code/AppSaveCode.vue';
-import { messageUtil } from '@/utils';
 
 export default {
   name: 'AppAdminCode',
@@ -49,14 +33,13 @@ export default {
   data() {
     return {
       columnDefs: [
-        { pinned: 'left' }, // 체크박스
-        { headerName: '코드 ID', field: 'id', width: 130 },
-        { headerName: '코드 접두어', field: 'prefix', width: 130 },
-        { headerName: '코드 값', field: 'val', width: 130 },
+        { width: 80 }, // rownum
+        { headerName: '코드 ID', field: 'id', width: 100 },
+        { headerName: '코드 접두어', field: 'prefix', width: 100 },
+        { headerName: '코드 값', field: 'val', width: 100 },
         { headerName: '코드 명', field: 'nm' },
         { headerName: '코드 설명', field: 'desc' },
-        { headerName: '코드 등록일시', field: 'regDate' },
-        { headerName: '코드 사용 여부', field: 'useYn', width: 150, align: 'center' },
+        { headerName: '코드 사용 여부', field: 'useYn', width: 130, align: 'center' },
       ],
       rowData: [],
       code: null,
@@ -89,52 +72,11 @@ export default {
       return this.$store.dispatch('Code/LIST_CODE')
       .then(data => {
         data.forEach(d => {
-          d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
           d.useYn = this.getUseYn(d.useYn);
         });
 
         this.rowData = [...data];
       });
-    },
-    /** 공통코드 등록 */
-    addCode() {
-      this.code = {};
-      this.code.id = null;
-      this.$store.commit('Splitter/TOGGLE', true);
-    },
-    /** 공통코드 삭제 */
-    async removeCode() {
-      const rows = this.gridApi.getSelectedRows();
-
-      if (0 === rows.length) {
-        messageUtil.toastWarning('삭제할 코드를 선택하세요.');
-        return;
-      }
-
-      const confirm = await messageUtil.confirmQuestion('삭제하시겠습니까?');
-      if (!confirm) return;
-
-      let removeCodeDto = [];
-
-      rows.forEach(d => {
-        removeCodeDto.push({
-          id: d.id,
-        });
-      });
-
-      this.$http.post('/code/remove', removeCodeDto)
-      .then(resp => {
-        this.gridApi.removeSelectedRows();
-        messageUtil.toastSuccess('삭제되었습니다.');
-
-        this.$store.commit('Splitter/TOGGLE', false);
-        this.$store.dispatch('Code/FETCH_CODE', this.gridApi.getRowNodes());
-      });
-    },
-    /** 그리드 갱신 */
-    async onSaveCode() {
-      await this.listCode();
-      this.$store.dispatch('Code/FETCH_CODE', this.rowData);
     },
     /** 코드 사용 여부 반환 */
     getUseYn(useYn) {
