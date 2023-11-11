@@ -21,4 +21,5 @@
   3. `nvm use 16.14.2` (Node.js 버전 스위칭)
   4. `npm run start:dev` (백엔드 구동)
   5. `npm start` (프론트엔드 구동)
+- [API 문서](http://localhost:3000/api-docs)
 - [Backend 저장소](https://github.com/selosele/selosele2-backend)
