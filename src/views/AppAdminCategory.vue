@@ -192,6 +192,7 @@ export default {
     },
     /** 탭 변경 시 */
     onTabChanged(selectedTab) {
+      this.resetCategory();
       this.activeIndex = selectedTab.tab.index;
     },
     /** 카테고리 조회 */

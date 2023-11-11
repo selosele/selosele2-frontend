@@ -11,7 +11,7 @@
     <ui-text-field
       :name="'nm'"
       :id="'categoryNm'"
-      :label="'카테고리 명'"
+      :label="`${text} 명`"
       :rules="'required|max:50'"
       :block="true"
       :value="category.nm"
@@ -20,7 +20,7 @@
     <ui-text-field
       :name="'desc'"
       :id="'categoryDesc'"
-      :label="'카테고리 설명'"
+      :label="`${text} 설명`"
       :rules="'max:100'"
       :block="true"
       :value="category.desc"
@@ -29,7 +29,7 @@
     <ui-text-field
       :name="'regDate'"
       :id="'categoryRegDate'"
-      :label="'카테고리 등록일시'"
+      :label="`${text} 등록일시`"
       :readonly="true"
       :block="true"
       :value="category.regDate"
@@ -43,10 +43,23 @@ import { messageUtil, isEmpty } from '@/utils';
 export default {
   name: 'AppSaveCategory',
   props: {
-    /** 카테고리 정보 */
+    /** 카테고리/태그 정보 */
     category: Object,
     /** type: D01004(카테고리), D01005(태그) */
     type: String,
+  },
+  data() {
+    return {
+      /** 카테고리/태그 구분 텍스트 */
+      text: '',
+    }
+  },
+  created() {
+    if ('D01004' === this.type) {
+      this.text = '카테고리';
+    } else if ('D01005' === this.type) {
+      this.text = '태그';
+    }
   },
   methods: {
     /** 카테고리 저장 */
