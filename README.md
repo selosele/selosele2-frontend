@@ -9,7 +9,7 @@
 - `NestJS` - v9.0.0
 - `TypeORM` - v0.3.10
 - `Vue.js` - v3.2.13
-- `MariaDB` - v10.6.7
+- `MariaDB` - v10.6.12
 - `Redis` - v3.0.504
 - `WSL2` - Ubuntu 22.04 LTS
 
