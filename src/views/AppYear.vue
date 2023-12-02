@@ -10,7 +10,7 @@
             ]"
             @click="toggleList(item.year, i)">
             
-            <span class="year__list-name">{{ item.year }}</span>년에 작성된 포스트
+            <span class="year__list-name">{{ item.year }}</span> 년에 작성된 포스트
             (<span class="sr-only">개수 : </span>{{ item.count }})
           </ui-button>
         </h2>
