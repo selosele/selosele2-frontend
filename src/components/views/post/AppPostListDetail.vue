@@ -23,11 +23,21 @@
   
         <article :aria-labelledby="`title${post.id}`" :aria-describedby="`cont${post.id}`" class="post__box">
           <h2 :id="`title${post.id}`" class="post__title">
-            <router-link :to="{ path: `/post/${post.id}`, query: { page } }" v-if="'D01001' === pageType">
+            <router-link
+              :to="{ path: `/post/${post.id}`, query: { page } }"
+              :title="post.title"
+              v-if="'D01001' === pageType"
+            >
               {{ post.title }}
             </router-link>
   
-            <router-link :to="`/post/${post.id}`" v-else>{{ post.title }}</router-link>
+            <router-link
+              :to="`/post/${post.id}`"
+              :title="post.title"
+              v-else
+            >
+              {{ post.title }}
+            </router-link>
           </h2>
   
           <p class="post__og-image" v-if="post.ogImgUrl">

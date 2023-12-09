@@ -163,8 +163,9 @@
       }
 
       > a {
-        display: inline-block;
+        display: block;
         font-size: inherit;
+        @include ellipsis;
 
         @media (min-width: $min-large-width) {
           &:hover {
