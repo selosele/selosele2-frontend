@@ -13,13 +13,15 @@
 - `Redis` - v3.0.504
 - `WSL2` - Ubuntu 22.04 LTS
 
+## 애플리케이션 구동 절차
+
+1. `redis-server` (Redis 구동)
+2. `sudo service mariadb start` (MariaDB 구동)
+3. `nvm use 16.14.2` (Node.js 버전 스위칭)
+4. `npm run start:dev` (백엔드 구동)
+5. `npm start` (프론트엔드 구동)
+
 ## etc.
 
-- 애플리케이션 구동 명령 순서
-  1. `redis-server` (Redis 구동)
-  2. `sudo service mariadb start` (MariaDB 구동)
-  3. `nvm use 16.14.2` (Node.js 버전 스위칭)
-  4. `npm run start:dev` (백엔드 구동)
-  5. `npm start` (프론트엔드 구동)
 - [API 문서](http://localhost:3000/api-docs)
 - [Backend 저장소](https://github.com/selosele/selosele2-backend)
