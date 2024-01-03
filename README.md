@@ -13,7 +13,7 @@
 - `Redis` - v3.0.504
 - `WSL2` - Ubuntu 22.04 LTS
 
-## 애플리케이션 구동 절차
+## 개발환경 구동 절차
 
 1. `redis-server` (Redis 구동)
 2. `sudo service mariadb start` (MariaDB 구동)
