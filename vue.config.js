@@ -8,22 +8,22 @@ module.exports = defineConfig({
   productionSourceMap: false,
   configureWebpack: {
     performance: {
-      hints: 'production' === process.env.NODE_ENV ? 'warning' : false,
+      hints: ('production' === process.env.NODE_ENV) ? 'warning' : false,
     },
     plugins: [
-      new BundleAnalyzerPlugin(),
+      ('development' === process.env.NODE_ENV) && new BundleAnalyzerPlugin(),
       new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /ko/),
     ],
     resolve: {
-      alias: {
-        moment: 'moment/src/moment',
-      },
+      // alias: {
+      //   moment: 'moment/src/moment',
+      // },
     },
   },
   devServer: {
     proxy: {
       '/api': {
-        target: 'production' === process.env.NODE_ENV ? process.env.LOC_ORIGIN : 'http://localhost:3000',
+        target: ('production' === process.env.NODE_ENV) ? process.env.LOC_ORIGIN : 'http://localhost:3000',
         changeOrigin: true,
       },
     },
