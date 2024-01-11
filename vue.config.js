@@ -23,7 +23,7 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       '/api': {
-        target: 'production' === process.env.NODE_ENV ? 'https://blog-selosele.koyeb.app' : 'http://localhost:3000',
+        target: 'production' === process.env.NODE_ENV ? process.env.LOC_ORIGIN : 'http://localhost:3000',
         changeOrigin: true,
       },
     },
