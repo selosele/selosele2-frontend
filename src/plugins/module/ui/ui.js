@@ -15,6 +15,7 @@ import UiSortList from '@/components/shared/sortable/UiSortList.vue';
 import UiSortItem from '@/components/shared/sortable/UiSortItem.vue';
 import UiWriteTable from '@/components/shared/table/UiWriteTable';
 import UiFileList from '@/components/shared/file/UiFileList';
+import UiNotice from '@/components/shared/notice/UiNotice';
 
 export const uiModule = {
   install: (app, options) => {
@@ -35,5 +36,6 @@ export const uiModule = {
     app.component('UiSortItem', UiSortItem);
     app.component('UiWriteTable', UiWriteTable);
     app.component('UiFileList', UiFileList);
+    app.component('UiNotice', UiNotice);
   }
 };
