@@ -69,10 +69,10 @@ router.beforeEach((to, from, next) => {
   }
 
   // www로 시작하는 도메인인 경우 리다이렉션
-  if (window.location.hostname.startsWith('www.')) {
-    const newHostname = window.location.hostname.replace('www.', '');
-    window.location.href = `${window.location.protocol}//${newHostname}:${window.location.port}${window.location.pathname}`;
-  }
+  // if (window.location.hostname.startsWith('www.')) {
+  //   const newHostname = window.location.hostname.replace('www.', '');
+  //   window.location.href = `${window.location.protocol}//${newHostname}:${window.location.port}${window.location.pathname}`;
+  // }
   
 });
 
