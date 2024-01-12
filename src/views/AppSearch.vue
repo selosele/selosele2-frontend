@@ -48,8 +48,8 @@
           </template>
           
           <template v-if="postList !== null && postList.length > 0">
-            <strong class="search__info__txt">{{ $route.query['q'] }}</strong>에 대한 검색 결과는
-            <strong class="search__info__txt">{{ listCnt }}개</strong>입니다.
+            <strong class="search__info__text">{{ $route.query['q'] }}</strong>에 대한 검색 결과는
+            <strong class="search__info__text">{{ listCnt }}개</strong>입니다.
 
             <ui-icon-button
               :type="'link'"

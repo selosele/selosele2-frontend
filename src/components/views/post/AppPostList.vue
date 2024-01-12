@@ -108,7 +108,6 @@ export default {
             checkList.push(d.id);
           });
         }
-
         this.$store.dispatch('Post/FETCH_CHECKLIST', checkList);
       }
     },
