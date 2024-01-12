@@ -21,6 +21,10 @@
 
     <app-main ref="mainWrapper">
       <div class="page__body">
+        <ui-notice v-if="isAdmin && isNoticeShow">
+          연말이 다가옵니다. 회고 작성은 하고 계시나요?
+        </ui-notice>
+
         <div class="page__body--left" v-if="$route.meta.showSidebar">
           <router-view />
         </div>
@@ -72,6 +76,7 @@ export default {
       resStatus: '',
       scrollDown: true,
       lastScrollTop: 0,
+      isNoticeShow: false,
     };
   },
   async created() {
@@ -79,6 +84,7 @@ export default {
     this.initLoading(2500);
 
     this.initJwt();
+    this.showNotice();
 
     // 2023.08.12. 성능 이슈로 인해 동시 실행되도록 처리
     await Promise.all([
@@ -168,6 +174,17 @@ export default {
 
       this.scrollDown = window.pageYOffset < this.lastScrollTop;
       this.lastScrollTop = window.pageYOffset;
+    },
+    /** 알림창 표출 */
+    showNotice() {
+      const nowDate = this.$moment().format('YYYY-MM-DD');
+      const nowYear = new Date().getFullYear();
+      const isDateConfirmed = this.$moment(nowDate).isBetween(`${nowYear}-12-17`, `${nowYear}-12-31`, undefined, '[]');
+
+      // 현재 날짜가 12월 17일부터 12월 31일 사이일 경우 알림창을 표출한다.
+      if (isDateConfirmed) {
+        this.isNoticeShow = true;
+      }
     },
   },
 };
