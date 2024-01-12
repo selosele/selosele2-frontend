@@ -2,8 +2,8 @@ import { defineRule, configure } from 'vee-validate';
 import { required, min, max, between, numeric } from '@vee-validate/rules';
 import { localize } from '@vee-validate/i18n';
 
-/** 입력 필드 유효성 검사 설정 */
-export function initDefineRule() {
+/** 입력 필드 유효성 검사를 설정한다. */
+export function setupDefineRule() {
   
   defineRule('required', required);
   defineRule('min', min);

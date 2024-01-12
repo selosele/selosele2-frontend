@@ -3,7 +3,7 @@ import App from './App.vue';
 import router from '@/routes';
 import store from '@/store';
 import moment from 'moment';
-import { initDefineRule } from '@/utils';
+import { setupDefineRule } from '@/utils';
 import { formModule, layoutModule, uiModule } from './plugins/module';
 import { $vfm } from 'vue-final-modal';
 import { vfmPlugin } from 'vue-final-modal';
@@ -14,7 +14,7 @@ import commonMixin from './mixins/common/common';
 import '@/assets/scss/style.scss';
 
 // 입력 필드 유효성 검사 설정
-initDefineRule();
+setupDefineRule();
 
 // moment locale 설정
 moment.locale('ko');
