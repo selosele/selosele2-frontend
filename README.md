@@ -23,5 +23,5 @@
 
 ## etc.
 
-- [API 문서](http://localhost:3000/api-docs)
+- [API 문서 (로컬)](http://localhost:3000/api-docs)
 - [Backend 저장소](https://github.com/selosele/selosele2-backend)
