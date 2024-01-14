@@ -16,8 +16,6 @@ export const Post = {
     removedPostReply: {},
     /** 포스트 코드 목록 */
     code: [],
-    /** 선택 검색옵션 목록 */
-    optionSelectList: [],
   }),
   mutations: {
     SET_MAIN_POSTLIST(state, mainPostList) {
@@ -41,9 +39,6 @@ export const Post = {
     SET_CODE(state, code) {
       state.code = code;
     },
-    SET_OPTION_SELECT_LIST(state, optionSelectList) {
-      state.optionSelectList = optionSelectList;
-    },
   },
   actions: {
     FETCH_MAIN_POSTLIST({ commit }, values) {
@@ -66,9 +61,6 @@ export const Post = {
     },
     FETCH_CODE({ commit }, values) {
       commit('SET_CODE', values);
-    },
-    FETCH_OPTION_SELECT_LIST({ commit }, values) {
-      commit('SET_OPTION_SELECT_LIST', values);
     },
   },
 };

@@ -11,6 +11,7 @@ import { Post } from '@/store/modules/Post';
 import { Guestbook } from '@/store/modules/Guestbook';
 import { Menu } from '@/store/modules/Menu';
 import { Year } from '@/store/modules/Year';
+import { Search } from '@/store/modules/Search';
 import { Splitter } from '@/store/modules/Splitter';
 import { Loading } from '@/store/modules/Loading';
 import { isNotBlank } from '@/utils';
@@ -29,6 +30,7 @@ export default createStore({
     Guestbook,      // 방명록
     Menu,           // 메뉴
     Year,           // 연도별 모아보기
+    Search,         // 검색
     Splitter,       // Splitter
     Loading,        // 로딩
   },

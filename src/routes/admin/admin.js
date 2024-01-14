@@ -79,4 +79,14 @@ export default [
       showSatis: false,
     },
   },
+  {
+    // 검색 관리 페이지
+    path: '/admin/search',
+    component: () => import('@/views/AppAdminSearch.vue'),
+    meta: {
+      requiresAuth: true,
+      showSidebar: false,
+      showSatis: false,
+    },
+  },
 ];

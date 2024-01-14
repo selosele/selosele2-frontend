@@ -8,7 +8,7 @@
             :id="'t'"
             :title="'검색 옵션'"
             :clazz="['search__option']"
-            :data="$store.state.Post.optionSelectList"
+            :data="$store.state.Search.optionSelectList"
             :selectedValue="$route.query['t']"
             v-model="t"
           />
@@ -241,7 +241,7 @@ export default {
       this.$refs['q'].focus();
     },
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
