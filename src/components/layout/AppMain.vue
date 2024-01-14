@@ -14,7 +14,7 @@ export default {
       return this.$refs['mainWrapper'].offsetTop;
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped></style>

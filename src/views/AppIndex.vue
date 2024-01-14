@@ -7,7 +7,8 @@
       :postList="pagingPostList"
       :categoryList="$store.state.Category.categorySelectList"
       @listPost="listPostByCategory"
-      @removePost="refreshPostList">
+      @removePost="refreshPostList"
+    >
     
       <ui-pagination
         :value="postList"
@@ -138,7 +139,7 @@ export default {
       }
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped></style>

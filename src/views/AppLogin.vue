@@ -105,7 +105,7 @@ export default {
       return runValidate.valid;
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

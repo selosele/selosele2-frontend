@@ -2,11 +2,13 @@
   <app-content-wrapper>
     <ui-split-pane>
       <ui-pane :isTransparent="true">
-        <ui-tree :nodes="menuTree"
-                 :useCheckbox="false"
-                 :filter="true"
-                 :placeholder="'메뉴명 입력'"
-                 @nodeClick="onNodeClick">
+        <ui-tree
+          :nodes="menuTree"
+          :useCheckbox="false"
+          :filter="true"
+          :placeholder="'메뉴명 입력'"
+          @nodeClick="onNodeClick"
+        >
 
           <template v-slot:btn>
             <ui-button

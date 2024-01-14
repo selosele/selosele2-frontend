@@ -350,7 +350,7 @@ export default {
       this.adminNickName = this.$store.state.Guestbook.code.find(d => d.id === 'F01001')?.nm;
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

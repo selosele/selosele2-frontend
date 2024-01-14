@@ -167,7 +167,7 @@ export default {
       this.$store.dispatch('Post/FETCH_CHECKALL', e.target.checked);
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

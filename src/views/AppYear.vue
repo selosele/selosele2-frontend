@@ -137,7 +137,7 @@ export default {
       this.listPostByYear(year, idx, 'more');
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

@@ -208,7 +208,7 @@ export default {
       return data;
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
