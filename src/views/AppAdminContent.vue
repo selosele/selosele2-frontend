@@ -16,7 +16,7 @@
         :text="'콘텐츠 삭제'"
         :showText="true"
         :class="'content__delete'"
-        @click="removeContent"
+        @click="removeContents"
       />
     </div>
 
@@ -80,7 +80,7 @@ export default {
       });
     },
     /** 콘텐츠 삭제 */
-    async removeContent() {
+    async removeContents() {
       const rows = this.gridApi.getSelectedRows();
       if (0 === rows.length) {
         messageUtil.toastWarning('삭제할 콘텐츠를 선택하세요.');
@@ -92,7 +92,7 @@ export default {
 
       let removeContentDto = [];
 
-      rows.forEach((d,i) => {
+      rows.forEach(d => {
         removeContentDto.push({
           id: d.id,
         });

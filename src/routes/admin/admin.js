@@ -89,4 +89,14 @@ export default [
       showSatis: false,
     },
   },
+  {
+    // 프로그램 관리 페이지
+    path: '/admin/program',
+    component: () => import('@/views/AppAdminProgram.vue'),
+    meta: {
+      requiresAuth: true,
+      showSidebar: false,
+      showSatis: false,
+    },
+  },
 ];

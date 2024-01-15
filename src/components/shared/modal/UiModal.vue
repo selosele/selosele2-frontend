@@ -3,7 +3,7 @@
     v-slot="{ close }"
     v-bind="$attrs"
     classes="modal-container"
-    content-class="modal-content"
+    :content-class="{ 'modal-content': true, 'modal--full': full }"
     :name="name"
     >
     <ui-icon-button
@@ -14,7 +14,9 @@
       @click="close"
     />
 
-    <span class="modal__title">{{ title }}</span>
+    <h2 class="modal__title">
+      {{ title }}
+    </h2>
     
     <div class="modal__content">
       <slot />
@@ -32,6 +34,11 @@ export default {
     title: String,
     /** Modal name */
     name: String,
+    /** Modal 화면을 꽉 채울지 여부 */
+    full: {
+      type: Boolean,
+      default: false
+    },
   },
   components: {
     VueFinalModal,
@@ -66,6 +73,10 @@ export default {
       background-color: transparent;
       box-shadow: none;
       text-shadow: none;
+    }
+
+    &--full {
+      width: 100%;
     }
   }
 }
