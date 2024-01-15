@@ -28,6 +28,7 @@ export default {
       columnDefs: [
         { }, // rownum
         { headerName: '유형', field: 'typeCdNm', width: 50 },
+        { headerName: '자동 색인 여부', field: 'autoYnNm', width: 100 },
         { headerName: '색인 건수', field: 'cnt', width: 150 },
         { headerName: '색인 시작일시', field: 'startDate', width: 100 },
         { headerName: '색인 종료일시', field: 'endDate', width: 100 },
@@ -55,6 +56,7 @@ export default {
         resp.data.forEach(d => {
           d.startDate = this.$moment(d.startDate).format('YYYY-MM-DD HH:mm:ss');
           d.endDate = this.$moment(d.endDate).format('YYYY-MM-DD HH:mm:ss');
+          d.autoYnNm = this.getAutoYn(d.autoYn);
           d.typeCdNm = this.$store.state.Search.code
             .filter(v => v.prefix === 'D03')
             .find(v => v.id === d.typeCd).nm;
@@ -62,6 +64,13 @@ export default {
           this.rowData.push(d);
         });
       });
+    },
+    /** 자동 색인 여부 반환 */
+    getAutoYn(autoYn) {
+      switch (autoYn) {
+        case 'Y': return '자동';
+        case 'N': return '수동';
+      }
     },
     /** 검색 데이터 저장 */
     async saveIndexSearch() {
