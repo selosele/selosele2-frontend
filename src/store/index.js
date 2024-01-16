@@ -12,6 +12,7 @@ import { Guestbook } from '@/store/modules/Guestbook';
 import { Menu } from '@/store/modules/Menu';
 import { Year } from '@/store/modules/Year';
 import { Search } from '@/store/modules/Search';
+import { Program } from '@/store/modules/Program';
 import { Splitter } from '@/store/modules/Splitter';
 import { Loading } from '@/store/modules/Loading';
 import { isNotBlank } from '@/utils';
@@ -31,6 +32,7 @@ export default createStore({
     Menu,           // 메뉴
     Year,           // 연도별 모아보기
     Search,         // 검색
+    Program,        // 프로그램
     Splitter,       // Splitter
     Loading,        // 로딩
   },

@@ -58,6 +58,15 @@ export default {
 
     await this.listProgram();
   },
+  watch: {
+    // 프로그램이 삭제되고 Modal이 close됐을 때 실행됨
+    async '$store.state.Program.removedProgram'(removedProgram) {
+      if (0 < Object.values(removedProgram).length) {
+        await this.listProgram();
+        this.$store.dispatch('Program/FETCH_REMOVED_PROGRAM', {});
+      }
+    },
+  },
   methods: {
     onGridReady(params) {
       this.gridApi = params;
@@ -93,12 +102,16 @@ export default {
     },
     /** 프로그램 그룹 생성/조회 Modal */
     openModal(crudType, program = null) {
-      if ('E01001' === crudType) { // 생성
+
+      // 생성
+      if ('E01001' === crudType) {
         this.$modal.show({
           component: AppProgramModal,
           bind: { crudType }
         });
-      } else if ('E01002' === crudType) { // 조회
+      }
+      // 조회
+      else if ('E01002' === crudType) {
         this.$modal.show({
           component: AppProgramModal,
           bind: { crudType, program },

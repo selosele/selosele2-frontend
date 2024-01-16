@@ -1,21 +1,22 @@
 <template>
   <ui-modal
-    :title="getModalTitle()"
+    :title="program ? programNm : '프로그램 그룹 등록'"
     :name="this.$options.name"
     :full="true"
     class="program-modal__wrapper"
   >
   <ui-form :name="'programForm'" @onsubmit="onSubmit">
-    <ui-hidden-field :name="'id'" :value="program.id" />
+    <ui-hidden-field v-if="program" :name="'id'" :value="program.id" />
 
     <div class="program__write__inputs">
       <div class="program__write__input-box">
         <label for="programNm" class="program__write__label">프로그램 그룹 명</label>
         <ui-text-field
-          :name="'programNm'"
+          :name="'nm'"
           :id="'programNm'"
           :rules="'required|max:50'"
-          :value="program.nm"
+          :value="program?.nm"
+          v-model="programNm"
         />
       </div>
 
@@ -25,6 +26,15 @@
           :color="'primary'"
           :text="'저장'"
           :class="'program__btn program__btn--write'"
+        />
+
+        <ui-button
+          v-if="program"
+          :type="'button'"
+          :color="'dark'"
+          :text="'삭제'"
+          :class="'program__btn program__btn--write'"
+          @click="removePost(program.id)"
         />
       </div>
     </div>
@@ -77,6 +87,7 @@ export default {
       ],
       rowData: [],
       gridApi: null,
+      programNm: '',
     }
   },
   created() {
@@ -100,7 +111,7 @@ export default {
     getModalTitle() {
       switch (this.crudType) {
         case 'E01001': return '프로그램 그룹 등록';
-        case 'E01002': return this.program.nm;
+        case 'E01002': return this.programNm;
       }
     },
     /** 코드 사용 여부 반환 */
@@ -112,14 +123,30 @@ export default {
     },
     /** 프로그램 그룹 저장 */
     async onSubmit(values) {
-      const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
+      const confirm = await messageUtil.confirmSuccess('그룹을 저장하시겠습니까?');
       if (!confirm) return;
 
-      this.$http.put('/program', values)
+      // 등록, 조회(수정)
+      if ('E01001' === this.crudType || 'E01002' === this.crudType) {
+        this.$http.post('/program', values)
+        .then(resp => {
+          messageUtil.toastSuccess('저장되었습니다.');
+  
+          this.$modal.hide(this.$options.name);
+        });
+      }
+    },
+    /** 프로그램 그룹 삭제 */
+    async removePost(id) {
+      const confirm = await messageUtil.confirmSuccess('그룹을 삭제하시겠습니까?');
+      if (!confirm) return;
+
+      this.$http.delete(`/program/${id}`)
       .then(resp => {
-        messageUtil.toastSuccess('저장되었습니다.');
+        messageUtil.toastSuccess('삭제되었습니다.');
 
         this.$modal.hide(this.$options.name);
+        this.$store.dispatch('Program/FETCH_REMOVED_PROGRAM', resp.data);
       });
     },
   },
