@@ -29,6 +29,9 @@ import { VueFinalModal } from 'vue-final-modal';
 
 export default {
   name: 'UiModal',
+  components: {
+    VueFinalModal,
+  },
   props: {
     /** Modal title */
     title: String,
@@ -39,9 +42,6 @@ export default {
       type: Boolean,
       default: false
     },
-  },
-  components: {
-    VueFinalModal,
   },
 }
 </script>

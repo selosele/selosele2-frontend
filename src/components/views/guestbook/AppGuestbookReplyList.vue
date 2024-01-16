@@ -155,12 +155,15 @@ export default {
         return;
       }
 
-      if ('E01003' === crudType) { // 수정
+      // 수정
+      if ('E01003' === crudType) {
         this.$modal.show({
           component: AppUpdateGuestbookReplyModal,
           bind: { guestbookReply },
         });
-      } else if ('E01004' === crudType) { // 삭제
+      }
+      // 삭제
+      else if ('E01004' === crudType) {
         this.$modal.show({
           component: AppRemoveGuestbookReplyModal,
           bind: { id: guestbookReply.id },
