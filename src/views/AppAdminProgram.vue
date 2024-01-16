@@ -88,9 +88,7 @@ export default {
         if (isNotBlank(resp.data.modDate)) {
           resp.data.modDate = this.$moment(resp.data.modDate).format('YYYY-MM-DD HH:mm:ss');
         }
-
         this.openModal('E01002', resp.data);
-        this.$store.commit('Loading/SET_USE_LOADING', true);
       });
     },
     /** 프로그램 그룹 목록 조회 */
@@ -109,6 +107,7 @@ export default {
     },
     /** 프로그램 그룹 생성/조회 Modal */
     openModal(crudType, program = null) {
+      this.$store.commit('Splitter/TOGGLE', false);
 
       // 생성
       if ('E01001' === crudType) {
@@ -124,6 +123,7 @@ export default {
           bind: { crudType, program },
         });
       }
+      this.$store.commit('Loading/SET_USE_LOADING', true);
     },
     /** 프로그램 그룹 삭제 */
     async removePrograms() {

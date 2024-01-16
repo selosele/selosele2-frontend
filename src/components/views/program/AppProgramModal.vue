@@ -56,7 +56,10 @@
         </ui-pane>
 
         <ui-pane v-if="isSplitterActive">
-          
+          <app-save-program-detail
+            :programDetail="programDetail"
+            :key="programDetail.id"
+          />
         </ui-pane>
       </ui-split-pane>
     </ui-form>
@@ -66,9 +69,13 @@
 <script>
 import { messageUtil } from '@/utils';
 import { isNotEmpty } from '../../../utils';
+import AppSaveProgramDetail from '@/components/views/program/AppSaveProgramDetail.vue';
 
 export default {
   name: 'AppProgramModal',
+  components: {
+    AppSaveProgramDetail,
+  },
   props: {
     /** CRUD 유형 */
     crudType: String,
@@ -88,6 +95,7 @@ export default {
       rowData: [],
       gridApi: null,
       programNm: '',
+      programDetail: {},
     }
   },
   created() {
@@ -105,7 +113,8 @@ export default {
       this.gridApi = params;
     },
     onCellClicked(params) {
-      
+      this.programDetail = this.program.programDetail.find(d => d.id === params.data.id);
+      this.$store.commit('Splitter/TOGGLE', true);
     },
     /** Modal 타이틀 반환 */
     getModalTitle() {
