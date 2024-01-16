@@ -100,7 +100,7 @@ export default {
     getModalTitle() {
       switch (this.crudType) {
         case 'E01001': return '프로그램 그룹 등록';
-        case 'E01002':return this.program.nm;
+        case 'E01002': return this.program.nm;
       }
     },
     /** 코드 사용 여부 반환 */
