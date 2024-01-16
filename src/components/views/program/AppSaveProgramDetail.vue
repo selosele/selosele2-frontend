@@ -1,8 +1,15 @@
 <template>
-  <ui-split-form :name="'saveProgramForm'">
+  <ui-split-form
+    :name="'saveProgramDetailForm'"
+    @onsubmit="onSubmit"
+    @remove="onRemove"
+  >
+    <ui-hidden-field :name="'id'" :value="id" />
+    <ui-hidden-field :name="'parentId'" :value="parentId" />
+
     <ui-text-field
       :name="'nm'"
-      :id="'programNm'"
+      :id="'programDetailNm'"
       :label="'프로그램 명'"
       :rules="'required|max:50'"
       :block="true"
@@ -11,7 +18,7 @@
 
     <ui-text-field
       :name="'method'"
-      :id="'programMethod'"
+      :id="'programDetailMethod'"
       :label="'요청 메소드'"
       :rules="'required|max:7'"
       :block="true"
@@ -20,7 +27,7 @@
 
     <ui-text-field
       :name="'routePath'"
-      :id="'programRoutePath'"
+      :id="'programDetailRoutePath'"
       :label="'요청 URL ROUTE PATH'"
       :rules="'required|max:100'"
       :block="true"
@@ -29,7 +36,7 @@
 
     <ui-text-field
       :name="'regDate'"
-      :id="'programRegDate'"
+      :id="'programDetailRegDate'"
       :label="'프로그램 등록일시'"
       :readonly="true"
       :block="true"
@@ -38,7 +45,7 @@
 
     <ui-text-field
       :name="'modDate'"
-      :id="'programModDate'"
+      :id="'programDetailModDate'"
       :label="'프로그램 수정일시'"
       :readonly="true"
       :block="true"
@@ -47,7 +54,7 @@
 
     <ui-radio-group :label="'프로그램 사용 여부'">
       <ui-radio
-        :id="'programUseYn1'"
+        :id="'programDetailUseYn1'"
         :name="'useYn'"
         :label="'사용'"
         :value="'Y'"
@@ -55,7 +62,7 @@
         v-model="useYn"
       />
       <ui-radio
-        :id="'programUseYn2'"
+        :id="'programDetaillUseYn2'"
         :name="'useYn'"
         :label="'미사용'"
         :value="'N'"
@@ -67,6 +74,9 @@
 </template>
 
 <script>
+import { messageUtil } from '@/utils';
+import { isNotBlank } from '../../../utils';
+
 export default {
   name: 'AppSaveProgram',
   props: {
@@ -78,6 +88,8 @@ export default {
   },
   data() {
     return {
+      id: null,
+      parentId: null,
       nm: '',
       method: '',
       routePath: '',
@@ -87,12 +99,41 @@ export default {
     }
   },
   created() {
+    this.id = this.programDetail.id;
+    this.parentId = this.programDetail.parentId;
     this.nm = this.programDetail.nm;
     this.method = this.programDetail.method;
     this.routePath = this.programDetail.routePath;
-    this.regDate = this.programDetail.regDate;
-    this.modDate = this.programDetail?.modDate;
     this.useYn = this.programDetail.useYn;
+    this.regDate = this.$moment(this.programDetail.regDate).format('YYYY-MM-DD HH:mm:ss');
+
+    if (isNotBlank(this.programDetail.modDate)) {
+      this.modDate = this.$moment(this.programDetail.modDate).format('YYYY-MM-DD HH:mm:ss');
+    }
+  },
+  methods: {
+    /** 프로그램 상세 저장 */
+    async onSubmit(values) {
+      const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
+      if (!confirm) return;
+
+      this.$http.post('/programdetail', values)
+      .then(resp => {
+        messageUtil.toastSuccess('저장되었습니다.');
+        this.$emit('refreshDetail', resp.data);
+      });
+    },
+    /** 프로그램 상세 삭제 */
+    async onRemove(values) {
+      const confirm = await messageUtil.confirmSuccess('삭제하시겠습니까?');
+      if (!confirm) return;
+
+      this.$http.delete(`/programdetail/${values.id}`)
+      .then(async resp => {
+        messageUtil.toastSuccess('삭제되었습니다.');
+        this.$emit('refreshDetail', resp.data);
+      });
+    },
   },
 }
 </script>

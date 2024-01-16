@@ -5,43 +5,63 @@
     :full="true"
     class="program-modal__wrapper"
   >
-  <ui-form :name="'programForm'" @onsubmit="onSubmit">
-    <ui-hidden-field v-if="program" :name="'id'" :value="program.id" />
+    <ui-form :name="'programForm'" @onsubmit="onSubmit">
+      <ui-hidden-field v-if="program" :name="'id'" :value="program.id" />
 
-    <div class="program__write__inputs">
-      <div class="program__write__input-box">
-        <label for="programNm" class="program__write__label">프로그램 그룹 명</label>
-        <ui-text-field
-          :name="'nm'"
-          :id="'programNm'"
-          :rules="'required|max:50'"
-          :value="program?.nm"
-          v-model="programNm"
-        />
+      <div class="program__write__inputs">
+        <div class="program__write__input-box">
+          <label for="programNm" class="program__write__label">프로그램 그룹 명</label>
+          <ui-text-field
+            :name="'nm'"
+            :id="'programNm'"
+            :rules="'required|max:50'"
+            :value="program?.nm"
+            v-model="programNm"
+          />
+        </div>
+
+        <div class="program__write__btns">
+          <ui-button
+            :type="'submit'"
+            :color="'primary'"
+            :text="'저장'"
+            :class="'program__btn program__btn--write'"
+          />
+
+          <ui-button
+            v-if="program"
+            :type="'button'"
+            :color="'dark'"
+            :text="'삭제'"
+            :class="'program__btn program__btn--write'"
+            @click="removePost(program.id)"
+          />
+        </div>
       </div>
 
-      <div class="program__write__btns">
-        <ui-button
-          :type="'submit'"
-          :color="'primary'"
-          :text="'저장'"
-          :class="'program__btn program__btn--write'"
-        />
+      <div v-if="'E01002' === crudType" class="d-flex flex--between align--center gap--10 mb--15">
+        <p class="mt--0 mb--0">
+          총 {{ this.rowData.length }}개의 하위 프로그램
+        </p>
 
-        <ui-button
-          v-if="program"
-          :type="'button'"
-          :color="'dark'"
-          :text="'삭제'"
-          :class="'program__btn program__btn--write'"
-          @click="removePost(program.id)"
-        />
+        <div class="d-flex gap--10">
+          <ui-button
+            :type="'button'"
+            :color="'primary'"
+            :text="'추가'"
+            :class="'program__btn program__btn--write'"
+            @click="addDetail"
+          />
+
+          <ui-button
+            :type="'button'"
+            :color="'dark'"
+            :text="'삭제'"
+            :class="'program__btn program__btn--write'"
+            @click="removeDetail"
+          />
+        </div>
       </div>
-    </div>
-
-      <p v-if="'E01002' === crudType">
-        총 {{ this.rowData.length }}개의 하위 프로그램
-      </p>
 
       <ui-split-pane>
         <ui-pane>
@@ -59,6 +79,7 @@
           <app-save-program-detail
             :programDetail="programDetail"
             :key="programDetail.id"
+            @refreshDetail="refreshDetail"
           />
         </ui-pane>
       </ui-split-pane>
@@ -67,8 +88,7 @@
 </template>
 
 <script>
-import { messageUtil } from '@/utils';
-import { isNotEmpty } from '../../../utils';
+import { messageUtil, isNotBlank, isNotEmpty } from '@/utils';
 import AppSaveProgramDetail from '@/components/views/program/AppSaveProgramDetail.vue';
 
 export default {
@@ -101,10 +121,8 @@ export default {
   created() {
     if (isNotEmpty(this.program)) {
       this.program.programDetail.forEach(d => {
-        d.useYnNm = this.getUseYn(d.useYn);
-        d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
-  
-        this.rowData.push(d);
+        const data = this.setData(d);
+        this.rowData.push(data);
       });
     }
   },
@@ -113,8 +131,11 @@ export default {
       this.gridApi = params;
     },
     onCellClicked(params) {
-      this.programDetail = this.program.programDetail.find(d => d.id === params.data.id);
-      this.$store.commit('Splitter/TOGGLE', true);
+      this.$http.get(`/programdetail/${params.data.id}`)
+      .then(resp => {
+        this.programDetail = { ...resp.data };
+        this.$store.commit('Splitter/TOGGLE', true);
+      });
     },
     /** Modal 타이틀 반환 */
     getModalTitle() {
@@ -158,6 +179,64 @@ export default {
         this.$modal.hide(this.$options.name);
         this.$store.dispatch('Program/FETCH_REMOVED_PROGRAM', resp.data);
       });
+    },
+    /** 프로그램 상세 목록 조회 */
+    listDetail(parentId) {
+      return this.$http.get('/programdetail', { params: { parentId } })
+      .then(resp => {
+        resp.data.forEach(d => {
+          const data = this.setData(d);
+          this.rowData.push(data);
+        });
+      });
+    },
+    /** 프로그램 상세 row 추가 */
+    addDetail() {
+      this.programDetail = { parentId: this.program.id };
+      this.$store.commit('Splitter/TOGGLE', true);
+    },
+    /** 프로그램 상세 삭제 */
+    async removeDetail() {
+      const rows = this.gridApi.getSelectedRows();
+      if (0 === rows.length) {
+        messageUtil.toastWarning('삭제할 하위 프로그램을 선택하세요.');
+        return;
+      }
+
+      const confirm = await messageUtil.confirmSuccess('삭제하시겠습니까?');
+      if (!confirm) return;
+
+      let removeProgramDetailDto = [];
+
+      rows.forEach(d => {
+        removeProgramDetailDto.push({
+          id: d.id,
+        });
+      });
+
+      this.$http.post('/programdetail/remove', removeProgramDetailDto)
+      .then(resp => {
+        messageUtil.toastSuccess('삭제되었습니다.');
+        this.refreshDetail({ parentId: rows[0].parentId });
+      });
+    },
+    /** 프로그램 상세 데이타 가공 */
+    setData(data) {
+      data.useYnNm = this.getUseYn(data.useYn);
+      data.regDate = this.$moment(data.regDate).format('YYYY-MM-DD HH:mm:ss');
+
+      if (isNotBlank(data.modDate)) {
+        data.modDate = this.$moment(data.modDate).format('YYYY-MM-DD HH:mm:ss');
+      }
+      return data;
+    },
+    /** 프로그램 상세 grid 갱신 */
+    async refreshDetail(values) {
+      this.rowData = [];
+      this.programDetail = {};
+      this.$store.commit('Splitter/TOGGLE', false);
+      
+      await this.listDetail(values.parentId);
     },
   },
 }
