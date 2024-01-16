@@ -133,6 +133,7 @@ export default {
           messageUtil.toastSuccess('저장되었습니다.');
   
           this.$modal.hide(this.$options.name);
+          this.$store.dispatch('Program/FETCH_SAVED_PROGRAM', resp.data);
         });
       }
     },
