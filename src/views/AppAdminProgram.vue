@@ -79,8 +79,6 @@ export default {
       this.gridApi = params;
     },
     onCellClicked(params) {
-      this.$store.commit('Loading/SET_USE_LOADING', false);
-
       this.$http.get(`/program/${params.data.id}`)
       .then(resp => {
         resp.data.regDate = this.$moment(resp.data.regDate).format('YYYY-MM-DD HH:mm:ss');
@@ -123,7 +121,6 @@ export default {
           bind: { crudType, program },
         });
       }
-      this.$store.commit('Loading/SET_USE_LOADING', true);
     },
     /** 프로그램 그룹 삭제 */
     async removePrograms() {
