@@ -39,12 +39,12 @@
         </div>
       </div>
 
-      <div v-if="'E01002' === crudType" class="d-flex flex--between align--center gap--10 mb--15">
-        <p class="mt--0 mb--0">
+      <div v-if="'E01002' === crudType" class="program__grid-desc">
+        <p class="program__grid-desc__text">
           총 {{ this.rowData.length }}개의 하위 프로그램
         </p>
 
-        <div class="d-flex gap--10">
+        <div class="program__grid-desc__btns">
           <ui-button
             :type="'button'"
             :color="'primary'"
