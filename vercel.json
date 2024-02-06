@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://blog.selosele.com/:path*"
+      "destination": "https://blog.selosele.com/api/:path*"
     }
   ]
 }
