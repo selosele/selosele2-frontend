@@ -4,7 +4,8 @@ const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = defineConfig({
-  outputDir: path.resolve(__dirname, '../backend/client'),
+  // WAS, WEB 분리 시, outputDir 주석 처리
+  //outputDir: path.resolve(__dirname, '../backend/client'),
   productionSourceMap: false,
   configureWebpack: {
     performance: {
@@ -23,7 +24,7 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       '/api': {
-        target: ('production' === process.env.NODE_ENV) ? process.env.LOC_ORIGIN : 'http://localhost:3000',
+        target: process.env.LOC_ORIGIN,
         changeOrigin: true,
       },
     },
