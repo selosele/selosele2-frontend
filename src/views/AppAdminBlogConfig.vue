@@ -431,11 +431,11 @@ export default {
     onClickFile(file, key) {
       if ('avatar' === key) {
         this.$refs['blogConfigForm'].setFieldValue('avatarImg', file.public_id + '.' + file.format);
-        this.$refs['blogConfigForm'].setFieldValue('avatarImgUrl', file.url);
+        this.$refs['blogConfigForm'].setFieldValue('avatarImgUrl', file.secure_url);
         this.$refs['blogConfigForm'].setFieldValue('avatarImgSize', file.bytes);
       } else if ('og' === key) {
         this.$refs['blogConfigForm'].setFieldValue('ogImg', file.public_id + '.' + file.format);
-        this.$refs['blogConfigForm'].setFieldValue('ogImgUrl', file.url);
+        this.$refs['blogConfigForm'].setFieldValue('ogImgUrl', file.secure_url);
         this.$refs['blogConfigForm'].setFieldValue('ogImgSize', file.bytes);
       }
     },

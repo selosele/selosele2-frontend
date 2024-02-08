@@ -7,8 +7,8 @@
   >
     <ul :style="{ height }">
       <li v-for="(file,i) in value" :key="i">
-        <a :href="file.url" @click.prevent="onClick(file)">
-          <img :src="file.url" alt="">
+        <a :href="file.secure_url" @click.prevent="onClick(file)">
+          <img :src="file.secure_url" alt="">
           <span>{{ file.public_id }}.{{ file.format }}</span>
         </a>
       </li>

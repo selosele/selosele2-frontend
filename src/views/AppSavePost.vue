@@ -551,7 +551,7 @@ export default {
     /** cloudinary 파일 클릭 시 */
     onClickFile(file) {
       this.$refs['savePostForm'].setFieldValue('ogImg', file.public_id + '.' + file.format);
-      this.$refs['savePostForm'].setFieldValue('ogImgUrl', file.url);
+      this.$refs['savePostForm'].setFieldValue('ogImgUrl', file.secure_url);
       this.$refs['savePostForm'].setFieldValue('ogImgSize', file.bytes);
     },
     /** 포스트 대표 이미지 file input 값 변경 시 */
@@ -620,7 +620,7 @@ export default {
     /** 포스트 미리보기 */
     previewPost() {
       const body = getFormValues(this.$refs['savePostForm'].$el);
-      let url = this.isPostPage ? '/post/preview' : '/content/preview';
+      const url = (this.isPostPage ? '/post/preview' : '/content/preview');
 
       return this.$http.post(url, body)
       .then(resp => {
