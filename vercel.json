@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://selosele.vercel.app/api/:path*"
+      "destination": "https://35.212.141.160/api/:path*"
     }
   ]
 }
