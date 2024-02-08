@@ -105,7 +105,10 @@ export default {
     this.method = this.programDetail.method;
     this.routePath = this.programDetail.routePath;
     this.useYn = this.programDetail.useYn;
-    this.regDate = this.$moment(this.programDetail.regDate).format('YYYY-MM-DD HH:mm:ss');
+
+    if (isNotBlank(this.programDetail.regDate)) {
+      this.regDate = this.$moment(this.programDetail.regDate).format('YYYY-MM-DD HH:mm:ss');
+    }
 
     if (isNotBlank(this.programDetail.modDate)) {
       this.modDate = this.$moment(this.programDetail.modDate).format('YYYY-MM-DD HH:mm:ss');
