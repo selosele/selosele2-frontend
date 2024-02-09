@@ -118,7 +118,7 @@ export default {
   },
   watch: {
     'resStatus'() {
-      // 데이타를 받아오는 동안에도 실행되므로, props값의 변경을 감지해줘야 한다.
+      // 데이터를 받아오는 동안에도 실행되므로, props값의 변경을 감지해줘야 한다.
       this.dataLoading(this.rs);
     },
     '$route'() {
@@ -230,7 +230,7 @@ export default {
     onCheckNotification() {
       this.listNotification();
     },
-    /** 데이타 로딩 */
+    /** 데이터 로딩 */
     dataLoading(resStatus) {
       return Promise.resolve(
         setTimeout(() => {

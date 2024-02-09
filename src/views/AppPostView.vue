@@ -255,11 +255,11 @@ export default {
           this.nextPost = this.post?.prevAndNext[1] || null;
         }
 
-        // 댓글 데이타 가공
+        // 댓글 데이터 가공
         if (this.isPostPage && 0 < this.post.postReply.length) {
           this.post.postReply.forEach(d => {
             d.cont = d.cont.replace(/\r\n|\n/g, '<br>');
-            d.cont = d.cont.replaceAll('\\r\\n', '<br>'); // AS-IS 데이타의 경우 \r\n 문자가 DB에 직접 들어감
+            d.cont = d.cont.replaceAll('\\r\\n', '<br>'); // AS-IS 데이터의 경우 \r\n 문자가 DB에 직접 들어감
             d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
   
             if (isNotEmpty(d.modDate)) {

@@ -65,9 +65,9 @@
 export default {
   name: 'UiPagination',
   props: {
-    /** Pagination 데이타 */
+    /** Pagination 데이터 */
     value: Array,
-    /** Pagination 데이타 총 개수 */
+    /** Pagination 데이터 총 개수 */
     total: Number,
     /** 시작 페이지 번호 */
     first: {
@@ -175,13 +175,13 @@ export default {
       //   this.computedRows = this.rows;
       // }
 
-      // Paging 처리된 데이타
+      // Paging 처리된 데이터
       let pageData = this.noPinPostList.slice(this.paginationSkip, this.paginationRows);
       
       // 고정 포스트 목록도 같이 넣어준다.
       let collectedPageData = this.collectPageData(pageData);
       
-      // 페이지 번호와 매칭되는 데이타가 없으면 1페이지로 이동 (예: 6페이지로 갔는데 데이타가 없을 때)
+      // 페이지 번호와 매칭되는 데이터가 없으면 1페이지로 이동 (예: 6페이지로 갔는데 데이터가 없을 때)
       if (0 === collectedPageData.length) {
         this.onPage(1);
         return;

@@ -253,7 +253,7 @@ export default {
       // 계산된 값
       return 25 * cnt;
     },
-    /** 데이타 로딩 */
+    /** 데이터 로딩 */
     dataLoading() {
       if (0 < this.storeSidebar?.widget?.length && 0 < this.categoryList?.length && 0 < this.tagList?.length) {
         this.$store.dispatch('Layout/FETCH_IS_SIDEBAR_LOADED', true);

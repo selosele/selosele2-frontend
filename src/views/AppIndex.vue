@@ -132,7 +132,7 @@ export default {
       
       this.dataLoading();
     },
-    /** 데이타 로딩 */
+    /** 데이터 로딩 */
     dataLoading() {
       if (0 < this.postList.length) {
         this.dataLoaded = true;

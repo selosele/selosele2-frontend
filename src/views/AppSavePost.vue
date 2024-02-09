@@ -511,7 +511,7 @@ export default {
         this.setData(this.post);
       });
     },
-    /** 포스트 데이타 세팅 */
+    /** 포스트 데이터 세팅 */
     setData(post) {
       this.$refs['savePostForm']?.setFieldValue('id', post.id);
       this.$refs['savePostForm']?.setFieldValue('ogImg', post.ogImg);

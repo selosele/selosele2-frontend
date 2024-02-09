@@ -119,11 +119,11 @@ export default {
     paginationDto(year) {
       return this.$store.state.Year.data[year]?.paginationDto;
     },
-    /** 연도와 매칭되는 데이타가 존재하는지 확인 */
+    /** 연도와 매칭되는 데이터가 존재하는지 확인 */
     hasPostList(year) {
       return Object.prototype.hasOwnProperty.call(this.$store.state.Year.data, year);
     },
-    /** 로드된 데이타의 Index 업데이트 */
+    /** 로드된 데이터의 Index 업데이트 */
     updateItemLoadedIndex(idx) {
       this.itemLoadedIndex = idx;
     },

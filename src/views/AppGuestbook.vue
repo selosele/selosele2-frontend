@@ -336,10 +336,10 @@ export default {
     onUpdateReply(value) {
       value.cont = this.setData(value).cont;
     },
-    /** 방명록, 방명록 댓글 데이타 가공 */
+    /** 방명록, 방명록 댓글 데이터 가공 */
     setData(data) {
       data.cont = data.cont.replace(/\r\n|\n/g, '<br>');
-      data.cont = data.cont.replaceAll('\\r\\n', '<br>'); // AS-IS 데이타의 경우 \r\n 문자가 DB에 직접 들어감
+      data.cont = data.cont.replaceAll('\\r\\n', '<br>'); // AS-IS 데이터의 경우 \r\n 문자가 DB에 직접 들어감
       data.regDate = this.$moment(data.regDate).format('YYYY-MM-DD HH:mm:ss');
 
       if (isNotEmpty(data.modDate)) {

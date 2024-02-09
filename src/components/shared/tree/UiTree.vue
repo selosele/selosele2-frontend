@@ -37,7 +37,7 @@ export default {
   },
   emits: ['nodeExpanded', 'update', 'nodeClick'],
   props: {
-    /** nodes 데이타 */
+    /** nodes 데이터 */
     nodes: {
       type: Array,
       default: () => [],

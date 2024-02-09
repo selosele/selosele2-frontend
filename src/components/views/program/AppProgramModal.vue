@@ -220,7 +220,7 @@ export default {
         this.refreshDetail({ parentId: rows[0].parentId });
       });
     },
-    /** 프로그램 상세 데이타 가공 */
+    /** 프로그램 상세 데이터 가공 */
     setData(data) {
       data.useYnNm = this.getUseYn(data.useYn);
       data.regDate = this.$moment(data.regDate).format('YYYY-MM-DD HH:mm:ss');
