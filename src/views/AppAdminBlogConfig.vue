@@ -7,11 +7,8 @@
       @onsubmit="onSubmit"
     >
 
-      <ui-hidden-field
-        :name="'id'"
-        :id="'blogConfigId'"
-        :value="$store.state.BlogConfig.data?.id"
-      />
+      <ui-hidden-field :name="'id'" :id="'blogConfigId'" :value="$store.state.BlogConfig.data?.id" />
+      <ui-hidden-field :name="'useYn'" :id="'blogConfigUseYn'" :value="$store.state.BlogConfig.data?.useYn" />
 
       <ui-write-table
         :name="'블로그 환경설정 작성 폼'"
