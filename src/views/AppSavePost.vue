@@ -15,25 +15,27 @@
             :text="'불러오기'"
             @click="listTmpPost"
           />
-    
-          <ul class="write__save-list" v-if="0 < tmpPostList.length">
-            <li v-for="(tmpPost,i) in tmpPostList" :key="i">
-              <ui-icon-button
-                :icon="'xi-close-min'"
-                :text="'삭제'"
-                :class="'write__save-list__delete'"
-                @click="removeTmpPost(tmpPost.id)"
-              />
 
-              <a href="javascript:;" class="link" @click.prevent="applyTmpPost(tmpPost)">
-                {{ tmpPost.title }}
-              </a>
-
-              <span class="write__save-list__date">
-                {{ tmpPost.regDate }}
-              </span>
-            </li>
-          </ul>
+          <div class="write__save-list" v-if="0 < tmpPostList.length">
+            <ul>
+              <li v-for="(tmpPost,i) in tmpPostList" :key="i">
+                <ui-icon-button
+                  :icon="'xi-close-min'"
+                  :text="'삭제'"
+                  :class="'write__save-list__delete'"
+                  @click="removeTmpPost(tmpPost.id)"
+                />
+  
+                <a href="javascript:;" class="link" @click.prevent="applyTmpPost(tmpPost)">
+                  {{ tmpPost.title }}
+                </a>
+  
+                <span class="write__save-list__date">
+                  {{ tmpPost.regDate }}
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
 
         <ui-hidden-field :name="'id'" :id="'savePostId'" :value="post?.id" />
