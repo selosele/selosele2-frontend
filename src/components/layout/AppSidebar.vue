@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { isNotEmpty } from '@/utils';
+import { isNotEmpty, deepCopy } from '@/utils';
 
 export default {
   name: 'AppSidebar',
@@ -162,7 +162,7 @@ export default {
       this.$store.dispatch('Layout/FETCH_SIDEBAR', this.sidebar);
 
       // store의 sidebar 값 변경 시, 객체라서 originalSidebar도 동시에 변경되므로 깊은 복사를 해줘야 함 
-      this.$store.dispatch('Layout/FETCH_ORIGINAL_SIDEBAR', JSON.parse(JSON.stringify(this.sidebar)));
+      this.$store.dispatch('Layout/FETCH_ORIGINAL_SIDEBAR', deepCopy(this.sidebar));
     },
     /** 정렬에 제외할 HTML 요소 */
     onShouldCancelStart(e) {

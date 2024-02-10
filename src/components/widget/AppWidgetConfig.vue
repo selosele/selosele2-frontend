@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { messageUtil, isNotEmpty, isArray, isBlank } from '@/utils';
+import { messageUtil, isNotEmpty, isArray, isBlank, deepCopy } from '@/utils';
 
 export default {
   name: 'AppWidgetConfig',
@@ -181,7 +181,7 @@ export default {
       if (!this.listActive) {
 
         // 위젯관리 버튼을 다시 클릭할 경우, 저장하지 않은 변경사항 초기화
-        this.$store.dispatch('Layout/FETCH_SIDEBAR', JSON.parse(JSON.stringify(this.$store.state.Layout.originalSidebar)));
+        this.$store.dispatch('Layout/FETCH_SIDEBAR', deepCopy(this.$store.state.Layout.originalSidebar));
         this.$store.dispatch('Layout/FETCH_CHANGE_WIDGET', {});
       }
     },
