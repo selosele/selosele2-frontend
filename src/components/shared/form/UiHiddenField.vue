@@ -1,16 +1,24 @@
 <template>
   <Field
     type="hidden"
-    :id="id"
-    :ref="id"
     :name="name"
     :value="value"
-    v-bind="$attrs"
-  />
+    v-slot="{ field }">
+
+    <input
+      type="hidden"
+      :id="id"
+      :ref="(el) => { inputEl = el }"
+      :name="name"
+      :value="value"
+      v-bind="{ ...field, ...$attrs }"
+    />
+  </Field>
 </template>
 
 <script>
-import { Field } from 'vee-validate';
+import { ref } from 'vue';
+import { Field, useField } from 'vee-validate';
 
 export default {
   name: 'UiHiddenField',
@@ -18,8 +26,6 @@ export default {
     Field,
   },
   props: {
-    /** input type */
-    type: String,
     /** input id */
     id: String,
     /** input name */
@@ -33,6 +39,25 @@ export default {
     modelValue: {
       default: '',
     },
+  },
+  setup(props, { emit }) {
+    const {
+      value: inputValue,
+      errorMessage,
+      handleBlur,
+      handleChange,
+      meta,
+    } = useField(props.name, props.rules, {
+      initialValue: props.modelValue,
+      valueProp: props.modelValue,
+    });
+
+    /** input 요소 */
+    const inputEl = ref(null);
+
+    return {
+      inputEl,
+    };
   },
 }
 </script>
