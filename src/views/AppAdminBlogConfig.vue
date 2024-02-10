@@ -67,6 +67,26 @@
         >
           <tr>
             <th scope="row">
+              <label for="blogConfigNm">환경설정 명<br>(30자 이내)
+                <sup>*
+                  <span class="sr-only">필수입력란</span>
+                </sup>
+              </label>
+            </th>
+            <td>
+              <ui-text-field
+                :name="'nm'"
+                :id="'blogConfigNm'"
+                :clazz="['blog-config__nm']"
+                :block="true"
+                :rules="'required|max:30'"
+                :value="$store.state.BlogConfig.data?.nm"
+                v-model="previewBlogConfig.nm"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
               <label for="blogConfigTitle">블로그 제목<br>(100자 이내)
                 <sup>*
                   <span class="sr-only">필수입력란</span>
@@ -466,6 +486,8 @@ export default {
         this.$store.dispatch('BlogConfig/FETCH_BLOG_CONFIG', resp.data);
         this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', null);
         this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
+
+        this.listBlogConfig();
       });
     },
     /** 환경설정 불러오기 */
