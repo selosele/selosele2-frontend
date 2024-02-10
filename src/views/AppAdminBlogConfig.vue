@@ -66,9 +66,9 @@
         :class="'blog-config__frm'"
         @onsubmit="onSubmit"
       >
-  
-        <ui-hidden-field :name="'id'" :id="'blogConfigId'" :value="$store.state.BlogConfig.data?.id" />
-        <ui-hidden-field :name="'useYn'" :id="'blogConfigUseYn'" v-model="previewBlogConfig.useYn" />
+
+      <ui-hidden-field :name="'id'" :id="'blogConfigId'" :value="$store.state.BlogConfig.data?.id" v-model="previewBlogConfig.id" />
+      <ui-hidden-field :name="'useYn'" :id="'blogConfigUseYn'" :value="$store.state.BlogConfig.data?.useYn" v-model="previewBlogConfig.useYn" />
   
         <ui-write-table
           :name="'블로그 환경설정 작성 폼'"
@@ -160,6 +160,7 @@
                 :name="'avatarImg'"
                 :id="'blogConfigAvatarImg'"
                 :value="$store.state.BlogConfig.data?.avatarImg"
+                v-model="previewBlogConfig.avatarImg"
               />
   
               <ui-hidden-field
@@ -173,6 +174,7 @@
                 :name="'avatarImgSize'"
                 :id="'blogConfigAvatarImgSize'"
                 :value="$store.state.BlogConfig.data?.avatarImgSize"
+                v-model="previewBlogConfig.avatarImgSize"
               />
   
               <ui-file-field
@@ -214,6 +216,7 @@
                 :name="'ogImg'"
                 :id="'blogConfigOgImg'"
                 :value="$store.state.BlogConfig.data?.ogImg"
+                v-model="previewBlogConfig.ogImg"
               />
   
               <ui-hidden-field
@@ -227,6 +230,7 @@
                 :name="'ogImgSize'"
                 :id="'blogConfigOgImgSize'"
                 :value="$store.state.BlogConfig.data?.ogImgSize"
+                v-model="previewBlogConfig.ogImgSize"
               />
   
               <ui-file-field
@@ -354,7 +358,7 @@
                 :rules="'between:2,10'"
                 :text="'2 ~ 10 (기본 6)'"
                 :value="$store.state.BlogConfig.data?.pageSize"
-                v-model="pageSize"
+                v-model="previewBlogConfig.pageSize"
               />
             </td>
           </tr>
@@ -369,7 +373,7 @@
                 :label="'페이지 만족도조사 표출'"
                 :hideLabel="true"
                 :values="'Y,N'"
-                v-model="showSatisYn"
+                v-model="previewBlogConfig.showSatisYn"
               />
             </td>
           </tr>
@@ -384,7 +388,7 @@
                 :label="'카카오톡 메시지 수신'"
                 :hideLabel="true"
                 :values="'Y,N'"
-                v-model="kakaoMsgYn"
+                v-model="previewBlogConfig.kakaoMsgYn"
               />
             </td>
           </tr>
@@ -422,11 +426,8 @@ export default {
       ogImg: '',
       ogImgUrl: '',
       ogImgSize: '',
-      showSatisYn: '',
-      kakaoMsgYn: '',
       avatarFileList: [],
       ogFileList: [],
-      pageSize: '',
       previewBlogConfig: {},
       blogConfigList: [],
     }
@@ -449,9 +450,6 @@ export default {
       this.avatarImgSize = data?.avatarImgSize;
       this.ogImg = data?.ogImg;
       this.ogImgSize = data?.ogImgSize;
-      this.pageSize = data?.pageSize;
-      this.showSatisYn = data?.showSatisYn;
-      this.kakaoMsgYn = data?.kakaoMsgYn;
 
       this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', null);
   
@@ -515,7 +513,7 @@ export default {
     },
     /** 환경설정 적용 */
     applyBlogConfig(blogConfig) {
-      this.previewBlogConfig = { ...blogConfig };
+      this.previewBlogConfig = deepCopy(blogConfig);
       this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', null);
     },
     /** 환경설정 추가 */
