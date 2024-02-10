@@ -31,10 +31,19 @@
           <ul>
             <li v-for="(blogConfig,i) in blogConfigList" :key="i">
               <ui-icon-button
+                v-if="'N' === blogConfig.useYn"
                 :icon="'xi-close-min'"
                 :text="'삭제'"
                 :class="'blog-config__save-list__delete'"
                 @click="removeBlogConfig(blogConfig.id)"
+              />
+              
+              <ui-icon-button
+                v-if="'N' === blogConfig.useYn"
+                :icon="'xi-check-min'"
+                :text="'환경설정 사용'"
+                :class="'blog-config__save-list__use'"
+                @click="updateBlogConfigUseYn(blogConfig.id, blogConfig.nm, 'Y')"
               />
     
               <a href="javascript:;"
@@ -469,11 +478,6 @@ export default {
   methods: {
     /** 환경설정 저장 */
     async onSubmit(values) {
-      if ('N' === this.previewBlogConfig.useYn) {
-        messageUtil.toastWarning('미사용 환경설정은 수정할 수 없습니다.');
-        return;
-      }
-
       const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;
 
@@ -483,9 +487,12 @@ export default {
       .then(resp => {
         messageUtil.toastSuccess('저장되었습니다.');
 
-        this.$store.dispatch('BlogConfig/FETCH_BLOG_CONFIG', resp.data);
-        this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', null);
-        this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
+        // 사용 중인 환경설정만 상태를 업데이트한다.
+        if ('Y' === this.previewBlogConfig.useYn) {
+          this.$store.dispatch('BlogConfig/FETCH_BLOG_CONFIG', resp.data);
+          this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', null);
+          this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
+        }
 
         this.listBlogConfig();
       });
@@ -527,7 +534,7 @@ export default {
       });
     },
     /** 환경설정 삭제 */
-    async removeBlogConfig(blogConfigId) {
+    async removeBlogConfig(id) {
       if (1 === this.blogConfigList.length) {
         messageUtil.toastWarning('최소 1개 설정이 필요합니다.');
         return;
@@ -536,10 +543,27 @@ export default {
       const confirm = await messageUtil.confirmSuccess('삭제하시겠습니까?');
       if (!confirm) return;
 
-      return this.$http.delete(`/blogconfig/${blogConfigId}`)
+      return this.$http.delete(`/blogconfig/${id}`)
       .then(resp => {
         messageUtil.toastSuccess('삭제되었습니다.');
-        this.blogConfigList = this.blogConfigList.filter(d => d.id !== blogConfigId);
+        this.blogConfigList = this.blogConfigList.filter(d => d.id !== id);
+      });
+    },
+    /** 환경설정 사용여부 수정 */
+    async updateBlogConfigUseYn(id, nm, useYn) {
+      const confirm = await messageUtil.confirmSuccess(`"${nm}" 환경설정을 "사용"으로 변경하시겠습니까?`);
+      if (!confirm) return;
+      
+      return this.$http.put('/blogconfig/use', { id, useYn })
+      .then(resp => {
+        messageUtil.toastSuccess('변경되었습니다.');
+
+        this.previewBlogConfig = { ...resp.data };
+        this.$store.dispatch('BlogConfig/FETCH_BLOG_CONFIG', resp.data);
+        this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', null);
+        this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
+
+        this.listBlogConfig();
       });
     },
     /** 아바타 이미지 file input 값 변경 시 */

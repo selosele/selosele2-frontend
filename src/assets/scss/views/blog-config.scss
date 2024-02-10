@@ -64,6 +64,7 @@
                }
             }
    
+            &__use,
             &__delete {
                display: inline-flex;
                justify-content: center;
@@ -78,6 +79,11 @@
                font-size: 0.8rem;
                line-height: 1;
                text-shadow: none;
+            }
+
+            &__use {
+               background-color: $green03;
+               color: $grey12;
             }
 
             &__add {
