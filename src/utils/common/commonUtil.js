@@ -53,3 +53,8 @@ export function getFileSize(bytes, decimals = 2) {
 export function getFormValues(form) {
   return Object.fromEntries(new FormData(form));
 }
+
+/** 깊은 복사 후 반환한다. */
+export function deepCopy(value) {
+  return JSON.parse(JSON.stringify(value));
+}
