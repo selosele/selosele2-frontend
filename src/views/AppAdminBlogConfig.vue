@@ -497,7 +497,7 @@ export default {
         return;
       }
 
-      return this.$http.get('blogconfig')
+      return this.$http.get('/blogconfig')
       .then(resp => {
         resp.data[0].forEach(d => {
           d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
