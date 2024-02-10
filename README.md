@@ -3,7 +3,7 @@
 ## 접속 URL
 
 - https://blog.selosele.com
-- https://selosele.vercel.app (위 URL로 접속 안될 시)
+- https://blog-selosele.vercel.app (위 URL로 접속 안될 시)
 
 ## 작업기간
 
