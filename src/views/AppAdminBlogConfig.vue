@@ -8,27 +8,47 @@
           :text="'불러오기'"
           @click="listBlogConfig"
         />
-  
-        <ul class="blog-config__save-list" v-if="0 < blogConfigList.length">
-          <li v-for="(blogConfig,i) in blogConfigList" :key="i">
-            <ui-icon-button
-              :icon="'xi-close-min'"
-              :text="'삭제'"
-              :class="'blog-config__save-list__delete'"
-              @click="removeBlogConfig(blogConfig.id)"
-            />
-  
-            <a href="javascript:;"
-               :class="{ 'link': true, 'font--bold': 'Y' === blogConfig.useYn }"
-               @click.prevent="applyBlogConfig(blogConfig)">
-              {{ blogConfig.nm }}
-            </a>
-  
-            <span class="blog-config__save-list__date">
-              {{ blogConfig.regDate }}
-            </span>
-          </li>
-        </ul>
+        
+        <div class="blog-config__save-list" v-if="0 < blogConfigList.length">
+          <ui-form :name="'addBlogConfigForm'" @onsubmit="addBlogConfig">
+            <div class="blog-config__save-list__inputs">
+              <ui-text-field
+                :name="'nm'"
+                :placeholder="'추가할 환경설정명 입력'"
+                :clazz="['blog-config__save-list__nm']"
+                :rules="'required|max:30'"
+              />
+    
+              <ui-icon-button
+                :type="'submit'"
+                :icon="'xi-plus-min'"
+                :text="'환경설정 추가'"
+                :class="'blog-config__save-list__add'"
+              />
+            </div>
+          </ui-form>
+
+          <ul>
+            <li v-for="(blogConfig,i) in blogConfigList" :key="i">
+              <ui-icon-button
+                :icon="'xi-close-min'"
+                :text="'삭제'"
+                :class="'blog-config__save-list__delete'"
+                @click="removeBlogConfig(blogConfig.id)"
+              />
+    
+              <a href="javascript:;"
+                 :class="{ 'link': true, 'font--bold': 'Y' === blogConfig.useYn }"
+                 @click.prevent="applyBlogConfig(blogConfig)">
+                {{ blogConfig.nm }}
+              </a>
+    
+              <span class="blog-config__save-list__date">
+                {{ blogConfig.regDate }}
+              </span>
+            </li>
+          </ul>
+        </div>
       </div>
   
       <ui-form
@@ -39,8 +59,7 @@
       >
   
         <ui-hidden-field :name="'id'" :id="'blogConfigId'" :value="$store.state.BlogConfig.data?.id" />
-        <ui-hidden-field :name="'updateId'" :id="'blogConfigUpdateId'" />
-        <ui-hidden-field :name="'useYn'" :id="'blogConfigUseYn'" :value="$store.state.BlogConfig.data?.useYn" />
+        <ui-hidden-field :name="'useYn'" :id="'blogConfigUseYn'" v-model="previewBlogConfig.useYn" />
   
         <ui-write-table
           :name="'블로그 환경설정 작성 폼'"
@@ -361,7 +380,7 @@
 </template>
 
 <script>
-import { messageUtil, isNotEmpty, isEmpty } from '@/utils';
+import { messageUtil, isNotEmpty, isEmpty, deepCopy } from '@/utils';
 
 export default {
   name: 'AppAdminBlogConfig',
@@ -430,6 +449,11 @@ export default {
   methods: {
     /** 환경설정 저장 */
     async onSubmit(values) {
+      if ('N' === this.previewBlogConfig.useYn) {
+        messageUtil.toastWarning('미사용 환경설정은 수정할 수 없습니다.');
+        return;
+      }
+
       const confirm = await messageUtil.confirmSuccess('저장하시겠습니까?');
       if (!confirm) return;
 
@@ -463,13 +487,30 @@ export default {
     /** 환경설정 적용 */
     applyBlogConfig(blogConfig) {
       this.previewBlogConfig = { ...blogConfig };
-      this.$refs['blogConfigForm'].setFieldValue('updateId', blogConfig.id);
       this.$store.dispatch('BlogConfig/FETCH_PREVIEW_DATA', null);
+    },
+    /** 환경설정 추가 */
+    async addBlogConfig(values) {
+      const confirm = await messageUtil.confirmSuccess(`"${values.nm}" 환경설정을 추가하시겠습니까?"`);
+      if (!confirm) return;
 
-      this.listBlogConfig();
+      const addValues = Object.assign(deepCopy(this.$store.state.BlogConfig.data), deepCopy(values));
+      delete addValues.id; // 환경설정 추가를 위해 id 삭제
+      addValues.useYn = 'N';
+
+      return this.$http.post('/blogconfig', addValues)
+      .then(resp => {
+        messageUtil.toastSuccess('추가되었습니다.');
+        this.listBlogConfig();
+      });
     },
     /** 환경설정 삭제 */
     async removeBlogConfig(blogConfigId) {
+      if (1 === this.blogConfigList.length) {
+        messageUtil.toastWarning('최소 1개 설정이 필요합니다.');
+        return;
+      }
+
       const confirm = await messageUtil.confirmSuccess('삭제하시겠습니까?');
       if (!confirm) return;
 
