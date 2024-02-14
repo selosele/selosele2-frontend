@@ -41,6 +41,8 @@
               :clazz="['post__reply__input']"
               :rules="'required|min:8|max:15'"
               :tooltip="true"
+              :readonly="isAdmin"
+              :value="isAdmin ? passwordCode : ''"
             />
           </div>
     
@@ -70,10 +72,12 @@ export default {
   data() {
     return {
       adminNickName: '',
+      passwordCode: '',
     }
   },
   created() {
-    this.adminNickName = this.$store.state.Post.code.find(d => d.id === 'F01001').nm;
+    this.adminNickName = this.$store.state.Post.code.find(d => d.id === 'F01001')?.nm;
+    this.passwordCode = this.$store.state.Code.data.find(d => d.id === 'I01001')?.nm;
   },
   methods: {
     /** 포스트 댓글 저장 */
