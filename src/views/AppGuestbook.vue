@@ -23,7 +23,7 @@
                 :clazz="['guestbook__input']"
                 :rules="'required|max:20'"
                 :readonly="isAdmin"
-                :value="isAdmin ? adminNickName : ''"
+                :value="(isAdmin ? adminNickName : '')"
               />
             </div>
 
@@ -35,6 +35,8 @@
                 :id="'addGuestbookPw'"
                 :clazz="['guestbook__input']"
                 :rules="'required|min:8|max:15'"
+                :readonly="isAdmin"
+                :value="(isAdmin ? passwordCode : '')"
               />
             </div>
 
@@ -168,6 +170,7 @@ export default {
       isScrolled: false,
       isLastPage: false,
       adminNickName: '',
+      passwordCode: '',
     }
   },
   async created() {
@@ -351,6 +354,7 @@ export default {
     /** 공통코드 세팅 */
     async setCode() {
       this.adminNickName = this.$store.state.Guestbook.code.find(d => d.id === 'F01001')?.nm;
+      this.passwordCode = this.$store.state.Code.data.find(d => d.id === 'I01001')?.nm;
     },
   },
 }

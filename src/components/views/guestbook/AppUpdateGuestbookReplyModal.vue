@@ -24,7 +24,7 @@
             :id="'updateGuestbookReplyAuthor'"
             :clazz="['guestbook__input']"
             :rules="'required|max:20'"
-            :readonly="'Y' === guestbookReply.adminYn"
+            :readonly="('Y' === guestbookReply.adminYn)"
             :value="guestbookReply.author"
           />
         </div>
@@ -37,6 +37,8 @@
             :id="'updateGuestbookReplyPw'"
             :clazz="['guestbook__input']"
             :rules="'required|min:8|max:15'"
+            :readonly="('Y' === guestbookReply.adminYn)"
+            :value="('Y' === guestbookReply.adminYn ? passwordCode : '')"
           />
         </div>
 
@@ -66,10 +68,13 @@ export default {
     return {
       /** br태그가 치환된 방명록 댓글 내용 */
       replacedCont: '',
+      /** 비밀번호 코드 */
+      passwordCode: '',
     }
   },
   created() {
     this.replacedCont = this.guestbookReply.cont.replaceAll('<br>', '\r\n');
+    this.passwordCode = this.$store.state.Code.data.find(d => d.id === 'I01001')?.nm;
   },
   methods: {
     /** 방명록 댓글 수정 */

@@ -23,7 +23,7 @@
             :clazz="['guestbook__input']"
             :rules="'required|max:20'"
             :readonly="isAdmin"
-            :value="isAdmin ? adminNickName : ''"
+            :value="(isAdmin ? adminNickName : '')"
           />
         </div>
 
@@ -35,6 +35,8 @@
             :id="`guestbookReplyPw${idx}`"
             :clazz="['guestbook__input']"
             :rules="'required|min:8|max:15'"
+            :readonly="isAdmin"
+            :value="(isAdmin ? passwordCode : '')"
           />
         </div>
 
@@ -65,10 +67,12 @@ export default {
   data() {
     return {
       adminNickName: '',
+      passwordCode: '',
     }
   },
   created() {
-    this.adminNickName = this.$store.state.Guestbook.code.find(d => d.id === 'F01001').nm;
+    this.adminNickName = this.$store.state.Guestbook.code.find(d => d.id === 'F01001')?.nm;
+    this.passwordCode = this.$store.state.Code.data.find(d => d.id === 'I01001')?.nm;
   },
   methods: {
     /** 방명록 댓글 등록 */
