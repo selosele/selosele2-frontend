@@ -135,6 +135,14 @@
             align-items: center;
           }
         }
+
+        &.gnb__list__item--active {
+          > a {
+            &:after {
+              content: "\e944";
+            }
+          }
+        }
       }
 
       &--active,
