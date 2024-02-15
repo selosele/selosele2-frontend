@@ -1,4 +1,10 @@
 :deep(.category) {
+  &__btns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
+  }
+  
   &__desc {
     padding: 0.8rem;
     font-size: 0.9rem;
