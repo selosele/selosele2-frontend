@@ -66,6 +66,9 @@
     }
   
     &__detail {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
       margin-top: 0.7rem;
     }
   
@@ -217,7 +220,7 @@
       float: right;
       position: sticky;
       bottom: 3rem;
-      z-index: 3;
+      z-index: -1;
       min-width: 0;
       width: 2.5rem;
       height: 2.5rem;
@@ -235,6 +238,7 @@
   
       &--active {
         opacity: 1;
+        z-index: 3;
       }
   
       @media (min-width: $min-big-width) {
