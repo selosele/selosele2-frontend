@@ -1,6 +1,10 @@
 <template>
   <app-content-wrapper>
-    <div class="d-flex flex--right gap--10 mb--15">
+    <div class="d-flex-w flex--right flex--middle gap--20 mb--15">
+      <p class="mt--0 mb--0" v-if="autoSaveDate">
+        최근 자동 색인 실행 일시: {{ autoSaveDate }}
+      </p>
+
       <ui-button
         :color="'primary'"
         :text="'색인'"
@@ -35,6 +39,7 @@ export default {
       ],
       rowData: [],
       gridApi: null,
+      autoSaveDate: null,
     }
   },
   async created() {
@@ -63,6 +68,11 @@ export default {
           
           this.rowData.push(d);
         });
+
+        const autoY = this.rowData.filter(d => d.autoYn === 'Y');
+        if (0 < autoY.length) {
+          this.autoSaveDate = autoY[0].endDate;
+        }
       });
     },
     /** 자동 색인 여부 반환 */
