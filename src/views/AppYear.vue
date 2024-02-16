@@ -104,10 +104,10 @@ export default {
       currentData.forEach(d => {
         const date = new Date(d.regDate);
         d.regDate = this.$moment(date).format('YYYY.MM.DD');
+        
+        this.currentPostList.push(d);
       });
 
-      this.currentPostList.push(...currentData);
-      
       this.listCnt = data[year][1];
       this.updateItemLoadedIndex(idx);
 
