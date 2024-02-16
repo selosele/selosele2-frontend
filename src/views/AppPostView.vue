@@ -203,7 +203,9 @@ export default {
   },
   watch: {
     '$route.params.id'(id) {
-      this.init(id);
+      if (isNotBlank(id)) {
+        this.init(id);
+      }
     }
   },
   computed: {
