@@ -20,9 +20,9 @@
     <ui-select
       :name="'parentId'"
       :id="'menuParentId'"
-      :title="'부모 메뉴'"
-      :label="'부모 메뉴'"
-      :defaultValue="'부모 메뉴 선택'"
+      :title="'상위 메뉴'"
+      :label="'상위 메뉴'"
+      :defaultValue="'상위 메뉴 선택'"
       :data="parentMenuList"
       :block="true"
       v-model="parentId"
@@ -104,7 +104,7 @@ export default {
   props: {
     /** 메뉴 */
     menu: Object,
-    /** 부모 메뉴 목록 */
+    /** 상위 메뉴 목록 */
     parentMenuList: Array,
   },
   data() {
