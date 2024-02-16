@@ -24,7 +24,7 @@
         :text="'더보기'"
         :class="'btn--more'"
         @click="onMore"
-        v-if="listCnt > pageSize && !isLastPage"
+        v-if="(listCnt > pageSize) && !isLastPage"
       />
 
       <div class="category__btns">
@@ -76,6 +76,9 @@ export default {
       this.isLastPage = false;
 
       await this.listPostByCategory();
+
+      // 페이지 타이틀 세팅
+      this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
     },
     /** 카테고리별 포스트 목록 조회 */
     listPostByCategory() {
@@ -114,14 +117,12 @@ export default {
 
         this.pageTitle = `'${category.nm}' ${category.type}의 글`;
         
-        // 페이지 타이틀 세팅
-        this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', this.pageTitle);
       });
     },
     /** 더보기 */
-    onMore() {
+    async onMore() {
       this.page++;
-      this.listPostByCategory();
+      await this.listPostByCategory();
     },
     /** 페이지 유형에 따른 API 호출 URI 반환 */
     getApiUri() {
