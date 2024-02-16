@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import { messageUtil } from '@/utils';
 
 export default {
@@ -59,8 +60,8 @@ export default {
         this.rowData = [];
 
         resp.data.forEach(d => {
-          d.startDate = this.$moment(d.startDate).format('YYYY-MM-DD HH:mm:ss');
-          d.endDate = this.$moment(d.endDate).format('YYYY-MM-DD HH:mm:ss');
+          d.startDate = moment(d.startDate).format('YYYY-MM-DD HH:mm:ss');
+          d.endDate = moment(d.endDate).format('YYYY-MM-DD HH:mm:ss');
           d.autoYnNm = this.getAutoYn(d.autoYn);
           d.typeCdNm = this.$store.state.Search.code
             .filter(v => v.prefix === 'D03')

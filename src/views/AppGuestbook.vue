@@ -147,6 +147,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import { messageUtil, isNotEmpty } from '@/utils';
 import AppAddGuestbookReply from '@/components/views/guestbook/AppAddGuestbookReply.vue';
 import AppGuestbookReplyList from '@/components/views/guestbook/AppGuestbookReplyList.vue';
@@ -198,7 +199,7 @@ export default {
         foundGuestbook.author = author;
         foundGuestbook.cont = cont;
         foundGuestbook.cont = this.setData(foundGuestbook).cont;
-        foundGuestbook.modDate = this.$moment(modDate).format('YYYY-MM-DD HH:mm:ss');
+        foundGuestbook.modDate = moment(modDate).format('YYYY-MM-DD HH:mm:ss');
         
         this.$store.dispatch('Guestbook/FETCH_UPDATED_GUESTBOOK', {});
       }
@@ -317,7 +318,7 @@ export default {
       .then(resp => {
         const guestbook = { ...resp.data };
         
-        guestbook.regDate = this.$moment(guestbook.regDate).format('YYYY-MM-DD HH:mm:ss');
+        guestbook.regDate = moment(guestbook.regDate).format('YYYY-MM-DD HH:mm:ss');
         guestbook.guestbookReply = [];
 
         this.guestbookList.push(guestbook);
@@ -343,10 +344,10 @@ export default {
     setData(data) {
       data.cont = data.cont.replace(/\r\n|\n/g, '<br>');
       data.cont = data.cont.replaceAll('\\r\\n', '<br>'); // AS-IS 데이터의 경우 \r\n 문자가 DB에 직접 들어감
-      data.regDate = this.$moment(data.regDate).format('YYYY-MM-DD HH:mm:ss');
+      data.regDate = moment(data.regDate).format('YYYY-MM-DD HH:mm:ss');
 
       if (isNotEmpty(data.modDate)) {
-        data.modDate = this.$moment(data.modDate).format('YYYY-MM-DD HH:mm:ss');
+        data.modDate = moment(data.modDate).format('YYYY-MM-DD HH:mm:ss');
       }
 
       return data;

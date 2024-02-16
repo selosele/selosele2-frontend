@@ -413,6 +413,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import { messageUtil, isNotEmpty, isEmpty, deepCopy } from '@/utils';
 
 export default {
@@ -505,7 +506,7 @@ export default {
       return this.$http.get('/blogconfig')
       .then(resp => {
         resp.data[0].forEach(d => {
-          d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
+          d.regDate = moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
         });
 
         this.blogConfigList = [...resp.data[0]];

@@ -71,8 +71,9 @@
 </template>
 
 <script>
-import { isNotEmpty, messageUtil } from '@/utils';
+import moment from 'moment';
 import AppPostReplyList from './AppPostReplyList.vue';
+import { isNotEmpty, messageUtil } from '@/utils';
 
 export default {
   name: 'AppAddPostReply',
@@ -132,7 +133,7 @@ export default {
           d.author = author;
           d.cont = cont;
           d.cont = this.setData(d).cont;
-          d.modDate = this.$moment(modDate).format('YYYY-MM-DD HH:mm:ss');
+          d.modDate = moment(modDate).format('YYYY-MM-DD HH:mm:ss');
         }
       });
     },
@@ -140,10 +141,10 @@ export default {
     setData(data) {
       data.cont = data.cont.replace(/\r\n|\n/g, '<br>');
       data.cont = data.cont.replaceAll('\\r\\n', '<br>'); // AS-IS 데이터의 경우 \r\n 문자가 DB에 직접 들어감
-      data.regDate = this.$moment(data.regDate).format('YYYY-MM-DD HH:mm:ss');
+      data.regDate = moment(data.regDate).format('YYYY-MM-DD HH:mm:ss');
 
       if (isNotEmpty(data.modDate)) {
-        data.modDate = this.$moment(data.modDate).format('YYYY-MM-DD HH:mm:ss');
+        data.modDate = moment(data.modDate).format('YYYY-MM-DD HH:mm:ss');
       }
 
       return data;

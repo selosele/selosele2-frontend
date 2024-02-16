@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   name: 'AppAdminSatisfaction',
   data() {
@@ -70,7 +72,7 @@ export default {
         this.rowData = [];
 
         resp.data.forEach(d => {
-          d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
+          d.regDate = moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
           d.score = this.$store.state.Satisfaction.code
             .filter(v => v.prefix === 'B01' && (v.val === d.score))
             .map(v => v.nm);
@@ -87,7 +89,7 @@ export default {
     async listByRegDate() {
       await this.listSatisfaction({
         isToday: 'N',
-        regDate: this.$moment(this.regDate).format('YYYY-MM-DD'),
+        regDate: moment(this.regDate).format('YYYY-MM-DD'),
       });
       this.gridApi.setRowData(this.rowData);
     },

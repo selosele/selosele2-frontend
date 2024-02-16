@@ -74,6 +74,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import AppUpdateGuestbookReplyModal from '@/components/views/guestbook/AppUpdateGuestbookReplyModal.vue';
 import AppRemoveGuestbookReplyModal from '@/components/views/guestbook/AppRemoveGuestbookReplyModal.vue';
 import { isNotEmpty, messageUtil } from '@/utils';
@@ -99,7 +100,7 @@ export default {
 
         foundGuestbookReply.author = author;
         foundGuestbookReply.cont = cont;
-        foundGuestbookReply.modDate = this.$moment(modDate).format('YYYY-MM-DD HH:mm:ss');
+        foundGuestbookReply.modDate = moment(modDate).format('YYYY-MM-DD HH:mm:ss');
 
         this.$store.dispatch('Guestbook/FETCH_UPDATED_GUESTBOOK_REPLY', {});
         this.$emit('updateReply', foundGuestbookReply);

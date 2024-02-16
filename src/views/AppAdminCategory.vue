@@ -69,8 +69,9 @@
 </template>
 
 <script>
-import AppSaveCategory from '@/components/views/category/AppSaveCategory.vue';
+import moment from 'moment';
 import { isEmpty } from '@/utils';
+import AppSaveCategory from '@/components/views/category/AppSaveCategory.vue';
 
 export default {
   name: 'AppAdminCategory',
@@ -203,7 +204,7 @@ export default {
       return this.$http.get(`/${this.type}/${node.id}`)
       .then(resp => {
         this.category = { ...resp.data };
-        this.category.regDate = this.$moment(this.category.regDate).format('YYYY-MM-DD HH:mm:ss');
+        this.category.regDate = moment(this.category.regDate).format('YYYY-MM-DD HH:mm:ss');
       });
     },
     /** 카테고리 추가 */

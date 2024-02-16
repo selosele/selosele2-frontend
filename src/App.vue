@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import AppHeader from '@/components/layout/AppHeader.vue';
 import AppFooter from '@/components/layout/AppFooter.vue';
 import AppMain from '@/components/layout/AppMain.vue';
@@ -54,8 +55,8 @@ import AppMenu from '@/components/layout/AppMenu.vue';
 import AppSidebar from '@/components/layout/AppSidebar.vue';
 import AppSkipLinks from '@/components/layout/AppSkipLinks.vue';
 import AppUserSatisfaction from '@/components/layout/AppUserSatisfaction.vue';
+import { isNotBlank } from '@/utils';
 import { ModalsContainer } from 'vue-final-modal';
-import { isNotBlank } from './utils';
 
 import '@vuepic/vue-datepicker/dist/main.css';
 
@@ -177,9 +178,9 @@ export default {
     },
     /** 알림창 표출 */
     showNotice() {
-      const nowDate = this.$moment().format('YYYY-MM-DD');
+      const nowDate = moment().format('YYYY-MM-DD');
       const nowYear = new Date().getFullYear();
-      const isDateConfirmed = this.$moment(nowDate).isBetween(`${nowYear}-12-17`, `${nowYear}-12-31`, undefined, '[]');
+      const isDateConfirmed = moment(nowDate).isBetween(`${nowYear}-12-17`, `${nowYear}-12-31`, undefined, '[]');
 
       // 현재 날짜가 12월 17일부터 12월 31일 사이일 경우 알림창을 표출한다.
       if (isDateConfirmed) {

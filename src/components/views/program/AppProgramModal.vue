@@ -88,6 +88,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import { messageUtil, isNotBlank, isNotEmpty } from '@/utils';
 import AppSaveProgramDetail from '@/components/views/program/AppSaveProgramDetail.vue';
 
@@ -223,10 +224,10 @@ export default {
     /** 프로그램 상세 데이터 가공 */
     setData(data) {
       data.useYnNm = this.getUseYn(data.useYn);
-      data.regDate = this.$moment(data.regDate).format('YYYY-MM-DD HH:mm:ss');
+      data.regDate = moment(data.regDate).format('YYYY-MM-DD HH:mm:ss');
 
       if (isNotBlank(data.modDate)) {
-        data.modDate = this.$moment(data.modDate).format('YYYY-MM-DD HH:mm:ss');
+        data.modDate = moment(data.modDate).format('YYYY-MM-DD HH:mm:ss');
       }
       return data;
     },

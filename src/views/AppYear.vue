@@ -100,14 +100,9 @@ export default {
 
       const data = await this.$store.dispatch('Year/GET_YEAR_POSTS', { year, paginationDto, flag });
       const currentData = data[year][0];
-      
-      currentData.forEach(d => {
-        const date = new Date(d.regDate);
-        d.regDate = this.$moment(date).format('YYYY.MM.DD');
-        
-        this.currentPostList.push(d);
-      });
 
+      this.currentPostList.push(...currentData);
+      
       this.listCnt = data[year][1];
       this.updateItemLoadedIndex(idx);
 

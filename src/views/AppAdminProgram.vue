@@ -31,7 +31,8 @@
 </template>
 
 <script>
-import { isNotBlank, messageUtil } from '../utils';
+import moment from 'moment';
+import { isNotBlank, messageUtil } from '@/utils';
 import AppProgramModal from '@/components/views/program/AppProgramModal.vue';
 
 export default {
@@ -81,10 +82,10 @@ export default {
     onCellClicked(params) {
       this.$http.get(`/program/${params.data.id}`)
       .then(resp => {
-        resp.data.regDate = this.$moment(resp.data.regDate).format('YYYY-MM-DD HH:mm:ss');
+        resp.data.regDate = moment(resp.data.regDate).format('YYYY-MM-DD HH:mm:ss');
 
         if (isNotBlank(resp.data.modDate)) {
-          resp.data.modDate = this.$moment(resp.data.modDate).format('YYYY-MM-DD HH:mm:ss');
+          resp.data.modDate = moment(resp.data.modDate).format('YYYY-MM-DD HH:mm:ss');
         }
         this.openModal('E01002', resp.data);
       });
@@ -94,10 +95,10 @@ export default {
       return this.$http.get('/program')
       .then(resp => {
         resp.data.forEach(d => {
-          d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
+          d.regDate = moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
 
           if (isNotBlank(d.modDate)) {
-            d.modDate = this.$moment(d.modDate).format('YYYY-MM-DD HH:mm:ss');
+            d.modDate = moment(d.modDate).format('YYYY-MM-DD HH:mm:ss');
           }
         });
         this.rowData = [...resp.data];

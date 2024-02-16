@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import AppSaveMenu from '@/components/views/menu/AppSaveMenu.vue';
 
 export default {
@@ -119,7 +120,7 @@ export default {
         this.parentMenuList = this.listParentMenu(this.$store.state.Menu.data, [])
           .filter(d => d.value !== this.menu.id);
 
-        this.menu.regDate = this.$moment(this.menu.regDate).format('YYYY-MM-DD HH:mm:ss');
+        this.menu.regDate = moment(this.menu.regDate).format('YYYY-MM-DD HH:mm:ss');
         this.$store.commit('Loading/SET_USE_LOADING', true);
       });
     },

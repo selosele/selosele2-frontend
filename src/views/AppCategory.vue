@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import { isNotEmpty } from '@/utils';
-import { isNotBlank } from '../utils';
+import moment from 'moment';
+import { isNotEmpty, isNotBlank } from '@/utils';
 
 export default {
   name: 'AppCategory',
@@ -107,7 +107,7 @@ export default {
 
           category.type = isNotEmpty(d.postCategory) ? '카테고리' : '태그';
           category.nm = isNotEmpty(d.postCategory) ? d.postCategory[0].category.nm : d.postTag[0].tag.nm;
-          d.regDate = this.$moment(d.regDate).format('YYYY.MM.DD');
+          d.regDate = moment(d.regDate).format('YYYY.MM.DD');
           
           this.postList.push(d);
         });

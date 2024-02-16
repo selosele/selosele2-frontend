@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import { isNotBlank, isNotEmpty, messageUtil } from '@/utils';
 
 export default {
@@ -83,10 +84,10 @@ export default {
 
         resp.data.forEach(d => {
           d.link = `/post/${d.parentId}`;
-          d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
+          d.regDate = moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
 
           if (isNotEmpty(d.modDate)) {
-            d.modDate = this.$moment(d.modDate).format('YYYY-MM-DD HH:mm:ss');
+            d.modDate = moment(d.modDate).format('YYYY-MM-DD HH:mm:ss');
           }
 
           this.rowData.push(d);

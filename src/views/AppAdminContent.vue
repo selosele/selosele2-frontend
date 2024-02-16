@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import { isNotEmpty, messageUtil } from '@/utils';
 
 export default {
@@ -69,10 +70,10 @@ export default {
         this.rowData = [];
 
         resp.data[0].forEach(d => {
-          d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
+          d.regDate = moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
 
           if (isNotEmpty(d.modDate)) {
-            d.modDate = this.$moment(d.modDate).format('YYYY-MM-DD HH:mm:ss');
+            d.modDate = moment(d.modDate).format('YYYY-MM-DD HH:mm:ss');
           }
 
           this.rowData.push(d);

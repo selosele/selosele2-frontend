@@ -223,6 +223,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import AppNotificationButton from './AppNotificationButton.vue';
 import AppNotificationCount from './AppNotificationCount.vue';
 import { isNotEmpty, messageUtil } from '@/utils';
@@ -286,7 +287,7 @@ import { isNotEmpty, messageUtil } from '@/utils';
         this.activeTypeCd = 'D02001';
 
         this.list.forEach(d => {
-          d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
+          d.regDate = moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
         });
 
         this.postLikeList = this.list.filter(d => d.typeCd === 'D02001');         // 포스트 추천 알림 목록

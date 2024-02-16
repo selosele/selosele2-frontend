@@ -74,8 +74,8 @@
 </template>
 
 <script>
-import { messageUtil } from '@/utils';
-import { isNotBlank } from '../../../utils';
+import moment from 'moment';
+import { messageUtil, isNotBlank } from '@/utils';
 
 export default {
   name: 'AppSaveProgram',
@@ -107,11 +107,11 @@ export default {
     this.useYn = this.programDetail.useYn;
 
     if (isNotBlank(this.programDetail.regDate)) {
-      this.regDate = this.$moment(this.programDetail.regDate).format('YYYY-MM-DD HH:mm:ss');
+      this.regDate = moment(this.programDetail.regDate).format('YYYY-MM-DD HH:mm:ss');
     }
 
     if (isNotBlank(this.programDetail.modDate)) {
-      this.modDate = this.$moment(this.programDetail.modDate).format('YYYY-MM-DD HH:mm:ss');
+      this.modDate = moment(this.programDetail.modDate).format('YYYY-MM-DD HH:mm:ss');
     }
   },
   methods: {

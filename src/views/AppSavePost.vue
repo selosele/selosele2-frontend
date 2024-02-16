@@ -321,6 +321,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import { arrayHasDuplicateValue, getFormValues, isBlank, isNotEmpty, messageUtil } from '@/utils';
 import AppSavePostTag from '@/components/views/post/AppSavePostTag.vue';
 import AppPreviewPostModal from '@/components/views/post/AppPreviewPostModal.vue';
@@ -653,7 +654,7 @@ export default {
         }
 
         resp.data[0].forEach(d => {
-          d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
+          d.regDate = moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
         });
 
         this.tmpPostList = [...resp.data[0]];

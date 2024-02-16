@@ -170,6 +170,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import { messageUtil, isNotBlank, isNotEmpty } from '@/utils';
 import AppAddPostReply from '@/components/views/post/AppAddPostReply.vue';
 
@@ -248,10 +249,10 @@ export default {
       .then(resp => {
         this.dataLoaded = true;
         this.post = { ...resp.data };
-        this.post.regDate = this.$moment(this.post.regDate).format('YYYY-MM-DD HH:mm:ss');
+        this.post.regDate = moment(this.post.regDate).format('YYYY-MM-DD HH:mm:ss');
 
         if (isNotBlank(this.post.modDate)) {
-          this.post.modDate = this.$moment(this.post.modDate).format('YYYY-MM-DD HH:mm:ss');
+          this.post.modDate = moment(this.post.modDate).format('YYYY-MM-DD HH:mm:ss');
         }
 
         // 사용자 포스트 추천 정보 조회
@@ -272,10 +273,10 @@ export default {
           this.post.postReply.forEach(d => {
             d.cont = d.cont.replace(/\r\n|\n/g, '<br>');
             d.cont = d.cont.replaceAll('\\r\\n', '<br>'); // AS-IS 데이터의 경우 \r\n 문자가 DB에 직접 들어감
-            d.regDate = this.$moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
+            d.regDate = moment(d.regDate).format('YYYY-MM-DD HH:mm:ss');
   
             if (isNotEmpty(d.modDate)) {
-              d.modDate = this.$moment(d.modDate).format('YYYY-MM-DD HH:mm:ss');
+              d.modDate = moment(d.modDate).format('YYYY-MM-DD HH:mm:ss');
             }
           });
         }

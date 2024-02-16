@@ -1,5 +1,6 @@
-import { http } from "@/api";
-import { isNotEmpty } from "@/utils";
+import moment from 'moment';
+import { http } from '@/api';
+import { isNotEmpty } from '@/utils';
 
 /** 연도별 모아보기 Store */
 export const Year = {
@@ -47,6 +48,11 @@ export const Year = {
       return new Promise((resolve, reject) => {
         http.get(`/post/year/${values.year}`, { params: values.paginationDto })
         .then(resp => {
+          resp.data[0].forEach(d => {
+            const date = new Date(d.regDate);
+            d.regDate = moment(date).format('YYYY.MM.DD');
+          });
+
           commit('SET_YEAR_POSTS', {
             year: values.year,
             list: resp.data,

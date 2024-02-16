@@ -52,8 +52,8 @@
             <span class="post__box__item post__box__item--regdate">
               <i class="xi-time-o" aria-hidden="true"></i>
               <span class="sr-only">등록일</span>
-              <time :datetime="$moment(post.regDate).format('YYYY-MM-DD HH:mm:ss')">
-                {{ $moment(post.regDate).format('YYYY.MM.DD') }}
+              <time :datetime="moment(post.regDate).format('YYYY-MM-DD HH:mm:ss')">
+                {{ moment(post.regDate).format('YYYY.MM.DD') }}
               </time>
             </span>
   
@@ -81,6 +81,8 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   name: 'AppPostListDetail',
   props: {
@@ -100,7 +102,8 @@ export default {
   },
   data() {
     return {
-      nowDate: this.$moment().format('YYYYMMDD'),
+      moment: moment,
+      nowDate: moment().format('YYYYMMDD'),
     }
   },
   computed: {
@@ -114,7 +117,7 @@ export default {
   },
   methods: {
     isNewPost(regDate) {
-      return this.nowDate === this.$moment(regDate).format('YYYYMMDD');
+      return this.nowDate === moment(regDate).format('YYYYMMDD');
     },
     onClick(e) {
       if (!e.target.checked) {
