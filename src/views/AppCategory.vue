@@ -41,6 +41,7 @@
 
 <script>
 import { isNotEmpty } from '@/utils';
+import { isNotBlank } from '../utils';
 
 export default {
   name: 'AppCategory',
@@ -64,7 +65,9 @@ export default {
   },
   watch: {
     '$route.params.id'(id) {
-      this.init();
+      if (isNotBlank(id)) {
+        this.init();
+      }
     }
   },
   methods: {
