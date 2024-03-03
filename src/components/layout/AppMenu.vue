@@ -7,7 +7,12 @@
     <ul class="gnb__list" v-if="0 < $store.state.Menu.data.length">
       <template v-for="(menu,i) in $store.state.Menu.data" :key="i">
         <li class="gnb__list__item" v-if="0 === menu.children.length">
-          <router-link :to="menu.link">{{ menu.name }}</router-link>
+          <router-link :to="menu.link" v-if="'N' === menu.externalYn">
+            {{ menu.name }}
+          </router-link>
+          <a :href="menu.link" title="새창" target="_blank" v-else>
+            {{ menu.name }}
+          </a>
         </li>
         <li v-else :class="[
           'gnb__list__item',
@@ -19,13 +24,19 @@
                :active="isActive"
                :class="{ 'router-link-active': isActive }"
                @click.prevent="toggleMenu(i)"
-               ref="menuLink">{{ menu.name }}</a>
+               ref="menuLink">{{ menu.name }}
+            </a>
           </router-link>
 
           <transition name="fade" v-if="0 < menu.children.length">
             <ul class="gnb__list--depth2" v-show="i === activeIndex">
               <li class="gnb__list--depth2__list" v-for="(child,j) in menu.children" :key="j">
-                <router-link :to="child.link">{{ child.name }}</router-link>
+                <router-link :to="child.link" v-if="'N' === child.externalYn">
+                  {{ child.name }}
+                </router-link>
+                <a :href="child.link" title="새창" target="_blank" v-else>
+                  {{ child.name }}
+                </a>
               </li>
             </ul>
           </transition>

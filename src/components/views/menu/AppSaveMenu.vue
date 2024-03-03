@@ -75,6 +75,25 @@
       v-model="role"
     />
 
+    <ui-radio-group :label="'메뉴 외부 링크 여부'">
+      <ui-radio
+        :id="'menuExternalYn1'"
+        :name="'externalYn'"
+        :label="'예'"
+        :value="'Y'"
+        :rules="'required'"
+        v-model="externalYn"
+      />
+      <ui-radio
+        :id="'menuExternalYn2'"
+        :name="'externalYn'"
+        :label="'아니오'"
+        :value="'N'"
+        :rules="'required'"
+        v-model="externalYn"
+      />
+    </ui-radio-group>
+
     <ui-radio-group :label="'메뉴 사용 여부'">
       <ui-radio
         :id="'menuUseYn1'"
@@ -110,14 +129,16 @@ export default {
   data() {
     return {
       parentId: '',
+      externalYn: '',
       useYn: '',
       role: '',
       roleList: [],
     }
   },
   async created() {
-    this.parentId = this.menu.parentId;
-    this.useYn = this.menu.useYn;
+    this.parentId = this.menu.parentId || null;
+    this.externalYn = this.menu.externalYn || 'N';
+    this.useYn = this.menu.useYn || 'Y';
 
     await this.listRole();
 
