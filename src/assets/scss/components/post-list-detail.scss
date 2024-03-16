@@ -25,14 +25,17 @@
           .post {
             &__title {
               > a {
+                padding-right: 1.5rem;
+
                 &:after {
                   content: "N";
                   display: inline-flex;
-                  float: right;
-                  width: 24px;
-                  height: 24px;
-                  line-height: 24px;
-                  margin: 0.15rem 0 0 0.3rem;
+                  position: absolute;
+                  top: 0;
+                  right: 0;
+                  width: 1.2rem;
+                  height: 1.2rem;
+                  line-height: 1.2rem;
                   border-radius: 50%;
                   background-color: $main-color;
                   font-weight: 700;
