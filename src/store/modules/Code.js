@@ -1,4 +1,4 @@
-import { http } from "@/api";
+import { http } from '@/api';
 
 /** 공통코드 Store */
 export const Code = {

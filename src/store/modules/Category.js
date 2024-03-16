@@ -1,4 +1,4 @@
-import { http } from "@/api";
+import { http } from '@/api';
 
 /** 카테고리, 태그 Store */
 export const Category = {

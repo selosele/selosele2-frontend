@@ -1,8 +1,8 @@
-import { isBlank, isNotBlank } from "@/utils/common/commonUtil";
-import { http } from "@/api";
-import router from "@/routes";
-import { messageUtil } from "@/utils";
-import jwtDecode from "jwt-decode";
+import { isBlank, isNotBlank } from '@/utils/common/commonUtil';
+import { http } from '@/api';
+import router from '@/routes';
+import { messageUtil } from '@/utils';
+import jwtDecode from 'jwt-decode';
 
 /** 인증 Store */
 export const Auth = {

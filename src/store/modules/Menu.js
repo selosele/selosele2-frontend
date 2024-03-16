@@ -1,4 +1,4 @@
-import { http } from "@/api";
+import { http } from '@/api';
 
 /** 메뉴 Store */
 export const Menu = {

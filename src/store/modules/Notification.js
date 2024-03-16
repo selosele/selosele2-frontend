@@ -1,4 +1,4 @@
-import { http } from "@/api";
+import { http } from '@/api';
 
 /** 알림 Store */
 export const Notification = {

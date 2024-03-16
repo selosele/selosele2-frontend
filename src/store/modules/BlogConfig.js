@@ -1,5 +1,4 @@
-import { http } from "@/api";
-import store from "..";
+import { http } from '@/api';
 
 /** 블로그 환경설정 Store */
 export const BlogConfig = {
