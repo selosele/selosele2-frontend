@@ -110,6 +110,7 @@
    
          &__like {
             &-wrapper {
+               margin-bottom: 2.5rem;
                text-align: center;
             }
    
@@ -158,15 +159,13 @@
          }
    
          &__date {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.5rem;
             position: relative;
             font-size: 0.9rem;
             line-height: 1.5;
-   
-            @media (min-width: $min-medium-width) {
-               display: inline-block;
-               margin-right: 0.9rem;
-            }
    
             & + & {
                margin-top: 0.5rem;
@@ -193,28 +192,12 @@
             }
    
             &-wrapper {
-               margin-top: 2.5rem;
-               margin-bottom: 1.3rem;
-               padding: 0.9rem;
-               background-color: $grey02;
-   
-               @media (min-width: $min-medium-width) {
-                  display: flex;
-                  flex-wrap: wrap;
-               }
+               margin-bottom: 2rem;
+               text-align: right;
             }
    
             > time {
-               margin-left: 0.65rem;
                letter-spacing: -0.02em;
-            }
-   
-            strong {
-               display: block;
-   
-               @media (min-width: $min-mini-width) {
-                  display: inline-block;
-               }
             }
    
             i {

@@ -2,6 +2,13 @@
   <app-content-wrapper>
     <div class="post-view__wrapper">
       <template v-if="dataLoaded">
+        <div class="post__contents__date-wrapper">
+          <span class="post__contents__date post__contents__date--create-at">
+            <i class="xi-time-o" aria-hidden="true"></i>
+            <time :datetime="post?.regDate">{{ post?.regDate }}</time>
+          </span>
+        </div>
+
         <ui-form :name="'postForm'" @onsubmit="onSubmit">
           <ui-hidden-field :name="'id'" :value="post?.id" />
     
@@ -15,19 +22,10 @@
               :text="'추천수'"
               :class="'post__contents__like-btn'"
               :title="isPostLiked ? '포스트 추천 해제하기' : '포스트 추천하기'"
-              @click="savePostLike(post?.id)">
-
+              @click="savePostLike(post?.id)"
+            >
               <span class="post__contents__like-cnt">{{ postLikeCnt }}</span>
             </ui-icon-button>
-          </div>
-    
-          <div class="post__contents__date-wrapper">
-            <span class="post__contents__date post__contents__date--create-at">
-              <strong>
-                <i class="xi-time-o" aria-hidden="true"></i> 등록일
-              </strong>
-              <time :datetime="post?.regDate">{{ post?.regDate }}</time>
-            </span>
           </div>
     
           <div class="post__contents__info-wrapper" v-if="isPostPage">
@@ -37,7 +35,9 @@
                 :routerLink="`/category/${category.category.id}`"
                 :icon="'xi-folder-open'"
                 :text="'카테고리'"
-                :class="'post__contents__info post__contents__info--category'">{{ category.category.nm }}
+                :class="'post__contents__info post__contents__info--category'"
+              >
+              {{ category.category.nm }}
               </ui-icon-button>
             </template>
             
@@ -47,7 +47,9 @@
                 :routerLink="`/tag/${tag.tag.id}`"
                 :icon="'xi-tags'"
                 :text="'태그'"
-                :class="'post__contents__info post__contents__info--tag'">{{ tag.tag.nm }}
+                :class="'post__contents__info post__contents__info--tag'"
+              >
+              {{ tag.tag.nm }}
               </ui-icon-button>
             </template>
           </div>
@@ -142,8 +144,8 @@
               :to="`/post/${prevPost.id}`" 
               rel="prev"
               title="이전 포스트"
-              class="post__contents__pagination post__contents__pagination--prev">
-
+              class="post__contents__pagination post__contents__pagination--prev"
+            >
               <strong>{{ prevPost.title }}</strong>
             </router-link>
     
@@ -152,8 +154,8 @@
               :to="`/post/${nextPost.id}`" 
               rel="next"
               title="다음 포스트"
-              class="post__contents__pagination post__contents__pagination--next">
-
+              class="post__contents__pagination post__contents__pagination--next"
+            >
               <strong>{{ nextPost.title }}</strong>
             </router-link>
           </nav>
