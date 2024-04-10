@@ -1,4 +1,4 @@
-import { isNotBlank, isNotEmpty, messageUtil } from '@/utils';
+import { isNotBlank, messageUtil } from '@/utils';
 import store from '@/store';
 import router from '@/routes';
 import axios from 'axios';
@@ -16,7 +16,7 @@ http.interceptors.request.use(
     /** 액세스 토큰 */
     const accessToken = window.localStorage.getItem('accessToken');
 
-    if (isNotEmpty(accessToken)) {
+    if (isNotBlank(accessToken)) {
       config.headers['Authorization']= `Bearer ${accessToken}`;
       store.commit('Auth/SET_ACCESS_TOKEN', accessToken);
     }
