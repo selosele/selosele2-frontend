@@ -82,7 +82,7 @@ export default {
   },
   async created() {
     // 애플리케이션 최초 로드 시, 화면 전체를 덮는 로딩을 일정 시간동안 실행
-    this.initLoading(2500);
+    this.initLoading(1500);
 
     this.initJwt();
     this.showNotice();
