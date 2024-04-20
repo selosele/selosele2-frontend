@@ -83,7 +83,7 @@ export default {
         case 'N': return '수동';
       }
     },
-    /** 검색 데이터 저장 */
+    /** 검색 색인 데이터 저장 */
     async saveIndexSearch() {
       const confirm = await messageUtil.confirmSuccess('데이터를 색인하시겠습니까?');
       if (!confirm) return;
