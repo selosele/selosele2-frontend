@@ -35,7 +35,12 @@
     }
 
     &__textarea {
-      resize: vertical;
+      margin: 0;
+      font-size: 0.85rem;
+
+      > textarea {
+        resize: vertical;
+      }
     }
   
     &__write {
@@ -98,15 +103,18 @@
     }
   
     &__input {
-      display: block;
-      width: 100%;
-      
-      @media (min-width: $min-small-width) {
-        width: 6rem;
-      }
-  
-      @media (min-width: $min-medium-width) {
-        width: 7rem;
+      > input[type="text"],
+      > input[type="password"] {
+        display: block;
+        width: 100%;
+        
+        @media (min-width: $min-small-width) {
+          width: 6rem;
+        }
+    
+        @media (min-width: $min-medium-width) {
+          width: 7rem;
+        }
       }
     }
   
@@ -410,6 +418,12 @@
         margin: 0;
         padding-right: 1.5rem;
         font-size: 0.85rem;
+
+        > textarea {
+          margin: 0;
+          padding-right: 1.5rem;
+          font-size: 0.85rem;
+        }
       }
 
       &__input-box {

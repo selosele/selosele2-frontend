@@ -38,7 +38,6 @@
           <ui-select
             :name="'commentTypeCd'"
             :id="'commentTypeCd'"
-            :clazz="['satisfaction__comment-type-cd']"
             :title="'의견 선택'"
             :defaultValue="'직접 입력'"
             :data="commentList"

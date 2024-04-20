@@ -86,7 +86,6 @@
               <ui-text-field
                 :name="'nm'"
                 :id="'blogConfigNm'"
-                :clazz="['blog-config__nm']"
                 :block="true"
                 :rules="'required|max:30'"
                 :value="$store.state.BlogConfig.data?.nm"
@@ -106,7 +105,6 @@
               <ui-text-field
                 :name="'title'"
                 :id="'blogConfigTitle'"
-                :clazz="['blog-config__title']"
                 :block="true"
                 :rules="'required|max:100'"
                 :value="$store.state.BlogConfig.data?.title"
@@ -126,7 +124,6 @@
               <ui-text-field
                 :name="'author'"
                 :id="'blogConfigAuthor'"
-                :clazz="['blog-config__author']"
                 :block="true"
                 :rules="'required|max:30'"
                 :value="$store.state.BlogConfig.data?.author"

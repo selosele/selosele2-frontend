@@ -1,5 +1,5 @@
 <template>
-  <div class="mb--15 d-flex gap--10">
+  <div class="mb--15 d-flex">
     <ui-text-field
       :clazz="['tree-filter-field']"
       :placeholder="placeholder"

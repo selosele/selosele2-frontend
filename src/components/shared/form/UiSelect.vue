@@ -1,5 +1,5 @@
 <template>
-  <div :class="['input-wrapper', selectInline]" v-show="!hidden">
+  <div :class="['input-wrapper', selectInline, ...clazz]" v-show="!hidden">
     <label
       :for="id"
       :class="'input-label'"
@@ -11,7 +11,7 @@
       :id="id"
       :ref="id"
       :name="name"
-      :class="['input-field', selectBlock, selectDisabled, ...clazz]"
+      :class="['input-field', selectBlock, selectDisabled]"
       :rules="rules"
       v-bind="$attrs"
       v-model="mv"

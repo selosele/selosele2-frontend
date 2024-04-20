@@ -26,9 +26,11 @@
 
         <ul>
           <li v-for="(file,i) in fileList" :key="i">
-            <span class="file-upload__list__file-name"
-                  @mouseenter="toggleImage(i)"
-                  @mouseleave="hideImage(i)">{{ file.name }}
+            <span
+              class="file-upload__list__file-name"
+              @mouseenter="toggleImage(i)"
+              @mouseleave="hideImage(i)"
+            >{{ file.name }}
 
               <span class="file-upload__list__file-info" v-show="i === activeIndex">
                 <img :src="file.src" :alt="file.name">

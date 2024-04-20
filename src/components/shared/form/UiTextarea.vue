@@ -1,5 +1,5 @@
 <template>
-  <div :class="['input-wrapper', inlineInput]" v-show="!hidden">
+  <div :class="['input-wrapper', inlineInput, ...clazz]" v-show="!hidden">
     <label
       :for="id"
       :class="'input-label'"
@@ -16,7 +16,7 @@
       <textarea
         :id="id"
         :ref="(el) => { inputEl = el }"
-        :class="[blockTextarea, resizeClass, ...clazz]"
+        :class="[blockTextarea, resizeClass]"
         :name="name"
         :cols="cols"
         :rows="rows"

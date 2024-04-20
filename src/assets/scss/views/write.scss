@@ -100,12 +100,14 @@
       }
 
       &__select-category {
-         display: block;
-         width: 100%;
-   
-         @media (min-width: $min-small-width) {
-            display: inline-block;
-            width: 8rem;
+         > select {
+            display: block;
+            width: 100%;
+      
+            @media (min-width: $min-small-width) {
+               display: inline-block;
+               width: 8rem;
+            }
          }
       }
 
@@ -175,12 +177,16 @@
             }
 
             .write__tag {
-               width: 100%;
+               > input[type="text"] {
+                  width: 100%;
+               }
             }
 
             .write__select-tag {
-               display: block;
-               width: 100%;
+               > select {
+                  display: block;
+                  width: 100%;
+               }
             }
          }
       }
