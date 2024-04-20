@@ -76,6 +76,8 @@
                 {{ $store.state.BlogConfig.data?.author }}
               </p>
             </div>
+
+            <app-quick-search />
           </div>
         </div>
       </div>
@@ -86,11 +88,13 @@
 <script>
 import { isBlank, isNotEmpty, messageUtil } from '@/utils';
 import AppNotification from '@/components/layout/AppNotification.vue';
+import AppQuickSearch from '@/components/layout/AppQuickSearch.vue';
 
 export default {
   name: 'AppHeader',
   components: {
     AppNotification,
+    AppQuickSearch,
   },
   props: {
     resStatus: String,

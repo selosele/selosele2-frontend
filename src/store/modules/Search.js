@@ -1,3 +1,5 @@
+import router from '@/routes';
+
 /** 검색 Store */
 export const Search = {
   namespaced: true,
@@ -21,6 +23,18 @@ export const Search = {
     },
     FETCH_OPTION_SELECT_LIST({ commit }, values) {
       commit('SET_OPTION_SELECT_LIST', values);
+    },
+    async GO_SEARCH({ commit }, values) {
+      await router.push({
+        path: '/search', 
+        query: {
+          q: values['q'], 
+          t: values['t'], 
+          c: values['c'],
+          page: values['page'],
+          pageSize: values['pageSize'],
+        },
+      });
     },
   },
 };

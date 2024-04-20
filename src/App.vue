@@ -26,7 +26,12 @@
         </ui-notice>
 
         <div class="page__body--left" v-if="$route.meta.showSidebar">
-          <router-view />
+          <!--
+            2024.04.20.
+            동일한 컴포넌트에서 페이지 URL이 바뀌면 컴포넌트를 리렌더링하도록 :key="$route.fullPath" 추가
+            퀵검색 및 검색페이지에서 리렌더링이 안되는 이슈가 있었음
+          -->
+          <router-view :key="$route.fullPath" />
         </div>
         <router-view v-else />
 

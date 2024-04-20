@@ -191,6 +191,15 @@
         }
       }
     }
+
+    &__quick-search {
+      margin-top: 2rem;
+
+      input[type="search"] {
+        border-radius: 1rem;
+        box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 0.25rem
+      }
+    }
   }
   
   .site {

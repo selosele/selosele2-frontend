@@ -173,7 +173,7 @@ export default {
       values.page = this.page;
       values.pageSize = this.pageSize;
       
-      await this.listPostSearch(values);
+      await this.$store.dispatch('Search/GO_SEARCH', values);
     },
     /** 유효성 검사 */
     validationCheck() {
