@@ -18,7 +18,13 @@ export default {
   name: 'AppQuickSearch',
   data() {
     return {
-      quickSearchQ: this.$route.query['q'] || '',
+      quickSearchQ: '',
+    }
+  },
+  watch: {
+    '$route'() {
+      // 페이지 전환 시, 퀵검색 필드 값 초기화
+      this.quickSearchQ = '';
     }
   },
   methods: {
