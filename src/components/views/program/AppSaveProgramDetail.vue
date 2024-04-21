@@ -4,7 +4,7 @@
     @onsubmit="onSubmit"
     @remove="onRemove"
   >
-    <ui-hidden-field :name="'id'" :value="id" />
+    <ui-hidden-field :name="'id'" :value="id" v-if="id" />
     <ui-hidden-field :name="'parentId'" :value="parentId" />
 
     <ui-text-field
@@ -132,7 +132,7 @@ export default {
       if (!confirm) return;
 
       this.$http.delete(`/programdetail/${values.id}`)
-      .then(async resp => {
+      .then(resp => {
         messageUtil.toastSuccess('삭제되었습니다.');
         this.$emit('refreshDetail', resp.data);
       });
