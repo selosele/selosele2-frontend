@@ -17,7 +17,7 @@ http.interceptors.request.use(
     const accessToken = window.localStorage.getItem('accessToken');
 
     if (isNotBlank(accessToken)) {
-      config.headers['Authorization']= `Bearer ${accessToken}`;
+      config.headers['Authorization'] = `Bearer ${accessToken}`;
       store.commit('Auth/SET_ACCESS_TOKEN', accessToken);
     }
 
