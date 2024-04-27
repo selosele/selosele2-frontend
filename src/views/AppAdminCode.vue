@@ -24,6 +24,7 @@
 
 <script>
 import AppSaveCode from '@/components/views/code/AppSaveCode.vue';
+import { startLoading, stopLoading } from '@/utils';
 
 export default {
   name: 'AppAdminCode',
@@ -58,13 +59,13 @@ export default {
     },
     /** 공통코드 조회 */
     onCellClicked(params) {
-      this.$store.commit('Loading/SET_USE_LOADING', false);
+      stopLoading();
 
       this.$http.get(`/code/${params.data.id}`)
       .then(resp => {
         this.code = { ...resp.data };
         this.$store.commit('Splitter/TOGGLE', true);
-        this.$store.commit('Loading/SET_USE_LOADING', true);
+        startLoading();
       });
     },
     /** 공통코드 목록 조회 */

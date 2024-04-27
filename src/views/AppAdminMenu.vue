@@ -35,6 +35,7 @@
 <script>
 import moment from 'moment';
 import AppSaveMenu from '@/components/views/menu/AppSaveMenu.vue';
+import { startLoading, stopLoading } from '@/utils';
 
 export default {
   name: 'AppAdminMenu',
@@ -112,7 +113,7 @@ export default {
     },
     /** 메뉴 조회 */
     getMenu(node) {
-      this.$store.commit('Loading/SET_USE_LOADING', false);
+      stopLoading();
 
       return this.$http.get(`/menu/${node.id}`)
       .then(resp => {
@@ -121,7 +122,7 @@ export default {
           .filter(d => d.value !== this.menu.id);
 
         this.menu.regDate = moment(this.menu.regDate).format('YYYY-MM-DD HH:mm:ss');
-        this.$store.commit('Loading/SET_USE_LOADING', true);
+        startLoading();
       });
     },
     /** 조회된 메뉴를 제외한 메뉴 목록 조회 */

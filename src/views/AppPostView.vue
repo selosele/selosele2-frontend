@@ -173,7 +173,7 @@
 
 <script>
 import moment from 'moment';
-import { messageUtil, isNotBlank, isNotEmpty } from '@/utils';
+import { messageUtil, isNotBlank, isNotEmpty, stopLoading } from '@/utils';
 import AppAddPostReply from '@/components/views/post/AppAddPostReply.vue';
 
 /**
@@ -204,13 +204,6 @@ export default {
   created() {
     this.init(this.$route.params.id);
   },
-  watch: {
-    '$route.params.id'(id) {
-      if (isNotBlank(id)) {
-        this.init(id);
-      }
-    }
-  },
   computed: {
     /** 포스트 페이지인지 확인 */
     isPostPage: {
@@ -236,8 +229,7 @@ export default {
       this.postUrl = window.location.href;
 
       if (this.isPostPage) {
-        await this.getPost(id),
-
+        await this.getPost(id);
         this.postLikeCnt = this.post.postLike.length;
       } else if (this.isContentPage) {
         await this.getPost(id);
@@ -307,7 +299,7 @@ export default {
         title: this.$store.state.Breadcrumb.pageTitle,
       };
 
-      this.$store.commit('Loading/SET_USE_LOADING', false);
+      stopLoading();
 
       return this.$http.post('/postlike', savePostLikeDto)
       .then(resp => {

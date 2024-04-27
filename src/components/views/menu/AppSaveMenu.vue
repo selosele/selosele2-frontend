@@ -116,7 +116,7 @@
 </template>
 
 <script>
-import { messageUtil, isEmpty, isNotEmpty } from '@/utils';
+import { messageUtil, isEmpty, isNotEmpty, stopLoading, startLoading } from '@/utils';
 
 export default {
   name: 'AppSaveMenu',
@@ -205,7 +205,7 @@ export default {
     },
     /** 권한 목록 조회 */
     listRole() {
-      this.$store.commit('Loading/SET_USE_LOADING', false);
+      stopLoading();
 
       return this.$http.get('/auth/role')
       .then(resp => {
@@ -219,7 +219,7 @@ export default {
         ];
         
         this.roleList.push({ value: '', text: '모든 권한 허용' });
-        this.$store.commit('Loading/SET_USE_LOADING', true);
+        startLoading();
       });
     },
     /** 메뉴 권한 model 얻기 */
