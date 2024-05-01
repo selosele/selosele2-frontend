@@ -49,12 +49,12 @@ export function getFileSize(bytes, decimals = 2) {
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
 }
 
-/** form values -> JSON 변환한다. */
+/** form values를 JSON 변환해서 반환한다. */
 export function getFormValues(form) {
   return Object.fromEntries(new FormData(form));
 }
 
-/** 깊은 복사 후 반환한다. */
+/** 깊은 복사를 해서 반환한다. */
 export function deepCopy(value) {
   return JSON.parse(JSON.stringify(value));
 }
