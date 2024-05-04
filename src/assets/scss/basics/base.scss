@@ -79,7 +79,7 @@ button {
   margin: 0;
   padding: 0;
   border: 0;
-  font-family: inherit;
+  font-family: $default-font;
   font-size: inherit;
   color: inherit;
   cursor: pointer;
@@ -87,7 +87,7 @@ button {
 }
 
 input {
-  font-family: inherit;
+  font-family: $default-font;
   font-size: inherit;
   vertical-align: middle;
 
@@ -165,7 +165,7 @@ select {
   padding: 0.3rem 0.5rem;
   border: 1px solid $grey05;
   background-color: $grey12;
-  font-family: inherit;
+  font-family: $default-font;
   font-size: 0.8rem;
   line-height: $input-height;
   vertical-align: middle;
@@ -185,7 +185,7 @@ textarea {
   width: 100%;
   padding: 0.5rem;
   border: 1px solid $grey05;
-  font-family: inherit;
+  font-family: $default-font;
   font-size: 0.9rem;
   vertical-align: top;
   box-sizing: border-box;
