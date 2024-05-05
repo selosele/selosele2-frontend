@@ -66,8 +66,8 @@ export default {
       this.$router.push(params.data['pagePath']);
     },
     /** 만족도조사 목록 조회 */
-    listSatisfaction(searchSatisfactiontDto) {
-      return this.$http.get('/satisfaction', { params: searchSatisfactiontDto })
+    listSatisfaction(searchSatisfactionDto) {
+      return this.$http.get('/satisfaction', { params: searchSatisfactionDto })
       .then(resp => {
         this.rowData = [];
 
