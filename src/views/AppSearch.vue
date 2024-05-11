@@ -79,10 +79,11 @@
           :postList="postList"
         />
 
-        <div class="search__more__wrapper"
-             @click="more"
-             v-if="listCnt > pageSize && !isLastPage">
-
+        <div
+          class="search__more__wrapper"
+          @click="more"
+          v-if="listCnt > pageSize && !isLastPage"
+        >
           <ui-icon-button
             :icon="'xi-plus-circle'"
             :class="'search__more'"
@@ -132,7 +133,15 @@ export default {
     // 페이지 타이틀 세팅
     this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '포스트 검색');
 
-    // 검색키워드 파라미터 값이 있으면 검색 메소드 실행
+    // 추천 검색어 목록 조회
+    if (0 === this.$store.state.Search.recommendSearchKeywordList.length) {
+      this.$http.get('/recommendsearchkeyword')
+      .then(resp => {
+        this.$store.dispatch('Search/FETCH_RECOMMEND_SEARCH_KEYWORD_LIST', resp.data);
+      });
+    }
+
+    // 검색키워드 파라미터 값이 있으면 검색 메서드를 실행
     if (this.$route.query['q']) {
       await this.listPostSearch({
         t: this.t,
@@ -213,6 +222,8 @@ export default {
               q: params['q'], 
               t: params['t'], 
               c: params['c'],
+              page: params['page'],
+              pageSize: params['pageSize'],
             },
           });
         }
