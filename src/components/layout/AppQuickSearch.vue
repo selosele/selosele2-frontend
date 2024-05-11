@@ -36,7 +36,9 @@ export default {
       await this.$store.dispatch('Search/GO_SEARCH', {
         q: values.q,
         t: '001',
-        c: 'N'
+        c: 'N',
+        page: 1,
+        pageSize: 10
       });
     },
     /** 유효성 검사 */
