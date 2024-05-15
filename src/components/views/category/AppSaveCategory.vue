@@ -106,11 +106,8 @@ export default {
     },
     /** 페이지 유형에 따른 API 호출 URI 반환 */
     getApiUri(values) {
-      if ('D01004' === values.type) {
-        return '/category';
-      } else if ('D01005' === values.type) {
-        return '/tag';
-      }
+      if ('D01004' === values.type) return '/category';
+      if ('D01005' === values.type) return '/tag';
       return '';
     },
   }
