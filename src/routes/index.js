@@ -50,10 +50,12 @@ router.beforeEach((to, from, next) => {
   }
 
   // 로그인 중인데 로그인 페이지에 접근 시 리다이렉트
-  if (store.getters.isAdmin && '/login' === to.path) {
-    messageUtil.toastInfo('이미 로그인 중입니다.');
-    next('/');
-  }
+  // 2024.05.15. 토큰 만료로 인한 강제 로그아웃 시,
+  // '이미 로그인 중입니다' 표출 후 새로고침을 해줘야 로그아웃이 되는 이슈로 인해 주석처리
+  // if (store.getters.isAdmin && '/login' === to.path) {
+  //   messageUtil.toastInfo('이미 로그인 중입니다.');
+  //   next('/');
+  // }
 
   // 로그인이 필요한 페이지
   if (to.matched.some(record => record.meta.requiresAuth)) {
