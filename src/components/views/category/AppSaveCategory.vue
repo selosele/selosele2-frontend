@@ -111,7 +111,6 @@ export default {
       } else if ('D01005' === values.type) {
         return '/tag';
       }
-
       return '';
     },
   }

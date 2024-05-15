@@ -65,11 +65,7 @@ export default {
     },
     /** 삭제 */
     onRemove() {
-      this.$emit('remove', this.getFormValues(this.$refs[this.name].$el));
-    },
-    /** form values 가져오기 */
-    getFormValues(form) {
-      return getFormValues(form);
+      this.$emit('remove', getFormValues(this.$refs[this.name].$el));
     }
   },
 }
