@@ -17,10 +17,13 @@ export const Menu = {
       commit('SET_MENU', values);
     },
     async LIST_MENU({ commit }, values) {
-      return http.get('/menu/list/tree', { params: values.params })
-      .then(resp => {
-        commit('SET_MENU', resp.data);
-      });
+      return new Promise((resolve, reject) => {
+        http.get('/menu/list/tree', { params: values?.params })
+        .then(resp => {
+          commit('SET_MENU', resp.data);
+          resolve(resp.data);
+        });
+      })
     },
   },
 };

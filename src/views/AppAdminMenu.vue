@@ -64,9 +64,9 @@ export default {
     },
     /** 메뉴 계층형 구조 조회 */
     listMenuTree() {
-      return this.$http.get('/menu/list/tree')
-      .then(resp => {
-        this.createTree(resp.data);
+      return this.$store.dispatch('Menu/LIST_MENU')
+      .then(data => {
+        this.createTree(data);
         this.parentMenuList = this.listParentMenu(this.$store.state.Menu.data, []);
       });
     },
