@@ -26,15 +26,6 @@
         @click="onMore"
         v-if="(listCnt > pageSize) && !isLastPage"
       />
-
-      <div class="category__btns">
-        <ui-button
-          :color="'secondary'"
-          :text="'카테고리/태그 관리'"
-          :routerLink="'/admin/category'"
-          v-if="isAdmin"
-        />
-      </div>
     </div>
   </app-content-wrapper>
 </template>
