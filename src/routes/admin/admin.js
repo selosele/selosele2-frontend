@@ -30,26 +30,6 @@ export default [
     },
   },
   {
-    // 카테고리/태그 관리 페이지
-    path: '/admin/category',
-    component: () => import('@/views/AppAdminCategory.vue'),
-    meta: {
-      requiresAuth: true,
-      showSidebar: false,
-      showSatis: false,
-    },
-  },
-  {
-    // 메뉴 관리 페이지
-    path: '/admin/menu',
-    component: () => import('@/views/AppAdminMenu.vue'),
-    meta: {
-      requiresAuth: true,
-      showSidebar: false,
-      showSatis: false,
-    },
-  },
-  {
     // 이미지 업로드 페이지
     path: '/admin/file-upload',
     component: () => import('@/views/AppAdminFileUpload.vue'),
