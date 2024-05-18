@@ -12,15 +12,6 @@
           @click="refreshList"
         />
       </div>
-
-      <div>
-        <ui-button
-          :color="'secondary'"
-          :text="'댓글 관리'"
-          :routerLink="'/admin/post-reply'"
-          v-if="isAdmin"
-        />
-      </div>
     </div>
   
     <ul class="post__reply__depth1">
