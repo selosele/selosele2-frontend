@@ -123,16 +123,6 @@
                 :showText="true"
                 :class="'post__contents__btn'"
               />
-
-              <ui-icon-button
-                :routerLink="'/admin/content'"
-                :color="'secondary'"
-                :icon="'xi-cog'"
-                :text="'콘텐츠 관리'"
-                :showText="true"
-                :class="'post__contents__btn'"
-                v-if="isContentPage"
-              />
             </template>
           </div>
     
