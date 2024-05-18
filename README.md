@@ -17,7 +17,8 @@
 
 ## 개발환경 구동 절차
 
-1. `npm start`
+1. `npm install`
+2. `npm start`
 
 ## etc.
 
