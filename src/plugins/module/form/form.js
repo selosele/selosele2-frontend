@@ -1,5 +1,4 @@
 import UiForm from '@/components/shared/form/UiForm.vue';
-import UiSplitForm from '@/components/shared/form/UiSplitForm.vue';
 import UiHiddenField from '@/components/shared/form/UiHiddenField.vue';
 import UiTextField from '@/components/shared/form/UiTextField.vue';
 import UiNumericField from '@/components/shared/form/UiNumericField.vue';
@@ -16,7 +15,6 @@ import UiFileInfo from '@/components/shared/file/UiFileInfo.vue';
 export const formModule = {
   install: (app, options) => {
     app.component('UiForm', UiForm);
-    app.component('UiSplitForm', UiSplitForm);
     app.component('UiHiddenField', UiHiddenField);
     app.component('UiTextField', UiTextField);
     app.component('UiNumericField', UiNumericField);

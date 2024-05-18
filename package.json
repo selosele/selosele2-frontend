@@ -14,13 +14,11 @@
   "dependencies": {
     "@vee-validate/i18n": "^4.7.3",
     "@vee-validate/rules": "^4.6.9",
-    "ag-grid-vue3": "^28.2.0",
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
     "jwt-decode": "^3.1.2",
     "md-editor-v3": "^2.7.2",
     "moment": "^2.29.4",
-    "splitpanes": "^3.1.5",
     "sweetalert2": "^11.4.33",
     "vee-validate": "^4.6.9",
     "vue": "^3.2.13",
