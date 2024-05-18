@@ -63,8 +63,6 @@ import AppUserSatisfaction from '@/components/layout/AppUserSatisfaction.vue';
 import { isNotBlank } from '@/utils';
 import { ModalsContainer } from 'vue-final-modal';
 
-import '@vuepic/vue-datepicker/dist/main.css';
-
 export default {
   name: 'App',
   components: {

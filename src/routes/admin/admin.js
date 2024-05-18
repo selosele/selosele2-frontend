@@ -30,16 +30,6 @@ export default [
     },
   },
   {
-    // 만족도조사 관리 페이지
-    path: '/admin/satisfaction',
-    component: () => import('@/views/AppAdminSatisfaction.vue'),
-    meta: {
-      requiresAuth: true,
-      showSidebar: false,
-      showSatis: false,
-    },
-  },
-  {
     // 카테고리/태그 관리 페이지
     path: '/admin/category',
     component: () => import('@/views/AppAdminCategory.vue'),

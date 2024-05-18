@@ -9,7 +9,6 @@ import UiRadio from '@/components/shared/form/UiRadio.vue';
 import UiRadioGroup from '@/components/shared/form/UiRadioGroup.vue';
 import UiCheckbox from '@/components/shared/form/UiCheckbox.vue';
 import UiCheckboxGroup from '@/components/shared/form/UiCheckboxGroup.vue';
-import UiDatepicker from '@/components/shared/form/UiDatepicker.vue';
 import UiFileField from '@/components/shared/form/UiFileField.vue';
 import UiFileUploadField from '@/components/shared/form/UiFileUploadField.vue';
 import UiFileInfo from '@/components/shared/file/UiFileInfo.vue';
@@ -27,7 +26,6 @@ export const formModule = {
     app.component('UiRadioGroup', UiRadioGroup);
     app.component('UiCheckbox', UiCheckbox);
     app.component('UiCheckboxGroup', UiCheckboxGroup);
-    app.component('UiDatepicker', UiDatepicker);
     app.component('UiFileField', UiFileField);
     app.component('UiFileUploadField', UiFileUploadField);
     app.component('UiFileInfo', UiFileInfo);
