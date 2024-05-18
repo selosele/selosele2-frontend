@@ -39,13 +39,6 @@
             :values="'Y,N'"
             v-model="c"
           />
-
-          <ui-button
-            :color="'secondary'"
-            :text="'검색 관리'"
-            :routerLink="'/admin/search'"
-            v-if="isAdmin"
-          />
         </div>
       </ui-form>
 
