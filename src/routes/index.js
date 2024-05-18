@@ -44,11 +44,6 @@ router.beforeEach((to, from, next) => {
     to.meta.showSatis = true;
   }
 
-  // Splitter 비활성화
-  if (store.state.Splitter.isActive) {
-    store.commit('Splitter/TOGGLE', false);
-  }
-
   // 로그인 중인데 로그인 페이지에 접근 시 리다이렉트
   // 2024.05.15. 토큰 만료로 인한 강제 로그아웃 시,
   // '이미 로그인 중입니다' 표출 후 새로고침을 해줘야 로그아웃이 되는 이슈로 인해 주석처리

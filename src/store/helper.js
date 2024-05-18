@@ -7,7 +7,6 @@ export const commonComputed = {
     'isProduction',
     'isLogin',
     'isAdmin',
-    'isSplitterActive',
     'editorClassName',
   ])
 };
