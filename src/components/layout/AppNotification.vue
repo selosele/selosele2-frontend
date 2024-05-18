@@ -208,7 +208,7 @@
                            v-model="idList">
               </ui-checkbox>
               
-              <router-link :to="noti.link">{{ noti.title }}</router-link> 페이지에 <router-link :to="'/admin/satisfaction'">만족도 평가가 등록되었습니다.</router-link>
+              <router-link :to="noti.link">{{ noti.title }}</router-link> 페이지에 <a href="https://admin.blog.selosele.com/satisfaction" target="_blank" title="새창" rel="noopener noreferrer nofollow">만족도 평가가 등록되었습니다.</a>
               <span class="info">{{ noti.regDate }}</span></li>
           </ul>
           
@@ -226,7 +226,7 @@
 import moment from 'moment';
 import AppNotificationButton from './AppNotificationButton.vue';
 import AppNotificationCount from './AppNotificationCount.vue';
-import { isNotEmpty, messageUtil } from '@/utils';
+import { ADMIN_SYSTEM_URL, isNotEmpty, messageUtil } from '@/utils';
 
   export default {
     name: 'AppNotification',
