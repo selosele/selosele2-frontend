@@ -36,7 +36,7 @@ export const Year = {
     async LIST_YEAR_AND_COUNT({ commit, state }) {
       return http.get('/post/year')
       .then(resp => {
-        commit('SET_YEAR_LIST', [...resp.data]);
+        commit('SET_YEAR_LIST', resp.data);
       });
     },
     async LIST_YEAR_POST({ commit, state }, values) {
