@@ -1,14 +1,15 @@
 <template>
   <app-content-wrapper>
     <div class="year__wrapper">
-      <template v-for="(item,i) in yearList" :key="i">
+      <template v-for="(item,i) in $store.state.Year.yearList" :key="i">
         <h2 class="year__list-title">
           <ui-button
             :class="[
               'year__list-btn',
               { 'year__list-btn--active': i === activeIndex }
             ]"
-            @click="toggleList(item.year, i)">
+            @click="toggleList(item.year, i)"
+          >
             
             <span class="year__list-name">{{ item.year }}</span> 년에 작성된 포스트
             (<span class="sr-only">개수 : </span>{{ item.count }})
@@ -46,7 +47,6 @@ export default {
       page: 1,
       pageSize: 5,
       listCnt: 0,
-      yearList: [],
       currentPostList: [],
       activeIndex: -1,
       itemLoadedIndex: -1,
@@ -65,16 +65,13 @@ export default {
       this.page = 1;
       this.isLastPage = false;
       
-      await this.listYearAndCount();
+      if (0 === this.$store.state.Year.yearList.length) {
+        await this.listYearAndCount();
+      }
     },
     /** 포스트의 연도 및 개수 조회 */
-    listYearAndCount() {
-      return this.$http.get('/post/year')
-      .then(resp => {
-        resp.data.forEach(d => {
-          this.yearList.push(d);
-        });
-      });
+    async listYearAndCount() {
+      await this.$store.dispatch('Year/LIST_YEAR_AND_COUNT')
     },
     /** 목록 toggle */
     toggleList(year, idx) {
@@ -98,7 +95,7 @@ export default {
         pageSize: this.paginationDto(year)?.pageSize ?? this.pageSize,
       };
 
-      const data = await this.$store.dispatch('Year/GET_YEAR_POSTS', { year, paginationDto, flag });
+      const data = await this.$store.dispatch('Year/LIST_YEAR_POST', { year, paginationDto, flag });
       const currentData = data[year][0];
 
       this.currentPostList.push(...currentData);
@@ -106,17 +103,17 @@ export default {
       this.listCnt = data[year][1];
       this.updateItemLoadedIndex(idx);
 
-      if (this.listCnt === this.$store.state.Year.data[year][0].length) {
+      if (this.listCnt === this.$store.state.Year.postList[year][0].length) {
         this.isLastPage = true;
       }
     },
     /** 연도와 매칭되는 페이지네이션 DTO  */
     paginationDto(year) {
-      return this.$store.state.Year.data[year]?.paginationDto;
+      return this.$store.state.Year.postList[year]?.paginationDto;
     },
     /** 연도와 매칭되는 데이터가 존재하는지 확인 */
     hasPostList(year) {
-      return Object.prototype.hasOwnProperty.call(this.$store.state.Year.data, year);
+      return Object.prototype.hasOwnProperty.call(this.$store.state.Year.postList, year);
     },
     /** 로드된 데이터의 Index 업데이트 */
     updateItemLoadedIndex(idx) {

@@ -33,7 +33,7 @@ export const Auth = {
         commit('Auth/SET_ACCESS_TOKEN', values, { root: true });
         dispatch('Auth/FETCH_IS_ADMIN', 'ROLE_ADMIN', { root: true });
         commit('Post/SET_MAIN_POSTLIST', {}, { root: true });
-        commit('Year/SET_YEAR_POSTS', { flag: 'reset' }, { root: true });
+        commit('Year/SET_YEAR_POST', { flag: 'reset' }, { root: true });
         commit('Layout/SET_SIDEBAR', {}, { root: true });
         commit('Category/SET_TAG_LIST', [], { root: true });
         commit('Category/SET_CATEGORY_LIST', [], { root: true });
@@ -60,7 +60,7 @@ export const Auth = {
           commit('Auth/CLEAR_ACCESS_TOKEN', null, { root: true });
           dispatch('Auth/FETCH_IS_ADMIN', 'ROLE_ADMIN', { root: true });
           commit('Post/SET_MAIN_POSTLIST', {}, { root: true });
-          commit('Year/SET_YEAR_POSTS', { flag: 'reset' }, { root: true });
+          commit('Year/SET_YEAR_POST', { flag: 'reset' }, { root: true });
           commit('Layout/SET_SIDEBAR', {}, { root: true });
           commit('Category/SET_TAG_LIST', [], { root: true });
           commit('Category/SET_CATEGORY_LIST', [], { root: true });
