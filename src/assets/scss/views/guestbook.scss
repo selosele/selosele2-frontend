@@ -283,11 +283,15 @@
     }
   
     &__depth1 {
-      min-height: 111.8rem;
+      min-height: min-content;
       margin-top: 0;
       padding-left: 0;
       line-height: 1.5;
       list-style: none;
+
+      &:empty {
+        min-height: 111.8rem;
+      }
   
       &__list {
         position: relative;
