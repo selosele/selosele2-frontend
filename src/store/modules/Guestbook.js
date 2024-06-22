@@ -2,6 +2,8 @@
 export const Guestbook = {
   namespaced: true,
   state: () => ({
+    /** 방명록 목록 */
+    guestbookList: [],
     /** 수정된 방명록 */
     updatedGuestbook: {},
     /** 수정된 방명록 댓글 */
@@ -14,6 +16,15 @@ export const Guestbook = {
     code: [],
   }),
   mutations: {
+    SET_GUESTBOOK_LIST(state, guestbookList) {
+      state.guestbookList = [...state.guestbookList, ...guestbookList];
+    },
+    PUSH_GUESTBOOK_LIST(state, guestbook) {
+      state.guestbookList = [...state.guestbookList, guestbook];
+    },
+    SPLICE_GUESTBOOK_LIST(state, index) {
+      state.guestbookList.splice(index, 1);
+    },
     SET_UPDATED_GUESTBOOK(state, updatedGuestbook) {
       state.updatedGuestbook = updatedGuestbook;
     },
@@ -31,6 +42,9 @@ export const Guestbook = {
     },
   },
   actions: {
+    FETCH_GUESTBOOK_LIST({ commit }, values) {
+      commit('SET_GUESTBOOK_LIST', values);
+    },
     FETCH_UPDATED_GUESTBOOK({ commit }, values) {
       commit('SET_UPDATED_GUESTBOOK', values);
     },

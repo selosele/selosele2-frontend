@@ -35,6 +35,7 @@ export const Auth = {
         commit('Post/SET_MAIN_POSTLIST', {}, { root: true });
         commit('Year/SET_YEAR_POST', { flag: 'reset' }, { root: true });
         commit('Year/SET_YEAR_LIST', [], { root: true });
+        dispatch('Guestbook/FETCH_GUESTBOOK_LIST', [], { root: true });
         commit('Layout/SET_SIDEBAR', {}, { root: true });
         commit('Category/SET_TAG_LIST', [], { root: true });
         commit('Category/SET_CATEGORY_LIST', [], { root: true });
@@ -63,6 +64,7 @@ export const Auth = {
           commit('Post/SET_MAIN_POSTLIST', {}, { root: true });
           commit('Year/SET_YEAR_POST', { flag: 'reset' }, { root: true });
           commit('Year/SET_YEAR_LIST', [], { root: true });
+          dispatch('Guestbook/FETCH_GUESTBOOK_LIST', [], { root: true });
           commit('Layout/SET_SIDEBAR', {}, { root: true });
           commit('Category/SET_TAG_LIST', [], { root: true });
           commit('Category/SET_CATEGORY_LIST', [], { root: true });

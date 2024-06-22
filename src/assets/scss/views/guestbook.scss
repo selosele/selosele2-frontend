@@ -283,19 +283,28 @@
     }
   
     &__depth1 {
+      min-height: 111.8rem;
       margin-top: 0;
       padding-left: 0;
-      border: 1px solid $grey05;
-      border-top: 2px solid $main-color;
       line-height: 1.5;
       list-style: none;
   
       &__list {
         position: relative;
         padding: $size;
+        border-left: 1px solid $grey05;
+        border-right: 1px solid $grey05;
   
         @media (min-width: $min-medium-width) {
           padding: 1.5rem;
+        }
+
+        &:first-of-type {
+          border-top: 2px solid $main-color;
+        }
+
+        &:last-of-type {
+          border-bottom: 1px solid $grey05;
         }
         
         & + .guestbook__depth1__list {

@@ -53,7 +53,11 @@
       </ui-form>
 
       <ul class="guestbook__depth1">
-        <li class="guestbook__depth1__list" :id="`guestbook${guestbook.id}`" v-for="(guestbook,i) in guestbookList" :key="guestbook">
+        <li
+          class="guestbook__depth1__list"
+          :id="`guestbook${guestbook.id}`"
+          v-for="(guestbook,i) in $store.state.Guestbook.guestbookList" :key="guestbook"
+        >
           <p class="guestbook__cont" v-html="guestbook.cont"></p>
 
           <div class="guestbook__cont__info depth1">
@@ -148,7 +152,7 @@
 
 <script>
 import moment from 'moment';
-import { messageUtil, isNotEmpty } from '@/utils';
+import { messageUtil, isNotEmpty, throttle, THROTTLE_SCROLL_EVENT_TYPE } from '@/utils';
 import AppAddGuestbookReply from '@/components/views/guestbook/AppAddGuestbookReply.vue';
 import AppGuestbookReplyList from '@/components/views/guestbook/AppGuestbookReplyList.vue';
 import AppUpdateGuestbookModal from '@/components/views/guestbook/AppUpdateGuestbookModal.vue';
@@ -179,14 +183,22 @@ export default {
     this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '방명록');
 
     await this.setCode();
-    await this.listGuestbook();
+
+    if (0 === this.$store.state.Guestbook.guestbookList.length) {
+      await this.listGuestbook();
+    }
   },
   mounted() {
-    window.addEventListener('scroll', this.onScroll);
+    (function() {
+      setTimeout(() => {
+        throttle('scroll', THROTTLE_SCROLL_EVENT_TYPE);
+      }, 300);
+    })();
+    window.addEventListener(THROTTLE_SCROLL_EVENT_TYPE, this.onScroll);
     document.addEventListener('click', this.closeMenu);
   },
   unmounted() {
-    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener(THROTTLE_SCROLL_EVENT_TYPE, this.onScroll);
     document.removeEventListener('click', this.closeMenu);
   },
   watch: {
@@ -194,7 +206,7 @@ export default {
     '$store.state.Guestbook.updatedGuestbook'(updatedGuestbook) {
       if (0 < Object.values(updatedGuestbook).length) {
         const { id, author, cont, modDate } = updatedGuestbook;
-        const foundGuestbook = this.guestbookList.find(d => d.id == id);
+        const foundGuestbook = this.$store.state.Guestbook.guestbookList.find(d => d.id == id);
 
         foundGuestbook.author = author;
         foundGuestbook.cont = cont;
@@ -208,9 +220,9 @@ export default {
     '$store.state.Guestbook.removedGuestbook'(removedGuestbook) {
       if (0 < Object.values(removedGuestbook).length) {
         const { id } = removedGuestbook;
-        const foundIdx = this.guestbookList.findIndex(d => d.id == id);
+        const foundIdx = this.$store.state.Guestbook.guestbookList.findIndex(d => d.id == id);
 
-        this.guestbookList.splice(foundIdx, 1);
+        this.$store.commit('Guestbook/SPLICE_GUESTBOOK_LIST', foundIdx);
         this.$store.dispatch('Guestbook/FETCH_REMOVED_GUESTBOOK', {});
       }
     },
@@ -239,9 +251,11 @@ export default {
           });
         });
 
+        this.$store.dispatch('Guestbook/FETCH_GUESTBOOK_LIST', this.guestbookList);
+        this.guestbookList = [];
         this.listCnt = resp.data[1];
 
-        if (this.listCnt === this.guestbookList.length) {
+        if (this.listCnt === this.$store.state.Guestbook.guestbookList.length) {
           this.isLastPage = true;
         }
         
@@ -271,11 +285,9 @@ export default {
       if (bottomOfPage && !this.isScrolled) {
         if (this.isLastPage) return;
 
-        setTimeout(() => {
-          this.isScrolled = true; // 스크롤 중복 실행 방지
-          this.page++;
-          this.listGuestbook();
-        }, 100);
+        this.isScrolled = true; // 스크롤 중복 실행 방지
+        this.page++;
+        this.listGuestbook();
       }
     },
     /** 방명록 수정/삭제 Modal */
@@ -306,7 +318,6 @@ export default {
         this.replyActiveIndex = -1;
         return;
       }
-
       this.replyActiveIndex = idx;
     },
     /** 방명록 등록 */
@@ -321,15 +332,17 @@ export default {
         guestbook.regDate = moment(guestbook.regDate).format('YYYY-MM-DD HH:mm:ss');
         guestbook.guestbookReply = [];
 
-        this.guestbookList.push(guestbook);
-        this.guestbookList = this.guestbookList.sort((a,b) => b.id - a.id);
+        this.$store.commit('Guestbook/PUSH_GUESTBOOK_LIST', guestbook);
+        this.$store.dispatch('Guestbook/FETCH_GUESTBOOK_LIST',
+          this.$store.state.Guestbook.guestbookList.sort((a,b) => b.id - a.id)
+        );
 
         messageUtil.toastSuccess('저장되었습니다.');
       });
     },
     /** 방명록 댓글 등록 시 */
     onAddReply(value) {
-      this.guestbookList.forEach(guestbook => {
+      this.$store.state.Guestbook.guestbookList.forEach(guestbook => {
         if (guestbook.id === value.parentId) {
           const data = this.setData(value);
           guestbook.guestbookReply.push(data);
