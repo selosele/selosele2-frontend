@@ -23,10 +23,7 @@ export const Code = {
           const codeList = resp.data.filter(d => d.useYn === 'Y');
           const optionSelectList = codeList
             .filter(d => d.prefix === 'A01')
-            .map(d => ({
-              value: d.val,
-              text: d.nm,
-            }));
+            .map(d => ({ value: d.val, text: d.nm }));
 
           dispatch('Search/FETCH_OPTION_SELECT_LIST', optionSelectList,  { root: true });
 

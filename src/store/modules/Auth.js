@@ -106,7 +106,7 @@ export const Auth = {
       if (!user) return false;
 
       for (const { roleId } of user.userRole) {
-        if (true === (role === roleId)) {
+        if (role === roleId) {
           return true;
         }
       }
