@@ -18,12 +18,6 @@
               <i class="xi-time-o" aria-hidden="true"></i> 등록일 : 
             </strong> {{ reply.regDate }}
           </span>
-  
-          <span class="guestbook__mod-date" v-if="reply.modDate">
-            <strong>
-              <i class="xi-time-o" aria-hidden="true"></i> 수정일 : 
-            </strong> {{ reply.modDate }}
-          </span>
         </div>
   
         <div class="guestbook__reply__toggle">
@@ -75,9 +69,9 @@
 
 <script>
 import moment from 'moment';
+import { isNotEmpty, messageUtil } from '@/utils';
 import AppUpdateGuestbookReplyModal from '@/components/views/guestbook/AppUpdateGuestbookReplyModal.vue';
 import AppRemoveGuestbookReplyModal from '@/components/views/guestbook/AppRemoveGuestbookReplyModal.vue';
-import { isNotEmpty, messageUtil } from '@/utils';
 
 export default {
   name: 'AppGuestbookReplyList',
