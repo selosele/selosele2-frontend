@@ -56,9 +56,21 @@
         <li
           class="guestbook__depth1__list"
           :id="`guestbook${guestbook.id}`"
-          v-for="(guestbook,i) in $store.state.Guestbook.guestbookList" :key="guestbook"
+          v-for="(guestbook,i) in storeGuestbookList" :key="guestbook"
         >
-          <p class="guestbook__cont" v-html="guestbook.cont"></p>
+          <p class="guestbook__cont"
+            v-html="guestbook.cont"
+            :ref="`guestbookCont${i}`"
+            :class="{ 'more': contOverflowList[i]?.isOverflowActive }">
+          </p>
+
+          <ui-button
+            :class="'guestbook__btn guestbook__btn--cont-more'"
+            @click="toggleContOverflow(i)"
+            v-if="contOverflowList[i]?.isOverflow"
+          >
+            read more...
+          </ui-button>
 
           <div class="guestbook__cont__info depth1">
             <span class="guestbook__author">
@@ -74,13 +86,6 @@
               </strong>
               {{ guestbook.regDate }}
             </span>
-
-            <span class="guestbook__mod-date" v-if="guestbook.modDate">
-              <strong>
-                <i class="xi-time-o" aria-hidden="true"></i> 수정일 :
-              </strong>
-              {{ guestbook.modDate }}
-            </span>
           </div>
 
           <template v-if="0 < guestbook.guestbookReply.length">
@@ -88,8 +93,8 @@
               :icon="'xi-message'"
               :title="`댓글 ${guestbook.guestbookReply.length}개 펼쳐보기`"
               :class="'guestbook__btn guestbook__btn--reply-open'"
-              @click="toggleReplyList(i)">
-
+              @click="toggleReplyList(i)"
+            >
               <span class="reply-cnt">
                 {{ 99 < guestbook.guestbookReply.length ? '99+' : guestbook.guestbookReply.length }}
               </span>
@@ -170,6 +175,7 @@ export default {
       pageSize: 6,
       listCnt: 0,
       guestbookList: [],
+      contOverflowList: [],
       activeIndex: -1,
       replyActiveIndex: -1,
       isScrolled: false,
@@ -181,11 +187,16 @@ export default {
   async created() {
     // 페이지 타이틀 세팅
     this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '방명록');
+    this.setCode();
 
-    await this.setCode();
-
-    if (0 === this.$store.state.Guestbook.guestbookList.length) {
+    if (0 === this.storeGuestbookList.length) {
       await this.listGuestbook();
+
+      this.storeGuestbookList.forEach((a,i) => {
+        const contEl = this.$refs[`guestbookCont${i}`][0];
+        const isOverflow = this.isContOverflow(contEl);
+        this.contOverflowList.push({ i, isOverflow, isOverflowActive: false });
+      });
     }
   },
   mounted() {
@@ -201,12 +212,18 @@ export default {
     window.removeEventListener(THROTTLE_SCROLL_EVENT_TYPE, this.onScroll);
     document.removeEventListener('click', this.closeMenu);
   },
+  computed: {
+    /** 방명록 목록 */
+    storeGuestbookList() {
+      return this.$store.state.Guestbook.guestbookList;
+    }
+  },
   watch: {
     // 방명록이 수정되고 Modal이 close됐을 때 실행됨
     '$store.state.Guestbook.updatedGuestbook'(updatedGuestbook) {
       if (0 < Object.values(updatedGuestbook).length) {
         const { id, author, cont, modDate } = updatedGuestbook;
-        const foundGuestbook = this.$store.state.Guestbook.guestbookList.find(d => d.id == id);
+        const foundGuestbook = this.storeGuestbookList.find(d => d.id == id);
 
         foundGuestbook.author = author;
         foundGuestbook.cont = cont;
@@ -220,7 +237,7 @@ export default {
     '$store.state.Guestbook.removedGuestbook'(removedGuestbook) {
       if (0 < Object.values(removedGuestbook).length) {
         const { id } = removedGuestbook;
-        const foundIdx = this.$store.state.Guestbook.guestbookList.findIndex(d => d.id == id);
+        const foundIdx = this.storeGuestbookList.findIndex(d => d.id == id);
 
         this.$store.commit('Guestbook/SPLICE_GUESTBOOK_LIST', foundIdx);
         this.$store.dispatch('Guestbook/FETCH_REMOVED_GUESTBOOK', {});
@@ -242,7 +259,7 @@ export default {
           return;
         }
 
-        resp.data[0].forEach(a => {
+        resp.data[0].forEach((a,i) => {
           const guestbookData = this.setData(a);
           this.guestbookList.push(guestbookData);
 
@@ -255,7 +272,7 @@ export default {
         this.guestbookList = [];
         this.listCnt = resp.data[1];
 
-        if (this.listCnt === this.$store.state.Guestbook.guestbookList.length) {
+        if (this.listCnt === this.storeGuestbookList.length) {
           this.isLastPage = true;
         }
         
@@ -334,7 +351,7 @@ export default {
 
         this.$store.commit('Guestbook/PUSH_GUESTBOOK_LIST', guestbook);
         this.$store.dispatch('Guestbook/FETCH_GUESTBOOK_LIST',
-          this.$store.state.Guestbook.guestbookList.sort((a,b) => b.id - a.id)
+          this.storeGuestbookList.sort((a,b) => b.id - a.id)
         );
 
         messageUtil.toastSuccess('저장되었습니다.');
@@ -342,7 +359,7 @@ export default {
     },
     /** 방명록 댓글 등록 시 */
     onAddReply(value) {
-      this.$store.state.Guestbook.guestbookList.forEach(guestbook => {
+      this.storeGuestbookList.forEach(guestbook => {
         if (guestbook.id === value.parentId) {
           const data = this.setData(value);
           guestbook.guestbookReply.push(data);
@@ -366,9 +383,19 @@ export default {
       return data;
     },
     /** 공통코드 세팅 */
-    async setCode() {
+    setCode() {
       this.adminNickName = this.$store.state.Guestbook.code.find(d => d.id === 'F01001')?.nm;
       this.passwordCode = this.$store.state.Code.data.find(d => d.id === 'I01001')?.nm;
+    },
+    /** 방명록 내용에 더보기버튼이 필요한지 체크한다. */
+    isContOverflow(element) {
+      if (element?.offsetHeight < element?.scrollHeight)
+        return true;
+      return false;
+    },
+    /** 더보기 버튼을 클릭해서 내용을 펼쳐본다. */
+    toggleContOverflow(idx) {
+      this.contOverflowList[idx].isOverflowActive = !this.contOverflowList[idx].isOverflowActive;
     },
   },
 }
