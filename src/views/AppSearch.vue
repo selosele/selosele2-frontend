@@ -42,6 +42,11 @@
         </div>
       </ui-form>
 
+      <ui-skeletor :height="'0.8rem'" v-if="!dataLoaded && this.$route.query['q']" />
+      <ui-skeletor :height="'0.8rem'" v-if="!dataLoaded && this.$route.query['q']" />
+      <ui-skeletor :height="'0.8rem'" v-if="!dataLoaded && this.$route.query['q']" />
+
+      <template v-else>
         <p class="search__info">
           <template v-if="0 === listCnt">
             검색 결과를 찾을 수 없습니다.
@@ -50,7 +55,7 @@
           <template v-if="postList !== null && postList.length > 0">
             <strong class="search__info__text">{{ $route.query['q'] }}</strong>에 대한 검색 결과는
             <strong class="search__info__text">{{ listCnt }}개</strong>입니다.
-
+  
             <ui-icon-button
               :type="'link'"
               :color="'dark'"
@@ -65,36 +70,37 @@
             />
           </template>
         </p>
-
-      <div class="search__results__wrapper" ref="resultsWrapper">
-        <app-post-list-detail
-          :type="'D01006'"
-          :postList="postList"
-        />
-
-        <div
-          class="search__more__wrapper"
-          @click="more"
-          v-if="listCnt > pageSize && !isLastPage"
-        >
+  
+        <div class="search__results__wrapper" ref="resultsWrapper">
+          <app-post-list-detail
+            :type="'D01006'"
+            :postList="postList"
+          />
+  
+          <div
+            class="search__more__wrapper"
+            @click="more"
+            v-if="listCnt > pageSize && !isLastPage"
+          >
+            <ui-icon-button
+              :icon="'xi-plus-circle'"
+              :class="'search__more'"
+              :text="'더보기'"
+              :showText="true"
+            />
+          </div>
+  
           <ui-icon-button
-            :icon="'xi-plus-circle'"
-            :class="'search__more'"
-            :text="'더보기'"
-            :showText="true"
+            :icon="'xi-search'"
+            :text="'검색 필드 바로가기'"
+            :class="[
+              'search__to-input',
+              { 'search__to-input--active': toInputActive }
+            ]"
+            @click="toInput"
           />
         </div>
-
-        <ui-icon-button
-          :icon="'xi-search'"
-          :text="'검색 필드 바로가기'"
-          :class="[
-            'search__to-input',
-            { 'search__to-input--active': toInputActive }
-          ]"
-          @click="toInput"
-        />
-      </div>
+      </template>
     </div>
   </app-content-wrapper>
 </template>
@@ -120,6 +126,7 @@ export default {
       googleSearchUrl: '',
       toInputActive: false,
       isLastPage: false,
+      dataLoaded: false,
     }
   },
   async created() {
@@ -187,6 +194,8 @@ export default {
     listPostSearch(params, isMore = false) {
       return this.$http.get('/post/search', { params })
       .then(async resp => {
+        this.dataLoaded = true;
+
         resp.data[0].forEach(d => {
           this.postList.push(d);
         });

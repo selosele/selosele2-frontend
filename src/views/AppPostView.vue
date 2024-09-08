@@ -1,7 +1,11 @@
 <template>
   <app-content-wrapper>
     <div class="post-view__wrapper">
-      <template v-if="dataLoaded">
+      <ui-skeletor :height="'0.8rem'" v-if="!dataLoaded" />
+      <ui-skeletor :height="'0.8rem'" v-if="!dataLoaded" />
+      <ui-skeletor :height="'0.8rem'" v-if="!dataLoaded" />
+
+      <template v-else>
         <div class="post__contents__date-wrapper">
           <span class="post__contents__date post__contents__date--create-at">
             <i class="xi-time-o" aria-hidden="true"></i>

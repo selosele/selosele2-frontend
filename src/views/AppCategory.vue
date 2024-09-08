@@ -1,31 +1,37 @@
 <template>
   <app-content-wrapper>
     <div class="category__wrapper">
-      <div class="category__desc" v-if="'' != desc && null != desc">
-        <p>{{ desc }}</p>
-      </div>
+      <ui-skeletor :height="'0.8rem'" v-if="!dataLoaded" />
+      <ui-skeletor :height="'0.8rem'" v-if="!dataLoaded" />
+      <ui-skeletor :height="'0.8rem'" v-if="!dataLoaded" />
 
-      <ul class="category__list">
-        <li v-for="(post,i) in postList" :key="i"
-            :class="[
-              'category__item',
-              'Y' === post.secretYn && 'category__item--secret'
-            ]"
-        >
-          <router-link :to="`/post/${post.id}`">
-            <strong class="category__title">{{ post.title }}</strong>
-            <span class="category__date">{{ post.regDate }}</span>
-          </router-link>
-        </li>
-      </ul>
-
-      <ui-icon-button
-        :icon="'xi-ellipsis-h'"
-        :text="'더보기'"
-        :class="'btn--more'"
-        @click="onMore"
-        v-if="(listCnt > pageSize) && !isLastPage"
-      />
+      <template v-else>
+        <div class="category__desc" v-if="'' != desc && null != desc">
+          <p>{{ desc }}</p>
+        </div>
+  
+        <ul class="category__list">
+          <li v-for="(post,i) in postList" :key="i"
+              :class="[
+                'category__item',
+                'Y' === post.secretYn && 'category__item--secret'
+              ]"
+          >
+            <router-link :to="`/post/${post.id}`">
+              <strong class="category__title">{{ post.title }}</strong>
+              <span class="category__date">{{ post.regDate }}</span>
+            </router-link>
+          </li>
+        </ul>
+  
+        <ui-icon-button
+          :icon="'xi-ellipsis-h'"
+          :text="'더보기'"
+          :class="'btn--more'"
+          @click="onMore"
+          v-if="(listCnt > pageSize) && !isLastPage"
+        />
+      </template>
     </div>
   </app-content-wrapper>
 </template>
@@ -85,6 +91,8 @@ export default {
 
       return this.$http.get(this.getApiUri(), { params: paginationDto })
       .then(resp => {
+        this.dataLoaded = true;
+
         resp.data[0].forEach((d,i) => {
           if (0 === i) {
             if (isNotEmpty(d.postCategory)) {

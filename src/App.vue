@@ -1,6 +1,6 @@
 <template>
   <ui-loading
-    :activeModel="$store.state.Loading.isInitialLoading && !$store.state.Loading.isLoading"
+    :activeModel="$store.state.Loading.isInitialLoading || $store.state.Loading.useLoading"
     :opacity="$store.state.Loading.isInitialLoading ? 1 : 0.5"
     :fullPage="true"
     :color="'#538204'"

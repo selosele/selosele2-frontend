@@ -73,7 +73,11 @@
       padding: 1rem 1.35rem;
     }
 
-    > li {
+    ul {
+      margin: 0;
+    }
+
+    li {
       padding: 0.75rem 0.25rem;
 
       + li {
