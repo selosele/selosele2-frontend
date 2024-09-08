@@ -1,7 +1,11 @@
 <template>
   <app-content-wrapper>
+    <ui-skeletor :height="'0.8rem'" v-if="!dataLoaded" />
+    <ui-skeletor :height="'0.8rem'" v-if="!dataLoaded" />
+    <ui-skeletor :height="'0.8rem'" v-if="!dataLoaded" />
+
     <app-post-list
-      v-if="dataLoaded"
+      v-else
       :pageType="'D01001'"
       :page="page"
       :postList="pagingPostList"
