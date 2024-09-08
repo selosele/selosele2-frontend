@@ -1,6 +1,6 @@
 <template>
   <ui-loading
-    :activeModel="$store.state.Loading.useLoading && !$store.state.Loading.isLoading"
+    :activeModel="$store.state.Loading.isInitialLoading && !$store.state.Loading.isLoading"
     :opacity="$store.state.Loading.isInitialLoading ? 1 : 0.5"
     :fullPage="true"
     :color="'#538204'"
@@ -85,7 +85,7 @@ export default {
   },
   async created() {
     // 애플리케이션 최초 로드 시, 화면 전체를 덮는 로딩을 일정 시간동안 실행
-    this.initLoading(1500);
+    this.initLoading(1000);
 
     this.initJwt();
     this.showNotice();

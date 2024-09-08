@@ -1,7 +1,7 @@
-import { isNotBlank, messageUtil } from '@/utils';
+import axios from 'axios';
 import store from '@/store';
 import router from '@/routes';
-import axios from 'axios';
+import { isNotBlank, messageUtil } from '@/utils';
 
 const http = axios.create({
   baseURL: '/api',
@@ -15,14 +15,15 @@ http.interceptors.request.use(
 
     /** 액세스 토큰 */
     const accessToken = window.localStorage.getItem('accessToken');
-
     if (isNotBlank(accessToken)) {
       config.headers['Authorization'] = `Bearer ${accessToken}`;
       store.commit('Auth/SET_ACCESS_TOKEN', accessToken);
     }
 
-    if (store.state.Loading.useLoading && !store.state.Loading.isInitialLoading) {
+    const isDataChangeRequest = (config.method === 'post' || config.method === 'put' || config.method === 'delete');
+    if (isDataChangeRequest || (store.state.Loading.useLoading && !store.state.Loading.isInitialLoading)) {
       store.commit('Loading/SET_IS_LOADING', false);
+      store.commit('Loading/SET_USE_LOADING', true);
     }
 
     return config;
@@ -38,8 +39,8 @@ http.interceptors.response.use(
   response => {
     if (store.state.Loading.useLoading && !store.state.Loading.isInitialLoading) {
       store.commit('Loading/SET_IS_LOADING', true);
+      store.commit('Loading/SET_USE_LOADING', false);
     }
-
     return response;
   },
   async error => {
@@ -47,6 +48,7 @@ http.interceptors.response.use(
 
     if (!store.state.Loading.isInitialLoading) {
       store.commit('Loading/SET_IS_LOADING', true);
+      store.commit('Loading/SET_USE_LOADING', false);
     }
 
     if (isNotBlank(error?.response?.data?.type) && 'biz' === error?.response?.data?.type) {
@@ -70,7 +72,6 @@ http.interceptors.response.use(
           store.commit('Auth/SET_ACCESS_TOKEN', newAccessToken);
       
           originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-
           originalRequest._retry = false;
           isRefreshing = false;
 
