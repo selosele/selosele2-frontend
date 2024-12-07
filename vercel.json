@@ -6,11 +6,11 @@
     },
     {
       "source": "/system",
-      "destination": "https://blogadmin.selosele.com"
+      "destination": "https://blogadmin-selosele.vercel.app"
     },
     {
       "source": "/system/:path*",
-      "destination": "https://blogadmin.selosele.com/:path*"
+      "destination": "https://blogadmin-selosele.vercel.app/:path*"
     }
   ]
 }
