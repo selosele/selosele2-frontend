@@ -3,6 +3,10 @@
     {
       "source": "/api/:path*",
       "destination": "https://35.212.141.160/api/:path*"
+    },
+    {
+      "source": "/system/:path*",
+      "destination": "https://blogadmin.selosele.com/:path*"
     }
   ]
 }
