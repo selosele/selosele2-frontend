@@ -4,12 +4,12 @@
 
     <slot />
 
-    <ui-icon-button
+    <!-- <ui-icon-button
       :icon="'xi-close'"
       :text="'알림창 닫기'"
       :class="'notice__close'"
       @click="closeNotice"
-    />
+    /> -->
   </div>
 </template>
 
