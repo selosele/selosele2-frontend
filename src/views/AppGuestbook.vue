@@ -173,8 +173,8 @@ export default {
       replyActiveIndex: -1,
       isScrolled: false,
       isLastPage: false,
-      adminNickName: '',
-      passwordCode: '',
+      adminNickName: this.$store.state.Guestbook.code.find(d => d.id === 'F01001')?.nm,
+      passwordCode: this.$store.state.Code.data.find(d => d.id === 'I01001')?.nm,
       dataLoaded: false,
     }
   },
@@ -190,9 +190,6 @@ export default {
     this.dataLoaded = true;
   },
   mounted() {
-    this.adminNickName = this.$store.state.Guestbook.code.find(d => d.id === 'F01001')?.nm;
-    this.passwordCode = this.$store.state.Code.data.find(d => d.id === 'I01001')?.nm;
-
     (function() {
       setTimeout(() => {
         throttle('scroll', THROTTLE_SCROLL_EVENT_TYPE);
