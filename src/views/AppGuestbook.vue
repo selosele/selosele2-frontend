@@ -178,12 +178,12 @@ export default {
       dataLoaded: false,
     }
   },
-  async created() {
+  created() {
     // 페이지 타이틀 세팅
     this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '방명록');
 
     if (0 === this.$store.state.Guestbook.guestbookList.length) {
-      await this.listGuestbook();
+      this.listGuestbook();
       return;
     }
 
@@ -236,7 +236,7 @@ export default {
         pageSize: this.pageSize,
       };
 
-      return this.$http.get('/guestbook', { params: paginationDto })
+      this.$http.get('/guestbook', { params: paginationDto })
       .then(resp => {
         this.dataLoaded = true;
 
