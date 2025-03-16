@@ -173,16 +173,14 @@ export default {
       replyActiveIndex: -1,
       isScrolled: false,
       isLastPage: false,
-      adminNickName: '',
-      passwordCode: '',
+      adminNickName: this.$store.state.Guestbook.code.find(d => d.id === 'F01001')?.nm,
+      passwordCode: this.$store.state.Code.data.find(d => d.id === 'I01001')?.nm,
       dataLoaded: false,
     }
   },
   async created() {
     // 페이지 타이틀 세팅
     this.$store.dispatch('Breadcrumb/FETCH_PAGE_TITLE', '방명록');
-
-    await this.setCode();
 
     if (0 === this.$store.state.Guestbook.guestbookList.length) {
       await this.listGuestbook();
@@ -369,11 +367,6 @@ export default {
       }
 
       return data;
-    },
-    /** 공통코드 세팅 */
-    async setCode() {
-      this.adminNickName = this.$store.state.Guestbook.code.find(d => d.id === 'F01001')?.nm;
-      this.passwordCode = this.$store.state.Code.data.find(d => d.id === 'I01001')?.nm;
     },
   },
 }

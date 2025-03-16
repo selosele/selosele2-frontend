@@ -66,13 +66,9 @@ export default {
   },
   data() {
     return {
-      adminNickName: '',
-      passwordCode: '',
+      adminNickName: this.$store.state.Guestbook.code.find(d => d.id === 'F01001')?.nm,
+      passwordCode: this.$store.state.Code.data.find(d => d.id === 'I01001')?.nm,
     }
-  },
-  created() {
-    this.adminNickName = this.$store.state.Guestbook.code.find(d => d.id === 'F01001')?.nm;
-    this.passwordCode = this.$store.state.Code.data.find(d => d.id === 'I01001')?.nm;
   },
   methods: {
     /** 방명록 댓글 등록 */
