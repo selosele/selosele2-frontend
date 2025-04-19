@@ -20,6 +20,7 @@
         :ref="(el) => { inputEl = el }"
         :name="name"
         :readonly="readonly"
+        :autocomplete="autocomplete"
         :value="value"
         v-bind="{ ...field, ...$attrs }"
         @input="onInput($event)"
@@ -72,6 +73,8 @@ export default {
     name: String,
     /** input readonly */
     readonly: Boolean,
+    /** input autocomplete */
+    autocomplete: String,
     /** input label */
     label: String,
     /** input 유효성검사 rules */

@@ -21,6 +21,7 @@
         :cols="cols"
         :rows="rows"
         :readonly="readonly"
+        :autocomplete="autocomplete"
         :value="value"
         v-bind="{ ...field, ...$attrs }"
         @input="onInput($event)"
@@ -66,6 +67,8 @@ export default {
     rows: String,
     /** textarea readonly */
     readonly: Boolean,
+    /** textarea autocomplete */
+    autocomplete: String,
     /** textarea label */
     label: String,
     /** textarea validation rules */

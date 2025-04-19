@@ -15,6 +15,7 @@
             :name="'userId'"
             :title="'아이디 입력'"
             :placeholder="'아이디'"
+            :autocomplete="'username'"
             :rules="'required|max:10'"
             v-model="userId"
           />
@@ -24,6 +25,7 @@
             :name="'userPw'"
             :title="'비밀번호 입력'"
             :placeholder="'비밀번호'"
+            :autocomplete="'current-password'"
             :rules="'required|min:8|max:15'"
             v-model="userPw"
           />
