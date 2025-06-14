@@ -5,7 +5,7 @@
 - https://blog.selosele.com
 - https://blog-selosele.vercel.app (위 URL로 접속 안될 시)
 
-## 작업기간
+## 작업 기간
 
 - 2022.09.10. ~ 2023.02.19.
 
