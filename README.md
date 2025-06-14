@@ -11,14 +11,14 @@
 
 ## 개발 환경 (프론트엔드)
 
-- `Node.js` - v16.14.2
-- `Vue.js` - v3.2.13
-- `WSL2` - Ubuntu 22.04 LTS
+- ```Node.js``` - v16.14.2
+- ```Vue.js``` - v3.2.13
+- ```WSL2``` - Ubuntu 22.04 LTS
 
 ## 개발 환경 구동
 
-1. `npm install`
-2. `npm start`
+1. ```npm install```
+2. ```npm start```
 
 ## etc.
 
